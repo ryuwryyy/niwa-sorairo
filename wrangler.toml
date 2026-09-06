@@ -1,0 +1,6 @@
+name = "teire-api"
+main = "worker/index.js"
+compatibility_date = "2024-11-01"
+
+# APIキーは secret として保存する(このファイルには絶対に書かない)
+#   npx wrangler secret put ANTHROPIC_API_KEY
