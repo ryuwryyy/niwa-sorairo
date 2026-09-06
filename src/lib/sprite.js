@@ -1,4 +1,4 @@
-// 植物スプライトのSVG生成。型(arch)×色×実で45種を描き分ける
+// 植物スプライトのSVG生成。型(arch)×色×実で150種を描き分ける
 export function drawSprite(sp, x, y, s0, rnd) {
   const s = s0 * (sp.h || 1);
   const F = (v) => (+v).toFixed(1);

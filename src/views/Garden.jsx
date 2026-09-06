@@ -104,7 +104,7 @@ export default function Garden() {
   return (
     <div>
       <p style={{ fontFamily: font.goth, fontSize: 13, lineHeight: 1.9, margin: "0 0 14px", color: C.inkSoft }}>
-        植物を選んで、マスをタップして植える。45種を好きなだけ混植できます。庭は自動で保存されます。
+        植物を選んで、マスをタップして植える。{SPECIES.length}種を好きなだけ混植できます。庭は自動で保存されます。
       </p>
 
       <div style={{ display: "flex", gap: 4, marginBottom: 8, flexWrap: "wrap" }}>
