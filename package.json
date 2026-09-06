@@ -1,0 +1,23 @@
+{
+  "name": "teire",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "手入れ — 名前を知り、季節を待ち、手を入れる。庭仕事の記録帳。",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "worker:dev": "wrangler dev worker/index.js",
+    "worker:deploy": "wrangler deploy worker/index.js"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^5.4.11",
+    "vite-plugin-pwa": "^0.21.1"
+  }
+}
