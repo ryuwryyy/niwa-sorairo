@@ -7,8 +7,9 @@
  *   accept に .heic を含めると生のHEICが来てデコードできず失敗する。
  */
 
-const MAX_EDGE = 1100;
-const QUALITY = 0.85;
+// 本番の Serverless ペイロード・応答時間を抑えるため長辺と品質を抑える
+const MAX_EDGE = 900;
+const QUALITY = 0.72;
 
 function drawToJpeg(source, w, h) {
   const scale = Math.min(1, MAX_EDGE / Math.max(w, h));

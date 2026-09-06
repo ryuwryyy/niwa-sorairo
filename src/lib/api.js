@@ -2,17 +2,15 @@
  * Claude API 通信層
  *
  * 重要: APIキーはこのファイルにも、フロントエンドのどこにも書かない。
- * ブラウザに渡ったキーは誰でも読めるため、必ずサーバー側(worker/)を経由する。
- *
- * - 開発時: vite.config.js のプロキシが /api/claude を Anthropic に中継し、
- *           .env.local の ANTHROPIC_API_KEY を付与する
- * - 本番:   VITE_API_ENDPOINT に Cloudflare Worker のURLを設定する
+ * - 開発時: vite の /api/claude プロキシ
+ * - 本番: Vercel Serverless（/api/claude, /api/identify）
+ *   キーは Vercel Environment Variables の ANTHROPIC_API_KEY のみ
  */
 
-const ENDPOINT = import.meta.env.VITE_API_ENDPOINT || "/api/claude";
+const CLAUDE_ENDPOINT = import.meta.env.VITE_API_ENDPOINT || "/api/claude";
 
 export async function askClaude(content, maxTokens = 1000) {
-  const res = await fetch(ENDPOINT, {
+  const res = await fetch(CLAUDE_ENDPOINT, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -21,8 +19,8 @@ export async function askClaude(content, maxTokens = 1000) {
       messages: [{ role: "user", content }],
     }),
   });
-  if (!res.ok) throw new Error(`API ${res.status}`);
-  const data = await res.json();
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data?.error?.message || `API ${res.status}`);
   if (data.error) throw new Error(data.error.message || "API error");
   return data.content.map((i) => (i.type === "text" ? i.text : "")).join("");
 }
@@ -35,10 +33,24 @@ export function parseJSON(text) {
 
 /**
  * 二段推論による植物同定。
- * ①同定せず形態所見だけ取る → ②所見と写真を突き合わせて照合。
- * 一発で名前を出させるより誤同定が減り、判定根拠も残る。
+ * 本番はサーバー側 /api/identify で一括実行（タイムアウト・キー漏洩対策）。
+ * 開発時は vite プロキシ経由でクライアント側二段推論。
  */
 export async function identifyPlant(base64jpeg) {
+  // 本番・プレビュー: サーバー一括
+  if (!import.meta.env.DEV) {
+    const res = await fetch("/api/identify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ image: base64jpeg }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data?.error?.message || `API ${res.status}`);
+    if (data.error) throw new Error(data.error.message || "API error");
+    return data;
+  }
+
+  // 開発: 既存の二段推論（vite プロキシ）
   const imgBlock = {
     type: "image",
     source: { type: "base64", media_type: "image/jpeg", data: base64jpeg },
@@ -60,7 +72,6 @@ ${features}
   ], 1200);
 
   const parsed = parseJSON(raw);
-  // モデル出力のばらつきを吸収する正規化
   parsed.candidates = (parsed.candidates || []).slice(0, 3).map((c) => ({
     name: c.name || "不明",
     kana: c.kana || "",

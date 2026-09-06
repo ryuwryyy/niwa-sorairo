@@ -51,6 +51,12 @@ export default defineConfig(({ mode }) => {
           navigateFallback: "/index.html",
           navigateFallbackDenylist: [/^\/api/],
           globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2}"],
+          runtimeCaching: [
+            {
+              urlPattern: ({ url }) => url.pathname.startsWith("/api/"),
+              handler: "NetworkOnly",
+            },
+          ],
         },
       }),
     ],

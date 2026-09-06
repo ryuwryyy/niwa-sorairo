@@ -32,8 +32,9 @@ export default function Identify() {
     setBusy(true); setError(null);
     try {
       setResult(await identifyPlant(base64));
-    } catch {
-      setError("判定できませんでした。API接続を確認してください(公開サイトでは中継サーバーが必要です)。");
+    } catch (e) {
+      const detail = e?.message ? `（${e.message}）` : "";
+      setError(`判定できませんでした。時間をおいて再度お試しください${detail}`);
     } finally {
       setBusy(false);
     }
