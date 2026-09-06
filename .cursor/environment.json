@@ -1,0 +1,17 @@
+{
+  "name": "teire",
+  "install": "npm ci",
+  "terminals": [
+    {
+      "name": "dev",
+      "command": "npm run dev",
+      "description": "Vite dev server (http://localhost:5173). AI機能(名前判定・添え書き)を使う場合は .env.local に ANTHROPIC_API_KEY を設定する。庭づくり・手入れ暦はキー無しでも動作する。"
+    }
+  ],
+  "ports": [
+    {
+      "name": "web",
+      "port": 5173
+    }
+  ]
+}
