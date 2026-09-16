@@ -5,7 +5,8 @@
   "note": "組織の既存ファイルには一切触れていない。新規ファイルのみ。",
   "page": "02 画面",
   "capturedAt": "2026-09-16",
-  "_status": "S1 のみ v2 で再構築・実測済み。S2-S6 は旧ファイルのままで未再構築。",
+  "_status": "全6画面を v2 で構築し、4系統を実測済み。",
+  "_zeroSlotNote": "余白ゼロのスロットは分母から除外（対応するトークンが存在しないため）。radius も 0 を同様に除外。",
   "screens": {
     "S1": {
       "nodeId": "6:2",
@@ -44,6 +45,7 @@
           8,
           10,
           12,
+          14,
           16,
           20,
           24,
@@ -71,9 +73,356 @@
         "Sidebar",
         "NavItem",
         "Tag",
-        "Button"
+        "Button",
+        "StatCell"
+      ]
+    },
+    "S2": {
+      "nodeId": "10:47",
+      "nodeCount": 161,
+      "specIds": [
+        "s2-amend",
+        "s2-approve",
+        "s2-back",
+        "s2-changes",
+        "s2-diff-after",
+        "s2-diff-before",
+        "s2-diff-row",
+        "s2-diff-tabs",
+        "s2-meta",
+        "s2-other-langs",
+        "s2-panel",
+        "s2-panel-col",
+        "s2-reason",
+        "s2-reject",
+        "s2-revert-note",
+        "s2-scope",
+        "s2-title",
+        "s2-trace-link"
       ],
-      "instanceOverrides": "サイドバーは clone ではなくインスタンス。現在地は入れ子 NavItem の State を上書き。"
+      "fonts": [
+        "Shippori Mincho",
+        "Zen Kaku Gothic New",
+        "Inter"
+      ],
+      "color": {
+        "slots": 133,
+        "bound": 133,
+        "stray": []
+      },
+      "space": {
+        "slots": 180,
+        "bound": 180,
+        "used": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          20,
+          24,
+          32
+        ],
+        "zeroSlotsExcluded": 160
+      },
+      "radius": {
+        "slots": 156,
+        "bound": 156,
+        "used": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          999
+        ]
+      },
+      "typography": {
+        "slots": 74,
+        "bound": 74
+      },
+      "componentsUsed": [
+        "Sidebar",
+        "NavItem",
+        "Tag",
+        "Button",
+        "StatCell"
+      ]
+    },
+    "S3": {
+      "nodeId": "12:81",
+      "nodeCount": 153,
+      "specIds": [
+        "s3-artifact",
+        "s3-back",
+        "s3-delegate",
+        "s3-step-1",
+        "s3-step-2",
+        "s3-step-3",
+        "s3-step-4",
+        "s3-step-5",
+        "s3-step-6",
+        "s3-summary",
+        "s3-timeline",
+        "s3-title",
+        "s3-trigger"
+      ],
+      "fonts": [
+        "Shippori Mincho",
+        "Zen Kaku Gothic New"
+      ],
+      "color": {
+        "slots": 122,
+        "bound": 122,
+        "stray": []
+      },
+      "space": {
+        "slots": 143,
+        "bound": 143,
+        "used": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          20,
+          24,
+          32
+        ],
+        "zeroSlotsExcluded": 187
+      },
+      "radius": {
+        "slots": 108,
+        "bound": 108,
+        "used": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          999
+        ]
+      },
+      "typography": {
+        "slots": 82,
+        "bound": 82
+      },
+      "componentsUsed": [
+        "Sidebar",
+        "NavItem",
+        "Tag",
+        "Button",
+        "StatCell"
+      ]
+    },
+    "S4": {
+      "nodeId": "15:113",
+      "nodeCount": 139,
+      "specIds": [
+        "s4-composer",
+        "s4-composer-head",
+        "s4-dryrun",
+        "s4-list",
+        "s4-list-col",
+        "s4-list-head",
+        "s4-q1",
+        "s4-q2",
+        "s4-q3",
+        "s4-q4",
+        "s4-q5",
+        "s4-record",
+        "s4-save",
+        "s4-title"
+      ],
+      "fonts": [
+        "Shippori Mincho",
+        "Zen Kaku Gothic New"
+      ],
+      "color": {
+        "slots": 109,
+        "bound": 109,
+        "stray": []
+      },
+      "space": {
+        "slots": 161,
+        "bound": 161,
+        "used": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          20,
+          24,
+          32
+        ],
+        "zeroSlotsExcluded": 179
+      },
+      "radius": {
+        "slots": 100,
+        "bound": 100,
+        "used": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          999
+        ]
+      },
+      "typography": {
+        "slots": 64,
+        "bound": 64
+      },
+      "componentsUsed": [
+        "Sidebar",
+        "NavItem",
+        "Tag",
+        "Button",
+        "StatCell"
+      ]
+    },
+    "S5": {
+      "nodeId": "16:158",
+      "nodeCount": 205,
+      "specIds": [
+        "s5-a1",
+        "s5-a2",
+        "s5-a3",
+        "s5-a4",
+        "s5-a5",
+        "s5-a6",
+        "s5-filters",
+        "s5-grid",
+        "s5-permissions",
+        "s5-title"
+      ],
+      "fonts": [
+        "Shippori Mincho",
+        "Zen Kaku Gothic New"
+      ],
+      "color": {
+        "slots": 145,
+        "bound": 145,
+        "stray": []
+      },
+      "space": {
+        "slots": 212,
+        "bound": 212,
+        "used": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          20,
+          24,
+          32
+        ],
+        "zeroSlotsExcluded": 309
+      },
+      "radius": {
+        "slots": 128,
+        "bound": 128,
+        "used": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          999
+        ]
+      },
+      "typography": {
+        "slots": 93,
+        "bound": 93
+      },
+      "componentsUsed": [
+        "Sidebar",
+        "NavItem",
+        "Tag",
+        "Button",
+        "StatCell"
+      ]
+    },
+    "S6": {
+      "nodeId": "17:208",
+      "nodeCount": 170,
+      "specIds": [
+        "s6-export",
+        "s6-filters",
+        "s6-reverts",
+        "s6-row-1",
+        "s6-row-2",
+        "s6-row-3",
+        "s6-row-4",
+        "s6-row-5",
+        "s6-summary",
+        "s6-table",
+        "s6-title"
+      ],
+      "fonts": [
+        "Shippori Mincho",
+        "Zen Kaku Gothic New"
+      ],
+      "color": {
+        "slots": 111,
+        "bound": 111,
+        "stray": []
+      },
+      "space": {
+        "slots": 136,
+        "bound": 136,
+        "used": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          20,
+          24,
+          32
+        ],
+        "zeroSlotsExcluded": 314
+      },
+      "radius": {
+        "slots": 88,
+        "bound": 88,
+        "used": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          999
+        ]
+      },
+      "typography": {
+        "slots": 78,
+        "bound": 78
+      },
+      "componentsUsed": [
+        "Sidebar",
+        "NavItem",
+        "Tag",
+        "Button",
+        "StatCell"
+      ]
     }
   }
 }

@@ -1,5 +1,5 @@
 {
-  "allPass": false,
+  "allPass": true,
   "report": [
     {
       "screen": "S1",
@@ -38,7 +38,7 @@
         {
           "id": "G3",
           "name": "visual-review",
-          "score": 4.6,
+          "score": 4.58,
           "threshold": 4,
           "pass": true,
           "blockers": [],
@@ -48,6 +48,276 @@
               "where": "s1-card actions",
               "what": "却下が Ghost だと主ボタンの隣で押せる要素に見えなかった（全景の縮小版では気付けず、2xのセクション撮影で判明）",
               "fix": "Secondary に差し替え済み"
+            }
+          ],
+          "sectionsReviewed": 4,
+          "missingSections": false
+        }
+      ]
+    },
+    {
+      "screen": "S2",
+      "pass": true,
+      "gates": [
+        {
+          "id": "G1",
+          "name": "spec-coverage",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "missing": []
+        },
+        {
+          "id": "G2",
+          "name": "token-fidelity",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "parts": {
+            "color": 1,
+            "space": 1,
+            "radius": 1,
+            "font": 1
+          },
+          "counts": {
+            "color": "133/133",
+            "space": "180/180",
+            "radius": "156/156"
+          },
+          "strayColors": [],
+          "strayFonts": [],
+          "offScaleSpace": [],
+          "offScaleRadius": []
+        },
+        {
+          "id": "G3",
+          "name": "visual-review",
+          "score": 4.6,
+          "threshold": 4,
+          "pass": true,
+          "blockers": [],
+          "issues": [
+            {
+              "severity": "minor",
+              "where": "s2-panel",
+              "what": "根拠欄に文字が入った状態で見せているため、空欄時に承認が不活性になる仕様が画面からは読み取れない",
+              "fix": "注記で補っている。状態違いのフレームを足すなら別途"
+            }
+          ],
+          "sectionsReviewed": 4,
+          "missingSections": false
+        }
+      ]
+    },
+    {
+      "screen": "S3",
+      "pass": true,
+      "gates": [
+        {
+          "id": "G1",
+          "name": "spec-coverage",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "missing": []
+        },
+        {
+          "id": "G2",
+          "name": "token-fidelity",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "parts": {
+            "color": 1,
+            "space": 1,
+            "radius": 1,
+            "font": 1
+          },
+          "counts": {
+            "color": "122/122",
+            "space": "143/143",
+            "radius": "108/108"
+          },
+          "strayColors": [],
+          "strayFonts": [],
+          "offScaleSpace": [],
+          "offScaleRadius": []
+        },
+        {
+          "id": "G3",
+          "name": "visual-review",
+          "score": 4.65,
+          "threshold": 4,
+          "pass": true,
+          "blockers": [],
+          "issues": [
+            {
+              "severity": "minor",
+              "where": "s3-timeline",
+              "what": "ステップ同士を繋ぐ縦罫を置いていない",
+              "fix": "バッジの整列で流れは読めるため現状維持"
+            }
+          ],
+          "sectionsReviewed": 4,
+          "missingSections": false
+        }
+      ]
+    },
+    {
+      "screen": "S4",
+      "pass": true,
+      "gates": [
+        {
+          "id": "G1",
+          "name": "spec-coverage",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "missing": []
+        },
+        {
+          "id": "G2",
+          "name": "token-fidelity",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "parts": {
+            "color": 1,
+            "space": 1,
+            "radius": 1,
+            "font": 1
+          },
+          "counts": {
+            "color": "109/109",
+            "space": "161/161",
+            "radius": "100/100"
+          },
+          "strayColors": [],
+          "strayFonts": [],
+          "offScaleSpace": [],
+          "offScaleRadius": []
+        },
+        {
+          "id": "G3",
+          "name": "visual-review",
+          "score": 4.53,
+          "threshold": 4,
+          "pass": true,
+          "blockers": [],
+          "issues": [
+            {
+              "severity": "minor",
+              "where": "s4-dryrun",
+              "what": "子を足す前に resize したためパネル高さが固定され余白が出ていた",
+              "fix": "primaryAxisSizingMode を AUTO に戻して修正済み"
+            }
+          ],
+          "sectionsReviewed": 4,
+          "missingSections": false
+        }
+      ]
+    },
+    {
+      "screen": "S5",
+      "pass": true,
+      "gates": [
+        {
+          "id": "G1",
+          "name": "spec-coverage",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "missing": []
+        },
+        {
+          "id": "G2",
+          "name": "token-fidelity",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "parts": {
+            "color": 1,
+            "space": 1,
+            "radius": 1,
+            "font": 1
+          },
+          "counts": {
+            "color": "145/145",
+            "space": "212/212",
+            "radius": "128/128"
+          },
+          "strayColors": [],
+          "strayFonts": [],
+          "offScaleSpace": [],
+          "offScaleRadius": []
+        },
+        {
+          "id": "G3",
+          "name": "visual-review",
+          "score": 4.5,
+          "threshold": 4,
+          "pass": true,
+          "blockers": [],
+          "issues": [
+            {
+              "severity": "minor",
+              "where": "s5-grid",
+              "what": "カード高を214pxに固定したため説明が1行のカードで内部に空きが出る",
+              "fix": "フッタ揃えを優先した意図的な設計"
+            }
+          ],
+          "sectionsReviewed": 4,
+          "missingSections": false
+        }
+      ]
+    },
+    {
+      "screen": "S6",
+      "pass": true,
+      "gates": [
+        {
+          "id": "G1",
+          "name": "spec-coverage",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "missing": []
+        },
+        {
+          "id": "G2",
+          "name": "token-fidelity",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "parts": {
+            "color": 1,
+            "space": 1,
+            "radius": 1,
+            "font": 1
+          },
+          "counts": {
+            "color": "111/111",
+            "space": "136/136",
+            "radius": "88/88"
+          },
+          "strayColors": [],
+          "strayFonts": [],
+          "offScaleSpace": [],
+          "offScaleRadius": []
+        },
+        {
+          "id": "G3",
+          "name": "visual-review",
+          "score": 4.53,
+          "threshold": 4,
+          "pass": true,
+          "blockers": [],
+          "issues": [
+            {
+              "severity": "minor",
+              "where": "s6-table",
+              "what": "判断タグを案件セルの下に置いたため行高が2行分になる",
+              "fix": "根拠列の可読性を優先。表としては許容"
             }
           ],
           "sectionsReviewed": 4,
