@@ -1,0 +1,28 @@
+{
+  "stage": "03-emotion-map",
+  "product": "sahai",
+  "persona": "P-primary",
+  "scale": { "min": -3, "max": 3, "note": "-3=強い不快/離脱リスク, 0=中立, +3=強い満足/推奨行動" },
+  "curve": [
+    { "at": "J1", "stage": "予兆",     "before": 0,  "after": 0,  "emotion": "無自覚",       "innerVoice": "（別の作業中。何も起きていないと思っている）", "designResponse": "通知しない。静けさを守るのも体験のうち" },
+    { "at": "J2", "stage": "下ごしらえ", "before": 0,  "after": 0,  "emotion": "無自覚",       "innerVoice": "（まだ知らない）", "designResponse": "進行中インジケータを出さない。未完成の作業で不安にさせない" },
+    { "at": "J3", "stage": "受信",     "before": -1, "after": 1,  "emotion": "警戒→安堵",     "innerVoice": "また通知か…いや、1束にまとまってる", "designResponse": "束ね表示。件数バッジではなく『1束（4件）』。音は鳴らさない" },
+    { "at": "J4", "stage": "一覧",     "before": 1,  "after": 2,  "emotion": "見通しが立つ",   "innerVoice": "3分で終わるやつが2件ある。今やれる", "designResponse": "所要見積もりと影響範囲を一覧に前出し。空状態は祝福しない、静かに" },
+    { "at": "J5", "stage": "判断",     "before": 2,  "after": 0,  "emotion": "緊張（最深部）", "innerVoice": "これ、本当に見た上で押してるか？自分", "designResponse": "★谷。差分の可読性を最優先。根拠入力を必須にして『読んだ』を行動で担保する" },
+    { "at": "J6", "stage": "検証",     "before": 0,  "after": 2,  "emotion": "納得",         "innerVoice": "理由が書いてある。次はもう少し任せていい", "designResponse": "判断根拠をステップごとに残す。トレースは信頼の貯金箱" },
+    { "at": "J7", "stage": "適用",     "before": 2,  "after": 2,  "emotion": "安心",         "innerVoice": "反映された。戻せるとも書いてある", "designResponse": "適用完了と『戻す』を同じカードに同居させる" },
+    { "at": "J8", "stage": "委任拡大", "before": 2,  "after": 3,  "emotion": "手応え",       "innerVoice": "この型はもう任せる。自分の時間が戻ってきた", "designResponse": "決裁実績から『これも任せますか』を1クリックで。設定画面に送り込まない" },
+    { "at": "J9", "stage": "説明責任", "before": 3,  "after": 3,  "emotion": "誇り",         "innerVoice": "自分が何を通したか、言葉で説明できる", "designResponse": "台帳は輸出可能に。社内説明の資料として成立させる" }
+  ],
+  "peak": { "at": "J8", "value": 3, "note": "ピーク・エンドの法則：ピークは『委任拡大の手応え』、エンドは『説明できる誇り』。両方をプラスで終える設計にする" },
+  "valley": {
+    "at": "J5", "value": 0,
+    "note": "最深部は『判断』。ここを無理にプラスにしない — 決裁は本来こわいもの。こわさを消すのではなく、こわさに見合う情報を渡すのが正解。",
+    "antiPattern": "紙吹雪や『いいね！』でここを持ち上げようとすると、読まずに押す癖を助長して製品の前提が崩れる"
+  },
+  "designImplications": [
+    "感情曲線の谷(J5)に最も情報密度を割く。他画面は意図的に静かに",
+    "正の感情はJ6以降で積み上げる。導入直後(J3-J4)に過剰な演出をしない",
+    "離脱リスクはJ3(通知過多)とJ5(差分が読めない)の2点に集中。KPIもこの2点を見る"
+  ]
+}

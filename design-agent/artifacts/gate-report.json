@@ -1,0 +1,245 @@
+{
+  "allPass": true,
+  "report": [
+    {
+      "screen": "S1",
+      "pass": true,
+      "gates": [
+        {
+          "id": "G1",
+          "name": "spec-coverage",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "missing": []
+        },
+        {
+          "id": "G2",
+          "name": "token-fidelity",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "strayColors": [],
+          "strayFonts": []
+        },
+        {
+          "id": "G3",
+          "name": "visual-review",
+          "score": 4.5,
+          "threshold": 4,
+          "pass": true,
+          "blockers": [],
+          "issues": [
+            {
+              "severity": "minor",
+              "where": "decision-card",
+              "what": "カード内の余白がやや広く、4枚で縦を使いすぎる",
+              "fix": "上下padding 18→16 に詰める余地あり。現状でも可読性は損なわれていない"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "screen": "S2",
+      "pass": true,
+      "gates": [
+        {
+          "id": "G1",
+          "name": "spec-coverage",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "missing": []
+        },
+        {
+          "id": "G2",
+          "name": "token-fidelity",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "strayColors": [],
+          "strayFonts": []
+        },
+        {
+          "id": "G3",
+          "name": "visual-review",
+          "score": 4.6,
+          "threshold": 4,
+          "pass": true,
+          "blockers": [],
+          "issues": [
+            {
+              "severity": "minor",
+              "where": "s2-changes",
+              "what": "見出し直下の1本目の区切り線が見出しと近く、やや冗長に見える",
+              "fix": "1行目のみ上罫を省略する"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "screen": "S3",
+      "pass": true,
+      "gates": [
+        {
+          "id": "G1",
+          "name": "spec-coverage",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "missing": []
+        },
+        {
+          "id": "G2",
+          "name": "token-fidelity",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "strayColors": [],
+          "strayFonts": []
+        },
+        {
+          "id": "G3",
+          "name": "visual-review",
+          "score": 4.7,
+          "threshold": 4,
+          "pass": true,
+          "blockers": [],
+          "issues": [
+            {
+              "severity": "minor",
+              "where": "timeline-rail",
+              "what": "ステップを繋ぐ縦罫がバッジの背面でほぼ視認できない",
+              "fix": "hairline より 1 段濃い色にするか、バッジ間だけ描画する"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "screen": "S4",
+      "pass": true,
+      "gates": [
+        {
+          "id": "G1",
+          "name": "spec-coverage",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "missing": []
+        },
+        {
+          "id": "G2",
+          "name": "token-fidelity",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "strayColors": [],
+          "strayFonts": []
+        },
+        {
+          "id": "G3",
+          "name": "visual-review",
+          "score": 4.3,
+          "threshold": 4,
+          "pass": true,
+          "blockers": [],
+          "issues": [
+            {
+              "severity": "minor",
+              "where": "page-bottom",
+              "what": "実績ストリップ以下に約175pxの空きが残り、他画面より縦の充填が浅い",
+              "fix": "実績の下に直近決裁3件のミニ一覧を足すと均衡する"
+            },
+            {
+              "severity": "minor",
+              "where": "s4-list / s4-composer",
+              "what": "左リストと中央カードの下端が揃わない",
+              "fix": "意図的な差。カラム高を揃える必要はない"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "screen": "S5",
+      "pass": true,
+      "gates": [
+        {
+          "id": "G1",
+          "name": "spec-coverage",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "missing": []
+        },
+        {
+          "id": "G2",
+          "name": "token-fidelity",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "strayColors": [],
+          "strayFonts": []
+        },
+        {
+          "id": "G3",
+          "name": "visual-review",
+          "score": 4.2,
+          "threshold": 4,
+          "pass": true,
+          "blockers": [],
+          "issues": [
+            {
+              "severity": "minor",
+              "where": "s5-grid",
+              "what": "カード高を226pxに固定したため、説明が1行のカードでスコープ行と実績行の間に空きが出る",
+              "fix": "フッタ揃えを優先した意図的な設計。気になるならカード高を206pxへ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "screen": "S6",
+      "pass": true,
+      "gates": [
+        {
+          "id": "G1",
+          "name": "spec-coverage",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "missing": []
+        },
+        {
+          "id": "G2",
+          "name": "token-fidelity",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "strayColors": [],
+          "strayFonts": []
+        },
+        {
+          "id": "G3",
+          "name": "visual-review",
+          "score": 4.5,
+          "threshold": 4,
+          "pass": true,
+          "blockers": [],
+          "issues": [
+            {
+              "severity": "minor",
+              "where": "s6-table",
+              "what": "根拠列が2行になる行だけ行高が増え、行の高さが不揃い",
+              "fix": "表としては許容範囲。1行に丸めると根拠が読めなくなるため現状維持が正しい"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
