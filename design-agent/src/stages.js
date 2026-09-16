@@ -126,7 +126,7 @@ const RADIUS_FIELDS = ['topLeftRadius','topRightRadius','bottomRightRadius','bot
 const all = [S, ...S.findAll(() => true)];
 const specIds = [], strayColors = [], fonts = new Set();
 const spaceUsed = [], radiusUsed = [];
-let cSlots = 0, cBound = 0, sSlots = 0, sBound = 0, rSlots = 0, rBound = 0;
+let cSlots = 0, cBound = 0, sSlots = 0, sBound = 0, rSlots = 0, rBound = 0, tSlots = 0, tBound = 0;
 
 for (const n of all) {
   if (/^s\\d-/.test(n.name)) specIds.push(n.name);
@@ -146,6 +146,7 @@ for (const n of all) {
     for (const f of SPACE_FIELDS) {
       if (typeof n[f] !== 'number') continue;
       if (f === 'counterAxisSpacing' && n.layoutWrap !== 'WRAP') continue;
+      if (n[f] === 0) continue;                 // 余白ゼロに対応するトークンは無い
       sSlots++; if (bv[f]) sBound++; spaceUsed.push(n[f]);
     }
   }
@@ -155,7 +156,7 @@ for (const n of all) {
       rSlots++; if (bv[f]) rBound++; radiusUsed.push(n[f]);
     }
   }
-  if (n.type === 'TEXT' && n.fontName !== figma.mixed) fonts.add(n.fontName.family);
+  if (n.type === 'TEXT') { tSlots++; if (n.textStyleId) tBound++; if (n.fontName !== figma.mixed) fonts.add(n.fontName.family); }
 }
 
 return {
@@ -164,6 +165,7 @@ return {
   fonts: [...fonts],
   color:  { slots: cSlots, bound: cBound, stray: [...new Set(strayColors)] },
   space:  { slots: sSlots, bound: sBound, used: [...new Set(spaceUsed)].sort((a,b)=>a-b) },
-  radius: { slots: rSlots, bound: rBound, used: [...new Set(radiusUsed)].sort((a,b)=>a-b) }
+  radius: { slots: rSlots, bound: rBound, used: [...new Set(radiusUsed)].sort((a,b)=>a-b) },
+  typography: { slots: tSlots, bound: tBound }
 };
 `;

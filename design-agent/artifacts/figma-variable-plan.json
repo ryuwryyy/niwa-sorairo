@@ -147,9 +147,27 @@
     ]
   },
   {
+    "name": "space/2",
+    "type": "FLOAT",
+    "value": 2,
+    "scopes": [
+      "GAP",
+      "WIDTH_HEIGHT"
+    ]
+  },
+  {
     "name": "space/4",
     "type": "FLOAT",
     "value": 4,
+    "scopes": [
+      "GAP",
+      "WIDTH_HEIGHT"
+    ]
+  },
+  {
+    "name": "space/6",
+    "type": "FLOAT",
+    "value": 6,
     "scopes": [
       "GAP",
       "WIDTH_HEIGHT"
@@ -165,9 +183,27 @@
     ]
   },
   {
+    "name": "space/10",
+    "type": "FLOAT",
+    "value": 10,
+    "scopes": [
+      "GAP",
+      "WIDTH_HEIGHT"
+    ]
+  },
+  {
     "name": "space/12",
     "type": "FLOAT",
     "value": 12,
+    "scopes": [
+      "GAP",
+      "WIDTH_HEIGHT"
+    ]
+  },
+  {
+    "name": "space/14",
+    "type": "FLOAT",
+    "value": 14,
     "scopes": [
       "GAP",
       "WIDTH_HEIGHT"
@@ -183,6 +219,15 @@
     ]
   },
   {
+    "name": "space/20",
+    "type": "FLOAT",
+    "value": 20,
+    "scopes": [
+      "GAP",
+      "WIDTH_HEIGHT"
+    ]
+  },
+  {
     "name": "space/24",
     "type": "FLOAT",
     "value": 24,
@@ -192,9 +237,27 @@
     ]
   },
   {
+    "name": "space/28",
+    "type": "FLOAT",
+    "value": 28,
+    "scopes": [
+      "GAP",
+      "WIDTH_HEIGHT"
+    ]
+  },
+  {
     "name": "space/32",
     "type": "FLOAT",
     "value": 32,
+    "scopes": [
+      "GAP",
+      "WIDTH_HEIGHT"
+    ]
+  },
+  {
+    "name": "space/40",
+    "type": "FLOAT",
+    "value": 40,
     "scopes": [
       "GAP",
       "WIDTH_HEIGHT"
@@ -219,9 +282,17 @@
     ]
   },
   {
-    "name": "radius/sm",
+    "name": "radius/xs",
     "type": "FLOAT",
     "value": 2,
+    "scopes": [
+      "CORNER_RADIUS"
+    ]
+  },
+  {
+    "name": "radius/sm",
+    "type": "FLOAT",
+    "value": 4,
     "scopes": [
       "CORNER_RADIUS"
     ]
@@ -237,7 +308,7 @@
   {
     "name": "radius/lg",
     "type": "FLOAT",
-    "value": 10,
+    "value": 8,
     "scopes": [
       "CORNER_RADIUS"
     ]
@@ -245,7 +316,23 @@
   {
     "name": "radius/xl",
     "type": "FLOAT",
+    "value": 10,
+    "scopes": [
+      "CORNER_RADIUS"
+    ]
+  },
+  {
+    "name": "radius/2xl",
+    "type": "FLOAT",
     "value": 16,
+    "scopes": [
+      "CORNER_RADIUS"
+    ]
+  },
+  {
+    "name": "radius/pill",
+    "type": "FLOAT",
+    "value": 999,
     "scopes": [
       "CORNER_RADIUS"
     ]

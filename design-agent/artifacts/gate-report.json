@@ -3,33 +3,57 @@
   "report": [
     {
       "screen": "S1",
-      "pass": false,
-      "reason": "audit-incomplete"
-    },
-    {
-      "screen": "S2",
-      "pass": false,
-      "reason": "audit-incomplete"
-    },
-    {
-      "screen": "S3",
-      "pass": false,
-      "reason": "audit-incomplete"
-    },
-    {
-      "screen": "S4",
-      "pass": false,
-      "reason": "audit-incomplete"
-    },
-    {
-      "screen": "S5",
-      "pass": false,
-      "reason": "audit-incomplete"
-    },
-    {
-      "screen": "S6",
-      "pass": false,
-      "reason": "audit-incomplete"
+      "pass": true,
+      "gates": [
+        {
+          "id": "G1",
+          "name": "spec-coverage",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "missing": []
+        },
+        {
+          "id": "G2",
+          "name": "token-fidelity",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "parts": {
+            "color": 1,
+            "space": 1,
+            "radius": 1,
+            "font": 1
+          },
+          "counts": {
+            "color": "98/98",
+            "space": "155/155",
+            "radius": "100/100"
+          },
+          "strayColors": [],
+          "strayFonts": [],
+          "offScaleSpace": [],
+          "offScaleRadius": []
+        },
+        {
+          "id": "G3",
+          "name": "visual-review",
+          "score": 4.6,
+          "threshold": 4,
+          "pass": true,
+          "blockers": [],
+          "issues": [
+            {
+              "severity": "minor",
+              "where": "s1-card actions",
+              "what": "却下が Ghost だと主ボタンの隣で押せる要素に見えなかった（全景の縮小版では気付けず、2xのセクション撮影で判明）",
+              "fix": "Secondary に差し替え済み"
+            }
+          ],
+          "sectionsReviewed": 4,
+          "missingSections": false
+        }
+      ]
     }
   ]
 }
