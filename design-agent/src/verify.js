@@ -9,9 +9,11 @@ import fs from "node:fs";
 import { gateSpecCoverage, gateTokenFidelity, gateVisualReview, evaluate } from "./gate.js";
 import { toDTCG, checkScale } from "./tokens/dtcg.js";
 
-const product = JSON.parse(fs.readFileSync("config/product.sahai.json", "utf8"));
-const spec = JSON.parse(fs.readFileSync("artifacts/05-ux-spec.json", "utf8"));
-const audit = JSON.parse(fs.readFileSync("artifacts/figma-audit.json", "utf8"));
+const arg = (n, d) => { const i = process.argv.indexOf(n); return i > -1 ? process.argv[i + 1] : d; };
+const product = JSON.parse(fs.readFileSync(arg("--config", "config/product.sahai.json"), "utf8"));
+const spec = JSON.parse(fs.readFileSync(arg("--spec", "artifacts/05-ux-spec.json"), "utf8"));
+const audit = JSON.parse(fs.readFileSync(arg("--audit", "artifacts/figma-audit.json"), "utf8"));
+const out = arg("--out", "artifacts/gate-report.json");
 
 const vi = process.argv.indexOf("--visual");
 const visual = vi > -1 ? JSON.parse(fs.readFileSync(process.argv[vi + 1], "utf8")) : null;
@@ -55,5 +57,5 @@ for (const sc of spec.screens) {
 if (audit._status) console.log(`\n監査データ: ${audit._status}`);
 console.log(allPass ? "\nGOAL REACHED — 全画面が3ゲートを通過" : "\nNOT DONE — 未通過の画面があります");
 
-fs.writeFileSync("artifacts/gate-report.json", JSON.stringify({ allPass, report }, null, 2));
+fs.writeFileSync(out, JSON.stringify({ allPass, report }, null, 2));
 process.exit(allPass ? 0 : 1);

@@ -1,0 +1,204 @@
+{
+  "reviewedBy": "vision-review pass",
+  "reviewedAt": "2026-09-16",
+  "rubric": "0-5。文字切れ・要素の重なり・コントラスト不足は blocker。",
+  "_method": "全景1枚ではなくセクション単位(2x)で撮影して採点している。",
+  "S1": {
+    "score": 4.58,
+    "sections": [
+      {
+        "name": "s1-pull",
+        "score": 4.6,
+        "note": "Pull入力がPush候補の上に同居し、入口が2つあることが一目で分かる"
+      },
+      {
+        "name": "s1-cand-2",
+        "score": 4.7,
+        "note": "2xで確認。4軸が等幅で並び、色が意味に対応している"
+      },
+      {
+        "name": "s1-rejected",
+        "score": 4.6,
+        "note": "見送り理由(G3不通過)が具体的に書かれている"
+      },
+      {
+        "name": "s1-observe",
+        "score": 4.4,
+        "note": "観測サマリは小さいが、ヘッダとしては適切"
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "where": "AxisMeter の値",
+        "what": "検証強度だけ値が日本語のため、数値軸(Inter)と字面の質感が揃わない",
+        "fix": "軸の意味を優先し現状維持。実装時に値の種類で字種を切り替える案はある"
+      }
+    ]
+  },
+  "S2": {
+    "score": 4.62,
+    "sections": [
+      {
+        "name": "s2-runs",
+        "score": 4.6,
+        "note": "12回の実行が主経路/例外で色分けされ、例外行だけ視線が止まる"
+      },
+      {
+        "name": "s2-variance",
+        "score": 4.8,
+        "note": "2xで確認。例外率とモード割当の因果が1枚で読める"
+      },
+      {
+        "name": "s2-mainpath",
+        "score": 4.6,
+        "note": "5手順と例外分岐が番号付きで並ぶ"
+      },
+      {
+        "name": "s2-privacy",
+        "score": 4.5,
+        "note": "生ログ破棄まで明記されている"
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "where": "s2-runs",
+        "what": "6件表示で残り6件はリンク送り",
+        "fix": "根拠としては十分。全件は遷移先で"
+      }
+    ]
+  },
+  "S3": {
+    "score": 4.62,
+    "sections": [
+      {
+        "name": "s3-verify",
+        "score": 4.8,
+        "note": "2xで確認。必須タグと緑枠で「ここが関門」と分かる"
+      },
+      {
+        "name": "s3-io",
+        "score": 4.5,
+        "note": "入出力と起動条件が観測由来だと分かる"
+      },
+      {
+        "name": "s3-exceptions",
+        "score": 4.6,
+        "note": "観測済/想定/要判断の3段で例外を分類している"
+      },
+      {
+        "name": "s3-mode",
+        "score": 4.6,
+        "note": "例外率とモードの対応が選択状態つきで出る"
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "where": "s3-verify",
+        "what": "選択済み状態で見せているため、未選択時に次へ進めない挙動は画面から読めない",
+        "fix": "注記で補っている。状態違いのフレームは別途"
+      }
+    ]
+  },
+  "S4": {
+    "score": 4.72,
+    "sections": [
+      {
+        "name": "s4-intake",
+        "score": 4.8,
+        "note": "Push紫とPull青が合流する構図が統合UIの主張そのもの"
+      },
+      {
+        "name": "s4-canvas",
+        "score": 4.7,
+        "note": "8ステップのうち検証が緑、不可逆が赤で際立つ"
+      },
+      {
+        "name": "s4-step-irreversible",
+        "score": 4.8,
+        "note": "2xで確認。決裁必須の根拠が2つ併記されている"
+      },
+      {
+        "name": "s4-dryrun",
+        "score": 4.6,
+        "note": "過去実行との突合結果が数値で出る"
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "where": "s4-canvas",
+        "what": "ステップ間の接続線を描いていない",
+        "fix": "縦積みと番号で流れは読めるため現状維持"
+      }
+    ]
+  },
+  "S5": {
+    "score": 4.6,
+    "sections": [
+      {
+        "name": "s5-conn-list",
+        "score": 4.6,
+        "note": "未接続1件だけが主ボタンになっている"
+      },
+      {
+        "name": "s5-reversibility",
+        "score": 4.8,
+        "note": "2xで確認。可逆/不可逆の分け方が明文化されている"
+      },
+      {
+        "name": "s5-scope",
+        "score": 4.6,
+        "note": "削除0件まで出すことで最小権限が伝わる"
+      },
+      {
+        "name": "s5-reuse",
+        "score": 4.4,
+        "note": "接続の使い回しが分かる"
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "where": "s5-conn-list",
+        "what": "サービスアイコンを頭文字で代用している",
+        "fix": "実装時に正式ロゴへ差し替え"
+      }
+    ]
+  },
+  "S6": {
+    "score": 4.6,
+    "sections": [
+      {
+        "name": "s6-running",
+        "score": 4.6,
+        "note": "4件が3モードにまたがり、合格率が右端で揃う"
+      },
+      {
+        "name": "s6-demote",
+        "score": 4.7,
+        "note": "降格の閾値と復帰条件まで書かれている"
+      },
+      {
+        "name": "s6-loop",
+        "score": 4.6,
+        "note": "下書き未送信の状態で、人が仕上げる前提が守られている"
+      },
+      {
+        "name": "s6-next",
+        "score": 4.5,
+        "note": "次の候補への導線が閉じたループを作る"
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "where": "s6-running",
+        "what": "合格率の時系列推移が無い",
+        "fix": "降格判断は閾値なので現状で足りる。推移は詳細画面で"
+      }
+    ]
+  }
+}
