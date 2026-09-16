@@ -7,7 +7,9 @@
  *  - 詰まったら自分で調べる → それでも駄目なら人間に聞く。黙って諦めない
  *  - 途中で落ちても state から再開できる
  */
+import fs from "node:fs";
 import { gateSpecCoverage, gateTokenFidelity, gateVisualReview, evaluate } from "./gate.js";
+import { toDTCG, checkScale } from "./tokens/dtcg.js";
 import * as stages from "./stages.js";
 import { escalate } from "./escalate.js";
 
@@ -55,9 +57,19 @@ export class Orchestrator {
         });
         st.mockupPath = mock.file;
 
+        // 画像をそのまま構築へ渡さない。読めた値と読めなかった値を分けてから渡す。
+        const extracted = await stages.extract({
+          astra: this.astra, screen, mockupPath: mock.file,
+          toDataUrl: f => `data:image/png;base64,${fs.readFileSync(f).toString("base64")}`
+        });
+        st.extractedConfidence = extracted.confidence ?? null;
+        if (extracted.divergence?.length) {
+          this.log(`  仕様と生成画像のズレ ${extracted.divergence.length}件（仕様を優先）`);
+        }
+
         const built = await stages.figmaBuild({
           astra: this.astra, figma: this.figma, product: this.product,
-          screen, tokens: this.tokens,
+          screen, tokens: this.tokens, extracted,
           fixes: guidance ? [...fixes, `調査結果を踏まえること:\n${guidance}`] : fixes
         });
         if (built?.screenId) st.nodeId = built.screenId;
@@ -70,9 +82,15 @@ export class Orchestrator {
           mockupUrl: null
         });
 
+        const dtcg = toDTCG(this.product.designTokens);
         const result = evaluate([
           gateSpecCoverage(screen.mustHave, a.specIds ?? []),
-          gateTokenFidelity({ colors: a.strayColors ?? [], fonts: a.fonts ?? [] }, this.product.designTokens),
+          gateTokenFidelity({
+            color: a.color,
+            space: { ...a.space, offScale: checkScale(dtcg, a.space?.used ?? [], "space").offScale },
+            radius: { ...a.radius, offScale: checkScale(dtcg, a.radius?.used ?? [], "radius").offScale },
+            fonts: a.fonts ?? []
+          }, this.product.designTokens),
           gateVisualReview(review)
         ]);
 

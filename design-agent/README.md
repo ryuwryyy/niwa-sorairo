@@ -1,69 +1,107 @@
 # design-agent
 
-ペルソナ → ユーザージャーニーマップ → 感情マップ → 価値提供マップ → UX仕様 → 画像生成 → Figma構築 → 視覚検証
+ペルソナ → ユーザージャーニーマップ → 感情マップ → 価値提供マップ → UX仕様 → 画像生成 → **構造化抽出** → Figma構築 → 検証
 を **1画面ずつ**回し、**3つのゲートを全部通るまで諦めない**デザイン自動化エージェント。
 
 ```
-                      ┌──────────── 指摘が次の試行に戻る ────────────┐
-                      ↓                                              │
 製品ブリーフ → 01 ペルソナ → 02 ジャーニー → 03 感情 → 04 価値提供 → 05 UX仕様
                                                                      ↓
-                                    ┌──── 1画面ずつ、順番に ────┐
-                                    ↓                            │
-                          06 モックアップ画像 (Images 2.5)        │
-                                    ↓                            │
-                          07 Figma構築 (use_figma)               │
-                                    ↓                            │
-                          08 検証 → G1 / G2 / G3 ────────────────┘
-                                    ↓ 全通過
-                                  次の画面へ
+                              ┌──────── 1画面ずつ、順番に ────────┐
+                              ↓                                    │
+                  06  Images 2.5 でモックアップ生成                 │
+                              ↓                                    │
+                  06b 構造化抽出（信頼度マーカー ✅⚠️❓）            │
+                      ← 画像を直接 Figma へ渡さない                 │
+                              ↓                                    │
+                  07  Figma構築 (use_figma)                        │
+                      変数 → コンポーネント → 画面 の順             │
+                              ↓                                    │
+                  08  検証 → G1 / G2 / G3 ─────────────────────────┘
+                              ↓ 全通過
+                            次の画面へ
 ```
+
+## 設計の根拠は公式スキル
+
+自己流をやめ、[figma/mcp-server-guide](https://github.com/figma/mcp-server-guide) の
+`figma-generate-design` / `figma-generate-library`、および
+[openai/skills](https://github.com/openai/skills) の curated スキル、
+[uxKero/anydesign](https://github.com/uxKero/anydesign) の抽出方針に合わせてあります。
+`prompts/07-figma-build.md` と `prompts/08-verify.md` には該当規則を原文で引用しています。
+
+主に効いている規則:
+
+- **「Variables BEFORE components — components bind to variables. No token = no component.」**
+  トークンが無い見た目は作らない。変数 → コンポーネント → 画面 の順を崩さない。
+- **「Never hardcode hex colors or pixel spacing when a design system variable exists.
+  Use `setBoundVariable` for spacing/radii and `setBoundVariableForPaint` for colors.」**
+  束縛対象は fills/strokes・spacing・radii・typography の**4系統すべて**。
+- **「Do NOT build sections as top-level page children and reparent them later —
+  moving nodes across `use_figma` calls with `appendChild()` silently fails.」**
+  ラッパーを先に作り、各セクションは自分の `use_figma` 呼び出しの中で直接そこへ足す。
+- **「Screenshot individual sections, not just the full view. A full-view screenshot at
+  reduced resolution hides text truncation, wrong colors, and placeholder text.」**
+  全景1枚のレビューは G3 で無効扱いにする。
+- **「You MUST explicitly assert that rendered text uses the product font(s) ...
+  loading Inter when the product uses SF Pro is a failure even if no errors occur.」**
+
+## なぜ画像を直接 Figma へ渡さないか（06b 抽出ステージ）
+
+生成画像をそのまま「これを作れ」と渡すと、下流は読み取れなかった値を
+**それらしい数字で埋めます**。これが精度を落とす最大の原因でした。
+
+`anydesign` の方針に倣い、画像を先に構造化仕様へ落とし、すべての推定に信頼度を付けます。
+
+| マーカー | 意味 |
+|---|---|
+| ✅ | 画像から直接読み取れた（16進数、明確なテキスト） |
+| ⚠️ | 画素からの測定値。誤差あり |
+| ❓ | 判別不能。**埋めずに「不明」と書く** |
+
+`divergence` 層で「仕様と生成画像のズレ」を明示します。生成モデルは仕様を取りこぼすので、
+画像が常に正しいとは限りません。❓ の箇所は仕様側を優先します。
 
 ## ゴールの定義と3つのゲート
 
-「いい感じにできた」で終われないよう、完了条件を機械判定できる形にしてあります。
-
-| ゲート | 判定 | 閾値 | 判定方法 |
+| ゲート | 判定内容 | 閾値 | 判定方法 |
 |---|---|---|---|
-| **G1** spec-coverage | UX仕様の `mustHave` 要素がFigma上にノードとして実在するか | 100% | Figmaのノード名を走査。主観ゼロ |
-| **G2** token-fidelity | 色・字種がデザイントークンに束縛されているか | 100% | 全 SOLID paint の `boundVariables.color` を検査。生の16進数が1つでもあれば不合格 |
-| **G3** visual-review | スクリーンショットの目視採点 | 4.0/5 かつ blocker 0件 | 視覚モデルが採点。文字切れ・重なり・コントラスト不足は blocker |
+| **G1** spec-coverage | UX仕様の `mustHave` 要素がFigma上に実在するか | 100% | ノード名を走査。主観ゼロ |
+| **G2** token-fidelity | 色・余白・角丸・書体がトークンに束縛されているか | 100% | 4系統それぞれの束縛率＋スケール逸脱を実測 |
+| **G3** visual-review | **セクション単位**のスクリーンショット評価 | 4.0/5 かつ blocker 0件 | 全景1枚しか無い場合は無効として弾く |
 
-G1とG2は**実測値による機械判定**なので、モデルが自分に甘く付けることができません。
-G3だけがモデルの判断で、ここは採点結果が未記録なら**通過扱いにしない**（`verify.js` は pending のまま失敗を返す）。
+G1/G2 は実測値の機械判定なので、モデルが自分に甘く付けられません。
+G3 は採点が未記録なら pending のまま不合格を返します。
+**監査データが不完全な場合も、通しません**（下記の訂正を参照）。
+
+## トークンは DTCG（W3C 標準）で持つ
+
+独自JSONをやめ、W3C Design Tokens Community Group 形式（安定版 2025.10、
+Adobe / Figma / Google / Microsoft / Shopify / Salesforce ほか40社超が支持）に揃えました。
+Figma・Penpot・Sketch・Tokens Studio・Style Dictionary・Terrazzo がそのまま読み書きします。
+
+```bash
+node tools/emit-tokens.mjs
+# → artifacts/design.tokens.json        ($type / $value、dimension は {value, unit})
+# → artifacts/figma-variable-plan.json  (Figma Variables 作成用の平坦な指示)
+```
 
 ## 「必ずゴールに到達する」ための仕掛け
 
-- **1画面1状態機械** — 前の画面がゲートを通るまで次に行かない
-- **失敗は指示に変換される** — 不合格の理由（`gate.js` の `fixes`）が、次の試行のプロンプトにそのまま入る
-- **詰まったら自分で調べる** — N回失敗するごとに Web 検索へ切替（`escalate.js`）。
-  APIの仕様変更や未知のエラーはだいたいこれで解ける
-- **それでも駄目なら人間に聞く** — 質問は state に積まれ、その画面だけ保留して**他の画面は進める**（ブロックしない）
-- **同じ失敗の検出** — 同一の指摘が3回続いたら「アプローチ自体が間違っている」と判定して質問に切り替える
-- **再開可能** — 途中でコンテナが落ちても `.design-agent/state.json` から続きを実行できる
+- 不合格の理由（`gate.js` の `fixes`）が、そのまま次の試行のプロンプトに入る
+- N回失敗するごとに Web 調査へ切替（`escalate.js`）
+- それでも駄目なら人間に質問。**その画面だけ保留して他の画面は進める**（ブロックしない）
+- 同一の指摘が3回続いたら「アプローチ自体が間違っている」と判定して質問へ切替
+- `.design-agent/state.json` から再開できる
 
 ## 使うモデル
 
-| 役割 | 既定 | 環境変数 | 備考 |
-|---|---|---|---|
-| 推論・仕様生成・視覚レビュー | `gpt-6-astra` | `ASTRA_MODEL` | 2026-09-03 公開。text+image入力 |
-| モックアップ画像 | `gpt-image-2.5-sunburst` | `IMAGE_MODEL` | 速度優先なら `-flare` |
-
-モデルIDは環境変数で差し替え可能にしてあります。モデルが変わってもパイプラインは壊れません。
+| 役割 | 既定 | 環境変数 |
+|---|---|---|
+| 推論・仕様生成・構造化抽出・視覚レビュー | `gpt-6-astra` | `ASTRA_MODEL` |
+| モックアップ画像 | `gpt-image-2.5-sunburst` | `IMAGE_MODEL` |
 
 `images25.js` の `snapSize()` は API のサイズ制約（各辺16の倍数 / 各辺≤3840 / 長短比≤3:1 /
-総画素 655,360〜8,294,400）に合わせて自動で丸めます。`1440x900` は 900 が16の倍数でないため
-`1440x896` に補正されます。ここを黙って間違えると 400 が返ります。
-
-## 画像生成とレンダラの二枚看板
-
-`providers/` には画像の出所が2つあります。意図的です。
-
-- **`images25.js`** — 方向性の探索。雰囲気は出るが、同じ仕様から同じ絵が出ない
-- **`render.js`** — Playwright + Chromium による決定論的レンダリング。仕様から必ず同じ絵が出る
-
-Figma側と突き合わせて収束させるには、**再現性のある基準画像**が要ります。
-生成画像だけで検証ループを回すと、比較対象が毎回変わって永遠に収束しません。
+総画素 655,360〜8,294,400）に自動で丸めます（`1440x900` → `1440x896`）。
 
 ## 実行
 
@@ -71,51 +109,63 @@ Figma側と突き合わせて収束させるには、**再現性のある基準�
 npm install
 cp .env.example .env.local          # OPENAI_API_KEY を設定
 
+node tools/emit-tokens.mjs          # DTCG トークンを出力
 node src/cli.js run --dry-run       # 実行計画だけ表示
 node src/cli.js run --driver mcp --file <figmaFileKey>
-node src/cli.js run --only S1,S2    # 特定画面だけ
-node src/cli.js status              # 進捗と未回答の質問
-node src/verify.js --visual artifacts/visual-review.json   # 検証だけ再実行
+node src/cli.js status
+node src/verify.js --visual artifacts/visual-review.json
 ```
 
-### Figma への書き込み方法を2つ持たせてある
+`--driver emit` はプラグインJSを `.out/` に書き出すだけのモードです。
+MCP接続を持つエージェント（Claude Code / Codex 等）がそれを実行します。
 
-- `--driver mcp` — 自分で Figma MCP に接続して `use_figma` を叩く（完全自動運転）
-- `--driver emit` — プラグインJSを `.out/` に書き出すだけ。
-  MCP接続を持つエージェント（Claude Code / Codex 等）がそれを実行する
+## Figma MCP のレート制限（実測で踏んだ）
 
-OAuth を持たない実行環境でもパイプラインが止まらないようにするためです。
-ゴールへの経路は多いほうがいい。
+| プラン / シート | 上限 |
+|---|---|
+| Starter、または View / Collab シート | **月 6 回** |
+| Pro / Organization / Enterprise の Full・Dev シート | **日 200 回** |
 
-## この構成で実際に作ったもの
+Starter + View シートの個人チームで作業したところ、**6回で打ち止め**になりました。
+「書き込みツールは制限対象外」という記述を見つけて検証しましたが、
+実際には `use_figma`（書き込み）も同じように弾かれます。
+実運用では Full / Dev シートのある Pro 以上が前提です。
+
+## この構成で作ったもの
 
 題材は「差配 / Sahai」— デザインと定型タスクに特化し、トリガーで起動し、
 Push型で受動的に届き、**意思決定は人間が持つ**AIエージェント基盤（`config/product.sahai.json`）。
 
 - Figma: https://www.figma.com/design/V2ZZhYMLznvdtJ2StFhtlf
   - `01 画面` — 6画面（差配ボード / 決裁ビュー / 実行トレース / トリガー編成 / エージェント目録 / 決裁台帳）
-  - デザイントークン 27個（色15・余白8・角丸4）を Figma Variables として定義
-- `artifacts/` — 各ステージの生成物（JSON）と、板面のPNG（`boards/`）
-- `artifacts/gate-report.json` — 最終的なゲート判定
+  - トークン27個を Figma Variables として定義
 
-```
-✓ S1 差配ボード      G1 100%  G2 100% (bound 93/93)   G3 4.5/5
-✓ S2 決裁ビュー      G1 100%  G2 100% (bound 130/130) G3 4.6/5
-✓ S3 実行トレース    G1 100%  G2 100% (bound 122/122) G3 4.7/5
-✓ S4 トリガー編成    G1 100%  G2 100% (bound 108/108) G3 4.3/5
-✓ S5 エージェント目録 G1 100%  G2 100% (bound 144/144) G3 4.2/5
-✓ S6 決裁台帳        G1 100%  G2 100% (bound 112/112) G3 4.5/5
+## 訂正（2026-09-16）
 
-トークン束縛率: 709/709 (100.0%)
-GOAL REACHED
-```
+**当初「トークン束縛率 709/709 (100%)、全画面 GOAL REACHED」と報告しましたが、これは誤りです。**
 
-## 正直な制約
+G2 は SOLID paint の色しか測っておらず、製品仕様が求める「色・字種・余白」のうち
+**余白と角丸を測っていませんでした**。4系統で採点し直すと実態は約 0.50 で不合格です。
+Figma 上の余白・角丸は変数に束縛されておらず、生値のまま入っています。
 
-- **G3は視覚モデルの判断なので揺れます。** G1/G2を機械判定にしてあるのは、
-  揺れる部分を最小化するためです。G3だけで合否を決める設計にはしていません。
-- **Figma MCP には呼び出し回数の上限があります**（Starter プランでは特に厳しい）。
-  大量の画面を回す場合は上限に当たります。`--driver emit` でスクリプトを貯めて
-  まとめて流すか、プランを上げてください。
-- **このリポジトリに入っている `artifacts/` は実行結果の実物です。**
-  再実行すると上書きされます。
+さらに、G3 の採点は全景1枚（1440px を約1024pxへ縮小）で行っており、
+公式スキルが明示的に禁じている撮り方でした。文字切れを見落としている可能性があります。
+
+`gate.js` は4系統を測る実装に直し、`artifacts/figma-audit.json` は
+不完全であることを明示、`verify.js` は監査が不完全なら通さないようにしました。
+現在の `node src/verify.js` は**意図どおり不合格（exit 1）を返します**。
+
+再測定と修正（余白・角丸の変数束縛、コンポーネント化、セクション単位の再撮影）には
+Figma への書き込みが必要で、上記のレート制限の解除待ちです。
+
+## 既知の未完了
+
+- **余白・角丸が変数に未束縛。** 色15個・余白8個・角丸4個の変数は作ってあるが、
+  束縛したのは色だけ。`setBoundVariable` での束縛が必要。
+- **コンポーネント化していない。** サイドバーを4回 `clone()` しており、
+  COMPONENT + インスタンスになっていない。`figma-generate-library` の要求を満たしていない。
+- **余白スケールが実装と合っていない。** 宣言は 4/8/12/16/24/32/48/64 だが、
+  実装では 3/5/7/9/11/13/14/18/20/22 などを使っている。
+  スケール側を見直すか、実装を寄せるかの判断が要る。
+- **Astra / Images 2.5 の実呼び出しは未検証。** アダプタは公開仕様どおり実装済みだが、
+  このコンテナからは `openai.com` への通信がプロキシでブロックされている。

@@ -1,0 +1,266 @@
+{
+  "$description": "差配 / Sahai design tokens",
+  "color": {
+    "canvas": {
+      "$type": "color",
+      "$value": "#F4F1EA",
+      "$description": "アプリ背景。温かみのある紙色"
+    },
+    "surface": {
+      "$type": "color",
+      "$value": "#FBFAF7",
+      "$description": "カード・パネル面"
+    },
+    "surfaceSunken": {
+      "$type": "color",
+      "$value": "#EAE5DA",
+      "$description": "入力欄・コードブロック等の沈み面"
+    },
+    "inkPrimary": {
+      "$type": "color",
+      "$value": "#1C1A17",
+      "$description": "主要テキスト"
+    },
+    "inkSecondary": {
+      "$type": "color",
+      "$value": "#5B554B",
+      "$description": "副次テキスト"
+    },
+    "inkTertiary": {
+      "$type": "color",
+      "$value": "#8A8377",
+      "$description": "補助・メタ情報"
+    },
+    "hairline": {
+      "$type": "color",
+      "$value": "#DED7C9",
+      "$description": "境界線 1px"
+    },
+    "ember": {
+      "$type": "color",
+      "$value": "#C8551F",
+      "$description": "熾色。決裁・主要アクション"
+    },
+    "emberSoft": {
+      "$type": "color",
+      "$value": "#F3E3D9",
+      "$description": "熾色の面。選択・強調背景"
+    },
+    "await": {
+      "$type": "color",
+      "$value": "#A8761A",
+      "$description": "決裁待ち状態"
+    },
+    "awaitSoft": {
+      "$type": "color",
+      "$value": "#F6EDDA",
+      "$description": "決裁待ちの面"
+    },
+    "ok": {
+      "$type": "color",
+      "$value": "#4E7A5A",
+      "$description": "承認済み・成功"
+    },
+    "okSoft": {
+      "$type": "color",
+      "$value": "#E4EDE6",
+      "$description": "承認済みの面"
+    },
+    "stop": {
+      "$type": "color",
+      "$value": "#A33A2C",
+      "$description": "却下・不可逆・危険"
+    },
+    "stopSoft": {
+      "$type": "color",
+      "$value": "#F6E2DE",
+      "$description": "却下の面"
+    }
+  },
+  "space": {
+    "4": {
+      "$type": "dimension",
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      }
+    },
+    "8": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      }
+    },
+    "12": {
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      }
+    },
+    "16": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      }
+    },
+    "24": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      }
+    },
+    "32": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      }
+    },
+    "48": {
+      "$type": "dimension",
+      "$value": {
+        "value": 48,
+        "unit": "px"
+      }
+    },
+    "64": {
+      "$type": "dimension",
+      "$value": {
+        "value": 64,
+        "unit": "px"
+      }
+    }
+  },
+  "radius": {
+    "sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      }
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": {
+        "value": 6,
+        "unit": "px"
+      }
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": {
+        "value": 10,
+        "unit": "px"
+      }
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      }
+    }
+  },
+  "typography": {
+    "display": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Shippori Mincho",
+        "fontSize": {
+          "value": 32,
+          "unit": "px"
+        },
+        "lineHeight": {
+          "value": 44,
+          "unit": "px"
+        },
+        "fontWeight": "Medium"
+      },
+      "$description": "画面タイトル"
+    },
+    "title": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Zen Kaku Gothic New",
+        "fontSize": {
+          "value": 20,
+          "unit": "px"
+        },
+        "lineHeight": {
+          "value": 30,
+          "unit": "px"
+        },
+        "fontWeight": "Bold"
+      },
+      "$description": "セクション見出し"
+    },
+    "subtitle": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Zen Kaku Gothic New",
+        "fontSize": {
+          "value": 16,
+          "unit": "px"
+        },
+        "lineHeight": {
+          "value": 26,
+          "unit": "px"
+        },
+        "fontWeight": "Medium"
+      },
+      "$description": "カード見出し"
+    },
+    "body": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Zen Kaku Gothic New",
+        "fontSize": {
+          "value": 14,
+          "unit": "px"
+        },
+        "lineHeight": {
+          "value": 24,
+          "unit": "px"
+        },
+        "fontWeight": "Regular"
+      },
+      "$description": "本文"
+    },
+    "caption": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Zen Kaku Gothic New",
+        "fontSize": {
+          "value": 12,
+          "unit": "px"
+        },
+        "lineHeight": {
+          "value": 18,
+          "unit": "px"
+        },
+        "fontWeight": "Regular"
+      },
+      "$description": "メタ情報・ラベル"
+    },
+    "micro": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "Zen Kaku Gothic New",
+        "fontSize": {
+          "value": 11,
+          "unit": "px"
+        },
+        "lineHeight": {
+          "value": 16,
+          "unit": "px"
+        },
+        "fontWeight": "Medium"
+      },
+      "$description": "バッジ・タグ"
+    }
+  }
+}

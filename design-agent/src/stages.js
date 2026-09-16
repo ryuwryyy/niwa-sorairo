@@ -56,11 +56,34 @@ export async function mockup({ images, astra, product, screen, outDir, fixes = [
   return { file, prompt: p.prompt };
 }
 
+/**
+ * 06b: 生成画像 → 構造化仕様（信頼度マーカー付き）
+ * 画像を直接 Figma 構築へ渡さない。読み取れた値と読み取れなかった値を分けてから渡す。
+ * ここを省くと、下流は「それらしい数字」で埋めた設計を作る。
+ */
+export async function extract({ astra, screen, mockupPath, toDataUrl }) {
+  return astra.json({
+    system: prompt("06b-extract.md"),
+    user: `元のUX仕様:\n${JSON.stringify(screen)}`,
+    images: [toDataUrl(mockupPath)],
+    schema: jsonSchema({
+      identity: { type: "object" },
+      system: { type: "object" },
+      components: { type: "array", items: { type: "object" } },
+      layout: { type: "object" },
+      divergence: { type: "array", items: { type: "object" } },
+      confidence: { type: "object" }
+    }, ["identity", "system", "components", "layout", "divergence", "confidence"]),
+    schemaName: "extracted_spec"
+  });
+}
+
 /** 07: Figma へ実ノードとして構築 */
-export async function figmaBuild({ astra, figma, product, screen, tokens, fixes = [] }) {
+export async function figmaBuild({ astra, figma, product, screen, tokens, extracted = null, fixes = [] }) {
   const plan = await astra.json({
     system: prompt("07-figma-build.md"),
     user: `画面仕様:\n${JSON.stringify(screen)}\n\n利用可能なトークン変数:\n${JSON.stringify(tokens)}` +
+          (extracted ? `\n\nモックアップから抽出した仕様（信頼度マーカー付き。❓は自分で埋めず仕様側を優先）:\n${JSON.stringify(extracted)}` : "") +
           `\n\nビューポート: ${JSON.stringify(product.platform.viewport)}` +
           (fixes.length ? `\n\n前回の指摘（必ず直す）:\n- ${fixes.join("\n- ")}` : ""),
     schema: jsonSchema({ code: { type: "string" }, description: { type: "string" } }, ["code", "description"]),
@@ -82,11 +105,14 @@ export async function visualReview({ astra, screen, figmaShotUrl, mockupUrl }) {
     images: [figmaShotUrl, mockupUrl].filter(Boolean),
     schema: jsonSchema({
       score: { type: "number" },
+      sections: { type: "array", items: jsonSchema({
+        name: { type: "string" }, score: { type: "number" }, note: { type: "string" }
+      }, ["name", "score", "note"]) },
       issues: { type: "array", items: jsonSchema({
         severity: { type: "string", enum: ["blocker", "minor"] },
         where: { type: "string" }, what: { type: "string" }, fix: { type: "string" }
       }, ["severity", "where", "what", "fix"]) }
-    }, ["score", "issues"]),
+    }, ["score", "sections", "issues"]),
     schemaName: "visual_review"
   });
 }
@@ -94,22 +120,50 @@ export async function visualReview({ astra, screen, figmaShotUrl, mockupUrl }) {
 export const AUDIT_SCRIPT = `
 const S = await figma.getNodeByIdAsync(__NODE__);
 const hex = c => '#' + [c.r,c.g,c.b].map(v => Math.round(v*255).toString(16).padStart(2,'0')).join('').toUpperCase();
-const all = S.findAll(() => true);
+const SPACE_FIELDS = ['itemSpacing','paddingTop','paddingRight','paddingBottom','paddingLeft','counterAxisSpacing'];
+const RADIUS_FIELDS = ['topLeftRadius','topRightRadius','bottomRightRadius','bottomLeftRadius'];
+
+const all = [S, ...S.findAll(() => true)];
 const specIds = [], strayColors = [], fonts = new Set();
-let totalPaints = 0, boundPaints = 0;
+const spaceUsed = [], radiusUsed = [];
+let cSlots = 0, cBound = 0, sSlots = 0, sBound = 0, rSlots = 0, rBound = 0;
+
 for (const n of all) {
   if (/^s\\d-/.test(n.name)) specIds.push(n.name);
+  const bv = n.boundVariables || {};
+
   for (const key of ['fills','strokes']) {
     const arr = n[key];
     if (!Array.isArray(arr)) continue;
     for (const p of arr) {
       if (p.type !== 'SOLID') continue;
-      totalPaints++;
-      if (p.boundVariables && p.boundVariables.color) boundPaints++; else strayColors.push(hex(p.color));
+      cSlots++;
+      if (p.boundVariables && p.boundVariables.color) cBound++; else strayColors.push(hex(p.color));
+    }
+  }
+
+  if (n.layoutMode && n.layoutMode !== 'NONE') {
+    for (const f of SPACE_FIELDS) {
+      if (typeof n[f] !== 'number') continue;
+      if (f === 'counterAxisSpacing' && n.layoutWrap !== 'WRAP') continue;
+      sSlots++; if (bv[f]) sBound++; spaceUsed.push(n[f]);
+    }
+  }
+  if ('topLeftRadius' in n) {
+    for (const f of RADIUS_FIELDS) {
+      if (typeof n[f] !== 'number' || n[f] === 0) continue;
+      rSlots++; if (bv[f]) rBound++; radiusUsed.push(n[f]);
     }
   }
   if (n.type === 'TEXT' && n.fontName !== figma.mixed) fonts.add(n.fontName.family);
 }
-return { nodeCount: all.length, specIds: [...new Set(specIds)].sort(), fonts: [...fonts],
-         totalPaints, boundPaints, strayColors: [...new Set(strayColors)] };
+
+return {
+  nodeCount: all.length,
+  specIds: [...new Set(specIds)].sort(),
+  fonts: [...fonts],
+  color:  { slots: cSlots, bound: cBound, stray: [...new Set(strayColors)] },
+  space:  { slots: sSlots, bound: sBound, used: [...new Set(spaceUsed)].sort((a,b)=>a-b) },
+  radius: { slots: rSlots, bound: rBound, used: [...new Set(radiusUsed)].sort((a,b)=>a-b) }
+};
 `;

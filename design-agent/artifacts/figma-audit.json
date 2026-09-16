@@ -3,11 +3,198 @@
   "page": "01 画面",
   "capturedAt": "2026-09-16",
   "screens": {
-    "S1": { "nodeId": "5:2",  "nodeCount": 121, "specIds": ["s1-applied-1","s1-applied-2","s1-applied-head","s1-applied-list","s1-bundle-head","s1-card-1","s1-card-2","s1-card-3","s1-card-4","s1-card-list","s1-date","s1-meter","s1-title"], "fonts": ["Shippori Mincho","Inter","Zen Kaku Gothic New"], "totalPaints": 93,  "boundPaints": 93,  "strayColors": [] },
-    "S2": { "nodeId": "9:2",  "nodeCount": 152, "specIds": ["s2-amend","s2-approve","s2-back","s2-changes","s2-diff-after","s2-diff-before","s2-diff-row","s2-diff-tabs","s2-meta","s2-other-langs","s2-panel","s2-reason","s2-reject","s2-revert-note","s2-scope","s2-title","s2-trace-link"], "fonts": ["Shippori Mincho","Inter","Zen Kaku Gothic New"], "totalPaints": 130, "boundPaints": 130, "strayColors": [] },
-    "S3": { "nodeId": "12:2", "nodeCount": 146, "specIds": ["s3-artifact","s3-back","s3-delegate","s3-step-1","s3-step-2","s3-step-3","s3-step-4","s3-step-5","s3-step-6","s3-summary","s3-timeline","s3-title"], "fonts": ["Shippori Mincho","Inter","Zen Kaku Gothic New"], "totalPaints": 122, "boundPaints": 122, "strayColors": [] },
-    "S4": { "nodeId": "15:8", "nodeCount": 135, "specIds": ["s4-composer","s4-composer-head","s4-dryrun","s4-list","s4-list-head","s4-q1","s4-q2","s4-q3","s4-q4","s4-q5","s4-record","s4-save","s4-title"], "fonts": ["Shippori Mincho","Inter","Zen Kaku Gothic New"], "totalPaints": 108, "boundPaints": 108, "strayColors": [] },
-    "S5": { "nodeId": "17:25","nodeCount": 199, "specIds": ["s5-a1","s5-a2","s5-a3","s5-a4","s5-a5","s5-a6","s5-filters","s5-grid","s5-permissions","s5-title"], "fonts": ["Shippori Mincho","Inter","Zen Kaku Gothic New"], "totalPaints": 144, "boundPaints": 144, "strayColors": [] },
-    "S6": { "nodeId": "18:25","nodeCount": 167, "specIds": ["s6-export","s6-filters","s6-reverts","s6-row-1","s6-row-2","s6-row-3","s6-row-4","s6-row-5","s6-summary","s6-table","s6-title"], "fonts": ["Shippori Mincho","Inter","Zen Kaku Gothic New"], "totalPaints": 112, "boundPaints": 112, "strayColors": [] }
-  }
+    "S1": {
+      "nodeId": "5:2",
+      "nodeCount": 121,
+      "specIds": [
+        "s1-applied-1",
+        "s1-applied-2",
+        "s1-applied-head",
+        "s1-applied-list",
+        "s1-bundle-head",
+        "s1-card-1",
+        "s1-card-2",
+        "s1-card-3",
+        "s1-card-4",
+        "s1-card-list",
+        "s1-date",
+        "s1-meter",
+        "s1-title"
+      ],
+      "fonts": [
+        "Shippori Mincho",
+        "Inter",
+        "Zen Kaku Gothic New"
+      ],
+      "color": {
+        "slots": 93,
+        "bound": 93,
+        "stray": []
+      },
+      "space": null,
+      "radius": null
+    },
+    "S2": {
+      "nodeId": "9:2",
+      "nodeCount": 152,
+      "specIds": [
+        "s2-amend",
+        "s2-approve",
+        "s2-back",
+        "s2-changes",
+        "s2-diff-after",
+        "s2-diff-before",
+        "s2-diff-row",
+        "s2-diff-tabs",
+        "s2-meta",
+        "s2-other-langs",
+        "s2-panel",
+        "s2-reason",
+        "s2-reject",
+        "s2-revert-note",
+        "s2-scope",
+        "s2-title",
+        "s2-trace-link"
+      ],
+      "fonts": [
+        "Shippori Mincho",
+        "Inter",
+        "Zen Kaku Gothic New"
+      ],
+      "color": {
+        "slots": 130,
+        "bound": 130,
+        "stray": []
+      },
+      "space": null,
+      "radius": null
+    },
+    "S3": {
+      "nodeId": "12:2",
+      "nodeCount": 146,
+      "specIds": [
+        "s3-artifact",
+        "s3-back",
+        "s3-delegate",
+        "s3-step-1",
+        "s3-step-2",
+        "s3-step-3",
+        "s3-step-4",
+        "s3-step-5",
+        "s3-step-6",
+        "s3-summary",
+        "s3-timeline",
+        "s3-title"
+      ],
+      "fonts": [
+        "Shippori Mincho",
+        "Inter",
+        "Zen Kaku Gothic New"
+      ],
+      "color": {
+        "slots": 122,
+        "bound": 122,
+        "stray": []
+      },
+      "space": null,
+      "radius": null
+    },
+    "S4": {
+      "nodeId": "15:8",
+      "nodeCount": 135,
+      "specIds": [
+        "s4-composer",
+        "s4-composer-head",
+        "s4-dryrun",
+        "s4-list",
+        "s4-list-head",
+        "s4-q1",
+        "s4-q2",
+        "s4-q3",
+        "s4-q4",
+        "s4-q5",
+        "s4-record",
+        "s4-save",
+        "s4-title"
+      ],
+      "fonts": [
+        "Shippori Mincho",
+        "Inter",
+        "Zen Kaku Gothic New"
+      ],
+      "color": {
+        "slots": 108,
+        "bound": 108,
+        "stray": []
+      },
+      "space": null,
+      "radius": null
+    },
+    "S5": {
+      "nodeId": "17:25",
+      "nodeCount": 199,
+      "specIds": [
+        "s5-a1",
+        "s5-a2",
+        "s5-a3",
+        "s5-a4",
+        "s5-a5",
+        "s5-a6",
+        "s5-filters",
+        "s5-grid",
+        "s5-permissions",
+        "s5-title"
+      ],
+      "fonts": [
+        "Shippori Mincho",
+        "Inter",
+        "Zen Kaku Gothic New"
+      ],
+      "color": {
+        "slots": 144,
+        "bound": 144,
+        "stray": []
+      },
+      "space": null,
+      "radius": null
+    },
+    "S6": {
+      "nodeId": "18:25",
+      "nodeCount": 167,
+      "specIds": [
+        "s6-export",
+        "s6-filters",
+        "s6-reverts",
+        "s6-row-1",
+        "s6-row-2",
+        "s6-row-3",
+        "s6-row-4",
+        "s6-row-5",
+        "s6-summary",
+        "s6-table",
+        "s6-title"
+      ],
+      "fonts": [
+        "Shippori Mincho",
+        "Inter",
+        "Zen Kaku Gothic New"
+      ],
+      "color": {
+        "slots": 112,
+        "bound": 112,
+        "stray": []
+      },
+      "space": null,
+      "radius": null
+    }
+  },
+  "_status": "INCOMPLETE — 色のみ測定。余白・角丸は未測定のため G2 は判定できない。",
+  "_measured": [
+    "color"
+  ],
+  "_notMeasured": [
+    "space",
+    "radius"
+  ],
+  "_why": "初回監査は SOLID paint の変数束縛しか見ておらず、製品仕様が求める「色・字種・余白」のうち余白と角丸を測っていなかった。再測定には use_figma が必要だが、個人チーム(Starter + View シート)は月6回の上限に到達済み。"
 }
