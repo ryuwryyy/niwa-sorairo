@@ -2,6 +2,72 @@
   "allPass": true,
   "report": [
     {
+      "screen": "S7",
+      "pass": true,
+      "gates": [
+        {
+          "id": "G1",
+          "name": "spec-coverage",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "missing": []
+        },
+        {
+          "id": "G2",
+          "name": "token-fidelity",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "parts": {
+            "color": 1,
+            "space": 1,
+            "radius": 1,
+            "font": 1
+          },
+          "counts": {
+            "color": "435/435",
+            "space": "286/286",
+            "radius": "324/324"
+          },
+          "strayColors": [],
+          "strayFonts": [],
+          "offScaleSpace": [],
+          "offScaleRadius": []
+        },
+        {
+          "id": "G3",
+          "name": "visual-review",
+          "score": 4.42,
+          "threshold": 4,
+          "pass": true,
+          "blockers": [],
+          "issues": [
+            {
+              "severity": "minor",
+              "where": "hero-card の背景",
+              "what": "参照画像は白→淡青のグラデーション。こちらは単色トークン（color/iso-3）",
+              "fix": "グラデーションは変数に束縛できないため、4系統100%束縛を優先して単色を選択。意図的な差分"
+            },
+            {
+              "severity": "minor",
+              "where": "候補タイルの文字サイズ",
+              "what": "参照に合わせて 11px Bold / 10px Regular を新設した。既存の最小(type/micro 11)より下に段が増えた",
+              "fix": "type/cand-title・type/nano としてスタイル化済み。ランプの整理は要検討"
+            },
+            {
+              "severity": "minor",
+              "where": "コンポーネント未使用",
+              "what": "他6画面と違い、既存ライブラリのコンポーネントを使わずプリミティブで構成している",
+              "fix": "画像の忠実な書き起こしを優先した。共通化は次の作業"
+            }
+          ],
+          "sectionsReviewed": 9,
+          "missingSections": false
+        }
+      ]
+    },
+    {
       "screen": "S1",
       "pass": true,
       "gates": [

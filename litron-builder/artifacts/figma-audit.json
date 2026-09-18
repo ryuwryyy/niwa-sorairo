@@ -4,8 +4,8 @@
   "plan": "organization::1110465817703366863 (NTT DATA, Full seat)",
   "note": "組織の既存ファイルには触れていない。新規ファイルのみ。",
   "page": "02 画面",
-  "capturedAt": "2026-09-16",
-  "_status": "全6画面を実測済み。4系統すべて束縛、スケール逸脱ゼロ。",
+  "capturedAt": "2026-09-18",
+  "_status": "全7画面を実測済み。4系統すべて束縛、スケール逸脱ゼロ。",
   "_zeroSlotNote": "余白ゼロのスロットは分母から除外（対応するトークンが存在しないため）。",
   "screens": {
     "S1": {
@@ -384,6 +384,77 @@
         "Button",
         "AxisMeter"
       ]
+    },
+    "S7": {
+      "nodeId": "26:333",
+      "nodeCount": 604,
+      "specIds": [
+        "home-sidebar",
+        "topbar",
+        "hero-card",
+        "impact-card",
+        "tab/Push",
+        "tab/Pull",
+        "push-card",
+        "pull-card",
+        "workflow-stepper",
+        "approvals-card",
+        "runs-card",
+        "loop-card"
+      ],
+      "fonts": [
+        "Noto Sans JP",
+        "Inter"
+      ],
+      "color": {
+        "slots": 435,
+        "bound": 435,
+        "stray": []
+      },
+      "space": {
+        "slots": 286,
+        "bound": 286,
+        "used": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          20,
+          24,
+          32,
+          64
+        ],
+        "zeroSlotsExcluded": 579
+      },
+      "radius": {
+        "slots": 324,
+        "bound": 324,
+        "used": [
+          2,
+          4,
+          6,
+          8,
+          12,
+          999
+        ],
+        "zeroSlotsExcluded": 832
+      },
+      "typography": {
+        "slots": 148,
+        "bound": 148
+      },
+      "componentsUsed": [],
+      "_note": "この画面はライブラリのコンポーネント（Sidebar/Tag/Button/AxisMeter）を使わず、参照画像に合わせてプリミティブで組んでいる。コンポーネント化は未実施。",
+      "frame": {
+        "w": 1672,
+        "h": 941,
+        "x": 1772,
+        "y": -1269
+      }
     }
   }
 }
