@@ -1,0 +1,839 @@
+{
+  "version": 1,
+  "name": "空色の庭",
+  "tokens": {
+    "color": { "primary": "#2F5D7C", "secondary": "#BFD8E6", "accent": "#E0784A", "bg": "#F6F4EE", "surface": "#FFFFFF", "ink": "#1A1D21", "inkSoft": "#5B6570", "line": "#DCD9CE", "onPrimary": "#FFFFFF" },
+    "type": {
+      "family": "Noto Sans JP",
+      "displayFamily": "Shippori Mincho",
+      "scale": { "display": 56, "h1": 40, "h2": 28, "h3": 20, "body": 16, "caption": 12 },
+      "lineHeight": 1.5
+    },
+    "space": [4, 8, 12, 16, 24, 32, 48, 64],
+    "radius": [0, 4, 8, 16, 999]
+  },
+  "assets": [
+    {
+      "id": "kv",
+      "kind": "image",
+      "dataUrl": "data:image/png;base64,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",
+      "width": 64,
+      "height": 36
+    }
+  ],
+  "frames": [
+    {
+      "id": "kv-16x9",
+      "name": "KV / 16:9",
+      "width": 1920,
+      "height": 1080,
+      "children": [
+        {
+          "type": "frame",
+          "name": "Canvas",
+          "layout": {
+            "mode": "vertical",
+            "padding": [64, 64, 64, 64],
+            "gap": 24,
+            "align": "start",
+            "counterAlign": "start"
+          },
+          "size": { "w": 1920, "h": 1080, "wMode": "fixed", "hMode": "fixed" },
+          "fill": { "asset": "kv", "scale": "fill" },
+          "children": [
+            {
+              "type": "frame",
+              "name": "見出しゾーン",
+              "layout": {
+                "mode": "vertical",
+                "padding": [32, 32, 32, 32],
+                "gap": 12,
+                "align": "start",
+                "counterAlign": "start"
+              },
+              "size": { "w": 1120, "wMode": "fixed", "hMode": "hug" },
+              "fill": "$color.surface",
+              "opacity": 0.92,
+              "radius": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "name": "Headline",
+                  "size": { "wMode": "fill", "hMode": "hug" },
+                  "text": { "value": "空の色から、庭の色をつくる。", "style": "display", "color": "$color.ink", "align": "left", "family": "display" }
+                },
+                {
+                  "type": "text",
+                  "name": "Sub",
+                  "size": { "wMode": "fill", "hMode": "hug" },
+                  "text": { "value": "一枚のキービジュアルから、色・書体・余白をトークンに変え、そのまま Figma のコンポーネントに戻す。", "style": "h3", "color": "$color.inkSoft", "align": "left", "family": "body" }
+                },
+                {
+                  "type": "text",
+                  "name": "Brand",
+                  "size": { "wMode": "fill", "hMode": "hug" },
+                  "text": { "value": "SORAIRO STUDIO", "style": "caption", "color": "$color.primary", "align": "left", "family": "body" }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "components": [
+    {
+      "id": "button",
+      "name": "Button",
+      "props": {
+        "Variant": ["Primary", "Secondary", "Ghost"],
+        "Size": ["M", "L"]
+      },
+      "variants": [
+        {
+          "props": { "Variant": "Primary", "Size": "M" },
+          "node": {
+            "type": "frame",
+            "name": "Button / Primary / M",
+            "layout": {
+              "mode": "horizontal",
+              "padding": [12, 24, 12, 24],
+              "gap": 8,
+              "align": "center",
+              "counterAlign": "center"
+            },
+            "size": { "wMode": "hug", "hMode": "hug" },
+            "fill": "$color.primary",
+            "radius": 8,
+            "children": [
+              {
+                "type": "text",
+                "name": "Label",
+                "size": { "wMode": "hug", "hMode": "hug" },
+                "text": { "value": "詳しく見る", "style": "body", "color": "$color.onPrimary", "align": "center", "family": "body" }
+              }
+            ]
+          }
+        },
+        {
+          "props": { "Variant": "Primary", "Size": "L" },
+          "node": {
+            "type": "frame",
+            "name": "Button / Primary / L",
+            "layout": {
+              "mode": "horizontal",
+              "padding": [16, 32, 16, 32],
+              "gap": 8,
+              "align": "center",
+              "counterAlign": "center"
+            },
+            "size": { "wMode": "hug", "hMode": "hug" },
+            "fill": "$color.primary",
+            "radius": 8,
+            "children": [
+              {
+                "type": "text",
+                "name": "Label",
+                "size": { "wMode": "hug", "hMode": "hug" },
+                "text": { "value": "詳しく見る", "style": "h3", "color": "$color.onPrimary", "align": "center", "family": "body" }
+              }
+            ]
+          }
+        },
+        {
+          "props": { "Variant": "Secondary", "Size": "M" },
+          "node": {
+            "type": "frame",
+            "name": "Button / Secondary / M",
+            "layout": {
+              "mode": "horizontal",
+              "padding": [12, 24, 12, 24],
+              "gap": 8,
+              "align": "center",
+              "counterAlign": "center"
+            },
+            "size": { "wMode": "hug", "hMode": "hug" },
+            "fill": "$color.surface",
+            "stroke": { "color": "$color.line", "width": 1 },
+            "radius": 8,
+            "children": [
+              {
+                "type": "text",
+                "name": "Label",
+                "size": { "wMode": "hug", "hMode": "hug" },
+                "text": { "value": "詳しく見る", "style": "body", "color": "$color.primary", "align": "center", "family": "body" }
+              }
+            ]
+          }
+        },
+        {
+          "props": { "Variant": "Secondary", "Size": "L" },
+          "node": {
+            "type": "frame",
+            "name": "Button / Secondary / L",
+            "layout": {
+              "mode": "horizontal",
+              "padding": [16, 32, 16, 32],
+              "gap": 8,
+              "align": "center",
+              "counterAlign": "center"
+            },
+            "size": { "wMode": "hug", "hMode": "hug" },
+            "fill": "$color.surface",
+            "stroke": { "color": "$color.line", "width": 1 },
+            "radius": 8,
+            "children": [
+              {
+                "type": "text",
+                "name": "Label",
+                "size": { "wMode": "hug", "hMode": "hug" },
+                "text": { "value": "詳しく見る", "style": "h3", "color": "$color.primary", "align": "center", "family": "body" }
+              }
+            ]
+          }
+        },
+        {
+          "props": { "Variant": "Ghost", "Size": "M" },
+          "node": {
+            "type": "frame",
+            "name": "Button / Ghost / M",
+            "layout": {
+              "mode": "horizontal",
+              "padding": [12, 24, 12, 24],
+              "gap": 8,
+              "align": "center",
+              "counterAlign": "center"
+            },
+            "size": { "wMode": "hug", "hMode": "hug" },
+            "radius": 8,
+            "children": [
+              {
+                "type": "text",
+                "name": "Label",
+                "size": { "wMode": "hug", "hMode": "hug" },
+                "text": { "value": "詳しく見る", "style": "body", "color": "$color.primary", "align": "center", "family": "body" }
+              }
+            ]
+          }
+        },
+        {
+          "props": { "Variant": "Ghost", "Size": "L" },
+          "node": {
+            "type": "frame",
+            "name": "Button / Ghost / L",
+            "layout": {
+              "mode": "horizontal",
+              "padding": [16, 32, 16, 32],
+              "gap": 8,
+              "align": "center",
+              "counterAlign": "center"
+            },
+            "size": { "wMode": "hug", "hMode": "hug" },
+            "radius": 8,
+            "children": [
+              {
+                "type": "text",
+                "name": "Label",
+                "size": { "wMode": "hug", "hMode": "hug" },
+                "text": { "value": "詳しく見る", "style": "h3", "color": "$color.primary", "align": "center", "family": "body" }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "tag",
+      "name": "Tag",
+      "props": {
+        "Tone": ["Default", "Accent"]
+      },
+      "variants": [
+        {
+          "props": { "Tone": "Default" },
+          "node": {
+            "type": "frame",
+            "name": "Tag / Default",
+            "layout": {
+              "mode": "horizontal",
+              "padding": [4, 12, 4, 12],
+              "gap": 4,
+              "align": "center",
+              "counterAlign": "center"
+            },
+            "size": { "wMode": "hug", "hMode": "hug" },
+            "fill": "$color.surface",
+            "stroke": { "color": "$color.line", "width": 1 },
+            "radius": 999,
+            "children": [
+              {
+                "type": "text",
+                "name": "Label",
+                "size": { "wMode": "hug", "hMode": "hug" },
+                "text": { "value": "常緑", "style": "caption", "color": "$color.inkSoft", "align": "center", "family": "body" }
+              }
+            ]
+          }
+        },
+        {
+          "props": { "Tone": "Accent" },
+          "node": {
+            "type": "frame",
+            "name": "Tag / Accent",
+            "layout": {
+              "mode": "horizontal",
+              "padding": [4, 12, 4, 12],
+              "gap": 4,
+              "align": "center",
+              "counterAlign": "center"
+            },
+            "size": { "wMode": "hug", "hMode": "hug" },
+            "fill": "$color.accent",
+            "radius": 999,
+            "children": [
+              {
+                "type": "text",
+                "name": "Label",
+                "size": { "wMode": "hug", "hMode": "hug" },
+                "text": { "value": "見頃", "style": "caption", "color": "$color.onPrimary", "align": "center", "family": "body" }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "card",
+      "name": "Card",
+      "props": {
+        "Media": ["Image", "None"]
+      },
+      "variants": [
+        {
+          "props": { "Media": "Image" },
+          "node": {
+            "type": "frame",
+            "name": "Card / Image",
+            "layout": {
+              "mode": "vertical",
+              "padding": [0, 0, 0, 0],
+              "gap": 0,
+              "align": "start",
+              "counterAlign": "start"
+            },
+            "size": { "w": 360, "wMode": "fixed", "hMode": "hug" },
+            "fill": "$color.surface",
+            "stroke": { "color": "$color.line", "width": 1 },
+            "radius": 8,
+            "children": [
+              {
+                "type": "image",
+                "name": "Media",
+                "size": { "w": 360, "h": 240, "wMode": "fill", "hMode": "fixed" },
+                "fill": { "asset": "kv", "scale": "fill" }
+              },
+              {
+                "type": "frame",
+                "name": "Body",
+                "layout": {
+                  "mode": "vertical",
+                  "padding": [16, 16, 16, 16],
+                  "gap": 8,
+                  "align": "start",
+                  "counterAlign": "start"
+                },
+                "size": { "wMode": "fill", "hMode": "hug" },
+                "children": [
+                  {
+                    "type": "text",
+                    "name": "Title",
+                    "size": { "wMode": "fill", "hMode": "hug" },
+                    "text": { "value": "季節を待つ、という手入れ", "style": "h3", "color": "$color.ink", "align": "left", "family": "display" }
+                  },
+                  {
+                    "type": "text",
+                    "name": "Text",
+                    "size": { "wMode": "fill", "hMode": "hug" },
+                    "text": { "value": "剪定の適期は木が決める。暦は答えではなく、問いの置き場所として使う。", "style": "body", "color": "$color.inkSoft", "align": "left", "family": "body" }
+                  },
+                  {
+                    "type": "frame",
+                    "name": "Tags",
+                    "layout": {
+                      "mode": "horizontal",
+                      "padding": [0, 0, 0, 0],
+                      "gap": 4,
+                      "align": "start",
+                      "counterAlign": "center"
+                    },
+                    "size": { "wMode": "fill", "hMode": "hug" },
+                    "children": [
+                      {
+                        "type": "frame",
+                        "name": "Tag / Default",
+                        "layout": {
+                          "mode": "horizontal",
+                          "padding": [4, 12, 4, 12],
+                          "gap": 4,
+                          "align": "center",
+                          "counterAlign": "center"
+                        },
+                        "size": { "wMode": "hug", "hMode": "hug" },
+                        "fill": "$color.surface",
+                        "stroke": { "color": "$color.line", "width": 1 },
+                        "radius": 999,
+                        "children": [
+                          {
+                            "type": "text",
+                            "name": "Label",
+                            "size": { "wMode": "hug", "hMode": "hug" },
+                            "text": { "value": "常緑", "style": "caption", "color": "$color.inkSoft", "align": "center", "family": "body" }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "frame",
+                        "name": "Tag / Accent",
+                        "layout": {
+                          "mode": "horizontal",
+                          "padding": [4, 12, 4, 12],
+                          "gap": 4,
+                          "align": "center",
+                          "counterAlign": "center"
+                        },
+                        "size": { "wMode": "hug", "hMode": "hug" },
+                        "fill": "$color.accent",
+                        "radius": 999,
+                        "children": [
+                          {
+                            "type": "text",
+                            "name": "Label",
+                            "size": { "wMode": "hug", "hMode": "hug" },
+                            "text": { "value": "見頃", "style": "caption", "color": "$color.onPrimary", "align": "center", "family": "body" }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "props": { "Media": "None" },
+          "node": {
+            "type": "frame",
+            "name": "Card / None",
+            "layout": {
+              "mode": "vertical",
+              "padding": [0, 0, 0, 0],
+              "gap": 0,
+              "align": "start",
+              "counterAlign": "start"
+            },
+            "size": { "w": 360, "wMode": "fixed", "hMode": "hug" },
+            "fill": "$color.surface",
+            "stroke": { "color": "$color.line", "width": 1 },
+            "radius": 8,
+            "children": [
+              {
+                "type": "frame",
+                "name": "Body",
+                "layout": {
+                  "mode": "vertical",
+                  "padding": [16, 16, 16, 16],
+                  "gap": 8,
+                  "align": "start",
+                  "counterAlign": "start"
+                },
+                "size": { "wMode": "fill", "hMode": "hug" },
+                "children": [
+                  {
+                    "type": "text",
+                    "name": "Title",
+                    "size": { "wMode": "fill", "hMode": "hug" },
+                    "text": { "value": "季節を待つ、という手入れ", "style": "h3", "color": "$color.ink", "align": "left", "family": "display" }
+                  },
+                  {
+                    "type": "text",
+                    "name": "Text",
+                    "size": { "wMode": "fill", "hMode": "hug" },
+                    "text": { "value": "剪定の適期は木が決める。暦は答えではなく、問いの置き場所として使う。", "style": "body", "color": "$color.inkSoft", "align": "left", "family": "body" }
+                  },
+                  {
+                    "type": "frame",
+                    "name": "Tags",
+                    "layout": {
+                      "mode": "horizontal",
+                      "padding": [0, 0, 0, 0],
+                      "gap": 4,
+                      "align": "start",
+                      "counterAlign": "center"
+                    },
+                    "size": { "wMode": "fill", "hMode": "hug" },
+                    "children": [
+                      {
+                        "type": "frame",
+                        "name": "Tag / Default",
+                        "layout": {
+                          "mode": "horizontal",
+                          "padding": [4, 12, 4, 12],
+                          "gap": 4,
+                          "align": "center",
+                          "counterAlign": "center"
+                        },
+                        "size": { "wMode": "hug", "hMode": "hug" },
+                        "fill": "$color.surface",
+                        "stroke": { "color": "$color.line", "width": 1 },
+                        "radius": 999,
+                        "children": [
+                          {
+                            "type": "text",
+                            "name": "Label",
+                            "size": { "wMode": "hug", "hMode": "hug" },
+                            "text": { "value": "常緑", "style": "caption", "color": "$color.inkSoft", "align": "center", "family": "body" }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "hero",
+      "name": "Hero",
+      "props": {
+        "Layout": ["Image right", "Image left"]
+      },
+      "variants": [
+        {
+          "props": { "Layout": "Image right" },
+          "node": {
+            "type": "frame",
+            "name": "Hero / Image right",
+            "layout": {
+              "mode": "horizontal",
+              "padding": [0, 0, 0, 0],
+              "gap": 0,
+              "align": "start",
+              "counterAlign": "center"
+            },
+            "size": { "w": 1200, "h": 520, "wMode": "fixed", "hMode": "fixed" },
+            "fill": "$color.bg",
+            "children": [
+              {
+                "type": "frame",
+                "name": "Copy",
+                "layout": {
+                  "mode": "vertical",
+                  "padding": [48, 48, 48, 48],
+                  "gap": 16,
+                  "align": "center",
+                  "counterAlign": "start"
+                },
+                "size": { "wMode": "fill", "hMode": "fill" },
+                "children": [
+                  {
+                    "type": "text",
+                    "name": "Eyebrow",
+                    "size": { "wMode": "fill", "hMode": "hug" },
+                    "text": { "value": "SORAIRO STUDIO", "style": "caption", "color": "$color.primary", "align": "left", "family": "body" }
+                  },
+                  {
+                    "type": "text",
+                    "name": "Headline",
+                    "size": { "wMode": "fill", "hMode": "hug" },
+                    "text": { "value": "空の色から、庭の色をつくる。", "style": "h1", "color": "$color.ink", "align": "left", "family": "display" }
+                  },
+                  {
+                    "type": "text",
+                    "name": "Sub",
+                    "size": { "wMode": "fill", "hMode": "hug" },
+                    "text": { "value": "生成画像を出発点に、色と書体と余白を決め、Figma まで一筆でつなぐ。", "style": "body", "color": "$color.inkSoft", "align": "left", "family": "body" }
+                  },
+                  {
+                    "type": "frame",
+                    "name": "Button / Primary / M",
+                    "layout": {
+                      "mode": "horizontal",
+                      "padding": [12, 24, 12, 24],
+                      "gap": 8,
+                      "align": "center",
+                      "counterAlign": "center"
+                    },
+                    "size": { "wMode": "hug", "hMode": "hug" },
+                    "fill": "$color.primary",
+                    "radius": 8,
+                    "children": [
+                      {
+                        "type": "text",
+                        "name": "Label",
+                        "size": { "wMode": "hug", "hMode": "hug" },
+                        "text": { "value": "詳しく見る", "style": "body", "color": "$color.onPrimary", "align": "center", "family": "body" }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "image",
+                "name": "Media",
+                "size": { "w": 640, "h": 520, "wMode": "fill", "hMode": "fill" },
+                "fill": { "asset": "kv", "scale": "fill" }
+              }
+            ]
+          }
+        },
+        {
+          "props": { "Layout": "Image left" },
+          "node": {
+            "type": "frame",
+            "name": "Hero / Image left",
+            "layout": {
+              "mode": "horizontal",
+              "padding": [0, 0, 0, 0],
+              "gap": 0,
+              "align": "start",
+              "counterAlign": "center"
+            },
+            "size": { "w": 1200, "h": 520, "wMode": "fixed", "hMode": "fixed" },
+            "fill": "$color.bg",
+            "children": [
+              {
+                "type": "image",
+                "name": "Media",
+                "size": { "w": 640, "h": 520, "wMode": "fill", "hMode": "fill" },
+                "fill": { "asset": "kv", "scale": "fill" }
+              },
+              {
+                "type": "frame",
+                "name": "Copy",
+                "layout": {
+                  "mode": "vertical",
+                  "padding": [48, 48, 48, 48],
+                  "gap": 16,
+                  "align": "center",
+                  "counterAlign": "start"
+                },
+                "size": { "wMode": "fill", "hMode": "fill" },
+                "children": [
+                  {
+                    "type": "text",
+                    "name": "Eyebrow",
+                    "size": { "wMode": "fill", "hMode": "hug" },
+                    "text": { "value": "SORAIRO STUDIO", "style": "caption", "color": "$color.primary", "align": "left", "family": "body" }
+                  },
+                  {
+                    "type": "text",
+                    "name": "Headline",
+                    "size": { "wMode": "fill", "hMode": "hug" },
+                    "text": { "value": "空の色から、庭の色をつくる。", "style": "h1", "color": "$color.ink", "align": "left", "family": "display" }
+                  },
+                  {
+                    "type": "text",
+                    "name": "Sub",
+                    "size": { "wMode": "fill", "hMode": "hug" },
+                    "text": { "value": "生成画像を出発点に、色と書体と余白を決め、Figma まで一筆でつなぐ。", "style": "body", "color": "$color.inkSoft", "align": "left", "family": "body" }
+                  },
+                  {
+                    "type": "frame",
+                    "name": "Button / Primary / M",
+                    "layout": {
+                      "mode": "horizontal",
+                      "padding": [12, 24, 12, 24],
+                      "gap": 8,
+                      "align": "center",
+                      "counterAlign": "center"
+                    },
+                    "size": { "wMode": "hug", "hMode": "hug" },
+                    "fill": "$color.primary",
+                    "radius": 8,
+                    "children": [
+                      {
+                        "type": "text",
+                        "name": "Label",
+                        "size": { "wMode": "hug", "hMode": "hug" },
+                        "text": { "value": "詳しく見る", "style": "body", "color": "$color.onPrimary", "align": "center", "family": "body" }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "header",
+      "name": "Header",
+      "props": {
+        "Variant": ["Default", "Transparent"]
+      },
+      "variants": [
+        {
+          "props": { "Variant": "Default" },
+          "node": {
+            "type": "frame",
+            "name": "Header / Default",
+            "layout": {
+              "mode": "horizontal",
+              "padding": [16, 32, 16, 32],
+              "gap": 32,
+              "align": "space_between",
+              "counterAlign": "center"
+            },
+            "size": { "w": 1200, "h": 72, "wMode": "fixed", "hMode": "fixed" },
+            "fill": "$color.surface",
+            "stroke": { "color": "$color.line", "width": 1 },
+            "children": [
+              {
+                "type": "text",
+                "name": "Logo",
+                "size": { "wMode": "hug", "hMode": "hug" },
+                "text": { "value": "空色の庭", "style": "h3", "color": "$color.ink", "align": "left", "family": "display" }
+              },
+              {
+                "type": "frame",
+                "name": "Nav",
+                "layout": {
+                  "mode": "horizontal",
+                  "padding": [0, 0, 0, 0],
+                  "gap": 24,
+                  "align": "start",
+                  "counterAlign": "center"
+                },
+                "size": { "wMode": "hug", "hMode": "hug" },
+                "children": [
+                  {
+                    "type": "text",
+                    "name": "Nav 1",
+                    "size": { "wMode": "hug", "hMode": "hug" },
+                    "text": { "value": "特徴", "style": "body", "color": "$color.inkSoft", "align": "left", "family": "body" }
+                  },
+                  {
+                    "type": "text",
+                    "name": "Nav 2",
+                    "size": { "wMode": "hug", "hMode": "hug" },
+                    "text": { "value": "つかいかた", "style": "body", "color": "$color.inkSoft", "align": "left", "family": "body" }
+                  },
+                  {
+                    "type": "text",
+                    "name": "Nav 3",
+                    "size": { "wMode": "hug", "hMode": "hug" },
+                    "text": { "value": "お問い合わせ", "style": "body", "color": "$color.inkSoft", "align": "left", "family": "body" }
+                  }
+                ]
+              },
+              {
+                "type": "frame",
+                "name": "Button / Primary / M",
+                "layout": {
+                  "mode": "horizontal",
+                  "padding": [12, 24, 12, 24],
+                  "gap": 8,
+                  "align": "center",
+                  "counterAlign": "center"
+                },
+                "size": { "wMode": "hug", "hMode": "hug" },
+                "fill": "$color.primary",
+                "radius": 8,
+                "children": [
+                  {
+                    "type": "text",
+                    "name": "Label",
+                    "size": { "wMode": "hug", "hMode": "hug" },
+                    "text": { "value": "はじめる", "style": "body", "color": "$color.onPrimary", "align": "center", "family": "body" }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "props": { "Variant": "Transparent" },
+          "node": {
+            "type": "frame",
+            "name": "Header / Transparent",
+            "layout": {
+              "mode": "horizontal",
+              "padding": [16, 32, 16, 32],
+              "gap": 32,
+              "align": "space_between",
+              "counterAlign": "center"
+            },
+            "size": { "w": 1200, "h": 72, "wMode": "fixed", "hMode": "fixed" },
+            "children": [
+              {
+                "type": "text",
+                "name": "Logo",
+                "size": { "wMode": "hug", "hMode": "hug" },
+                "text": { "value": "空色の庭", "style": "h3", "color": "$color.surface", "align": "left", "family": "display" }
+              },
+              {
+                "type": "frame",
+                "name": "Nav",
+                "layout": {
+                  "mode": "horizontal",
+                  "padding": [0, 0, 0, 0],
+                  "gap": 24,
+                  "align": "start",
+                  "counterAlign": "center"
+                },
+                "size": { "wMode": "hug", "hMode": "hug" },
+                "children": [
+                  {
+                    "type": "text",
+                    "name": "Nav 1",
+                    "size": { "wMode": "hug", "hMode": "hug" },
+                    "text": { "value": "特徴", "style": "body", "color": "$color.surface", "align": "left", "family": "body" }
+                  },
+                  {
+                    "type": "text",
+                    "name": "Nav 2",
+                    "size": { "wMode": "hug", "hMode": "hug" },
+                    "text": { "value": "つかいかた", "style": "body", "color": "$color.surface", "align": "left", "family": "body" }
+                  },
+                  {
+                    "type": "text",
+                    "name": "Nav 3",
+                    "size": { "wMode": "hug", "hMode": "hug" },
+                    "text": { "value": "お問い合わせ", "style": "body", "color": "$color.surface", "align": "left", "family": "body" }
+                  }
+                ]
+              },
+              {
+                "type": "frame",
+                "name": "Button / Ghost / M",
+                "layout": {
+                  "mode": "horizontal",
+                  "padding": [12, 24, 12, 24],
+                  "gap": 8,
+                  "align": "center",
+                  "counterAlign": "center"
+                },
+                "size": { "wMode": "hug", "hMode": "hug" },
+                "stroke": { "color": "$color.surface", "width": 1 },
+                "radius": 8,
+                "children": [
+                  {
+                    "type": "text",
+                    "name": "Label",
+                    "size": { "wMode": "hug", "hMode": "hug" },
+                    "text": { "value": "はじめる", "style": "body", "color": "$color.surface", "align": "center", "family": "body" }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

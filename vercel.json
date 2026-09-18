@@ -4,8 +4,12 @@
   "outputDirectory": "dist",
   "functions": {
     "api/claude.js": { "maxDuration": 60 },
-    "api/identify.js": { "maxDuration": 60 }
+    "api/identify.js": { "maxDuration": 60 },
+    "api/studio/*.js": { "maxDuration": 60 }
   },
+  "rewrites": [
+    { "source": "/studio", "destination": "/studio/index.html" }
+  ],
   "headers": [
     {
       "source": "/sw.js",

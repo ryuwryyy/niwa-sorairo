@@ -2,6 +2,17 @@
   command = "npm run build"
   publish = "dist"
 
+# 空色 Studio（/studio/）は別エントリ。SPA フォールバックより先に解決する
+[[redirects]]
+  from = "/studio"
+  to = "/studio/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/studio/*"
+  to = "/studio/index.html"
+  status = 200
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

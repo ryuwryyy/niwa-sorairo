@@ -1,0 +1,330 @@
+{
+  "verifiedAt": "2026-09-18",
+  "sources": [
+    "https://generativelanguage.googleapis.com/$discovery/rest?version=v1beta",
+    "https://cloud.google.com/vertex-ai/generative-ai/pricing",
+    "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-nano-banana",
+    "https://raw.githubusercontent.com/google-gemini/cookbook/main/quickstarts/Get_Started_Nano_Banana.ipynb",
+    "https://raw.githubusercontent.com/google-gemini/cookbook/main/quickstarts/Models.ipynb",
+    "https://raw.githubusercontent.com/google-gemini/cookbook/main/quickstarts-js/Image_out.js",
+    "https://raw.githubusercontent.com/google-gemini/gemini-skills/main/skills/gemini-api-dev/SKILL.md"
+  ],
+  "models": [
+    {
+      "id": "gemini-3.1-flash-image",
+      "label": "Gemini 3.1 Flash Image (Nano Banana 2)",
+      "status": "ga",
+      "maxRefImages": 14,
+      "sizes": ["512px", "1K", "2K", "4K"],
+      "aspectRatios": ["1:1", "2:3", "3:2", "3:4", "4:3", "4:5", "5:4", "9:16", "16:9", "21:9", "1:4", "4:1", "1:8", "8:1"],
+      "supportsImageSize": true,
+      "noteJa": "2026年9月時点の推奨デフォルト。速度・画質・価格のバランスが最も良く、超パノラマ比率(1:4/4:1/1:8/8:1)と512pxを扱えるのはこのモデルだけ。Google検索グラウンディングと画像グラウンディング、動画からの画像生成にも対応。入力131,072トークン/出力32,768トークン。参照画像は最大14枚(高忠実度で扱えるのは6枚まで)。価格の目安は1Kで約$0.067、2Kで約$0.101、4Kで約$0.15。imageSizeに「512px」を指定する場合、公式Discoveryは「512」と表記しており値の揺れがあるため実寸で確認すること。",
+      "default": true
+    },
+    {
+      "id": "gemini-3-pro-image",
+      "label": "Gemini 3 Pro Image (Nano Banana Pro)",
+      "status": "ga",
+      "maxRefImages": 14,
+      "sizes": ["1K", "2K", "4K"],
+      "aspectRatios": ["1:1", "2:3", "3:2", "3:4", "4:3", "4:5", "5:4", "9:16", "16:9", "21:9"],
+      "supportsImageSize": true,
+      "noteJa": "フラッグシップ。思考(thinking)を伴うため指示の解釈精度が高く、文字組みの正確さと複雑なレイアウトの再現に最も強い。ポスター・KV・OOHなどタイポグラフィが載る成果物はこれを選ぶ。人物は最大5名、オブジェクトは最大6点まで高忠実度で一貫性を維持できる。入力65,536トークン/出力32,768トークン。価格の目安は1K・2Kとも約$0.134、4Kで約$0.24。生成に時間がかかるため4Kは同期リクエストにせず非同期ジョブへ逃がすこと。エイリアスとして gemini-3-pro-image-preview / nano-banana-pro-preview も存在する。",
+      "default": false
+    },
+    {
+      "id": "gemini-3.1-flash-lite-image",
+      "label": "Gemini 3.1 Flash-Lite Image (Nano Banana 2 Lite)",
+      "status": "ga",
+      "maxRefImages": 3,
+      "sizes": ["512px", "1K"],
+      "aspectRatios": ["1:1", "2:3", "3:2", "3:4", "4:3", "4:5", "5:4", "9:16", "16:9", "21:9"],
+      "supportsImageSize": true,
+      "noteJa": "最速・最安。無料枠があり、ラフ出しやサムネイル量産、UIの即時プレビューに向く。2K/4Kは出せず参照画像も3枚までなので、仕上げ工程には使わない。価格の目安は1Kで約$0.034。非推奨となった gemini-2.5-flash-image の公式移行先でもある。",
+      "default": false
+    },
+    {
+      "id": "gemini-2.5-flash-image",
+      "label": "Gemini 2.5 Flash Image (Nano Banana)",
+      "status": "ga",
+      "maxRefImages": 3,
+      "sizes": ["1K"],
+      "aspectRatios": ["1:1", "2:3", "3:2", "3:4", "4:3", "4:5", "5:4", "9:16", "16:9", "21:9"],
+      "supportsImageSize": false,
+      "noteJa": "【非推奨】2027-03-15に廃止予定。公式の移行先は gemini-3.1-flash-lite-image。出力は1K(1024px相当)固定で imageConfig.imageSize は渡せない(渡すと400になる)。既存プロジェクトの再現性確認のためだけに残す想定で、新規生成のデフォルトにはしないこと。価格の目安は1Kで約$0.039。",
+      "default": false
+    }
+  ],
+  "aspectRatios": [
+    { "id": "1:1", "labelJa": "正方形 (SNS投稿)", "w": 1, "h": 1 },
+    { "id": "4:5", "labelJa": "縦長 (Instagramフィード)", "w": 4, "h": 5 },
+    { "id": "5:4", "labelJa": "やや横長 (額装・写真)", "w": 5, "h": 4 },
+    { "id": "2:3", "labelJa": "縦 (ポスター・B判)", "w": 2, "h": 3 },
+    { "id": "3:2", "labelJa": "横 (写真・35mm)", "w": 3, "h": 2 },
+    { "id": "3:4", "labelJa": "縦 (雑誌ページ)", "w": 3, "h": 4 },
+    { "id": "4:3", "labelJa": "横 (スライド・印刷)", "w": 4, "h": 3 },
+    { "id": "9:16", "labelJa": "縦長 (ストーリーズ・リール)", "w": 9, "h": 16 },
+    { "id": "16:9", "labelJa": "横長 (Webヒーロー・動画)", "w": 16, "h": 9 },
+    { "id": "21:9", "labelJa": "シネマスコープ (ワイドバナー)", "w": 21, "h": 9 },
+    { "id": "1:4", "labelJa": "極縦帯 (縦断幕・のぼり)", "w": 1, "h": 4 },
+    { "id": "4:1", "labelJa": "極横帯 (ヘッダー・看板)", "w": 4, "h": 1 },
+    { "id": "1:8", "labelJa": "超極縦帯 (垂れ幕)", "w": 1, "h": 8 },
+    { "id": "8:1", "labelJa": "超極横帯 (OOH横断幕)", "w": 8, "h": 1 }
+  ],
+  "principles": [
+    {
+      "id": "narrative",
+      "title": "Describe the scene, don't list keywords",
+      "titleJa": "単語を並べず、情景を文章で描写する",
+      "bodyJa": "Google公式ガイドの最重要原則。キーワードの羅列ではモデルが関係性を解釈できず、要素がバラバラに配置された画になる。公式の構成式は [主題] + [動作] + [場所・文脈] + [構図] + [スタイル] の5要素を、つながった散文で書くこと。1文に詰め込まず、要素ごとに文を分けると精度が上がる。",
+      "example": "A striking fashion model wearing a tailored brown dress, sleek boots, and holding a structured handbag. Posing with a confident, statuesque stance, slightly turned. A seamless, deep cherry red studio backdrop. Medium-full shot, center-framed. Fashion magazine editorial style, shot on medium-format analog film, pronounced grain, high saturation, cinematic lighting."
+    },
+    {
+      "id": "positive_framing",
+      "title": "Use positive framing instead of negation",
+      "titleJa": "否定ではなく、望む状態を肯定形で書く",
+      "bodyJa": "Gemini APIには negative_prompt / negativePrompt パラメータが存在しない(v1beta Discoveryの全スキーマを走査して0件を確認済み)。「no cars」のような否定語の羅列は効かないどころか、その単語に引っ張られて逆に出てしまうことがある。除きたいものは「それが無い状態」を情景として肯定的に描写する。",
+      "example": "A completely deserted plaza at dawn, its wide stone surface empty and unbroken, not a single person or vehicle in sight."
+    },
+    {
+      "id": "strong_verb",
+      "title": "Open with a strong verb that names the operation",
+      "titleJa": "冒頭を強い動詞で始め、何をさせたいかを宣言する",
+      "bodyJa": "公式ガイドは「プロンプトはモデルに実行させたい主要操作を告げる強い動詞で始めよ」としている。生成なら Create / Render / Photograph、編集なら Replace / Remove / Restyle / Extend / Recolour / Relight。動詞が曖昧だとモデルが生成か編集かを迷い、参照画像を無視することがある。",
+      "example": "Replace the background behind the product with a warm travertine wall, keeping the subject, its lighting direction and the camera angle identical."
+    },
+    {
+      "id": "lighting",
+      "title": "Design the lighting explicitly",
+      "titleJa": "光を設計して指示する",
+      "bodyJa": "照明の指定は仕上がりの質を最も大きく左右する。製品を均一に見せるなら three-point softbox setup、劇的にするなら chiaroscuro lighting with harsh, high contrast、情緒を出すなら golden hour backlighting creating long shadows。光の方向・硬さ・色温度の3点を書くと安定する。",
+      "example": "Lit with a large softbox at 45 degrees from camera left, a subtle white bounce card on the right to open the shadows, and a hard rim light from behind to separate the subject from the background."
+    },
+    {
+      "id": "camera",
+      "title": "Control camera, lens and focus",
+      "titleJa": "カメラ・レンズ・被写界深度を指定する",
+      "bodyJa": "写真用語は画づくりの語彙としてそのまま効く。カメラ本体の指定は画のDNAごと変える(GoProで没入感と歪み、Fujifilmで色再現、使い捨てカメラで生っぽいフラッシュ)。レンズと絞りで奥行きを決める(低アングル・f/1.8で浅い被写界深度、広角でスケール感、マクロで微細)。",
+      "example": "Low-angle shot on a 24mm wide-angle lens at f/8, deep focus, camera close to the ground looking up to exaggerate the scale of the structure."
+    },
+    {
+      "id": "material",
+      "title": "Name materials and textures, never generic objects",
+      "titleJa": "素材と質感を必ず名指しする",
+      "bodyJa": "公式ガイドが繰り返し強調する点。「ジャケット」ではなく navy blue tweed、「鎧」ではなく ornate elven plate armor, etched with silver leaf patterns、モックアップなら minimalist ceramic coffee mug。素材名は形状・反射・スケール感をまとめて伝える最も効率の良い語彙。",
+      "example": "A vessel of unglazed stoneware with a coarse, sandy surface and visible throwing rings, set on brushed stainless steel."
+    },
+    {
+      "id": "text_in_image",
+      "title": "Quote the words, then name the typeface",
+      "titleJa": "画像内の文字は引用符で囲み、書体を指定する",
+      "bodyJa": "公式ルールは3点。(1)入れたい文字は必ず引用符で囲む。(2)書体を description か font 名で指定する(bold, white, sans-serif font / Century Gothic)。(3)複数行なら行ごとに文字列と書体を分けて書く。さらに公式の裏技として、先にモデルと会話してコピー自体を作らせてから、そのテキストを含む画像を依頼すると精度が上がる。",
+      "example": "Render three lines of text with the following exact styling: the top line, the word 'GLOW' in a flowing, elegant Brush Script font; the middle line, '10% OFF' in a heavy, blocky Impact font; the bottom line, 'Your First Order' in a thin, minimalist Century Gothic font."
+    },
+    {
+      "id": "iterate",
+      "title": "Iterate conversationally, one change at a time",
+      "titleJa": "会話で1回に1箇所ずつ直す",
+      "bodyJa": "公式は反復的な追い込みを推奨している。ただし1プロンプトに複数の変更を詰めると精度が落ちる。変更は1つに絞り、同時に「変えてはいけないもの」を明示する。generateContent では contents に user/model を交互に積むか、前回の出力画像を inline_data で再投入して会話を継続する。",
+      "example": "Using the previous image, warm the overall colour temperature slightly. Keep the composition, the pose, the typography and the background exactly as they are."
+    },
+    {
+      "id": "consistency",
+      "title": "State what must stay identical",
+      "titleJa": "一貫性は「固定する属性」を列挙して担保する",
+      "bodyJa": "キャラクターや商品を複数カットで揃えるには、参照画像を渡したうえで変えてはいけない属性を具体的に列挙する(プロポーション、ラベルの書体、キャップの色、瞳の色、髪型など)。Nano Banana Pro は人物5名・オブジェクト6点まで高忠実度で維持できる。生成時に seed を固定し、結果と一緒に保存しておくと再現性が上がる。",
+      "example": "Keep the bottle's proportions, label typography, cap colour and glass tint precisely identical to the reference. Only the environment and the lighting may change."
+    },
+    {
+      "id": "reference_roles",
+      "title": "Give each reference image an explicit role",
+      "titleJa": "参照画像は1枚ずつ役割を明示する",
+      "bodyJa": "公式の構成式は [参照画像] + [関係の指示] + [新しい状況]。parts 配列の順序がそのまま参照番号になるので、テキストを先頭に置き「the first image」「the second image」と序数で指す。何を取るかだけでなく「何を無視するか」も書くと混線しない。上限を超える枚数が要る場合は、公式ヒントどおり事前に1枚のコラージュへ合成して位置で役割を伝える。",
+      "example": "Use the first image for the overall composition and camera angle. Use the second image only for its colour palette, ignoring its subject matter entirely."
+    }
+  ],
+  "templates": [
+    {
+      "id": "poster",
+      "nameJa": "ポスター / キービジュアル",
+      "useFor": ["poster", "kv", "ooh"],
+      "template": "A {medium} {deliverable} for {brand}. Subject: {subject}. Composition: {composition}. Lighting: {lighting}. Palette: {palette}. Typography: {typography}. Mood: {mood}. Technique: {technique}. {constraints}",
+      "slots": ["medium", "deliverable", "brand", "subject", "composition", "lighting", "palette", "typography", "mood", "technique", "constraints"],
+      "exampleFilled": "A printed offset exhibition poster for Kyoto Art Center. Subject: a single unglazed stoneware vessel, weathered and asymmetric. Composition: a strict three-tier typographic hierarchy with the vessel occupying the lower-left quadrant and generous negative space above. Lighting: hard raking light from the left casting one long, clean shadow. Palette: clay, ash grey, charcoal and a single vermilion accent. Typography: the headline '土と火' in a heavy condensed vertical sans-serif, the subtitle 'Contemporary Japanese Ceramics 2026' in a thin wide-tracked Latin sans, and the venue line 'Kyoto Art Center / 4.12 — 6.28' in a small monospace at the bottom edge. Mood: austere, contemplative, hand-made. Technique: shot on medium-format film with subtle paper grain and a matte uncoated finish. Keep the upper third free of any element other than type."
+    },
+    {
+      "id": "product_kv",
+      "nameJa": "プロダクト キービジュアル",
+      "useFor": ["kv", "ecommerce", "campaign"],
+      "template": "A {medium} {deliverable} for {brand}. Subject: {subject}. Composition: {composition}. Lighting: {lighting}. Palette: {palette}. Typography: {typography}. Mood: {mood}. Technique: {technique}. {constraints}",
+      "slots": ["medium", "deliverable", "brand", "subject", "composition", "lighting", "palette", "typography", "mood", "technique", "constraints"],
+      "exampleFilled": "A high-end commercial photograph key visual for SORAIRO. Subject: a faceted glass fragrance bottle standing on a polished travertine plinth with water droplets suspended in mid-air around it. Composition: medium close-up, centre-framed, product occupying the middle third with clean space above for a headline. Lighting: three-point softbox setup with a single hard rim light from behind to catch the glass edge. Palette: cool pastel gradient from pale blue to bone white, with warm stone neutrals. Typography: the label reads 'SORAIRO' in a thin, precisely kerned modern serif. Mood: serene, premium, clinical clarity. Technique: 85mm lens at f/2.0, shallow depth of field, immaculate reflections and crisp material texture. No props other than the plinth and the droplets."
+    },
+    {
+      "id": "editorial_illustration",
+      "nameJa": "エディトリアル イラストレーション",
+      "useFor": ["editorial", "article", "magazine"],
+      "template": "A {medium} {deliverable} for {brand}. Subject: {subject}. Composition: {composition}. Lighting: {lighting}. Palette: {palette}. Typography: {typography}. Mood: {mood}. Technique: {technique}. {constraints}",
+      "slots": ["medium", "deliverable", "brand", "subject", "composition", "lighting", "palette", "typography", "mood", "technique", "constraints"],
+      "exampleFilled": "A flat vector editorial illustration for a long-form feature. Subject: a single small figure sitting on the edge of a vast empty rooftop, dwarfed by the city skyline behind them. Composition: the figure placed small in the lower-left third, with a large expanse of uninterrupted sky filling the remaining frame. Lighting: blue hour, ambient and directionless, with faint window glows in the distance. Palette: dusty indigo, warm ochre and off-white, limited to four flat tones. Typography: none, the artwork carries no lettering. Mood: quiet, isolated, unsentimental. Technique: flat geometric shapes with no outlines, overlaid with a fine uniform paper grain. Keep the sky area clean so a pull-quote can be set over it."
+    },
+    {
+      "id": "social",
+      "nameJa": "SNS 正方形 / 縦型",
+      "useFor": ["social", "instagram", "square"],
+      "template": "A {medium} {deliverable} for {brand}. Subject: {subject}. Composition: {composition}. Lighting: {lighting}. Palette: {palette}. Typography: {typography}. Mood: {mood}. Technique: {technique}. {constraints}",
+      "slots": ["medium", "deliverable", "brand", "subject", "composition", "lighting", "palette", "typography", "mood", "technique", "constraints"],
+      "exampleFilled": "A natural-light photograph social post for a tea shop. Subject: a ceramic cup of pale green tea on a rumpled linen cloth, steam rising. Composition: overhead flat-lay, cup placed slightly off-centre to the lower left, generous empty cloth in the upper right for text. Lighting: soft window light from the upper left with gentle, long shadows. Palette: muted sage, cream and warm linen beige. Typography: the words '新茶はじめました' in a clean medium-weight Japanese sans-serif, set small in the upper-right space. Mood: calm, seasonal, domestic. Technique: 50mm lens at f/2.8, shot slightly overhead, fine natural grain. Keep the composition readable when cropped to a square thumbnail."
+    },
+    {
+      "id": "web_hero",
+      "nameJa": "Web ヒーロー画像",
+      "useFor": ["web", "hero", "landing"],
+      "template": "A {medium} {deliverable} for {brand}. Subject: {subject}. Composition: {composition}. Lighting: {lighting}. Palette: {palette}. Typography: {typography}. Mood: {mood}. Technique: {technique}. {constraints}",
+      "slots": ["medium", "deliverable", "brand", "subject", "composition", "lighting", "palette", "typography", "mood", "technique", "constraints"],
+      "exampleFilled": "A wide photographic web hero image for a landscape architecture studio. Subject: a stone path curving from the lower-left foreground into a misty grove of maples that dissolves into fog. Composition: deliberately asymmetric, with the left forty percent of the frame kept visually quiet and low in contrast so headline text can be overlaid there. Lighting: early morning, flat and diffused through atmospheric haze. Palette: cool desaturated greens, wet stone grey and pale fog white. Typography: none, the image carries no lettering. Mood: still, unhurried, slightly melancholic. Technique: 35mm lens at f/4, fine atmospheric depth, natural film grain. Keep the horizon low and avoid any high-contrast element in the left third."
+    },
+    {
+      "id": "ooh",
+      "nameJa": "OOH / 屋外広告モック",
+      "useFor": ["ooh", "billboard", "mockup"],
+      "template": "A {medium} {deliverable} for {brand}. Subject: {subject}. Composition: {composition}. Lighting: {lighting}. Palette: {palette}. Typography: {typography}. Mood: {mood}. Technique: {technique}. {constraints}",
+      "slots": ["medium", "deliverable", "brand", "subject", "composition", "lighting", "palette", "typography", "mood", "technique", "constraints"],
+      "exampleFilled": "A photorealistic in-situ mockup photograph of a large-format billboard for a travel brand. Subject: the billboard mounted on the side of a weathered concrete building above a street. Composition: photographed from street level at a low angle, the board filling the upper two thirds with a slice of pavement and power lines visible for context. Lighting: golden hour, warm raking sunlight across the board's surface producing a faint sheen. Palette: off-white artwork field with a single vermilion circle, against the warm grey of the concrete. Typography: the word 'めぐる' set large in an elegant vertical serif, with a small Latin subline beneath. Mood: bold, civic, unmistakable at distance. Technique: 24mm wide-angle lens, slight perspective convergence, realistic printed-vinyl texture on the board. Keep the artwork legible and uncluttered so it reads from across the street."
+    },
+    {
+      "id": "3d_render",
+      "nameJa": "3D レンダー / CG",
+      "useFor": ["3d", "render", "product"],
+      "template": "A {medium} {deliverable} for {brand}. Subject: {subject}. Composition: {composition}. Lighting: {lighting}. Palette: {palette}. Typography: {typography}. Mood: {mood}. Technique: {technique}. {constraints}",
+      "slots": ["medium", "deliverable", "brand", "subject", "composition", "lighting", "palette", "typography", "mood", "technique", "constraints"],
+      "exampleFilled": "A high-fidelity 3D product render for a furniture brand. Subject: a modular shelving system in soft matte plastic, three units arranged in a stepped configuration. Composition: isometric view on a seamless pale grey backdrop, units centred with even margins. Lighting: a large overhead area light with subtle fill from the left, producing soft contact shadows and faint ambient occlusion in the joints. Palette: bone white, sage and terracotta against neutral grey. Typography: none. Mood: precise, calm, catalogue-ready. Technique: physically based rendering, matte non-reflective materials, razor-sharp edges, no depth-of-field blur. Keep the background perfectly even with no gradient banding."
+    },
+    {
+      "id": "photo_campaign",
+      "nameJa": "フォトキャンペーン (人物)",
+      "useFor": ["campaign", "fashion", "portrait"],
+      "template": "A {medium} {deliverable} for {brand}. Subject: {subject}. Composition: {composition}. Lighting: {lighting}. Palette: {palette}. Typography: {typography}. Mood: {mood}. Technique: {technique}. {constraints}",
+      "slots": ["medium", "deliverable", "brand", "subject", "composition", "lighting", "palette", "typography", "mood", "technique", "constraints"],
+      "exampleFilled": "A fashion campaign photograph for an indigo-dye label. Subject: a model wearing an oversized indigo-dyed linen coat, standing with a confident statuesque posture, slightly turned away and looking back over the shoulder. Composition: medium-full shot, centre-framed with deliberate headroom for a logo lockup. Lighting: a single large softbox at 45 degrees camera left, deep unfilled shadows on the opposite side. Palette: deep clay-red seamless backdrop against the saturated indigo of the garment. Typography: none in the image. Mood: assured, editorial, slightly austere. Technique: medium-format analog film, pronounced grain, high colour saturation, cinematic contrast. Keep the hands clearly visible and naturally posed."
+    },
+    {
+      "id": "edit_instruction",
+      "nameJa": "画像編集の指示 (image→image)",
+      "useFor": ["edit", "retouch", "inpaint"],
+      "template": "Using the provided image, {operation} {target} so that it becomes {desired}. Keep {preserve} exactly as they are. Do not alter the {locked}. {constraints}",
+      "slots": ["operation", "target", "desired", "preserve", "locked", "constraints"],
+      "exampleFilled": "Using the provided image, recolour the model's coat so that it becomes a deep forest green with the same visible linen weave. Keep the pose, the facial features, the hair and the background exactly as they are. Do not alter the lighting direction, the shadow shapes or the camera angle. The fabric should still catch the same highlight along the left shoulder."
+    },
+    {
+      "id": "style_transfer",
+      "nameJa": "スタイル転送",
+      "useFor": ["style", "restyle", "edit"],
+      "template": "Using the provided image, recreate its exact content, composition and camera angle in the style of {style}. Preserve every element and its placement precisely; change only the rendering technique. Render it with {technique_detail}. {constraints}",
+      "slots": ["style", "technique_detail", "constraints"],
+      "exampleFilled": "Using the provided image, recreate its exact content, composition and camera angle in the style of a hand-pulled screenprint. Preserve every element and its placement precisely; change only the rendering technique. Render it with four flat spot colours, a heavy black key line, visible uncoated paper texture and slight ink bleed at the edges. Do not add or remove any object from the scene."
+    },
+    {
+      "id": "multi_reference",
+      "nameJa": "複数参照の合成",
+      "useFor": ["composite", "multi-ref", "kv"],
+      "template": "Use the first image for {role1}. Use the second image only for {role2}, ignoring {ignore2}. Use the third image as {role3}, preserving {preserve3}. Combine them into {outcome}. Lighting: {lighting}. {constraints}",
+      "slots": ["role1", "role2", "ignore2", "role3", "preserve3", "outcome", "lighting", "constraints"],
+      "exampleFilled": "Use the first image for the overall composition and camera angle. Use the second image only for its colour palette, ignoring its subject matter entirely. Use the third image as the exact product that must appear in the scene, preserving its proportions, label typography and cap colour precisely. Combine them into a single premium skincare key visual set on a warm travertine surface. Lighting: soft three-point softbox setup with a gentle rim light from behind. Keep the product unobstructed and centred in the lower third."
+    }
+  ],
+  "editing": [
+    {
+      "id": "replace_background",
+      "nameJa": "背景を差し替える",
+      "template": "Using the provided image, change only the background to {background}. Keep the subject, lighting direction and camera angle identical."
+    },
+    {
+      "id": "remove_element",
+      "nameJa": "要素を取り除く",
+      "template": "Using the provided image, remove {element} completely and reconstruct what would naturally be behind it. Keep every other element, the lighting and the grain structure exactly as they are."
+    },
+    {
+      "id": "recolour",
+      "nameJa": "色を変える",
+      "template": "Using the provided image, recolour {target} to {colour}, preserving its original texture, material sheen and the way light falls across it. Do not change any other colour in the frame."
+    },
+    {
+      "id": "relight",
+      "nameJa": "ライティングを変える",
+      "template": "Using the provided image, relight the scene with {lighting}. Keep the subject, its position, the composition and the camera angle identical; only the direction, quality and colour of the light may change."
+    },
+    {
+      "id": "extend_canvas",
+      "nameJa": "画角を広げる (アウトペイント)",
+      "template": "Using the provided image, extend the canvas to a {aspectRatio} frame by continuing the scene naturally outwards. Keep the existing pixels untouched and match the perspective, lighting and grain of the original exactly."
+    },
+    {
+      "id": "replace_text",
+      "nameJa": "画像内の文字を差し替える",
+      "template": "Using the provided image, replace the existing lettering with '{newText}', set in {typeface}. Match the original text's position, scale, colour, perspective and the way it sits on the surface. Change nothing else."
+    },
+    {
+      "id": "insert_product",
+      "nameJa": "商品を合成する",
+      "template": "Using the first image as the scene and the second image as the product, place the product onto {placement}. Preserve the product's proportions, label typography and colours precisely, and match the scene's lighting direction, shadow softness and colour temperature."
+    },
+    {
+      "id": "cleanup_retouch",
+      "nameJa": "レタッチ・清掃",
+      "template": "Using the provided image, clean up {defects} while leaving the subject's form, texture and character completely intact. The result should look like a careful retouch, not a repaint."
+    },
+    {
+      "id": "localize_text",
+      "nameJa": "文字を別言語にローカライズする",
+      "template": "Using the provided image, translate all visible text into {language}, keeping the layout, typographic hierarchy, colours and every other visual element exactly the same. Adjust line breaks only as far as the new script requires."
+    },
+    {
+      "id": "colorize_restore",
+      "nameJa": "白黒写真の復元・彩色",
+      "template": "Using the provided image, restore and colorize it with natural, period-accurate colours and atmospheric lighting. Repair scratches and fading, but keep the original composition, grain character and every subject detail unchanged."
+    }
+  ],
+  "pitfalls": [
+    {
+      "titleJa": "negative_prompt パラメータは存在しない",
+      "bodyJa": "Imagen の :predict には negativePrompt がありましたが、Gemini の generateContent には存在しません(v1beta Discovery revision 20260917 の全スキーマを走査して0件を確認)。UIに「除外ワード」欄を作る場合は、入力を否定語のまま送らず『それが無い状態の描写』へ変換してからプロンプトに混ぜる実装にしてください。"
+    },
+    {
+      "titleJa": "長文テキストはほぼ必ず破綻する",
+      "bodyJa": "Nano Banana 2 / Pro は文字組みが大幅に改善され多言語にも対応しましたが、それでも文字数が増えるほど誤字・脱字・字形崩れが増えます。1画像あたり短い文字列3〜5ブロックに留め、本文・法定表記・正確なロゴは生成に頼らず後段で SVG や CSS で重ねるのが安全です。文字は必ず引用符で囲み、書体も指定してください。"
+    },
+    {
+      "titleJa": "ロゴと商標は正確に再現されない",
+      "bodyJa": "実在ブランドのロゴを描かせると、それらしいが微妙に違う形が出ます。字間・比率・角丸が狂うため、そのまま入稿すると事故になります。KV生成では『ロゴを置く余白』だけ作らせ、実データを後で合成してください。第三者の商標やキャラクターを模倣させる用途にも使わないこと。"
+    },
+    {
+      "titleJa": "手・指・反射・細かい繰り返しは崩れやすい",
+      "bodyJa": "手指の本数、鏡やガラスへの映り込み、格子や文字列の反復パターンは依然として弱点です。人物カットは手を見せない構図にするか、『hands clearly visible and naturally posed』と明示して複数枚生成し選別する運用にしてください。等倍で確認しないと見落とします。"
+    },
+    {
+      "titleJa": "アスペクト比を指定しないとモデルが勝手に決める",
+      "bodyJa": "公式Discoveryの記述どおり、imageConfig.aspectRatio を省略するとモデルは参照画像のサイズに合わせ、参照が無ければ 1:1 を選びます。意図した判型が欲しいなら必ず明示してください。なお比率を指定しても、プロンプト本文と矛盾する構図を書くと無視されることがあるという報告があります。"
+    },
+    {
+      "titleJa": "imageSize を非対応モデルに渡すと 400 になる",
+      "bodyJa": "gemini-2.5-flash-image は 1K 固定で imageConfig.imageSize を受け付けません。Discovery にも『非対応モデルにこのフィールドを設定するとエラーを返す』と明記されています。モデルセレクタの supportsImageSize を見て、リクエスト組み立て時にフィールドごと落としてください。"
+    },
+    {
+      "titleJa": "レスポンスが 200 でも画像が入っていないことがある",
+      "bodyJa": "finishReason が STOP でも、モデルがテキストだけ返して画像 part を含めないケースが実運用で頻発します。promptFeedback.blockReason、finishReason(IMAGE_SAFETY / NO_IMAGE / IMAGE_PROHIBITED_CONTENT など)、そして『inlineData を持つ part が存在するか』の3段階で判定してください。テキストだけ返ってきた場合はその文面をUIに出すとユーザーの手掛かりになります。"
+    },
+    {
+      "titleJa": "base64 でサーバーレスの上限を超える",
+      "bodyJa": "base64 はバイト数を約1.37倍にします。Vercel のサーバーレス関数はリクエスト・レスポンスとも 4.5MB が上限なので、4K画像をそのまま base64 で返すと必ず失敗します。生成結果は関数内でデコードして Blob ストレージに保存し、URLだけ返してください。参照画像も送信前に長辺1568px程度へリサイズします。"
+    },
+    {
+      "titleJa": "4K と Pro は 60 秒の同期処理に収まらないことがある",
+      "bodyJa": "Nano Banana Pro は思考を伴うため生成が長く、4K指定ではVercelの60秒上限に届くことがあります。同期エンドポイントは 1K・2K のプレビュー専用にし、4K は非同期ジョブへ逃がしてください。fetch には必ず AbortController でタイムアウトを設定し、関数のハードリミットに巻き込まれる前にエラーを返せるようにします。"
+    },
+    {
+      "titleJa": "SynthID と C2PA は必ず埋め込まれ、外せない",
+      "bodyJa": "生成画像には不可視の SynthID 透かしと C2PA Content Credentials が常に付与され、無効化するオプションはありません。これは正しい挙動なので、AI生成物であることを前提とした納品フローを組んでください。なおリサイズや形式変換などの再エンコードで C2PA メタデータは失われるため、来歴を保持したい場合はオリジナルのバイト列も保管してください。"
+    }
+  ]
+}

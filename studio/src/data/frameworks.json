@@ -1,0 +1,387 @@
+[
+  {
+    "id": "issue-tree",
+    "category": "consult",
+    "name": "課題ツリー",
+    "nameEn": "Issue Tree",
+    "origin": "McKinsey (MECE)",
+    "summaryJa": "曖昧な依頼を「本当の問い」から下へ枝分かれさせ、重複なく漏れなく（MECE）分解する。どの枝を切り捨てるかを決めることが目的。",
+    "whenJa": "依頼文が漠然としていて、何を解けばいいのか合意できていないとき。",
+    "minutes": 12,
+    "steps": [
+      { "key": "root", "promptJa": "いま解くべき問いを、疑問形で1つだけ書いてください。", "placeholderJa": "例：なぜこの商品は「知られているのに選ばれない」のか？", "type": "text" },
+      { "key": "branches", "promptJa": "その問いを分ける切り口を3〜5個挙げてください（重なりがないように）。", "placeholderJa": "認知／理解／価格／体験／流通", "type": "list" },
+      { "key": "evidence", "promptJa": "各枝について、事実として言えることを1行ずつ書いてください（推測は分けて）。", "placeholderJa": "認知：指名検索は前年比+20%／理解：用途を誤解した声が多い", "type": "list" },
+      { "key": "cut", "promptJa": "今回は扱わない枝はどれですか。切り捨てる理由も一緒に。", "placeholderJa": "価格は今期は動かせないので扱わない", "type": "text" },
+      { "key": "focus", "promptJa": "残った枝のうち、最も効きそうな1つを選んでください。", "placeholderJa": "理解（用途の誤解）", "type": "text" }
+    ],
+    "feeds": ["brief.problem", "brief.insight"],
+    "aiInstruction": "Read the root question, the branches, the evidence lines and the branch the user cut. Rewrite brief.problem as one sentence that names the chosen branch as the problem to solve, phrased as a gap between a current state and a desired state. Put any evidence that reveals a human motivation or misunderstanding into brief.insight. Never invent data that is not in the evidence list; if evidence is thin, say so explicitly inside brief.problem rather than filling the gap.",
+    "sourceUrl": "https://en.wikipedia.org/wiki/MECE_principle"
+  },
+  {
+    "id": "hypothesis-driven",
+    "category": "consult",
+    "name": "仮説思考（仮説→検証）",
+    "nameEn": "Hypothesis-Driven Problem Solving",
+    "origin": "Hypothetico-deductive method / strategy consulting practice",
+    "summaryJa": "情報を集めきる前に答えの仮説を先に立て、それが偽だと分かる条件を決めてから最小限の検証を回す。",
+    "whenJa": "調査に時間をかけられないのに、方向を1つ決めなければならないとき。",
+    "minutes": 12,
+    "steps": [
+      { "key": "hypotheses", "promptJa": "「たぶんこうだ」という仮説を3つ書いてください。断言形で。", "placeholderJa": "客は味ではなく“選んだ理由を人に言えるか”で選んでいる", "type": "list" },
+      { "key": "chosen", "promptJa": "いちばん筋が良いと思う仮説を1つ選び、選んだ理由を書いてください。", "placeholderJa": "SNSの口コミが全部“理由の説明”になっているから", "type": "text" },
+      { "key": "falsify", "promptJa": "この仮説が「間違っていた」と分かるのは、何が観測されたときですか。", "placeholderJa": "理由に触れない購入が過半数を占めたら間違い", "type": "text" },
+      { "key": "test", "promptJa": "1週間以内にできる最小の検証方法を1つ。", "placeholderJa": "店頭で20人に「なぜこれを選んだか」を聞く", "type": "text" }
+    ],
+    "feeds": ["brief.hypothesis", "brief.insight", "critique.criteria"],
+    "aiInstruction": "Turn the chosen hypothesis into brief.hypothesis as a single falsifiable assertion in the form 'We believe X, because Y'. Move the human truth behind it into brief.insight. Convert the falsification condition into one entry of critique.criteria so that later visual work can be judged against whether it still holds if the hypothesis is wrong. Keep the two rejected hypotheses as alternatives, do not merge them into the chosen one.",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Hypothetico-deductive_model"
+  },
+  {
+    "id": "so-what-why-so",
+    "category": "consult",
+    "name": "So what? / Why so?",
+    "nameEn": "So What / Why So",
+    "origin": "Barbara Minto, Pyramid Principle",
+    "summaryJa": "事実に「だから何？」を重ねて主張へ昇り、主張に「なぜそう言える？」を重ねて根拠へ降りる。縦の論理を通す作業。",
+    "whenJa": "材料はあるのに、結局なにを言いたいのかが一文にならないとき。",
+    "minutes": 8,
+    "steps": [
+      { "key": "facts", "promptJa": "手元にある事実・観察を3〜6個、短く並べてください。", "placeholderJa": "棚では他社と見分けがつかない／開封後の写真がSNSに多い", "type": "list" },
+      { "key": "sowhat", "promptJa": "それらに「だから何？」を2回かけると、何が言えますか。", "placeholderJa": "この商品は“棚”ではなく“開けた後”で選ばれている", "type": "text" },
+      { "key": "whyso", "promptJa": "その主張に「なぜそう言える？」と聞かれたら、どの事実で答えますか。", "placeholderJa": "開封後写真が投稿の7割を占めるから", "type": "text" }
+    ],
+    "feeds": ["brief.insight", "brief.problem"],
+    "aiInstruction": "Write brief.insight as the single 'so what' claim, stated as a truth about people rather than about the product. Under it, keep the supporting facts as the 'why so' chain in the order the user gave them. If the claim cannot be supported by at least two of the listed facts, lower its certainty in the wording instead of dropping the facts.",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Barbara_Minto"
+  },
+  {
+    "id": "get-to-by",
+    "category": "consult",
+    "name": "1行ブリーフ（Get–To–By）",
+    "nameEn": "One-sentence Brief (Get–To–By)",
+    "origin": "BBDO New York (Martyn Straw), popularised by Julian Cole",
+    "summaryJa": "「誰に（Get）／どう変わってほしいか（To）／何によって（By）」を1文に圧縮する。これが書けないうちは作り始めない。",
+    "whenJa": "課題が定まり、いよいよ制作に渡す直前。全員が同じ1文を見て動くため。",
+    "minutes": 10,
+    "steps": [
+      { "key": "get", "promptJa": "Get：誰に届けますか。属性ではなく「いまどう思っている人か」で書いてください。", "placeholderJa": "“自分にはセンスがない”と思い込んでいる20代の社会人", "type": "text" },
+      { "key": "to", "promptJa": "To：その人にどう変わってほしいですか（思う／感じる／する のどれか）。", "placeholderJa": "“選び方さえ分かれば自分にもできる”と思ってもらう", "type": "text" },
+      { "key": "by", "promptJa": "By：何によってその変化を起こしますか。表現ではなく仕掛けで。", "placeholderJa": "プロが実際に使っている判断基準をそのまま見せることで", "type": "text" },
+      { "key": "proof", "promptJa": "成功したと言える観測可能な条件を1つ書いてください。", "placeholderJa": "保存率が現状の2倍になる", "type": "text" }
+    ],
+    "feeds": ["brief.audience", "brief.problem", "critique.criteria"],
+    "aiInstruction": "Compose one sentence of the exact shape 'Get <audience> to <change> by <mechanism>' and store the audience clause in brief.audience and the whole sentence in brief.problem. Keep the audience described by a belief or behaviour, never by demographics alone. Turn the success condition into a measurable entry in critique.criteria. Refuse to soften the 'to' clause into a vague feeling word; it must name a change of thought, feeling or action.",
+    "sourceUrl": "https://strategyfinishingschool.com/how-to-use-the-creative-brief-get-who-to-by/"
+  },
+  {
+    "id": "reverse-brief",
+    "category": "consult",
+    "name": "リバースブリーフ",
+    "nameEn": "Reverse Brief",
+    "origin": "Agency planning practice",
+    "summaryJa": "受け取った依頼を、自分の言葉で書き直して依頼者に返す。ズレが出た箇所こそが本当の論点。",
+    "whenJa": "依頼文をそのまま受けると手段が先に決まってしまっているとき。",
+    "minutes": 8,
+    "steps": [
+      { "key": "asked", "promptJa": "依頼された「作るもの」をそのまま書いてください。", "placeholderJa": "採用サイトのキービジュアルを作ってほしい", "type": "text" },
+      { "key": "restated", "promptJa": "それを「解きたい問題」として書き直すと？", "placeholderJa": "応募前に“自分には合わない”と離脱されるのを止めたい", "type": "text" },
+      { "key": "assumption", "promptJa": "依頼の中に暗黙で入っている前提を1〜3個挙げてください。", "placeholderJa": "キービジュアルで印象が決まるという前提／若手が対象という前提", "type": "list" },
+      { "key": "question", "promptJa": "依頼者に返す確認の問いを1つ書いてください。", "placeholderJa": "止めたいのは“応募しない”ですか、“入社後に辞める”ですか？", "type": "text" }
+    ],
+    "feeds": ["brief.problem", "brief.audience"],
+    "aiInstruction": "Replace brief.problem with the restated problem, not the requested deliverable. List the surfaced assumptions beneath it as open risks, each one line. If an assumption concerns who the audience is, reflect it into brief.audience as a question rather than as a fact. Do not resolve the confirmation question yourself; carry it forward verbatim so a human answers it.",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Creative_brief"
+  },
+  {
+    "id": "double-diamond",
+    "category": "design-thinking",
+    "name": "ダブルダイヤモンド",
+    "nameEn": "Double Diamond",
+    "origin": "UK Design Council (2004)",
+    "summaryJa": "「発散→収束」を2回繰り返す。1回目は正しい問題を見つけるため、2回目は正しい解を作るため。",
+    "whenJa": "工程のどこにいるか（広げる時間か、決める時間か）をチームで揃えたいとき。",
+    "minutes": 10,
+    "steps": [
+      { "key": "phase", "promptJa": "いまどのフェーズにいますか。", "placeholderJa": "", "type": "choice", "options": ["Discover（問題を広げる）", "Define（問題を絞る）", "Develop（解を広げる）", "Deliver（解を絞る）"] },
+      { "key": "diverge", "promptJa": "いま広げるべきものを5つ以上挙げてください（質は問わない）。", "placeholderJa": "観察した違和感／別業界の事例／使われ方の誤用", "type": "list" },
+      { "key": "converge", "promptJa": "そこから残す1〜2個と、その選定理由を書いてください。", "placeholderJa": "誤用のパターンが一番大きい。既存の想定と真逆だから", "type": "text" },
+      { "key": "nextGate", "promptJa": "次のフェーズに進んでよいと判断できる条件は何ですか。", "placeholderJa": "問題文が1行で書け、3人が同じ意味に読めること", "type": "text" }
+    ],
+    "feeds": ["brief.problem", "direction.mood"],
+    "aiInstruction": "Use the selected phase to decide the register of the output: in Discover and Develop keep multiple options alive in brief.problem and direction.mood, in Define and Deliver reduce to one. Write the convergence rationale into brief.problem as the reason the other options were dropped. Never silently converge while the user is in a divergent phase.",
+    "sourceUrl": "https://www.designcouncil.org.uk/our-resources/the-double-diamond/"
+  },
+  {
+    "id": "empathize-define-ideate",
+    "category": "design-thinking",
+    "name": "共感→定義→発想",
+    "nameEn": "Empathize – Define – Ideate",
+    "origin": "Stanford d.school (Design Thinking Bootleg)",
+    "summaryJa": "特定の一人を観察し、その人の視点で問題文（Point of View）を書き、そこから案を出す。主語を「人」に固定する装置。",
+    "whenJa": "議論が「うちの都合」に寄りはじめたとき。人に引き戻すため。",
+    "minutes": 15,
+    "steps": [
+      { "key": "person", "promptJa": "実在する一人を思い浮かべて、その人を2〜3行で描写してください。", "placeholderJa": "初めて一人暮らしを始めた妹。失敗したくないので買う前に何時間も調べる", "type": "text" },
+      { "key": "observed", "promptJa": "その人について観察した「言ったこと・したこと・感じていそうなこと」を挙げてください。", "placeholderJa": "言：どれも同じに見える／した：レビューを50件読んだ／感：選ぶこと自体が怖い", "type": "list" },
+      { "key": "pov", "promptJa": "POV文を書いてください：「〈人〉は〈ニーズ〉を必要としている。なぜなら〈驚きのある洞察〉だから」", "placeholderJa": "彼女は“選んだ自分を肯定する根拠”を必要としている。なぜなら失敗が怖いのではなく、責められるのが怖いから", "type": "text" },
+      { "key": "ideas", "promptJa": "そのPOVに対する案を、良し悪しを判断せずに5つ以上。", "placeholderJa": "選定理由が一緒に届く／人に見せられる説明書／同じ選択をした人の顔", "type": "list" }
+    ],
+    "feeds": ["brief.audience", "brief.insight", "direction.mood"],
+    "aiInstruction": "Write brief.audience from the person description, keeping it singular and concrete. Store the POV statement's insight clause in brief.insight, preserving its surprising part rather than normalising it. Derive direction.mood only from the emotional words the user actually used about that person, never from category conventions.",
+    "sourceUrl": "https://dschool.stanford.edu/resources/design-thinking-bootleg"
+  },
+  {
+    "id": "how-might-we",
+    "category": "design-thinking",
+    "name": "How Might We",
+    "nameEn": "How Might We",
+    "origin": "Proctor & Gamble / IDEO",
+    "summaryJa": "問題文を「どうすれば〜できるだろう？」に変換する。広すぎず狭すぎない問いの幅を作るのが肝。",
+    "whenJa": "問題は決まったが、アイデアが出ない／出すぎて発散しすぎるとき。",
+    "minutes": 8,
+    "steps": [
+      { "key": "seed", "promptJa": "いまの問題文を1行で貼ってください。", "placeholderJa": "選ぶこと自体が怖くて離脱してしまう", "type": "text" },
+      { "key": "hmws", "promptJa": "HMW文を3つ書いてください。広い／ちょうどいい／狭い の3段階で。", "placeholderJa": "広：どうすれば買い物を怖くなくできる？／中：どうすれば“選んだ理由”を持ち帰らせられる？／狭：どうすればタグ1枚で理由を伝えられる？", "type": "list" },
+      { "key": "picked", "promptJa": "ちょうどいい幅のものを1つ選んでください。", "placeholderJa": "どうすれば“選んだ理由”を持ち帰らせられる？", "type": "text" },
+      { "key": "constraint", "promptJa": "この問いに意図的に足す制約を1つ（媒体・素材・時間など）。", "placeholderJa": "追加コストゼロで", "type": "text" }
+    ],
+    "feeds": ["brief.problem", "direction.composition"],
+    "aiInstruction": "Store the selected How Might We question as brief.problem, keeping the interrogative form. Fold the added constraint into it so the constraint reads as part of the challenge, not as a footnote. If the chosen question contains an implied solution, rewrite it to remove the solution while keeping the same scope, and note what you removed.",
+    "sourceUrl": "https://www.ideou.com/blogs/inspiration/how-to-use-how-might-we-questions-to-ideate-on-core-challenges"
+  },
+  {
+    "id": "crazy-8s",
+    "category": "design-thinking",
+    "name": "クレイジー8",
+    "nameEn": "Crazy 8s",
+    "origin": "Google Ventures Design Sprint",
+    "summaryJa": "紙を8分割し、8分で8案スケッチする。うまい案ではなく、量で自分の一手目を捨てさせるための時間制限。",
+    "whenJa": "最初に浮かんだ案から離れられないとき。",
+    "minutes": 8,
+    "steps": [
+      { "key": "target", "promptJa": "8案を出す対象を1つに絞ってください（画面1枚・ポスター1枚など）。", "placeholderJa": "店頭で最初に目に入る1枚", "type": "text" },
+      { "key": "eight", "promptJa": "8つの案を、それぞれ1行の言葉で書いてください（絵は後で）。", "placeholderJa": "1 理由を巨大な数字で／2 選ばれた瞬間の手元だけ／3 ...", "type": "list" },
+      { "key": "outliers", "promptJa": "8案のうち、最も「やりすぎ」な2案を選んでください。", "placeholderJa": "5と8", "type": "text" },
+      { "key": "keep", "promptJa": "先に進める1案と、その案が持っている「効いている原理」を書いてください。", "placeholderJa": "8。理由＝“結果ではなく判断の瞬間を見せる”", "type": "text" }
+    ],
+    "feeds": ["direction.composition", "direction.mood"],
+    "aiInstruction": "Extract the underlying principle the user named for the kept idea and express it in direction.composition as a compositional rule (what is in frame, what is cropped, where the eye lands), not as a description of the idea itself. Preserve the two outlier ideas as alternative directions so they can be revisited. Do not average the eight ideas into one safe idea.",
+    "sourceUrl": "https://designsprintkit.withgoogle.com/methodology/phase3-sketch/crazy-8s"
+  },
+  {
+    "id": "scamper",
+    "category": "design-thinking",
+    "name": "SCAMPER",
+    "nameEn": "SCAMPER",
+    "origin": "Bob Eberle, after Alex Osborn's checklist",
+    "summaryJa": "置換・結合・応用・変更・転用・除去・逆転の7つの操作を既存案にかけて、変化形を機械的に量産する。",
+    "whenJa": "1案はあるが、バリエーションや別解が必要なとき。",
+    "minutes": 12,
+    "steps": [
+      { "key": "base", "promptJa": "ベースになる案を1行で書いてください。", "placeholderJa": "商品を1点だけ白背景に置く", "type": "text" },
+      { "key": "operation", "promptJa": "かける操作を選んでください。", "placeholderJa": "", "type": "choice", "options": ["Substitute（置き換える）", "Combine（組み合わせる）", "Adapt（他分野から借りる）", "Modify（誇張・縮小する）", "Put to other use（別用途にする）", "Eliminate（削る）", "Reverse（逆にする）"] },
+      { "key": "variants", "promptJa": "その操作で出た変化形を3つ書いてください。", "placeholderJa": "背景を黒に／商品を影だけにする／商品を画面外に置く", "type": "list" },
+      { "key": "pick", "promptJa": "採用する変化形と、それが元案より強い理由を書いてください。", "placeholderJa": "影だけ。存在を疑わせる分だけ視線が止まる", "type": "text" }
+    ],
+    "feeds": ["direction.composition", "direction.palette", "direction.mood"],
+    "aiInstruction": "Apply the selected operation as a transformation rule and write the winning variant into direction.composition, and, when the operation changed color or light, into direction.palette. Phrase the result as a reusable technique ('subject removed from frame, only its shadow remains') rather than as a description of a specific product. Keep the other two variants listed as fallbacks.",
+    "sourceUrl": "https://www.interaction-design.org/literature/article/learn-how-to-use-the-best-ideation-methods-scamper"
+  },
+  {
+    "id": "six-thinking-hats",
+    "category": "critique",
+    "name": "シックス・シンキング・ハット",
+    "nameEn": "Six Thinking Hats",
+    "origin": "Edward de Bono (1985)",
+    "summaryJa": "白＝事実、赤＝直感、黒＝リスク、黄＝価値、緑＝代案、青＝進行。1つずつ被って批評し、感想と論点を混ぜない。",
+    "whenJa": "生成物やラフを批評するとき。特に「なんとなく良くない」で止まってしまうとき。",
+    "minutes": 15,
+    "steps": [
+      { "key": "subject", "promptJa": "批評する対象を1つ指定してください。", "placeholderJa": "生成案A（3枚目）", "type": "text" },
+      { "key": "white", "promptJa": "白：見えている事実だけを書いてください（評価はしない）。", "placeholderJa": "被写体が中央／余白は上に多い／色は3色", "type": "list" },
+      { "key": "redBlack", "promptJa": "赤：最初の3秒の直感／黒：致命的なリスク を書いてください。", "placeholderJa": "赤：冷たい印象／黒：商品が何か分からない", "type": "list" },
+      { "key": "yellowGreen", "promptJa": "黄：残すべき価値／緑：代案 を書いてください。", "placeholderJa": "黄：余白の量／緑：被写体を1/3下げて影を伸ばす", "type": "list" },
+      { "key": "blue", "promptJa": "青：次の1手を1つだけ決めてください。", "placeholderJa": "被写体位置だけ変えて再生成、他は固定", "type": "text" }
+    ],
+    "feeds": ["critique.criteria", "direction.composition"],
+    "aiInstruction": "Keep the six hats separated in the output: never merge a red-hat reaction with a black-hat risk. Turn only black-hat and yellow-hat entries into critique.criteria, each phrased as a testable statement about the image. Convert the blue-hat next action into a single change to direction.composition, and explicitly state which variables must stay fixed so the next generation is comparable.",
+    "sourceUrl": "https://www.debonogroup.com/services/core-programs/six-thinking-hats/"
+  },
+  {
+    "id": "lighthouse-question",
+    "category": "art-thinking",
+    "name": "灯台の問い（アート・シンキング）",
+    "nameEn": "Lighthouse Question (Art Thinking)",
+    "origin": "Amy Whitaker, Art Thinking (2016)",
+    "summaryJa": "既知のA地点から既知のB地点へ行くのではなく、B地点そのものを発明する。答えではなく、進む方向を照らす問いを持つ。",
+    "whenJa": "正解のある課題解決に収まらない、まだ誰も見ていない絵を作りたいとき。",
+    "minutes": 12,
+    "steps": [
+      { "key": "pointA", "promptJa": "いまいるA地点（既知の状況）を1行で書いてください。", "placeholderJa": "カテゴリの広告はどれも“清潔で明るい”に収束している", "type": "text" },
+      { "key": "lighthouse", "promptJa": "灯台の問いを1つ書いてください。二択で答えられない問いにしてください。", "placeholderJa": "“清潔さ”を手放したとき、この商品はどんな顔をするのか？", "type": "text" },
+      { "key": "unknownB", "promptJa": "B地点が未知であるとして、そこで起きていてほしい出来事を書いてください。", "placeholderJa": "見た人が、汚れを恥ずかしがらなくなる", "type": "text" },
+      { "key": "smallBet", "promptJa": "そこへ向かう最小の一歩（捨ててもいい実験）を1つ。", "placeholderJa": "汚れた状態だけで1枚作ってみる", "type": "text" }
+    ],
+    "feeds": ["brief.hypothesis", "direction.mood", "direction.palette"],
+    "aiInstruction": "Treat the lighthouse question as a direction, not as a problem to be closed. Write brief.hypothesis as 'if we stop assuming <A>, then <unknown B> becomes possible', keeping B open-ended. Derive direction.mood and direction.palette from what the user wants to stop assuming, deliberately proposing the opposite of the category convention they named in point A.",
+    "sourceUrl": "https://books.google.com/books/about/Art_Thinking.html?id=OrO2CgAAQBAJ"
+  },
+  {
+    "id": "beginners-mind-ostranenie",
+    "category": "art-thinking",
+    "name": "初心・異化（見慣れをはがす）",
+    "nameEn": "Beginner's Mind / Ostranenie (Defamiliarization)",
+    "origin": "Viktor Shklovsky (1917) / Zen shoshin",
+    "summaryJa": "見慣れたものを「初めて見る物」として記述し直し、自動化した認識をはがす。芸術の機能は物を見慣れさせないことだとする考え方。",
+    "whenJa": "題材が日常的すぎて、どう撮っても既視感が出るとき。",
+    "minutes": 10,
+    "steps": [
+      { "key": "object", "promptJa": "題材を1つ指定してください。", "placeholderJa": "歯ブラシ", "type": "text" },
+      { "key": "alienName", "promptJa": "名前を使わずに、その物を初めて見た人の言葉で描写してください。", "placeholderJa": "細い棒の先に、短い毛の林が生えている道具", "type": "text" },
+      { "key": "strangeAngle", "promptJa": "普段は絶対に見ない角度・距離・状態を3つ挙げてください。", "placeholderJa": "真上から／毛の1本だけ／使い終わって曲がった状態", "type": "list" },
+      { "key": "keep", "promptJa": "そのうち、意味がいちばん変わるものを1つ選んでください。", "placeholderJa": "毛の1本だけ", "type": "text" }
+    ],
+    "feeds": ["direction.composition", "direction.mood"],
+    "aiInstruction": "Convert the chosen unfamiliar angle into direction.composition as a camera and framing instruction (distance, height, crop, what is excluded). Use the name-free description to write direction.mood so the image is built from the object's physical qualities rather than from its category meaning. Never reintroduce the object's conventional hero angle.",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Defamiliarization"
+  },
+  {
+    "id": "big-idea-visual-metaphor-craft",
+    "category": "art-direction",
+    "name": "ビッグアイデア → ビジュアル・メタファー → クラフト",
+    "nameEn": "Big Idea → Visual Metaphor → Craft",
+    "origin": "Advertising art direction practice (conceptual metaphor theory)",
+    "summaryJa": "言葉のアイデアを、まず1つの比喩に翻訳し、そのあとで技法を決める。順番を守らないと「きれいだが何も言っていない絵」になる。",
+    "whenJa": "ブリーフからビジュアルへ移る瞬間、毎回。",
+    "minutes": 12,
+    "steps": [
+      { "key": "bigIdea", "promptJa": "アイデアを、比喩を使わずに1行で書いてください。", "placeholderJa": "この保険は、事故の後ではなく前に効く", "type": "text" },
+      { "key": "metaphor", "promptJa": "それを「見える物」1つに置き換えてください（言葉ではなく物）。", "placeholderJa": "まだ降っていない雨に対して先に開いた傘", "type": "text" },
+      { "key": "testLiteral", "promptJa": "その比喩は文字通りに撮れますか。撮れない場合、どこを嘘にしますか。", "placeholderJa": "撮れる。空を晴れにするのが嘘", "type": "text" },
+      { "key": "craft", "promptJa": "比喩を成立させるために必要な技法を3つ書いてください。", "placeholderJa": "逆光で傘の縁を光らせる／地面は乾いたまま／色は2色に絞る", "type": "list" }
+    ],
+    "feeds": ["direction.mood", "direction.composition", "direction.palette", "critique.criteria"],
+    "aiInstruction": "Keep the three layers strictly ordered: the idea sentence, the single physical metaphor, then the technique list. Write direction.composition and direction.palette only from the technique list, and add one entry to critique.criteria that asks whether the metaphor is still readable with the brand and copy removed. If the metaphor needs a caption to work, say so and ask for a new metaphor rather than adding copy.",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Conceptual_metaphor"
+  },
+  {
+    "id": "cannes-judging-lens",
+    "category": "critique",
+    "name": "カンヌの審査レンズ（アイデア／実行／インパクト）",
+    "nameEn": "Cannes Judging Lens (Idea / Execution / Impact)",
+    "origin": "Cannes Lions jury criteria (e.g. Design Lions 40/40/20)",
+    "summaryJa": "アイデア・実行・結果の3軸で採点する。Design Lions はアイデア40％・実行40％・結果20％のように、部門ごとに配分が公開されている。",
+    "whenJa": "自分の案を、身内の好みではなく外部の基準で見たいとき。",
+    "minutes": 10,
+    "steps": [
+      { "key": "idea", "promptJa": "アイデア（0-40）：一文で説明でき、既視感がないか。点数と理由を書いてください。", "placeholderJa": "28。着眼は新しいが、表現の型は見たことがある", "type": "text" },
+      { "key": "execution", "promptJa": "実行（0-40）：細部・素材・組版・光まで妥協がないか。点数と理由。", "placeholderJa": "22。文字組が仮のまま", "type": "text" },
+      { "key": "impact", "promptJa": "インパクト（0-20）：誰の何が変わるか。点数と理由。", "placeholderJa": "10。話題性はあるが行動が変わる筋が薄い", "type": "text" },
+      { "key": "weakest", "promptJa": "3つのうち最も低い軸を1つ選び、次に直す点を書いてください。", "placeholderJa": "実行。文字組を本番書体で作り直す", "type": "text" }
+    ],
+    "feeds": ["critique.criteria"],
+    "aiInstruction": "Score the work on the three axes using the weighting the user supplied and write each axis into critique.criteria as a separate testable line. Always name the lowest-scoring axis explicitly and propose exactly one concrete fix for it; do not propose fixes for the other axes in the same pass. State that weightings differ per Lion category rather than presenting one weighting as universal.",
+    "sourceUrl": "https://www.canneslions.com/awards/lions/design/what-you-need-to-know"
+  },
+  {
+    "id": "tone-of-voice-sliders",
+    "category": "art-direction",
+    "name": "トーン・オブ・ボイス スライダー",
+    "nameEn": "Tone-of-Voice Sliders",
+    "origin": "Nielsen Norman Group tone dimensions",
+    "summaryJa": "トーンを形容詞ではなく軸上の位置で決める。「上品に」ではなく「格式:70／体温:30」と言えるようにする装置。",
+    "whenJa": "関係者の“かっこいい”の定義がバラバラなとき。言葉の代わりに数値で合意する。",
+    "minutes": 8,
+    "steps": [
+      { "key": "formality", "promptJa": "格式の度合いを決めてください。", "placeholderJa": "", "type": "slider", "min": 0, "max": 100, "leftJa": "くだけた", "rightJa": "格式ばった" },
+      { "key": "warmth", "promptJa": "体温を決めてください。", "placeholderJa": "", "type": "slider", "min": 0, "max": 100, "leftJa": "冷たい・客観", "rightJa": "温かい・情緒" },
+      { "key": "humor", "promptJa": "ユーモアの量を決めてください。", "placeholderJa": "", "type": "slider", "min": 0, "max": 100, "leftJa": "真面目", "rightJa": "遊びがある" },
+      { "key": "density", "promptJa": "情報密度を決めてください。", "placeholderJa": "", "type": "slider", "min": 0, "max": 100, "leftJa": "余白が多い", "rightJa": "情報が詰まっている" },
+      { "key": "words", "promptJa": "以上の位置を、形容詞3語で言い換えてください。", "placeholderJa": "静か／硬質／わずかに可笑しい", "type": "text" }
+    ],
+    "feeds": ["brief.tone", "direction.mood", "direction.typography"],
+    "aiInstruction": "Write brief.tone as the four slider positions plus the three adjectives, keeping the numbers so later steps can be re-derived. Map formality and density to direction.typography (weight, tracking, case, amount of copy) and warmth and humor to direction.mood (light quality, color temperature, staging). If two sliders contradict the three adjectives, flag the conflict instead of averaging them.",
+    "sourceUrl": "https://www.nngroup.com/articles/tone-of-voice-dimensions/"
+  },
+  {
+    "id": "color-60-30-10-gestalt",
+    "category": "art-direction",
+    "name": "60-30-10 の配色 ＋ ゲシュタルト原理",
+    "nameEn": "60-30-10 Color Rule + Gestalt Principles",
+    "origin": "Interior/graphic design convention; Gestalt psychology (Wertheimer et al.)",
+    "summaryJa": "主色60％・副色30％・強調色10％で面積を配分し、近接・類同・図地・閉合といったゲシュタルト原理で視線の順番を作る。",
+    "whenJa": "色が多すぎる／視線がどこに行くか制御できないとき。",
+    "minutes": 10,
+    "steps": [
+      { "key": "base60", "promptJa": "主色（画面の約60％）を決めてください。理由も。", "placeholderJa": "くすんだ灰青。冬の空気を地にするため", "type": "text" },
+      { "key": "sub30", "promptJa": "副色（約30％）を決めてください。主色との関係（近い／補色）も。", "placeholderJa": "同系のより暗い灰。明度差だけで奥行きを作る", "type": "text" },
+      { "key": "accent10", "promptJa": "強調色（約10％以下）と、それを置く場所を決めてください。", "placeholderJa": "橙。光が当たる一点だけ", "type": "text" },
+      { "key": "gestalt", "promptJa": "使うゲシュタルト原理を1つ選んでください。", "placeholderJa": "", "type": "choice", "options": ["図と地（Figure-Ground）", "近接（Proximity）", "類同（Similarity）", "閉合（Closure）", "連続（Continuity）", "共通運命（Common Fate）"] },
+      { "key": "eyepath", "promptJa": "視線に通ってほしい順番を3点で書いてください。", "placeholderJa": "強調色 → 顔 → 余白の文字ゾーン", "type": "text" }
+    ],
+    "feeds": ["direction.palette", "direction.composition"],
+    "aiInstruction": "Write direction.palette as three area shares with explicit roles (ground, support, accent) and keep the accent under roughly ten percent of the frame. Encode the chosen Gestalt principle and the three-point eye path into direction.composition as an ordering instruction. If the accent color appears in more than one place, reduce it to one so the eye path stays single-valued.",
+    "sourceUrl": "https://www.interaction-design.org/literature/topics/gestalt-principles"
+  },
+  {
+    "id": "composition-grammar",
+    "category": "art-direction",
+    "name": "構図の文法",
+    "nameEn": "Composition Grammar",
+    "origin": "Classical picture composition (rule of thirds, golden ratio, negative space)",
+    "summaryJa": "三分割・黄金比・余白・階層という4つの道具で、画面のどこに何を置くかを言語化する。感覚を再現可能な指示に変える。",
+    "whenJa": "プロンプトに「いい感じの構図で」としか書けないとき。",
+    "minutes": 10,
+    "steps": [
+      { "key": "grid", "promptJa": "使う下敷きを選んでください。", "placeholderJa": "", "type": "choice", "options": ["三分割法", "黄金比", "中央対称", "対角線", "グリッドなし（余白主導）"] },
+      { "key": "subjectPos", "promptJa": "主題をどこに置きますか。画面の割合で答えてください。", "placeholderJa": "左から1/3、下から1/3の交点。画面占有率は15％", "type": "text" },
+      { "key": "negative", "promptJa": "余白は何のために空けますか（文字ゾーン／呼吸／緊張）。", "placeholderJa": "上部45％を見出しゾーンとして空ける", "type": "text" },
+      { "key": "hierarchy", "promptJa": "視覚的な階層を1位から3位まで書いてください。", "placeholderJa": "1 主題の輪郭 2 影 3 背景のテクスチャ", "type": "text" },
+      { "key": "exclude", "promptJa": "画面に絶対入れないものを1つ決めてください。", "placeholderJa": "地平線", "type": "text" }
+    ],
+    "feeds": ["direction.composition", "direction.typography"],
+    "aiInstruction": "Express direction.composition as explicit spatial instructions: grid, subject position in fractions of the frame, subject size as a percentage, and the ranked hierarchy. Reserve the negative space the user described and pass it to direction.typography as a named text zone with its share of the frame. Always carry the exclusion rule forward verbatim as a negative instruction.",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Rule_of_thirds"
+  },
+  {
+    "id": "brand-archetypes",
+    "category": "art-direction",
+    "name": "ブランド・アーキタイプ（12類型）",
+    "nameEn": "Brand Archetypes (12 Archetypes)",
+    "origin": "Margaret Mark & Carol S. Pearson, The Hero and the Outlaw (2001)",
+    "summaryJa": "ユング由来の12の原型（英雄・無法者・賢者ほか）をブランドの性格として選び、独立／所属／安定／熟達の4動機で位置づける。",
+    "whenJa": "ブランドの「人格」が曖昧で、ビジュアルの判断基準が人によってぶれるとき。",
+    "minutes": 10,
+    "steps": [
+      { "key": "archetype", "promptJa": "いちばん近い原型を1つ選んでください。", "placeholderJa": "", "type": "choice", "options": ["無垢（Innocent）", "賢者（Sage）", "探検家（Explorer）", "無法者（Outlaw）", "魔術師（Magician）", "英雄（Hero）", "恋人（Lover）", "道化（Jester）", "隣人（Everyman）", "世話人（Caregiver）", "支配者（Ruler）", "創造者（Creator）"] },
+      { "key": "why", "promptJa": "その原型だと言える根拠を、ブランドの実際の行動から1つ挙げてください。", "placeholderJa": "問い合わせに対して必ず理由まで説明している＝賢者", "type": "text" },
+      { "key": "shadow", "promptJa": "その原型が行きすぎたときの影（嫌われ方）を書いてください。", "placeholderJa": "賢者の影＝説教くさい・上から目線", "type": "text" },
+      { "key": "visualRule", "promptJa": "その人格なら「絶対にやらない」ビジュアル表現を1つ決めてください。", "placeholderJa": "煽り文句と大きい感嘆符は使わない", "type": "text" }
+    ],
+    "feeds": ["brief.tone", "direction.mood", "direction.typography"],
+    "aiInstruction": "Record the archetype and its evidence in brief.tone, and translate it into direction.mood and direction.typography as concrete visual behaviours (how it lights, how it frames, how loud its type is). Always carry the shadow side forward as a guardrail and the 'never do' rule as a hard negative constraint. Do not blend two archetypes; if the evidence supports two, present them as a choice for a human to make.",
+    "sourceUrl": "https://carolspearson.com/books-page/the-hero-and-the-outlaw-building-extraordinary-brands-through-the-power-of-archetypes"
+  },
+  {
+    "id": "moodboard-to-visual-system",
+    "category": "art-direction",
+    "name": "ムードボード → トーンワード → ビジュアルシステム",
+    "nameEn": "Mood Board → Tone Words → Visual System",
+    "origin": "Art direction / brand identity practice",
+    "summaryJa": "参照画像を集めて終わりにせず、各参照から「役割」と「原理」を言葉で抜き出し、再現可能なシステム（色・書体・光・構図）に落とす。",
+    "whenJa": "参考は集まったが、それをどう自分の絵に変えるか決められないとき。",
+    "minutes": 15,
+    "steps": [
+      { "key": "refs", "promptJa": "参照を3〜6点挙げ、それぞれに役割を付けてください（構図／色／光／質感／書体／空気）。", "placeholderJa": "A：光 B：色 C：構図 D：質感", "type": "list" },
+      { "key": "principles", "promptJa": "各参照から「なぜ効いているか」の原理を1行ずつ抜き出してください（真似ではなく原理）。", "placeholderJa": "A：単一光源で影の方向を1つに固定している", "type": "list" },
+      { "key": "toneWords", "promptJa": "全体を貫くトーンワードを3語に絞ってください。", "placeholderJa": "静けさ／硬質／余白", "type": "text" },
+      { "key": "system", "promptJa": "トーンワードを、色・書体・光・構図の4項目に翻訳してください。", "placeholderJa": "色：低彩度2色／書体：細いサンセリフ／光：単一光源／構図：主題15％", "type": "text" },
+      { "key": "rights", "promptJa": "各参照について、画素を生成に渡すか（自前画像のみ可）を明記してください。", "placeholderJa": "A/B/C は原理のみ、D は自前なので画素も可", "type": "text" }
+    ],
+    "feeds": ["direction.mood", "direction.palette", "direction.typography", "direction.composition"],
+    "aiInstruction": "Convert each reference into a one-line principle and never into an instruction to imitate a specific campaign, photographer, brand or living artist's style. Distribute the principles into direction.palette, direction.typography, direction.composition and direction.mood according to the role the user assigned. Respect the pixel-passing flags: for references marked principle-only, use the text principle alone and state that no image was passed.",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Mood_board"
+  }
+]
