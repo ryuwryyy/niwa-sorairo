@@ -9,7 +9,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "worker:dev": "wrangler dev worker/index.js",
-    "worker:deploy": "wrangler deploy worker/index.js"
+    "worker:deploy": "wrangler deploy worker/index.js",
+    "skills:update": "bash scripts/update-skills.sh"
   },
   "dependencies": {
     "react": "^18.3.1",
