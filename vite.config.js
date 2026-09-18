@@ -53,7 +53,8 @@ export default defineConfig(({ mode }) => {
           // /studio は別アプリ（Sorairo Studio）。SW の SPA フォールバックから除外する
           navigateFallbackDenylist: [/^\/api/, /^\/studio/],
           globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2}"],
-          globIgnores: ["**/studio/**"],
+          // Studio のバンドル（dist/assets/studio-*）は庭アプリの SW に precache させない
+          globIgnores: ["**/studio/**", "**/assets/studio-*"],
           runtimeCaching: [
             {
               urlPattern: ({ url }) => url.pathname.startsWith("/api/"),
