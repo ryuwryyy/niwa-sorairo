@@ -674,6 +674,26 @@ test("Inter しか無くても（Medium が無くても）完走する", async (
   sameValues(sub.fontName, { family: "Inter", style: "Regular" }); // Medium が無いので Regular で代替
 });
 
+test("見出し書体と本文書体が同じなら 6 段だけ作り、両方の family 指定に当てる", async () => {
+  const mock = createFigmaMock();
+  loadPlugin(mock);
+  const spec = clone(SAMPLE);
+  spec.tokens.type.displayFamily = spec.tokens.type.family; // Noto Sans JP 一本
+  const summary = await importSpec(mock, spec);
+
+  sameValues(summary.warnings, []);
+  assert.equal(mock.state.textStyles.length, 6, "余計なスタイルを作っている");
+  assert.equal(mock.state.textStyles.some((s) => s.name.includes("-display")), false);
+
+  // family: "display" の h3（Card の Title）にも Sorairo/h3 が当たる
+  const page = pageByName(mock, "Sorairo / 空色の庭");
+  const title = page.children.find((n) => n.name === "Card").children[0].children[1].children[0];
+  assert.equal(title.name, "Title");
+  const h3 = mock.state.textStyles.find((s) => s.name === "Sorairo/h3");
+  assert.equal(title.textStyleId, h3.id);
+  sameValues(title.fontName, { family: "Noto Sans JP", style: "Medium" });
+});
+
 test("オプションで作るものを絞れる", async () => {
   const mock = createFigmaMock();
   loadPlugin(mock);
@@ -747,3 +767,6 @@ test("進捗メッセージが順に飛ぶ", async () => {
   assert.equal(mock.state.messages[mock.state.messages.length - 1].type, "done");
   assert.ok(Array.isArray(mock.state.zoomed) && mock.state.zoomed.length === 6);
 });
+
+// 手元で構造を覗きたいとき用（node からこのファイルを import すれば偽 Figma を使い回せる）
+export { createFigmaMock, loadPlugin, importSpec };

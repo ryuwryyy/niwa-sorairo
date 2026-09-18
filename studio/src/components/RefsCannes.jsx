@@ -1,5 +1,7 @@
 /** 参照タブ「カンヌ」。同梱メタデータ + 原理。画像は持たず、必要なときだけ検索する。 */
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+
+const PAGE = 12;
 import cannes from "../data/cannes.json";
 import { useStudio, newRef } from "../store";
 import { api, ApiError } from "../lib/api";
@@ -26,6 +28,9 @@ export default function RefsCannes() {
   const [lion, setLion] = useState("");
   const [tags, setTags] = useState([]);
   const [imgFor, setImgFor] = useState(null);   // { id, items, loading, error }
+  const [limit, setLimit] = useState(PAGE);      // 67 件を全部展開すると長すぎるので段階表示
+
+  useEffect(() => { setLimit(PAGE); }, [q, from, to, lion, tags]);
 
   const picks = new Set(project.refs.cannesPicks || []);
   const boardKeys = new Set(project.refs.board.map(refKey));
@@ -112,10 +117,10 @@ export default function RefsCannes() {
         </div>
       </div>
 
-      <p className="small muted">{list.length} 件</p>
+      <p className="small muted">{list.length} 件{list.length > limit ? `（${limit} 件を表示）` : ""}</p>
 
       <div className="stack" style={{ gap: 12 }}>
-        {list.map((c) => (
+        {list.slice(0, limit).map((c) => (
           <article key={c.id} className="card cannes-card">
             <div className="row" style={{ gap: 8 }}>
               <span className="badge mono">{c.year}</span>
@@ -162,6 +167,11 @@ export default function RefsCannes() {
           </article>
         ))}
         {!list.length && <div className="empty">条件に合う受賞作がありません。</div>}
+        {list.length > limit && (
+          <button className="btn" onClick={() => setLimit((n) => n + PAGE)}>
+            さらに {Math.min(PAGE, list.length - limit)} 件を表示（残り {list.length - limit} 件）
+          </button>
+        )}
       </div>
     </div>
   );

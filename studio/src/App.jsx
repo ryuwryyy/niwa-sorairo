@@ -28,7 +28,10 @@ function Shell() {
   const Screen = SCREENS[stage] || Project;
   const meta = STAGES.find((s) => s.id === stage) || STAGES[0];
   const status = useMemo(() => stageStatus(project), [project]);
-  const [panelOpen, setPanelOpen] = useState(true);
+  // 狭い画面ではパネルはオーバーレイになるので、初期状態は閉じておく
+  const [panelOpen, setPanelOpen] = useState(
+    () => typeof window === "undefined" || !window.matchMedia("(max-width: 1100px)").matches,
+  );
 
   // テーマ
   useEffect(() => {
@@ -231,7 +234,9 @@ function MiniThumb({ item }) {
   const src = blobUrl || (item.thumbUrl ? (item.source === "upload" ? item.thumbUrl : api.proxied(item.thumbUrl)) : "");
   return (
     <div className="thumb" title={item.title}>
-      {src ? <img src={src} alt={item.title || ""} loading="lazy" /> : null}
+      {src
+        ? <img src={src} alt={item.title || ""} loading="lazy" />
+        : <span className="thumb-text">{(item.title || item.source || "").slice(0, 24)}</span>}
     </div>
   );
 }

@@ -347,9 +347,11 @@ export default function Handoff() {
 function PickTile({ gen, selected, onPick }) {
   const url = useBlobUrl(gen.blobKey);
   return (
-    <button className={`thumb gen-tile-btn${selected ? " selected" : ""}`} onClick={onPick} aria-label="この画像を使う" style={{ position: "relative" }}>
-      {url ? <img src={url} alt="生成画像" loading="lazy" /> : <span className="small muted">…</span>}
+    <div className={`thumb${selected ? " selected" : ""}`}>
+      <button className="gen-tile-btn" onClick={onPick} aria-label="この画像を使う">
+        {url ? <img src={url} alt="生成画像" loading="lazy" /> : <span className="small muted">…</span>}
+      </button>
       <span className="ov">{gen.starred ? "★ " : ""}{gen.critique ? `${gen.critique.total}/30` : new Date(gen.at).toLocaleDateString("ja-JP")}</span>
-    </button>
+    </div>
   );
 }

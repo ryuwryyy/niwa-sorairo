@@ -127,11 +127,12 @@ export default function RefCard({ item, index = 0, count = 1, onMove }) {
         </div>
       </div>
 
-      <label className="row" style={{ marginTop: 10, gap: 8 }}>
+      <label className="row" style={{ marginTop: 10, gap: 8 }} title={allowPixels ? undefined : "Adobe Stock 素材は規約により AI 利用不可"}>
         <input
           type="checkbox"
-          checked={!!item.passPixels}
+          checked={allowPixels && !!item.passPixels}
           disabled={!allowPixels}
+          title={allowPixels ? undefined : "Adobe Stock 素材は規約により AI 利用不可"}
           onChange={(e) => up({ passPixels: e.target.checked })}
         />
         <span className="small">
@@ -204,6 +205,11 @@ export default function RefCard({ item, index = 0, count = 1, onMove }) {
       </div>
       {allowPixels && !hasClaude && (
         <p className="small muted" style={{ marginTop: 6 }}>原理抽出には <code>ANTHROPIC_API_KEY</code> が要ります。手入力でも同じ効果です。</p>
+      )}
+      {!item.blobKey && (item.imageUrl || item.thumbUrl) && item.source !== "upload" && (
+        <p className="small muted" style={{ marginTop: 6 }}>
+          「画像を取り込む」を押すまで、外部画像は端末に保存されません（表示は毎回プロキシ経由）。取り込んだ画像の利用可否はご自身で確認してください。
+        </p>
       )}
     </div>
   );

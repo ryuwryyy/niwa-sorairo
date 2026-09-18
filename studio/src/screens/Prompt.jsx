@@ -30,7 +30,8 @@ export default function Prompt() {
 
   useEffect(() => { setEn(active?.en || ""); setJa(active?.ja || ""); }, [active?.id]);
 
-  const g = useMemo(() => guard(en, [project.meta.brand].filter(Boolean)), [en, project.meta.brand]);
+  // 案件自身のブランド名はプロンプト冒頭に入る前提なので見張らない（ロゴ再現の指示は guardPrompt の block パターンが拾う）
+  const g = useMemo(() => guard(en), [en]);
 
   const addVersion = (v) => dispatch({ type: "prompt/addVersion", version: v });
 

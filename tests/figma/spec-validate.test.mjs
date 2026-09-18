@@ -224,3 +224,18 @@ test("ui.html は外部リソースを読み込まない", () => {
   assert.equal(/https?:\/\//.test(html.replace(/xmlns="[^"]*"/g, "")), false, "外部 URL がある");
   assert.ok(html.includes('parent.postMessage({'));
 });
+
+test("ui.html の中の JavaScript が構文エラーを起こさない", async () => {
+  const { Script } = await import("node:vm");
+  const html = read("figma-plugin/ui.html");
+  const scripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map((m) => m[1]);
+  assert.equal(scripts.length, 1);
+  assert.doesNotThrow(() => new Script(scripts[0], { filename: "ui.html" }));
+  // UI が扱うメッセージの種類（code.js が送るもの）を網羅していること
+  for (const type of ["progress", "error", "done"]) {
+    assert.ok(scripts[0].includes(`"${type}"`), `${type} を処理していない`);
+  }
+  for (const id of ["optVariables", "optStyles", "optComponents", "optFrames", "pageName"]) {
+    assert.ok(html.includes(`id="${id}"`), `${id} が無い`);
+  }
+});

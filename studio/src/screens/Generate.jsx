@@ -3,7 +3,7 @@ import { useStudio, activePrompt, uid } from "../store";
 import { compilePrompt } from "../lib/prompt";
 import { api, ApiError } from "../lib/api";
 import { putBlob, getBlob, base64ToBlob, useBlobUrl } from "../lib/idb";
-import { refToPayload, blobToPayload, maxRefImages, modelSpec, thumbSrc } from "../lib/refsources";
+import { refToPayload, blobToPayload, maxRefImages, modelSpec, thumbSrc, canPassPixels } from "../lib/refsources";
 import GenDetail from "../components/GenDetail";
 import { useToast } from "../components/Toast";
 
@@ -22,7 +22,10 @@ export default function Generate() {
   const [selectedId, setSelectedId] = useState(null);
 
   const compiled = useMemo(() => compilePrompt(project, { maxRefImages: maxRefImages(d) }), [project, d]);
-  const sendRefs = compiled.refIds.map((id) => project.refs.board.find((r) => r.id === id)).filter(Boolean);
+  // compilePrompt().refIds と同じ規則。ただし規約上 AI に渡せない出所（Adobe Stock）は除く
+  const sendRefs = compiled.refIds
+    .map((id) => project.refs.board.find((r) => r.id === id))
+    .filter((r) => r && canPassPixels(r.source, r.license));
   const model = modelSpec(d);
   const gens = [...project.gens].reverse();
   const selected = project.gens.find((g) => g.id === selectedId) || null;

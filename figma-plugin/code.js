@@ -717,9 +717,8 @@ function collectTextUsage(spec) {
 }
 
 function textStyleName(styleKey, kind) {
-  return PRIMARY_FAMILY_KIND[styleKey] === kind || !PRIMARY_FAMILY_KIND[styleKey]
-    ? STYLE_PREFIX + styleKey
-    : STYLE_PREFIX + styleKey + "-" + kind;
+  var primaryKind = PRIMARY_FAMILY_KIND[styleKey] || "body";
+  return primaryKind === kind ? STYLE_PREFIX + styleKey : STYLE_PREFIX + styleKey + "-" + kind;
 }
 
 async function buildTextStyles(spec, ctx) {
@@ -732,7 +731,10 @@ async function buildTextStyles(spec, ctx) {
   var scale = type.scale || {};
   var lh = isNumber(type.lineHeight) ? type.lineHeight : 1.5;
   var lhPercent = lh <= 4 ? lh * 100 : lh; // 1.5 → 150%
-  var sameFamily = ctx.fonts.bodyFamily === ctx.fonts.displayFamily;
+  // 代替のあとで同じ書体に落ち着いたかどうかで判断する（両方 Inter になった場合など）
+  var bodyFont = fontFor(ctx, "body", "regular");
+  var displayFont = fontFor(ctx, "display", "regular");
+  var sameFamily = !!(bodyFont && displayFont && bodyFont.family === displayFont.family);
 
   // 既定の 6 段（display,h1 は見出し書体 / それ以外は本文書体）
   var wanted = [];
@@ -753,6 +755,7 @@ async function buildTextStyles(spec, ctx) {
     }
   }
 
+  var made = 0;
   for (var w = 0; w < wanted.length; w++) {
     var item = wanted[w];
     var name = textStyleName(item.style, item.kind);
@@ -773,8 +776,19 @@ async function buildTextStyles(spec, ctx) {
     try { style.description = item.style + " / " + font.family + " " + font.style + " / " + scale[item.style] + "px"; } catch (e) { /* noop */ }
     ctx.textStyles[item.style + "|" + item.kind] = { style: style, font: font, size: scale[item.style] };
     byName[name] = style;
+    made++;
   }
-  progress("Text Styles: " + Object.keys(ctx.textStyles).length + " 件", STYLE_PREFIX + "display / h1 / h2 / h3 / body / caption");
+  // 見出し書体と本文書体が同じなら、どちらの family 指定でも同じスタイルを当てる
+  if (sameFamily) {
+    for (var t = 0; t < TEXT_STYLE_KEYS.length; t++) {
+      var key2 = TEXT_STYLE_KEYS[t];
+      var primaryKind = PRIMARY_FAMILY_KIND[key2] || "body";
+      var otherKind = primaryKind === "display" ? "body" : "display";
+      var entry2 = ctx.textStyles[key2 + "|" + primaryKind];
+      if (entry2 && !ctx.textStyles[key2 + "|" + otherKind]) ctx.textStyles[key2 + "|" + otherKind] = entry2;
+    }
+  }
+  progress("Text Styles: " + made + " 件", STYLE_PREFIX + "display / h1 / h2 / h3 / body / caption");
 }
 
 /* ------------------------------------------------------------------ *
