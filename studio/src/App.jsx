@@ -9,13 +9,16 @@ import Direction from "./screens/Direction";
 import Prompt from "./screens/Prompt";
 import Generate from "./screens/Generate";
 import Handoff from "./screens/Handoff";
+import { ToastProvider } from "./components/Toast";
 
 const SCREENS = { project: Project, consult: Consult, refs: Refs, direction: Direction, prompt: Prompt, generate: Generate, handoff: Handoff };
 
 export default function App() {
   return (
     <StudioProvider>
-      <Shell />
+      <ToastProvider>
+        <Shell />
+      </ToastProvider>
     </StudioProvider>
   );
 }
@@ -102,7 +105,7 @@ function Rail({ status }) {
         <div className="status-list">
           <StatusRow ok={s.claude} label="Claude（課題・批評）" />
           <StatusRow ok={s.gemini} label="Gemini（画像生成）" />
-          <StatusRow ok={s.pinterest || s.cse} label="Pinterest 検索" />
+          <StatusRow ok={s.pinterest || s.brave || s.cse} label="Pinterest 検索" />
           <StatusRow ok={s.adobe} label="Adobe Stock" />
         </div>
         <button className="btn btn-sm btn-ghost" onClick={cycleTheme}>テーマ: {settings.theme || "auto"}</button>

@@ -232,6 +232,10 @@ function reducer(state, action) {
       const versions = [...cur.prompt.versions, v];
       return withProject({ ...cur, prompt: { versions, activeId: v.id } });
     }
+    case "prompt/updateVersion": {   // { id, patch } 既存の版をその場で書き換える（直近の手編集をまとめるため）
+      const versions = cur.prompt.versions.map((v) => (v.id === action.id ? { ...v, ...action.patch } : v));
+      return withProject({ ...cur, prompt: { ...cur.prompt, versions } });
+    }
     case "prompt/setActive":
       return withProject({ ...cur, prompt: { ...cur.prompt, activeId: action.id } });
     case "prompt/removeVersion": {

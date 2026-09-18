@@ -18,7 +18,9 @@ const joinNatural = (arr) => {
 
 /** スライダー値 → 強度語。中央付近は言及しない */
 export function intensity(value) {
-  const d = Math.abs((Number(value) || 50) - 50);
+  const n = Number(value);
+  // 0 は falsy なので `Number(value) || 50` にすると「スライダーを左端まで振った」が中央扱いになる
+  const d = Math.abs((Number.isFinite(n) ? n : 50) - 50);
   if (d <= 8) return null;
   if (d <= 22) return "slightly";
   if (d <= 38) return "clearly";
