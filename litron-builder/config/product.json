@@ -1,0 +1,383 @@
+{
+  "id": "litron-builder",
+  "name": "Litron Builder",
+  "tagline": "あなたの仕事から、自動化できるものを見つけてくる。",
+  "oneLiner": "行動ログから自動化の対象を自ら見つけ（Push）、自然言語からも組め（Pull）、同じ『型』に合流させて検証つきで回す統合ビルダー。",
+  "platform": {
+    "kind": "web-desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    }
+  },
+  "locale": "ja-JP",
+  "coreFeature": {
+    "name": "対象ピックアップの仕組み化",
+    "problem": "Zapier も Claude Code も『何を自動化するか』は人間が持ち込む前提で立っている。そこが空いている。",
+    "gates": [
+      {
+        "id": "G1",
+        "name": "反復性",
+        "measure": "頻度 × 所要時間 = 回収可能時間",
+        "note": "合否ではなく、やる価値の目安"
+      },
+      {
+        "id": "G2",
+        "name": "ばらつき",
+        "measure": "例外率 = 主経路から外れた回数 / N",
+        "note": "高い=不採用にしない。モードを割り当てる"
+      },
+      {
+        "id": "G3",
+        "name": "検証可能性",
+        "measure": "機械判定 > 突合 > サンプル抽査 > 受領確認",
+        "note": "これを通らないものは候補にしない"
+      },
+      {
+        "id": "G4",
+        "name": "可逆性",
+        "measure": "不可逆ステップ数",
+        "note": "危険かではなく戻せるかで分ける"
+      }
+    ],
+    "modes": [
+      {
+        "id": "deterministic",
+        "label": "決定論",
+        "range": "例外率 〜10%",
+        "desc": "手順を固定して回す"
+      },
+      {
+        "id": "agent",
+        "label": "エージェント",
+        "range": "例外率 10〜40%",
+        "desc": "判断を委ねる。検証必須"
+      },
+      {
+        "id": "draft",
+        "label": "下書き",
+        "range": "例外率 40%〜",
+        "desc": "下書きまで。人が仕上げる"
+      }
+    ],
+    "expansionThesis": "現状の Push 型（議事録・メール下書き）は下書きモードだけ。拡張は『下書きを増やす』ではなく、例外率の低い側へ登ること。",
+    "observation": {
+      "choice": "API / Webhook のみ。デスクトップ記録はしない",
+      "why": [
+        "同意の壁が導入を殺す",
+        "調査型では運用に載らない",
+        "G3(検証可能性)を通る候補は API 観測でほぼ捉えられる — 機械で検証できることは、ほぼ機械で観測できる"
+      ],
+      "acceptedBlindSpot": "システム間の隙間で起きる手作業は見えない。見えないことを画面に出して扱う",
+      "hypothesisToTest": "実データで『G3を通るのにAPIで見えなかった候補』が一定数出るなら、この判断は覆る"
+    }
+  },
+  "designTokens": {
+    "color": {
+      "canvas": {
+        "hex": "#F6F7F9",
+        "role": "アプリ背景"
+      },
+      "surface": {
+        "hex": "#FFFFFF",
+        "role": "カード面"
+      },
+      "sunken": {
+        "hex": "#EDEFF3",
+        "role": "入力欄・沈み面"
+      },
+      "ink": {
+        "hex": "#0E1116",
+        "role": "主要テキスト / 主ボタン"
+      },
+      "ink-2": {
+        "hex": "#4A5260",
+        "role": "副次テキスト"
+      },
+      "ink-3": {
+        "hex": "#818A99",
+        "role": "補助・メタ"
+      },
+      "line": {
+        "hex": "#DDE1E8",
+        "role": "境界線 1px"
+      },
+      "discover": {
+        "hex": "#7C3AED",
+        "role": "Push＝エージェントが見つけた"
+      },
+      "discover-soft": {
+        "hex": "#F1EAFE",
+        "role": "Push の面"
+      },
+      "declare": {
+        "hex": "#0369A1",
+        "role": "Pull＝人が書いた"
+      },
+      "declare-soft": {
+        "hex": "#E2F1FB",
+        "role": "Pull の面"
+      },
+      "ok": {
+        "hex": "#15803D",
+        "role": "検証合格・可逆"
+      },
+      "ok-soft": {
+        "hex": "#E6F4EA",
+        "role": "合格の面"
+      },
+      "warn": {
+        "hex": "#B45309",
+        "role": "要注意・例外"
+      },
+      "warn-soft": {
+        "hex": "#FDF0E1",
+        "role": "要注意の面"
+      },
+      "stop": {
+        "hex": "#BE123C",
+        "role": "不可逆・降格"
+      },
+      "stop-soft": {
+        "hex": "#FDE7EC",
+        "role": "不可逆の面"
+      }
+    },
+    "type": {
+      "family": {
+        "ui": "Noto Sans JP",
+        "num": "Inter"
+      },
+      "scale": [
+        {
+          "name": "display",
+          "size": 28,
+          "lineHeight": 38,
+          "weight": "Medium",
+          "family": "ui"
+        },
+        {
+          "name": "title",
+          "size": 18,
+          "lineHeight": 28,
+          "weight": "Bold",
+          "family": "ui"
+        },
+        {
+          "name": "subtitle",
+          "size": 15,
+          "lineHeight": 24,
+          "weight": "Medium",
+          "family": "ui"
+        },
+        {
+          "name": "body",
+          "size": 14,
+          "lineHeight": 22,
+          "weight": "Regular",
+          "family": "ui"
+        },
+        {
+          "name": "caption",
+          "size": 12,
+          "lineHeight": 18,
+          "weight": "Regular",
+          "family": "ui"
+        },
+        {
+          "name": "micro",
+          "size": 11,
+          "lineHeight": 16,
+          "weight": "Medium",
+          "family": "ui"
+        },
+        {
+          "name": "metric",
+          "size": 22,
+          "lineHeight": 28,
+          "weight": "Semi Bold",
+          "family": "num"
+        },
+        {
+          "name": "mono",
+          "size": 12,
+          "lineHeight": 18,
+          "weight": "Medium",
+          "family": "num"
+        }
+      ]
+    },
+    "space": {
+      "scale": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14,
+        16,
+        20,
+        24,
+        28,
+        32,
+        40,
+        48,
+        64
+      ],
+      "unit": "px"
+    },
+    "radius": {
+      "xs": 2,
+      "sm": 4,
+      "md": 6,
+      "lg": 8,
+      "xl": 12,
+      "2xl": 16,
+      "pill": 999
+    },
+    "layout": {
+      "sidebarWidth": 232,
+      "contentPad": 32
+    }
+  },
+  "screens": [
+    {
+      "id": "S7",
+      "slug": "home",
+      "name": "ホーム（統合UI）",
+      "intent": "Push（AIが見つけて提案）と Pull（自然言語でつくる）を1画面に同居させ、どちらの入口からでも仕事を automation に持ち込めるようにする。",
+      "source": "指定された参照画像の書き起こし",
+      "mustHave": [
+        "home-sidebar",
+        "topbar",
+        "hero-card",
+        "impact-card",
+        "tab/Push",
+        "tab/Pull",
+        "push-card",
+        "pull-card",
+        "workflow-stepper",
+        "approvals-card",
+        "runs-card",
+        "loop-card"
+      ]
+    },
+    {
+      "id": "S1",
+      "slug": "pickup",
+      "name": "ピックアップ",
+      "intent": "自動化できる対象を4軸つきで受け取る。Push と Pull の入口が同居する。",
+      "mustHave": [
+        "s1-title",
+        "s1-observe",
+        "s1-cand-1",
+        "s1-cand-3",
+        "s1-pull",
+        "s1-rejected"
+      ]
+    },
+    {
+      "id": "S2",
+      "slug": "evidence",
+      "name": "候補の根拠",
+      "intent": "なぜこの候補が選ばれたかを、観測した実行そのもので示す。",
+      "mustHave": [
+        "s2-title",
+        "s2-axes",
+        "s2-runs",
+        "s2-variance",
+        "s2-privacy"
+      ]
+    },
+    {
+      "id": "S3",
+      "slug": "spec",
+      "name": "要件化",
+      "intent": "観測から要件を起こす。検証方法は必須欄で、空なら先に進めない。",
+      "mustHave": [
+        "s3-title",
+        "s3-io",
+        "s3-exceptions",
+        "s3-verify",
+        "s3-next"
+      ]
+    },
+    {
+      "id": "S4",
+      "slug": "builder",
+      "name": "ビルダー",
+      "intent": "Push 候補と Pull 自然言語が同じキャンバスに合流する。統合UIの本体。",
+      "mustHave": [
+        "s4-title",
+        "s4-intake",
+        "s4-canvas",
+        "s4-step-verify",
+        "s4-step-irreversible"
+      ]
+    },
+    {
+      "id": "S5",
+      "slug": "connect",
+      "name": "接続と権限",
+      "intent": "クリックで繋ぐ。ステップごとに可逆性を宣言させる。",
+      "mustHave": [
+        "s5-title",
+        "s5-conn-1",
+        "s5-scope",
+        "s5-reversibility"
+      ]
+    },
+    {
+      "id": "S6",
+      "slug": "operate",
+      "name": "運用と振り返り",
+      "intent": "回しながら合格率を測り、割れたら降格させる。日報・定例のループ。",
+      "mustHave": [
+        "s6-title",
+        "s6-running",
+        "s6-demote",
+        "s6-loop"
+      ]
+    }
+  ],
+  "goal": {
+    "statement": "6画面が Figma 上にコンポーネントインスタンスで構築され、各画面が仕様網羅・トークン束縛(4系統)・セクション単位の視覚検証を通過している状態。",
+    "gates": [
+      {
+        "id": "G1",
+        "name": "spec-coverage",
+        "rule": "mustHave 要素が全てノードとして存在する",
+        "threshold": 1.0
+      },
+      {
+        "id": "G2",
+        "name": "token-fidelity",
+        "rule": "色・余白・角丸・書体が全てトークン変数に束縛されている",
+        "threshold": 1.0
+      },
+      {
+        "id": "G3",
+        "name": "visual-review",
+        "rule": "セクション単位の採点 4.0/5 以上、blocker ゼロ",
+        "threshold": 4.0
+      }
+    ]
+  },
+  "backlog": [
+    {
+      "id": "S0",
+      "slug": "observe",
+      "name": "観測範囲",
+      "intent": "何を観測していて、何が見えていないかを本人が決め、常に確認できる。対象ピックアップの入力そのもの。",
+      "mustHave": [
+        "s0-title",
+        "s0-tools",
+        "s0-tool-slack",
+        "s0-blindspot",
+        "s0-retention"
+      ],
+      "status": "設計のみ。Figma未実装（docs/OBSERVATION.md）"
+    }
+  ]
+}

@@ -1,0 +1,340 @@
+[
+  {
+    "name": "color/canvas",
+    "type": "COLOR",
+    "value": "#F4F1EA",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ]
+  },
+  {
+    "name": "color/surface",
+    "type": "COLOR",
+    "value": "#FBFAF7",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ]
+  },
+  {
+    "name": "color/surfaceSunken",
+    "type": "COLOR",
+    "value": "#EAE5DA",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ]
+  },
+  {
+    "name": "color/inkPrimary",
+    "type": "COLOR",
+    "value": "#1C1A17",
+    "scopes": [
+      "TEXT_FILL"
+    ]
+  },
+  {
+    "name": "color/inkSecondary",
+    "type": "COLOR",
+    "value": "#5B554B",
+    "scopes": [
+      "TEXT_FILL"
+    ]
+  },
+  {
+    "name": "color/inkTertiary",
+    "type": "COLOR",
+    "value": "#8A8377",
+    "scopes": [
+      "TEXT_FILL"
+    ]
+  },
+  {
+    "name": "color/hairline",
+    "type": "COLOR",
+    "value": "#DED7C9",
+    "scopes": [
+      "STROKE_COLOR"
+    ]
+  },
+  {
+    "name": "color/ember",
+    "type": "COLOR",
+    "value": "#C8551F",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "TEXT_FILL",
+      "STROKE_COLOR"
+    ]
+  },
+  {
+    "name": "color/emberSoft",
+    "type": "COLOR",
+    "value": "#F3E3D9",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "TEXT_FILL",
+      "STROKE_COLOR"
+    ]
+  },
+  {
+    "name": "color/await",
+    "type": "COLOR",
+    "value": "#A8761A",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "TEXT_FILL",
+      "STROKE_COLOR"
+    ]
+  },
+  {
+    "name": "color/awaitSoft",
+    "type": "COLOR",
+    "value": "#F6EDDA",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "TEXT_FILL",
+      "STROKE_COLOR"
+    ]
+  },
+  {
+    "name": "color/ok",
+    "type": "COLOR",
+    "value": "#4E7A5A",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "TEXT_FILL",
+      "STROKE_COLOR"
+    ]
+  },
+  {
+    "name": "color/okSoft",
+    "type": "COLOR",
+    "value": "#E4EDE6",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "TEXT_FILL",
+      "STROKE_COLOR"
+    ]
+  },
+  {
+    "name": "color/stop",
+    "type": "COLOR",
+    "value": "#A33A2C",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "TEXT_FILL",
+      "STROKE_COLOR"
+    ]
+  },
+  {
+    "name": "color/stopSoft",
+    "type": "COLOR",
+    "value": "#F6E2DE",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "TEXT_FILL",
+      "STROKE_COLOR"
+    ]
+  },
+  {
+    "name": "space/2",
+    "type": "FLOAT",
+    "value": 2,
+    "scopes": [
+      "GAP",
+      "WIDTH_HEIGHT"
+    ]
+  },
+  {
+    "name": "space/4",
+    "type": "FLOAT",
+    "value": 4,
+    "scopes": [
+      "GAP",
+      "WIDTH_HEIGHT"
+    ]
+  },
+  {
+    "name": "space/6",
+    "type": "FLOAT",
+    "value": 6,
+    "scopes": [
+      "GAP",
+      "WIDTH_HEIGHT"
+    ]
+  },
+  {
+    "name": "space/8",
+    "type": "FLOAT",
+    "value": 8,
+    "scopes": [
+      "GAP",
+      "WIDTH_HEIGHT"
+    ]
+  },
+  {
+    "name": "space/10",
+    "type": "FLOAT",
+    "value": 10,
+    "scopes": [
+      "GAP",
+      "WIDTH_HEIGHT"
+    ]
+  },
+  {
+    "name": "space/12",
+    "type": "FLOAT",
+    "value": 12,
+    "scopes": [
+      "GAP",
+      "WIDTH_HEIGHT"
+    ]
+  },
+  {
+    "name": "space/14",
+    "type": "FLOAT",
+    "value": 14,
+    "scopes": [
+      "GAP",
+      "WIDTH_HEIGHT"
+    ]
+  },
+  {
+    "name": "space/16",
+    "type": "FLOAT",
+    "value": 16,
+    "scopes": [
+      "GAP",
+      "WIDTH_HEIGHT"
+    ]
+  },
+  {
+    "name": "space/20",
+    "type": "FLOAT",
+    "value": 20,
+    "scopes": [
+      "GAP",
+      "WIDTH_HEIGHT"
+    ]
+  },
+  {
+    "name": "space/24",
+    "type": "FLOAT",
+    "value": 24,
+    "scopes": [
+      "GAP",
+      "WIDTH_HEIGHT"
+    ]
+  },
+  {
+    "name": "space/28",
+    "type": "FLOAT",
+    "value": 28,
+    "scopes": [
+      "GAP",
+      "WIDTH_HEIGHT"
+    ]
+  },
+  {
+    "name": "space/32",
+    "type": "FLOAT",
+    "value": 32,
+    "scopes": [
+      "GAP",
+      "WIDTH_HEIGHT"
+    ]
+  },
+  {
+    "name": "space/40",
+    "type": "FLOAT",
+    "value": 40,
+    "scopes": [
+      "GAP",
+      "WIDTH_HEIGHT"
+    ]
+  },
+  {
+    "name": "space/48",
+    "type": "FLOAT",
+    "value": 48,
+    "scopes": [
+      "GAP",
+      "WIDTH_HEIGHT"
+    ]
+  },
+  {
+    "name": "space/64",
+    "type": "FLOAT",
+    "value": 64,
+    "scopes": [
+      "GAP",
+      "WIDTH_HEIGHT"
+    ]
+  },
+  {
+    "name": "radius/xs",
+    "type": "FLOAT",
+    "value": 2,
+    "scopes": [
+      "CORNER_RADIUS"
+    ]
+  },
+  {
+    "name": "radius/sm",
+    "type": "FLOAT",
+    "value": 4,
+    "scopes": [
+      "CORNER_RADIUS"
+    ]
+  },
+  {
+    "name": "radius/md",
+    "type": "FLOAT",
+    "value": 6,
+    "scopes": [
+      "CORNER_RADIUS"
+    ]
+  },
+  {
+    "name": "radius/lg",
+    "type": "FLOAT",
+    "value": 8,
+    "scopes": [
+      "CORNER_RADIUS"
+    ]
+  },
+  {
+    "name": "radius/xl",
+    "type": "FLOAT",
+    "value": 10,
+    "scopes": [
+      "CORNER_RADIUS"
+    ]
+  },
+  {
+    "name": "radius/2xl",
+    "type": "FLOAT",
+    "value": 16,
+    "scopes": [
+      "CORNER_RADIUS"
+    ]
+  },
+  {
+    "name": "radius/pill",
+    "type": "FLOAT",
+    "value": 999,
+    "scopes": [
+      "CORNER_RADIUS"
+    ]
+  }
+]

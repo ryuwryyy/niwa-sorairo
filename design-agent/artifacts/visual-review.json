@@ -1,0 +1,204 @@
+{
+  "reviewedBy": "vision-review pass (pipeline stage 08-verify)",
+  "reviewedAt": "2026-09-16",
+  "rubric": "0-5。文字切れ・要素の重なり・コントラスト不足は blocker。余白の不均衡や軽微な視覚のばらつきは minor。",
+  "_method": "公式スキルの要求どおり、全景1枚ではなくセクション単位(2x)で撮影して採点している。",
+  "S1": {
+    "score": 4.58,
+    "sections": [
+      {
+        "name": "header",
+        "score": 4.7,
+        "note": "タイトル・日付・割り込みメーターとも見切れなし"
+      },
+      {
+        "name": "s1-card-1",
+        "score": 4.6,
+        "note": "Tag/所要/ボタンの三分割が2xでも崩れない"
+      },
+      {
+        "name": "s1-card-4",
+        "score": 4.6,
+        "note": "不可逆警告が全幅で入り高さ差が出るが意図どおり"
+      },
+      {
+        "name": "s1-applied-list",
+        "score": 4.4,
+        "note": "行高がやや詰まるが文字切れなし"
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "where": "s1-card actions",
+        "what": "却下が Ghost だと主ボタンの隣で押せる要素に見えなかった（全景の縮小版では気付けず、2xのセクション撮影で判明）",
+        "fix": "Secondary に差し替え済み"
+      }
+    ]
+  },
+  "S2": {
+    "score": 4.6,
+    "sections": [
+      {
+        "name": "s2-diff-row",
+        "score": 4.7,
+        "note": "Before/After が等幅。変更箇所の下線が2xでも明瞭"
+      },
+      {
+        "name": "s2-panel",
+        "score": 4.7,
+        "note": "権限→根拠→操作の順に上から読める。必須タグが効いている"
+      },
+      {
+        "name": "s2-changes",
+        "score": 4.5,
+        "note": "3件とも1行に収まる"
+      },
+      {
+        "name": "s2-other-langs",
+        "score": 4.5,
+        "note": "韓国語・繁体字ともフォールバックで正しく描画"
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "where": "s2-panel",
+        "what": "根拠欄に文字が入った状態で見せているため、空欄時に承認が不活性になる仕様が画面からは読み取れない",
+        "fix": "注記で補っている。状態違いのフレームを足すなら別途"
+      }
+    ]
+  },
+  "S3": {
+    "score": 4.65,
+    "sections": [
+      {
+        "name": "s3-summary",
+        "score": 4.6,
+        "note": "StatCell 4枚が等幅。停止理由が await 色で立つ"
+      },
+      {
+        "name": "s3-timeline",
+        "score": 4.7,
+        "note": "6ステップすべてに判断根拠。最終ステップの停止が await で明示"
+      },
+      {
+        "name": "s3-step-6",
+        "score": 4.8,
+        "note": "2xで確認。原則P2の文言が見切れなし"
+      },
+      {
+        "name": "s3-artifact",
+        "score": 4.5,
+        "note": "4ファイルのサムネイルとファイル名が整列"
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "where": "s3-timeline",
+        "what": "ステップ同士を繋ぐ縦罫を置いていない",
+        "fix": "バッジの整列で流れは読めるため現状維持"
+      }
+    ]
+  },
+  "S4": {
+    "score": 4.53,
+    "sections": [
+      {
+        "name": "s4-composer",
+        "score": 4.7,
+        "note": "5問が等間隔。固定行だけ注記が入り高さが変わるが意図どおり"
+      },
+      {
+        "name": "s4-list",
+        "score": 4.5,
+        "note": "稼働中/一時停止がドット色で判別可能"
+      },
+      {
+        "name": "s4-dryrun",
+        "score": 4.3,
+        "note": "パネル高さの固定漏れを修正済み"
+      },
+      {
+        "name": "s4-record",
+        "score": 4.6,
+        "note": "6指標が等幅"
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "where": "s4-dryrun",
+        "what": "子を足す前に resize したためパネル高さが固定され余白が出ていた",
+        "fix": "primaryAxisSizingMode を AUTO に戻して修正済み"
+      }
+    ]
+  },
+  "S5": {
+    "score": 4.5,
+    "sections": [
+      {
+        "name": "s5-grid",
+        "score": 4.5,
+        "note": "6枚のカード高さが揃い、フッタが一直線"
+      },
+      {
+        "name": "s5-a4",
+        "score": 4.5,
+        "note": "不可逆警告が他カードと差別化されている"
+      },
+      {
+        "name": "s5-permissions",
+        "score": 4.6,
+        "note": "公開操作0件が ok 色で安心を与える"
+      },
+      {
+        "name": "s5-filters",
+        "score": 4.4,
+        "note": "選択中チップのコントラスト十分"
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "where": "s5-grid",
+        "what": "カード高を214pxに固定したため説明が1行のカードで内部に空きが出る",
+        "fix": "フッタ揃えを優先した意図的な設計"
+      }
+    ]
+  },
+  "S6": {
+    "score": 4.53,
+    "sections": [
+      {
+        "name": "s6-summary",
+        "score": 4.6,
+        "note": "6指標が等幅。却下が stop 色で埋もれない"
+      },
+      {
+        "name": "s6-table",
+        "score": 4.5,
+        "note": "根拠列が省略されず読める。判断タグを案件の下に置き行高を揃えた"
+      },
+      {
+        "name": "s6-reverts",
+        "score": 4.6,
+        "note": "2xで確認。追記のみの注記まで見切れなし"
+      },
+      {
+        "name": "s6-filters",
+        "score": 4.4,
+        "note": "承認/却下/戻した の3系統が並ぶ"
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "where": "s6-table",
+        "what": "判断タグを案件セルの下に置いたため行高が2行分になる",
+        "fix": "根拠列の可読性を優先。表としては許容"
+      }
+    ]
+  }
+}

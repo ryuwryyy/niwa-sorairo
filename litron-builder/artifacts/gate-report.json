@@ -1,0 +1,395 @@
+{
+  "allPass": true,
+  "report": [
+    {
+      "screen": "S7",
+      "pass": true,
+      "gates": [
+        {
+          "id": "G1",
+          "name": "spec-coverage",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "missing": []
+        },
+        {
+          "id": "G2",
+          "name": "token-fidelity",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "parts": {
+            "color": 1,
+            "space": 1,
+            "radius": 1,
+            "font": 1
+          },
+          "counts": {
+            "color": "435/435",
+            "space": "286/286",
+            "radius": "324/324"
+          },
+          "strayColors": [],
+          "strayFonts": [],
+          "offScaleSpace": [],
+          "offScaleRadius": []
+        },
+        {
+          "id": "G3",
+          "name": "visual-review",
+          "score": 4.42,
+          "threshold": 4,
+          "pass": true,
+          "blockers": [],
+          "issues": [
+            {
+              "severity": "minor",
+              "where": "hero-card の背景",
+              "what": "参照画像は白→淡青のグラデーション。こちらは単色トークン（color/iso-3）",
+              "fix": "グラデーションは変数に束縛できないため、4系統100%束縛を優先して単色を選択。意図的な差分"
+            },
+            {
+              "severity": "minor",
+              "where": "候補タイルの文字サイズ",
+              "what": "参照に合わせて 11px Bold / 10px Regular を新設した。既存の最小(type/micro 11)より下に段が増えた",
+              "fix": "type/cand-title・type/nano としてスタイル化済み。ランプの整理は要検討"
+            },
+            {
+              "severity": "minor",
+              "where": "コンポーネント未使用",
+              "what": "他6画面と違い、既存ライブラリのコンポーネントを使わずプリミティブで構成している",
+              "fix": "画像の忠実な書き起こしを優先した。共通化は次の作業"
+            }
+          ],
+          "sectionsReviewed": 9,
+          "missingSections": false
+        }
+      ]
+    },
+    {
+      "screen": "S1",
+      "pass": true,
+      "gates": [
+        {
+          "id": "G1",
+          "name": "spec-coverage",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "missing": []
+        },
+        {
+          "id": "G2",
+          "name": "token-fidelity",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "parts": {
+            "color": 1,
+            "space": 1,
+            "radius": 1,
+            "font": 1
+          },
+          "counts": {
+            "color": "133/133",
+            "space": "176/176",
+            "radius": "208/208"
+          },
+          "strayColors": [],
+          "strayFonts": [],
+          "offScaleSpace": [],
+          "offScaleRadius": []
+        },
+        {
+          "id": "G3",
+          "name": "visual-review",
+          "score": 4.58,
+          "threshold": 4,
+          "pass": true,
+          "blockers": [],
+          "issues": [
+            {
+              "severity": "minor",
+              "where": "AxisMeter の値",
+              "what": "検証強度だけ値が日本語のため、数値軸(Inter)と字面の質感が揃わない",
+              "fix": "軸の意味を優先し現状維持。実装時に値の種類で字種を切り替える案はある"
+            }
+          ],
+          "sectionsReviewed": 4,
+          "missingSections": false
+        }
+      ]
+    },
+    {
+      "screen": "S2",
+      "pass": true,
+      "gates": [
+        {
+          "id": "G1",
+          "name": "spec-coverage",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "missing": []
+        },
+        {
+          "id": "G2",
+          "name": "token-fidelity",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "parts": {
+            "color": 1,
+            "space": 1,
+            "radius": 1,
+            "font": 1
+          },
+          "counts": {
+            "color": "154/154",
+            "space": "195/195",
+            "radius": "168/168"
+          },
+          "strayColors": [],
+          "strayFonts": [],
+          "offScaleSpace": [],
+          "offScaleRadius": []
+        },
+        {
+          "id": "G3",
+          "name": "visual-review",
+          "score": 4.62,
+          "threshold": 4,
+          "pass": true,
+          "blockers": [],
+          "issues": [
+            {
+              "severity": "minor",
+              "where": "s2-runs",
+              "what": "6件表示で残り6件はリンク送り",
+              "fix": "根拠としては十分。全件は遷移先で"
+            }
+          ],
+          "sectionsReviewed": 4,
+          "missingSections": false
+        }
+      ]
+    },
+    {
+      "screen": "S3",
+      "pass": true,
+      "gates": [
+        {
+          "id": "G1",
+          "name": "spec-coverage",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "missing": []
+        },
+        {
+          "id": "G2",
+          "name": "token-fidelity",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "parts": {
+            "color": 1,
+            "space": 1,
+            "radius": 1,
+            "font": 1
+          },
+          "counts": {
+            "color": "127/127",
+            "space": "178/178",
+            "radius": "112/112"
+          },
+          "strayColors": [],
+          "strayFonts": [],
+          "offScaleSpace": [],
+          "offScaleRadius": []
+        },
+        {
+          "id": "G3",
+          "name": "visual-review",
+          "score": 4.62,
+          "threshold": 4,
+          "pass": true,
+          "blockers": [],
+          "issues": [
+            {
+              "severity": "minor",
+              "where": "s3-verify",
+              "what": "選択済み状態で見せているため、未選択時に次へ進めない挙動は画面から読めない",
+              "fix": "注記で補っている。状態違いのフレームは別途"
+            }
+          ],
+          "sectionsReviewed": 4,
+          "missingSections": false
+        }
+      ]
+    },
+    {
+      "screen": "S4",
+      "pass": true,
+      "gates": [
+        {
+          "id": "G1",
+          "name": "spec-coverage",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "missing": []
+        },
+        {
+          "id": "G2",
+          "name": "token-fidelity",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "parts": {
+            "color": 1,
+            "space": 1,
+            "radius": 1,
+            "font": 1
+          },
+          "counts": {
+            "color": "118/118",
+            "space": "206/206",
+            "radius": "156/156"
+          },
+          "strayColors": [],
+          "strayFonts": [],
+          "offScaleSpace": [],
+          "offScaleRadius": []
+        },
+        {
+          "id": "G3",
+          "name": "visual-review",
+          "score": 4.72,
+          "threshold": 4,
+          "pass": true,
+          "blockers": [],
+          "issues": [
+            {
+              "severity": "minor",
+              "where": "s4-canvas",
+              "what": "ステップ間の接続線を描いていない",
+              "fix": "縦積みと番号で流れは読めるため現状維持"
+            }
+          ],
+          "sectionsReviewed": 4,
+          "missingSections": false
+        }
+      ]
+    },
+    {
+      "screen": "S5",
+      "pass": true,
+      "gates": [
+        {
+          "id": "G1",
+          "name": "spec-coverage",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "missing": []
+        },
+        {
+          "id": "G2",
+          "name": "token-fidelity",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "parts": {
+            "color": 1,
+            "space": 1,
+            "radius": 1,
+            "font": 1
+          },
+          "counts": {
+            "color": "126/126",
+            "space": "207/207",
+            "radius": "140/140"
+          },
+          "strayColors": [],
+          "strayFonts": [],
+          "offScaleSpace": [],
+          "offScaleRadius": []
+        },
+        {
+          "id": "G3",
+          "name": "visual-review",
+          "score": 4.6,
+          "threshold": 4,
+          "pass": true,
+          "blockers": [],
+          "issues": [
+            {
+              "severity": "minor",
+              "where": "s5-conn-list",
+              "what": "サービスアイコンを頭文字で代用している",
+              "fix": "実装時に正式ロゴへ差し替え"
+            }
+          ],
+          "sectionsReviewed": 4,
+          "missingSections": false
+        }
+      ]
+    },
+    {
+      "screen": "S6",
+      "pass": true,
+      "gates": [
+        {
+          "id": "G1",
+          "name": "spec-coverage",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "missing": []
+        },
+        {
+          "id": "G2",
+          "name": "token-fidelity",
+          "score": 1,
+          "threshold": 1,
+          "pass": true,
+          "parts": {
+            "color": 1,
+            "space": 1,
+            "radius": 1,
+            "font": 1
+          },
+          "counts": {
+            "color": "101/101",
+            "space": "175/175",
+            "radius": "112/112"
+          },
+          "strayColors": [],
+          "strayFonts": [],
+          "offScaleSpace": [],
+          "offScaleRadius": []
+        },
+        {
+          "id": "G3",
+          "name": "visual-review",
+          "score": 4.6,
+          "threshold": 4,
+          "pass": true,
+          "blockers": [],
+          "issues": [
+            {
+              "severity": "minor",
+              "where": "s6-running",
+              "what": "合格率の時系列推移が無い",
+              "fix": "降格判断は閾値なので現状で足りる。推移は詳細画面で"
+            }
+          ],
+          "sectionsReviewed": 4,
+          "missingSections": false
+        }
+      ]
+    }
+  ]
+}

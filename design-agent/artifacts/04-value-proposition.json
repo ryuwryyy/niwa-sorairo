@@ -1,0 +1,63 @@
+{
+  "stage": "04-value-proposition-map",
+  "product": "sahai",
+  "framework": "Osterwalder Value Proposition Canvas",
+  "persona": "P-primary",
+  "customerProfile": {
+    "jobs": [
+      { "id": "JOB1", "type": "functional", "statement": "同じ形の作業を、条件だけ変えて繰り返し仕上げる", "importance": 5 },
+      { "id": "JOB2", "type": "functional", "statement": "自分が見ていない時間にも仕事を前に進める", "importance": 5 },
+      { "id": "JOB3", "type": "functional", "statement": "世に出る前に必ず自分の目を通す", "importance": 5 },
+      { "id": "JOB4", "type": "social",     "statement": "『AIに丸投げした人』ではなく『判断した人』として見られる", "importance": 4 },
+      { "id": "JOB5", "type": "emotional",  "statement": "割り込まれずに設計に集中する時間を守る", "importance": 4 },
+      { "id": "JOB6", "type": "supporting", "statement": "決定の経緯を後から他人に説明する", "importance": 3 }
+    ],
+    "pains": [
+      { "id": "PAIN1", "statement": "自動化を『組む』コストが高く、組み上がる頃に要件が変わる", "severity": 5, "relatedJobs": ["JOB1"] },
+      { "id": "PAIN2", "statement": "AIが何をどこまで変えたか分からないまま差分が積まれる", "severity": 5, "relatedJobs": ["JOB3"] },
+      { "id": "PAIN3", "statement": "通知が多すぎて重要なものが埋もれる", "severity": 4, "relatedJobs": ["JOB5"] },
+      { "id": "PAIN4", "statement": "『AIがやりました』では社内レビューを通せない", "severity": 4, "relatedJobs": ["JOB4", "JOB6"] },
+      { "id": "PAIN5", "statement": "勝手に適用されて取り返しがつかなくなる恐怖", "severity": 5, "relatedJobs": ["JOB3"] },
+      { "id": "PAIN6", "statement": "承認依頼がチャットのスレッドに散逸する", "severity": 3, "relatedJobs": ["JOB6"] }
+    ],
+    "gains": [
+      { "id": "GAIN1", "type": "required", "statement": "適用前に必ず止まる保証がある", "attractiveness": 5 },
+      { "id": "GAIN2", "type": "expected", "statement": "朝には下ごしらえが終わっている", "attractiveness": 5 },
+      { "id": "GAIN3", "type": "desired",  "statement": "1件あたりの決裁が数分で終わる", "attractiveness": 4 },
+      { "id": "GAIN4", "type": "desired",  "statement": "任せる範囲を自分の裁量で少しずつ広げられる", "attractiveness": 4 },
+      { "id": "GAIN5", "type": "unexpected", "statement": "決裁の記録がそのまま社内説明の資料になる", "attractiveness": 5 }
+    ]
+  },
+  "valueMap": {
+    "productsAndServices": [
+      { "id": "PS1", "name": "トリガー編成", "screen": "S4", "desc": "GitHub/Linear/Slack/カレンダー/スケジュールのイベントを起点にエージェントを起動する" },
+      { "id": "PS2", "name": "デザイン・定型タスクエージェント", "screen": "S5", "desc": "バナー多言語展開、コンポーネント棚卸し、図版生成、レビュー指摘反映などの型を持つ" },
+      { "id": "PS3", "name": "差配ボード", "screen": "S1", "desc": "決裁待ちを束ねて受け取る主画面" },
+      { "id": "PS4", "name": "決裁ビュー", "screen": "S2", "desc": "差分レビューと根拠付き承認" },
+      { "id": "PS5", "name": "実行トレース", "screen": "S3", "desc": "ステップごとの入力・出力・判断根拠の記録" },
+      { "id": "PS6", "name": "決裁台帳", "screen": "S6", "desc": "誰が何を根拠にいつ決めたかの不可逆な記録" }
+    ],
+    "painRelievers": [
+      { "id": "PR1", "relieves": "PAIN1", "how": "型(テンプレート)からの起動。フローを組まず、条件を1行足すだけで委任範囲が広がる", "screen": "S4" },
+      { "id": "PR2", "relieves": "PAIN2", "how": "Before/Afterの差分表示と、変更箇所の逐一ハイライト。読ませる設計", "screen": "S2" },
+      { "id": "PR3", "relieves": "PAIN3", "how": "束ね通知。重要度でまとめ、1日の割り込み回数に上限を設ける", "screen": "S1" },
+      { "id": "PR4", "relieves": "PAIN4", "how": "根拠の一行を必須入力にし、決裁者名とともに台帳に残す", "screen": "S2, S6" },
+      { "id": "PR5", "relieves": "PAIN5", "how": "原則P2『下ごしらえ止まり』。適用は人間のクリックでしか起きない。加えて適用後も『戻す』常設", "screen": "S1, S2" },
+      { "id": "PR6", "relieves": "PAIN6", "how": "決裁を1箇所に集約。チャットは通知の運び手に徹させる", "screen": "S1" }
+    ],
+    "gainCreators": [
+      { "id": "GC1", "creates": "GAIN1", "how": "全成果物が『提案』状態で到着。適用ボタンは常に人間側にある", "screen": "S1, S2" },
+      { "id": "GC2", "creates": "GAIN2", "how": "トリガー発火から下ごしらえまでを無通知で実行し、完成手前で待機", "screen": "S3" },
+      { "id": "GC3", "creates": "GAIN3", "how": "所要見積もりと影響範囲を一覧に前出しし、隙間時間に合う案件を選べる", "screen": "S1" },
+      { "id": "GC4", "creates": "GAIN4", "how": "決裁実績から『同型を次回から自動化しますか』を1クリックで提案", "screen": "S1, S4" },
+      { "id": "GC5", "creates": "GAIN5", "how": "台帳をCSV/PDFで書き出し、監査・振り返りにそのまま使える形にする", "screen": "S6" }
+    ]
+  },
+  "fitAnalysis": {
+    "coveredPains": ["PAIN1", "PAIN2", "PAIN3", "PAIN4", "PAIN5", "PAIN6"],
+    "coveredGains": ["GAIN1", "GAIN2", "GAIN3", "GAIN4", "GAIN5"],
+    "uncovered": [],
+    "strongestFit": { "pain": "PAIN5", "reliever": "PR5", "why": "『勝手に適用される恐怖』への回答が製品原則そのものになっている。これが競合との唯一の非対称性" },
+    "riskiestAssumption": "『下ごしらえ止まり』の価値が、全自動を謳う競合の速さより強く響くか。J5の差分可読性が弱いと、この前提ごと崩れる"
+  }
+}

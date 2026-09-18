@@ -1,0 +1,173 @@
+{
+  "stage": "05-ux-spec",
+  "product": "sahai",
+  "viewport": { "width": 1440, "height": 900 },
+  "shell": {
+    "sidebar": {
+      "width": 232,
+      "bg": "surface",
+      "borderRight": "hairline",
+      "brand": { "mark": "差", "wordmark": "差配", "sub": "Sahai" },
+      "nav": [
+        { "id": "nav-inbox",   "label": "差配ボード",       "badge": "4", "screen": "S1" },
+        { "id": "nav-trigger", "label": "トリガー編成",     "badge": null, "screen": "S4" },
+        { "id": "nav-catalog", "label": "エージェント目録", "badge": null, "screen": "S5" },
+        { "id": "nav-ledger",  "label": "決裁台帳",         "badge": null, "screen": "S6" }
+      ],
+      "footer": { "user": "上村 樹", "role": "デザイン / 決裁権あり" }
+    },
+    "content": { "x": 232, "width": 1208, "paddingX": 32, "paddingY": 28 }
+  },
+
+  "screens": [
+    {
+      "id": "S1", "slug": "inbox", "name": "差配ボード",
+      "intent": "決裁待ちの束を受け取り、隙間時間に合う案件を選べる状態にする",
+      "emotionTarget": { "at": "J3-J4", "from": -1, "to": 2 },
+      "layout": "header + interruption-meter + bundle sections + applied rail",
+      "elements": [
+        { "id": "s1-title", "type": "display", "text": "差配ボード" },
+        { "id": "s1-date", "type": "caption", "text": "2026年9月16日 (火) 09:12" },
+        { "id": "s1-meter", "type": "interruption-meter", "label": "今日の割り込み", "value": 2, "max": 5, "note": "上限に達したら翌朝まで束ねて保留します" },
+        { "id": "s1-bundle-head", "type": "bundle-header", "text": "決裁待ち 1束（4件）", "sub": "09:04 に届きました" },
+        { "id": "s1-card-1", "type": "decision-card", "agent": "バナー多言語展開", "title": "v2.4 リリースバナーを4言語に展開", "scope": "Figma 1ファイル / 8フレーム", "estimate": "3分", "state": "await", "primary": "差分を見る", "secondary": "却下" },
+        { "id": "s1-card-2", "type": "decision-card", "agent": "コンポーネント棚卸し", "title": "未使用コンポーネント12件の削除提案", "scope": "Figma ライブラリ / 12コンポーネント", "estimate": "6分", "state": "await", "primary": "差分を見る", "secondary": "却下" },
+        { "id": "s1-card-3", "type": "decision-card", "agent": "レビュー指摘反映", "title": "設定画面のコントラスト指摘3件を反映", "scope": "Figma 1ファイル / 3フレーム", "estimate": "2分", "state": "await", "primary": "差分を見る", "secondary": "却下" },
+        { "id": "s1-card-4", "type": "decision-card", "agent": "図版生成", "title": "リリースノート用の構成図を更新", "scope": "Notion 1ページ", "estimate": "4分", "state": "await", "primary": "差分を見る", "secondary": "却下", "warn": "不可逆：公開ページを上書きします" },
+        { "id": "s1-applied-head", "type": "section-header", "text": "適用済み（直近）" },
+        { "id": "s1-applied-1", "type": "applied-row", "title": "アイコン24点の余白統一", "by": "上村 樹", "at": "昨日 17:40", "action": "戻す" },
+        { "id": "s1-applied-2", "type": "applied-row", "title": "英語版の字下げ修正", "by": "上村 樹", "at": "昨日 11:02", "action": "戻す" }
+      ],
+      "mustHave": ["s1-title", "s1-meter", "s1-bundle-head", "s1-card-1", "s1-card-4", "s1-applied-head"],
+      "copyRules": ["件数バッジを主役にしない。『束』を主語にする", "空状態でも祝福しない。静かに『今日は束がありません』"]
+    },
+
+    {
+      "id": "S2", "slug": "decision", "name": "決裁ビュー",
+      "intent": "差分を読ませる。読まずに押せないようにする。根拠を残させる",
+      "emotionTarget": { "at": "J5", "from": 2, "to": 0, "note": "意図的に谷。情報密度を最大にする画面" },
+      "layout": "breadcrumb + split(diff 748 / panel 396)",
+      "elements": [
+        { "id": "s2-back", "type": "breadcrumb", "text": "差配ボード / バナー多言語展開" },
+        { "id": "s2-title", "type": "title", "text": "v2.4 リリースバナーを4言語に展開" },
+        { "id": "s2-meta", "type": "caption", "text": "エージェント: バナー多言語展開 ・ 09:04 下ごしらえ完了 ・ 所要見積もり 3分" },
+        { "id": "s2-diff-tabs", "type": "tabs", "items": ["日本語", "English", "한국어", "繁體中文"], "active": 1 },
+        { "id": "s2-diff-before", "type": "diff-pane", "label": "Before", "caption": "現行 / v2.3" },
+        { "id": "s2-diff-after", "type": "diff-pane", "label": "After", "caption": "提案 / v2.4", "highlight": true },
+        { "id": "s2-changes", "type": "change-list", "title": "変更点 3件", "items": [
+          { "kind": "text", "text": "見出しを『Ship faster』→『Decide faster』に差し替え" },
+          { "kind": "layout", "text": "英字幅に合わせて見出しの行送りを 44→40 に調整" },
+          { "kind": "asset", "text": "バッジ画像を v2.4 のものに置換" }
+        ]},
+        { "id": "s2-scope", "type": "scope-box", "title": "このエージェントの権限", "items": ["Figma: 指定1ファイルの書き込み", "GitHub: 読み取りのみ", "公開操作: 不可"] },
+        { "id": "s2-reason", "type": "reason-input", "label": "決裁の根拠（必須）", "placeholder": "例：文言はマーケ確認済み。行送りの調整は許容範囲内。", "required": true },
+        { "id": "s2-approve", "type": "button-primary", "text": "承認して適用" },
+        { "id": "s2-amend", "type": "button-secondary", "text": "修正して承認" },
+        { "id": "s2-reject", "type": "button-ghost", "text": "却下" },
+        { "id": "s2-trace-link", "type": "link", "text": "この判断に至った過程を見る →" }
+      ],
+      "mustHave": ["s2-title", "s2-diff-before", "s2-diff-after", "s2-changes", "s2-reason", "s2-approve", "s2-trace-link"],
+      "copyRules": ["『承認』単体ではなく『承認して適用』。何が起きるかを動詞で書く", "根拠欄が空のとき、承認ボタンは不活性にする"]
+    },
+
+    {
+      "id": "S3", "slug": "trace", "name": "実行トレース",
+      "intent": "エージェントの判断根拠を遡らせ、委任範囲を広げる動機を作る",
+      "emotionTarget": { "at": "J6", "from": 0, "to": 2 },
+      "layout": "header + timeline(700) / artifact preview(444)",
+      "elements": [
+        { "id": "s3-back", "type": "breadcrumb", "text": "差配ボード / バナー多言語展開 / 実行トレース" },
+        { "id": "s3-title", "type": "title", "text": "実行トレース" },
+        { "id": "s3-summary", "type": "trace-summary", "steps": 6, "duration": "1分48秒", "tokens": "—", "trigger": "GitHub: タグ v2.4 が作成された" },
+        { "id": "s3-step-1", "type": "trace-step", "n": 1, "at": "09:02:11", "title": "トリガー受信", "detail": "GitHub webhook: release tag v2.4", "verdict": "対象条件に一致（リリースタグ + banner ラベル）" },
+        { "id": "s3-step-2", "type": "trace-step", "n": 2, "at": "09:02:14", "title": "対象フレームの特定", "detail": "Figma: banner/* に一致する 8 フレーム", "verdict": "v2.3 由来の 8 枚を対象に決定" },
+        { "id": "s3-step-3", "type": "trace-step", "n": 3, "at": "09:02:40", "title": "文言の取得", "detail": "リリースノートから見出し候補を抽出", "verdict": "『Decide faster』を採用。理由：v2.4 の主要変更が決裁導線のため" },
+        { "id": "s3-step-4", "type": "trace-step", "n": 4, "at": "09:03:05", "title": "多言語化", "detail": "4言語に展開し、字幅を計測", "verdict": "英字で 3px はみ出しを検出 → 行送りを 40 に調整" },
+        { "id": "s3-step-5", "type": "trace-step", "n": 5, "at": "09:03:52", "title": "自己検証", "detail": "コントラスト比と文字切れを検査", "verdict": "全8枚が AA を満たす（最小 4.8:1）" },
+        { "id": "s3-step-6", "type": "trace-step", "n": 6, "at": "09:04:00", "title": "決裁待ちで停止", "detail": "適用はせず、提案として保持", "verdict": "原則 P2：下ごしらえ止まり", "halt": true },
+        { "id": "s3-artifact", "type": "artifact-preview", "title": "生成された成果物", "items": ["banner_ja.png", "banner_en.png", "banner_ko.png", "banner_zh.png"] }
+      ],
+      "mustHave": ["s3-title", "s3-summary", "s3-step-1", "s3-step-6", "s3-artifact"],
+      "copyRules": ["各ステップに必ず『verdict（なぜそう決めたか）』を書く。事実だけの羅列にしない", "最終ステップは必ず『停止した』ことを明示する"]
+    },
+
+    {
+      "id": "S4", "slug": "trigger", "name": "トリガー編成",
+      "intent": "フローを組ませない。5つの問いに答えるだけで委任が成立する",
+      "emotionTarget": { "at": "J8", "from": 2, "to": 3 },
+      "layout": "list(288) + composer(600) + dryrun(288)",
+      "elements": [
+        { "id": "s4-title", "type": "display", "text": "トリガー編成" },
+        { "id": "s4-list-head", "type": "section-header", "text": "編成済み 5件" },
+        { "id": "s4-list", "type": "trigger-list", "items": [
+          { "name": "リリースバナー展開", "on": "GitHub タグ作成", "state": "稼働中" },
+          { "name": "コンポーネント棚卸し", "on": "毎週月曜 08:00", "state": "稼働中" },
+          { "name": "レビュー指摘反映", "on": "Figma コメント追加", "state": "稼働中" },
+          { "name": "図版更新", "on": "Linear 完了", "state": "一時停止" },
+          { "name": "アイコン余白統一", "on": "手動", "state": "稼働中" }
+        ]},
+        { "id": "s4-composer-head", "type": "title", "text": "リリースバナー展開" },
+        { "id": "s4-q1", "type": "composer-row", "q": "何が起きたら", "a": "GitHub でリリースタグが作成されたら", "editable": true },
+        { "id": "s4-q2", "type": "composer-row", "q": "どの条件のとき", "a": "タグに banner ラベルが付いている", "editable": true },
+        { "id": "s4-q3", "type": "composer-row", "q": "誰に任せる", "a": "バナー多言語展開エージェント", "editable": true },
+        { "id": "s4-q4", "type": "composer-row", "q": "どこまで任せる", "a": "下ごしらえまで（適用はしない）", "locked": true, "lockNote": "原則 P2 により変更できません" },
+        { "id": "s4-q5", "type": "composer-row", "q": "誰が決裁する", "a": "上村 樹（不在時は堀田 真澄）", "editable": true },
+        { "id": "s4-dryrun", "type": "dryrun-panel", "title": "空撃ち", "desc": "直近のイベントで試すと、こう届きます", "result": "決裁待ち 1束（4件）/ 所要見積もり 3分" },
+        { "id": "s4-save", "type": "button-primary", "text": "この編成で任せる" }
+      ],
+      "mustHave": ["s4-title", "s4-q1", "s4-q4", "s4-q5", "s4-dryrun", "s4-save"],
+      "copyRules": ["設問は5つまで。6つ目が必要になったら製品設計を疑う", "『どこまで任せる』は施錠して見せる。制約が売りであることをUIで示す"]
+    },
+
+    {
+      "id": "S5", "slug": "catalog", "name": "エージェント目録",
+      "intent": "任せる相手を実績で選ばせる。権限スコープを必ず同時に見せる",
+      "emotionTarget": { "at": "J8", "from": 2, "to": 3 },
+      "layout": "header + filter chips + 3-col card grid",
+      "elements": [
+        { "id": "s5-title", "type": "display", "text": "エージェント目録" },
+        { "id": "s5-filters", "type": "chips", "items": ["すべて", "デザイン", "定型タスク", "検証"], "active": 0 },
+        { "id": "s5-a1", "type": "agent-card", "name": "バナー多言語展開", "cat": "デザイン", "desc": "リリースごとにバナーを各言語へ展開し、字幅と行送りを調整します", "scopes": ["Figma 書込", "GitHub 読取"], "stat": { "runs": 34, "approvalRate": "94%" }, "state": "任せ中" },
+        { "id": "s5-a2", "type": "agent-card", "name": "コンポーネント棚卸し", "cat": "デザイン", "desc": "未使用・重複コンポーネントを検出し、統合案を作ります", "scopes": ["Figma 書込"], "stat": { "runs": 12, "approvalRate": "83%" }, "state": "任せ中" },
+        { "id": "s5-a3", "type": "agent-card", "name": "レビュー指摘反映", "cat": "デザイン", "desc": "コメントの指摘を読み取り、該当箇所の修正案を作ります", "scopes": ["Figma 書込", "Slack 読取"], "stat": { "runs": 61, "approvalRate": "90%" }, "state": "任せ中" },
+        { "id": "s5-a4", "type": "agent-card", "name": "図版生成", "cat": "定型タスク", "desc": "構成図・フロー図を仕様から起こします", "scopes": ["Notion 書込"], "stat": { "runs": 8, "approvalRate": "75%" }, "state": "一時停止", "warn": "不可逆操作を含みます" },
+        { "id": "s5-a5", "type": "agent-card", "name": "アクセシビリティ検証", "cat": "検証", "desc": "コントラスト比・文字サイズ・タップ領域を検査します", "scopes": ["Figma 読取"], "stat": { "runs": 120, "approvalRate": "99%" }, "state": "任せ中" },
+        { "id": "s5-a6", "type": "agent-card", "name": "議事録整形", "cat": "定型タスク", "desc": "会議の記録を決定事項と宿題に仕分けます", "scopes": ["Notion 書込"], "stat": { "runs": 0, "approvalRate": "—" }, "state": "未導入" }
+      ],
+      "mustHave": ["s5-title", "s5-filters", "s5-a1", "s5-a4", "s5-a6"],
+      "copyRules": ["説明文は『何をするか』を一文で。能力の誇張をしない", "権限スコープをカード面に常時表示する。詳細画面に隠さない"]
+    },
+
+    {
+      "id": "S6", "slug": "ledger", "name": "決裁台帳",
+      "intent": "誰が何を根拠に決めたかを遡れる。社内説明の資料として成立させる",
+      "emotionTarget": { "at": "J9", "from": 3, "to": 3 },
+      "layout": "header + summary strip + filters + table",
+      "elements": [
+        { "id": "s6-title", "type": "display", "text": "決裁台帳" },
+        { "id": "s6-export", "type": "button-secondary", "text": "CSV / PDF で書き出す" },
+        { "id": "s6-summary", "type": "summary-strip", "items": [
+          { "label": "今月の決裁", "value": "48件" },
+          { "label": "承認", "value": "41件" },
+          { "label": "修正して承認", "value": "5件" },
+          { "label": "却下", "value": "2件" },
+          { "label": "戻した件数", "value": "1件" },
+          { "label": "平均決裁時間", "value": "3分12秒" }
+        ]},
+        { "id": "s6-filters", "type": "chips", "items": ["すべて", "承認", "修正", "却下", "戻した"], "active": 0 },
+        { "id": "s6-table", "type": "ledger-table",
+          "columns": ["日時", "案件", "エージェント", "判断", "決裁者", "根拠", "トレース"],
+          "rows": [
+            ["09/16 09:11", "v2.4 リリースバナーを4言語に展開", "バナー多言語展開", "承認", "上村 樹", "文言はマーケ確認済み。行送り調整は許容範囲内。", "見る"],
+            ["09/15 17:40", "アイコン24点の余白統一", "コンポーネント棚卸し", "承認", "上村 樹", "既存ガイドラインの 8px 基準に一致。", "見る"],
+            ["09/15 11:02", "英語版の字下げ修正", "レビュー指摘反映", "修正して承認", "上村 樹", "1箇所だけ原文を優先。他は提案どおり。", "見る"],
+            ["09/12 14:20", "公開ページの構成図を差し替え", "図版生成", "却下", "堀田 真澄", "公開前にマーケの確認が必要。不可逆のため保留。", "見る"],
+            ["09/11 10:05", "未使用コンポーネント9件の削除", "コンポーネント棚卸し", "承認", "堀田 真澄", "直近90日で参照ゼロを確認済み。", "見る"]
+          ]
+        }
+      ],
+      "mustHave": ["s6-title", "s6-summary", "s6-table", "s6-export"],
+      "copyRules": ["根拠列を省略しない。台帳の価値の8割はこの列にある", "却下も同じ重さで記録する。承認だけの記録は台帳ではない"]
+    }
+  ]
+}

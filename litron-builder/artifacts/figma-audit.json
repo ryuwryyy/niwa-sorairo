@@ -1,0 +1,460 @@
+{
+  "fileKey": "cjy3QIRokk67bIpNKAkoid",
+  "fileUrl": "https://www.figma.com/design/cjy3QIRokk67bIpNKAkoid",
+  "plan": "organization::1110465817703366863 (NTT DATA, Full seat)",
+  "note": "組織の既存ファイルには触れていない。新規ファイルのみ。",
+  "page": "02 画面",
+  "capturedAt": "2026-09-18",
+  "_status": "全7画面を実測済み。4系統すべて束縛、スケール逸脱ゼロ。",
+  "_zeroSlotNote": "余白ゼロのスロットは分母から除外（対応するトークンが存在しないため）。",
+  "screens": {
+    "S1": {
+      "nodeId": "4:2",
+      "nodeCount": 170,
+      "specIds": [
+        "s1-cand-1",
+        "s1-cand-2",
+        "s1-cand-3",
+        "s1-cand-list",
+        "s1-observe",
+        "s1-pull",
+        "s1-rejected",
+        "s1-title"
+      ],
+      "fonts": [
+        "Noto Sans JP",
+        "Inter"
+      ],
+      "color": {
+        "slots": 133,
+        "bound": 133,
+        "stray": []
+      },
+      "space": {
+        "slots": 176,
+        "bound": 176,
+        "used": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          20,
+          24,
+          28,
+          32
+        ],
+        "zeroSlotsExcluded": 184
+      },
+      "radius": {
+        "slots": 208,
+        "bound": 208,
+        "used": [
+          4,
+          6,
+          8,
+          12,
+          999
+        ]
+      },
+      "typography": {
+        "slots": 72,
+        "bound": 72
+      },
+      "componentsUsed": [
+        "Sidebar",
+        "NavItem",
+        "Tag",
+        "Button",
+        "AxisMeter"
+      ]
+    },
+    "S2": {
+      "nodeId": "5:101",
+      "nodeCount": 199,
+      "specIds": [
+        "s2-axes",
+        "s2-mainpath",
+        "s2-privacy",
+        "s2-runs",
+        "s2-title",
+        "s2-variance"
+      ],
+      "fonts": [
+        "Noto Sans JP",
+        "Inter"
+      ],
+      "color": {
+        "slots": 154,
+        "bound": 154,
+        "stray": []
+      },
+      "space": {
+        "slots": 195,
+        "bound": 195,
+        "used": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          20,
+          24,
+          28,
+          32
+        ],
+        "zeroSlotsExcluded": 285
+      },
+      "radius": {
+        "slots": 168,
+        "bound": 168,
+        "used": [
+          4,
+          6,
+          8,
+          12,
+          999
+        ]
+      },
+      "typography": {
+        "slots": 93,
+        "bound": 93
+      },
+      "componentsUsed": [
+        "Sidebar",
+        "NavItem",
+        "Tag",
+        "Button",
+        "AxisMeter"
+      ]
+    },
+    "S3": {
+      "nodeId": "6:195",
+      "nodeCount": 150,
+      "specIds": [
+        "s3-exceptions",
+        "s3-io",
+        "s3-mode",
+        "s3-next",
+        "s3-title",
+        "s3-verify"
+      ],
+      "fonts": [
+        "Noto Sans JP"
+      ],
+      "color": {
+        "slots": 127,
+        "bound": 127,
+        "stray": []
+      },
+      "space": {
+        "slots": 178,
+        "bound": 178,
+        "used": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          20,
+          24,
+          28,
+          32
+        ],
+        "zeroSlotsExcluded": 167
+      },
+      "radius": {
+        "slots": 112,
+        "bound": 112,
+        "used": [
+          4,
+          6,
+          8,
+          12,
+          999
+        ]
+      },
+      "typography": {
+        "slots": 69,
+        "bound": 69
+      },
+      "componentsUsed": [
+        "Sidebar",
+        "NavItem",
+        "Tag",
+        "Button",
+        "AxisMeter"
+      ]
+    },
+    "S4": {
+      "nodeId": "8:196",
+      "nodeCount": 145,
+      "specIds": [
+        "s4-canvas",
+        "s4-dryrun",
+        "s4-intake",
+        "s4-step-1",
+        "s4-step-2",
+        "s4-step-3",
+        "s4-step-4",
+        "s4-step-5",
+        "s4-step-6",
+        "s4-step-irreversible",
+        "s4-step-verify",
+        "s4-title"
+      ],
+      "fonts": [
+        "Noto Sans JP"
+      ],
+      "color": {
+        "slots": 118,
+        "bound": 118,
+        "stray": []
+      },
+      "space": {
+        "slots": 206,
+        "bound": 206,
+        "used": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          20,
+          24,
+          28,
+          32
+        ],
+        "zeroSlotsExcluded": 174
+      },
+      "radius": {
+        "slots": 156,
+        "bound": 156,
+        "used": [
+          4,
+          6,
+          8,
+          12,
+          999
+        ]
+      },
+      "typography": {
+        "slots": 67,
+        "bound": 67
+      },
+      "componentsUsed": [
+        "Sidebar",
+        "NavItem",
+        "Tag",
+        "Button",
+        "AxisMeter"
+      ]
+    },
+    "S5": {
+      "nodeId": "9:264",
+      "nodeCount": 154,
+      "specIds": [
+        "s5-conn-1",
+        "s5-conn-2",
+        "s5-conn-3",
+        "s5-conn-list",
+        "s5-reuse",
+        "s5-reversibility",
+        "s5-scope",
+        "s5-title"
+      ],
+      "fonts": [
+        "Noto Sans JP"
+      ],
+      "color": {
+        "slots": 126,
+        "bound": 126,
+        "stray": []
+      },
+      "space": {
+        "slots": 207,
+        "bound": 207,
+        "used": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          20,
+          24,
+          28,
+          32
+        ],
+        "zeroSlotsExcluded": 198
+      },
+      "radius": {
+        "slots": 140,
+        "bound": 140,
+        "used": [
+          4,
+          6,
+          8,
+          12,
+          999
+        ]
+      },
+      "typography": {
+        "slots": 71,
+        "bound": 71
+      },
+      "componentsUsed": [
+        "Sidebar",
+        "NavItem",
+        "Tag",
+        "Button",
+        "AxisMeter"
+      ]
+    },
+    "S6": {
+      "nodeId": "10:309",
+      "nodeCount": 130,
+      "specIds": [
+        "s6-demote",
+        "s6-loop",
+        "s6-next",
+        "s6-running",
+        "s6-title"
+      ],
+      "fonts": [
+        "Noto Sans JP"
+      ],
+      "color": {
+        "slots": 101,
+        "bound": 101,
+        "stray": []
+      },
+      "space": {
+        "slots": 175,
+        "bound": 175,
+        "used": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          20,
+          24,
+          28,
+          32
+        ],
+        "zeroSlotsExcluded": 155
+      },
+      "radius": {
+        "slots": 112,
+        "bound": 112,
+        "used": [
+          4,
+          6,
+          8,
+          12,
+          999
+        ]
+      },
+      "typography": {
+        "slots": 62,
+        "bound": 62
+      },
+      "componentsUsed": [
+        "Sidebar",
+        "NavItem",
+        "Tag",
+        "Button",
+        "AxisMeter"
+      ]
+    },
+    "S7": {
+      "nodeId": "26:333",
+      "nodeCount": 604,
+      "specIds": [
+        "home-sidebar",
+        "topbar",
+        "hero-card",
+        "impact-card",
+        "tab/Push",
+        "tab/Pull",
+        "push-card",
+        "pull-card",
+        "workflow-stepper",
+        "approvals-card",
+        "runs-card",
+        "loop-card"
+      ],
+      "fonts": [
+        "Noto Sans JP",
+        "Inter"
+      ],
+      "color": {
+        "slots": 435,
+        "bound": 435,
+        "stray": []
+      },
+      "space": {
+        "slots": 286,
+        "bound": 286,
+        "used": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          20,
+          24,
+          32,
+          64
+        ],
+        "zeroSlotsExcluded": 579
+      },
+      "radius": {
+        "slots": 324,
+        "bound": 324,
+        "used": [
+          2,
+          4,
+          6,
+          8,
+          12,
+          999
+        ],
+        "zeroSlotsExcluded": 832
+      },
+      "typography": {
+        "slots": 148,
+        "bound": 148
+      },
+      "componentsUsed": [],
+      "_note": "この画面はライブラリのコンポーネント（Sidebar/Tag/Button/AxisMeter）を使わず、参照画像に合わせてプリミティブで組んでいる。コンポーネント化は未実施。",
+      "frame": {
+        "w": 1672,
+        "h": 941,
+        "x": 1772,
+        "y": -1269
+      }
+    }
+  }
+}
