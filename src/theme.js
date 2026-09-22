@@ -10,6 +10,15 @@ export const C = {
   ink: "#2C2A26",
   inkSoft: "#6B675E",
   line: "#CFCBBC",
+  kin: "#9C7A34",      // 金茶 — 収穫
+  suou: "#8A4F5E",     // 蘇芳 — 虫・病気
+  nando: "#4F6E86",    // 納戸 — 水
+};
+
+// 作業の種類ごとの色。剪定だけが熾色(いちばん時期を逃せない作業)
+export const KIND_COLOR = {
+  "剪定": C.oki, "作業": C.ai, "収穫": C.kin, "肥料": C.moss,
+  "虫": C.suou, "水": C.nando, "見頃": C.inkSoft,
 };
 
 export const font = {
