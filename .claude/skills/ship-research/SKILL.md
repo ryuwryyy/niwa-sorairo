@@ -41,7 +41,10 @@ validation before any upstream call. Keep it that way when you add endpoints: va
 4. **Commit, push, open a PR.** CI (`.github/workflows/ci.yml`) runs `check` and `e2e`; Vercel posts a preview.
 5. **Merge** only when CI is green. After merge:
    - Vercel deploys `main`; `.github/workflows/smoke.yml` runs on the `deployment_status` event and checks the
-     top page, that both research APIs answer 400/501 (not 5xx), and the CORS header for Pages.
+     top page, that both research APIs answer 400/501 (not 5xx), and the CORS header for Pages. Production is
+     checked on the public domain (`vars.PRODUCTION_URL`, default `https://niwa-sorairo.vercel.app`) because
+     Vercel's per-deployment URLs sit behind login protection (302) even in production; protected previews are
+     skipped. Run it by hand with `workflow_dispatch` (`mcp__github__actions_run_trigger` → `run_workflow`, `smoke.yml`, ref `main`).
    - `pages.yml` rebuilds the research site if `research/`, the research Vite config, or dependencies changed.
 6. **Verify**: open the Actions tab (or `mcp__github__actions_list`) for the smoke and Pages runs, and report
    the two URLs to the user.
