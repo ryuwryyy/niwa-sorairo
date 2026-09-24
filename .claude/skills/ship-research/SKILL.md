@@ -52,6 +52,13 @@ validation before any upstream call. Keep it that way when you add endpoints: va
 6. **Verify**: open the Actions tab (or `mcp__github__actions_list`) for the smoke and Pages runs, and report
    the two URLs to the user.
 
+## Checking the real keys
+
+The smoke test only proves keys are *present* (400 instead of 501). To prove they *work*, run
+`.github/workflows/live-check.yml` by hand (`workflow_dispatch`): it sends one minimal real request each to Brave,
+Jev and Claude through production and prints the results. It costs one Brave query, one Jev item and one Claude call,
+so run it only after changing keys or when the user reports the APIs failing.
+
 ## One-time settings (the user does these in the browser; you can't)
 
 - GitHub → Settings → Pages → Source: **GitHub Actions** (otherwise `pages.yml` fails at deploy).

@@ -125,6 +125,7 @@ VITE_API_ENDPOINT=https://teire-api.<あなた>.workers.dev
 | claude/* の PR で CI が成功 | 自動でマージし、聴くを再デプロイ(「hold」ラベルで止められる) | `.github/workflows/automerge.yml` |
 | `main` へのマージ | 庭アプリと API を本番へ | Vercel(Git連携) |
 | `main` へのマージ(`research/` などが変わったとき) | 聴くを GitHub Pages へ | `.github/workflows/pages.yml` |
+| 手動(キーを入れ替えたとき) | Brave・Jev・Claude に本物の最小リクエストを1回ずつ送り、キーが使えるか確認(少額かかる) | `.github/workflows/live-check.yml` |
 | Vercel のデプロイ完了 | トップ・API(入力検証で弾かれる空リクエストのみ)・CORS を確認 | `.github/workflows/smoke.yml` |
 
 テストと CI は本物の Jev・Claude を呼ばないので、API の課金は発生しない。

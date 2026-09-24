@@ -1,0 +1,50 @@
+# 本番の API キーが「本当に使えるか」を、各 API に1回だけ最小の本物のリクエストを送って確かめる。
+# 手動でしか動かない(Actions タブの Run workflow から)。1回あたり Brave 1クエリ・Jev 1件・Claude 1回分の料金がかかる。
+name: Live API check (manual)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      BASE: ${{ vars.PRODUCTION_URL || 'https://teire-app.vercel.app' }}
+    steps:
+      - name: Brave(X の公開投稿を1回検索)
+        run: |
+          set -u
+          out=$(curl -s -w '\n%{http_code}' -X POST -H 'Content-Type: application/json' \
+            -d '{"mode":"posts","site":"x","keyword":"UX デザイン","offset":0}' "$BASE/api/brave")
+          code=$(echo "$out" | tail -1); body=$(echo "$out" | sed '$d')
+          echo "HTTP $code"
+          echo "$body" | jq -r '"件数: \(.items|length)", (.items[:3][] | "- @\(.author) \(.text[:60])"), (.error.message // empty)'
+          [ "$code" = "200" ] || { echo "::error::Brave が $code を返した(キーが無効・残高不足など)"; exit 1; }
+
+      - name: Jev(1件に1問だけ判定)
+        if: always()
+        run: |
+          set -u
+          out=$(curl -s -w '\n%{http_code}' -X POST -H 'Content-Type: application/json' \
+            -d '{"items":[{"id":"t1","state":"登録の途中でエラーが出て、入力が全部消えた"}],"questions":{"frustrated":{"type":"noul","instructions":"投稿者は不満を感じているか?"}}}' \
+            "$BASE/api/jev")
+          code=$(echo "$out" | tail -1); body=$(echo "$out" | sed '$d')
+          echo "HTTP $code"
+          echo "$body" | jq -r '"モデル: \(.model // "-")", "結果: \(.results[0].answers.frustrated.noul // .results[0].error // "-")", (.error.message // empty)'
+          [ "$code" = "200" ] && echo "$body" | jq -e '.results[0].answers' >/dev/null || { echo "::error::Jev の判定に失敗した"; exit 1; }
+
+      - name: Claude(2件の投稿からカテゴリーを1回だけつくる)
+        if: always()
+        run: |
+          set -u
+          out=$(curl -s -m 280 -w '\n%{http_code}' -X POST -H 'Content-Type: application/json' \
+            -d '{"task":"categories","theme":"UX","posts":[{"id":"p1","text":"登録の途中でエラー、入力が消えた"},{"id":"p2","text":"このアプリの画面は迷わなくて好き"}]}' \
+            "$BASE/api/analyze")
+          code=$(echo "$out" | tail -1); body=$(echo "$out" | sed '$d')
+          echo "HTTP $code"
+          echo "$body" | jq -r '"モデル: \(.model // "-")", (.result.categories[]? | "- \(.label)"), (.error.message // empty)'
+          [ "$code" = "200" ] || { echo "::error::Claude が $code を返した"; exit 1; }
