@@ -1,6 +1,5 @@
 // 「聴く」の分類結果(kiku/v1・kiku/listening-v1・kiku/report-v1)を FigJam に配置する。
 // アフィニティ図 = 分類ごとのセクション + 付箋、行動フロー = 段階ごとのセクション + ステップ + 矢印
-figma.showUI(__html__, { width: 380, height: 380 });
 
 var STICKY_RGB = {
   red: { r: 1, g: 0.78, b: 0.74 },
@@ -399,60 +398,60 @@ function placeListening(data, x0, y0) {
   return { nodes: nodes, bottom: bottom };
 }
 
-figma.ui.onmessage = async function (msg) {
-  if (msg.type !== "import") return;
-  try {
-    await figma.loadFontAsync({ family: "Inter", style: "Medium" });
-    var data = msg.data;
-    if (data.kind === "kiku/report-v1") {
-      var cc = figma.viewport.center;
-      var rx = Math.round(cc.x), ry = Math.round(cc.y);
-      var head = label(figma.currentPage, data.title, rx, ry, 56);
-      var placed = [head].concat(placeReport(data, rx, ry + 120));
-      if (data.strategy) {
-        var lowest = ry;
-        for (var pi = 0; pi < placed.length; pi++) lowest = Math.max(lowest, (placed[pi].y || 0) + (placed[pi].height || 0));
-        placed = placed.concat(placeStrategy(data.strategy, rx, lowest + 300));
-      }
+// 貼り付けたデータを (x0, y0) から配置し、置いたノードを返す。
+// プラグイン(下の onmessage)と、Claude Code から Figma へ直接置くとき(scripts/figjam-direct.mjs)の両方が使う
+async function placeData(data, x0, y0, opts) {
+  opts = opts || {};
+  await figma.loadFontAsync({ family: "Inter", style: "Medium" });
+  if (data.kind === "kiku/report-v1") {
+    var head = label(figma.currentPage, data.title, x0, y0, 56);
+    var placed = [head].concat(placeReport(data, x0, y0 + 120));
+    if (data.strategy) {
+      var lowest = y0;
+      for (var pi = 0; pi < placed.length; pi++) lowest = Math.max(lowest, (placed[pi].y || 0) + (placed[pi].height || 0));
+      placed = placed.concat(placeStrategy(data.strategy, x0, lowest + 300));
+    }
+    return placed;
+  }
+  if (data.kind === "kiku/listening-v1") {
+    var lhead = label(figma.currentPage, data.title, x0, y0, 56);
+    var lis = placeListening(data, x0, y0 + 120);
+    var lplaced = [lhead].concat(lis.nodes);
+    if (data.strategy) lplaced = lplaced.concat(placeStrategy(data.strategy, x0, lis.bottom + 300));
+    return lplaced;
+  }
+  var all = [];
+  var title = figma.createText();
+  title.fontName = { family: "Inter", style: "Medium" };
+  title.characters = data.title || "インタビュー整理";
+  title.fontSize = 48;
+  title.x = x0;
+  title.y = y0;
+  all.push(title);
+  var y = y0 + 100;
+  if (opts.affinity !== false && data.affinity && data.affinity.length) {
+    var aff = placeAffinity(data.affinity, x0, y);
+    all = all.concat(aff.nodes);
+    y = aff.bottom + 160;
+  }
+  if (opts.flow !== false && data.flow && data.flow.stages && data.flow.stages.length) {
+    all = all.concat(placeFlow(data.flow, x0, y));
+  }
+  return all;
+}
+
+// ---- プラグインとして動くとき ----
+if (typeof __html__ !== "undefined") {
+  figma.showUI(__html__, { width: 380, height: 380 });
+  figma.ui.onmessage = async function (msg) {
+    if (msg.type !== "import") return;
+    try {
+      var c = figma.viewport.center;
+      var placed = await placeData(msg.data, Math.round(c.x), Math.round(c.y), { affinity: msg.affinity, flow: msg.flow });
       figma.viewport.scrollAndZoomIntoView(placed);
       figma.closePlugin("配置しました");
-      return;
+    } catch (e) {
+      figma.ui.postMessage({ type: "error", message: String(e && e.message ? e.message : e) });
     }
-    if (data.kind === "kiku/listening-v1") {
-      var lc = figma.viewport.center;
-      var lx = Math.round(lc.x), ly = Math.round(lc.y);
-      var lhead = label(figma.currentPage, data.title, lx, ly, 56);
-      var lis = placeListening(data, lx, ly + 120);
-      var lplaced = [lhead].concat(lis.nodes);
-      if (data.strategy) lplaced = lplaced.concat(placeStrategy(data.strategy, lx, lis.bottom + 300));
-      figma.viewport.scrollAndZoomIntoView(lplaced);
-      figma.closePlugin("配置しました");
-      return;
-    }
-    var c = figma.viewport.center;
-    var x0 = Math.round(c.x), y0 = Math.round(c.y);
-    var all = [];
-
-    var title = figma.createText();
-    title.fontName = { family: "Inter", style: "Medium" };
-    title.characters = data.title || "インタビュー整理";
-    title.fontSize = 48;
-    title.x = x0;
-    title.y = y0;
-    all.push(title);
-    var y = y0 + 100;
-
-    if (msg.affinity && data.affinity && data.affinity.length) {
-      var aff = placeAffinity(data.affinity, x0, y);
-      all = all.concat(aff.nodes);
-      y = aff.bottom + 160;
-    }
-    if (msg.flow && data.flow && data.flow.stages && data.flow.stages.length) {
-      all = all.concat(placeFlow(data.flow, x0, y));
-    }
-    figma.viewport.scrollAndZoomIntoView(all);
-    figma.closePlugin("配置しました");
-  } catch (e) {
-    figma.ui.postMessage({ type: "error", message: String(e && e.message ? e.message : e) });
-  }
-};
+  };
+}

@@ -16,6 +16,10 @@
 - API の費用を抑える: Claude の要約・洞察・戦略シートは、ボタンを押したときだけ呼ぶ。自動で連続実行しない
 - ふるい分けのあとは「声の質チェック」で止める。インサイト抽出/ワード変更/方向の提案のボタンを押すまで先に進めない
 
+## 調べて FigJam に置くとき
+- `scripts/research-run.mjs`(本番 API で段階ごとに実行。質チェックで止まる)→ `scripts/figjam-direct.mjs`(Figma 連携の use_figma で直接配置)。手順はスキル `social-deepdive`
+- FigJam は持ち主の**個人チーム**に作る(NTT DATA の組織には置かない)
+
 ## UI を作るとき
 - スキル `design-md-sources`(DESIGN.md の参照先)
 
