@@ -27,7 +27,7 @@ export const estimateQueries = ({ keywords, sites, pages, replyAuthors }) =>
   keywords.length * sites.length * pages + (sites.includes("x") ? replyAuthors : 0);
 
 /**
- * @param {{keywords:string[], sites:("x"|"instagram")[], pages:number, freshness?:string, target:number, replyAuthors:number}} opts
+ * @param {{keywords:string[], sites:("x"|"instagram")[], pages:number, freshness?:string, target:number, replyAuthors:number, excludeMarketing?:boolean}} opts
  * @param {{signal?:AbortSignal, onProgress?:(p:{queries:number, found:number, label:string})=>void}} hooks
  */
 export async function collectWithBrave(opts, { signal, onProgress } = {}) {
@@ -49,7 +49,7 @@ export async function collectWithBrave(opts, { signal, onProgress } = {}) {
       for (let offset = 0; offset < opts.pages; offset++) {
         if (signal?.aborted || found.size >= opts.target) break outer;
         report(`${site === "x" ? "X" : "Instagram"}「${keyword}」${offset + 1}ページ目`);
-        const data = await call({ mode: "posts", site, keyword, offset, freshness: opts.freshness }, signal);
+        const data = await call({ mode: "posts", site, keyword, offset, freshness: opts.freshness, excludeMarketing: opts.excludeMarketing !== false }, signal);
         queries++;
         const fresh = add(data.items, { keyword });
         if (!data.more || fresh === 0) break;

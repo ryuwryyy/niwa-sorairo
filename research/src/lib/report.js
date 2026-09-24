@@ -1,5 +1,6 @@
 // 深掘りレポート: 大量の投稿 → Jevでふるい分け → Claudeでカテゴリー → Jevでタグ
 // → 感情語グループ → 4象限 → Claudeで要約・洞察・デコンテ
+import { strategyToMarkdown } from "./strategy.js";
 
 export const DEFAULT_THEME = "サービスデザイン・デザイン・UX";
 
@@ -144,7 +145,7 @@ export const quadrantOf = (c) => QUADRANTS.find((q) => q.test(c));
 
 const clip = (s, n) => (s.length > n ? s.slice(0, n - 1) + "…" : s);
 
-export function toFigJamReport({ theme, rows, groups, synthesis }) {
+export function toFigJamReport({ theme, rows, groups, synthesis, strategy }) {
   return {
     kind: "kiku/report-v1",
     title: `${theme} — SNSの声`,
@@ -159,16 +160,20 @@ export function toFigJamReport({ theme, rows, groups, synthesis }) {
       quotes: g.rows.slice(0, 5).map((r) => ({ text: clip(r.text, 100), url: r.url || null })),
     })),
     synthesis: synthesis || null,
+    strategy: strategy || null,
   };
 }
 
-export function toMarkdown({ theme, rows, categories, groups, synthesis, stats }) {
+export function toMarkdown({ theme, rows, categories, groups, synthesis, stats, strategy }) {
   const byId = new Map(rows.map((r) => [r.id, r]));
   const cite = (ids) => (ids || []).map((id) => byId.get(id)).filter(Boolean)
     .map((r) => (r.url ? `[${r.id}](${r.url})` : r.id)).join(" ");
   const L = [];
   L.push(`# ${theme} — SNSの声の深掘り`, "");
-  if (stats) L.push(`収集 ${stats.total}件 → 使える投稿 ${stats.usable}件 → 分析対象 ${rows.length}件`, "");
+  if (stats) {
+    const ex = stats.ruleExcluded != null ? `(公式・広告・宣伝の除外: ルール ${stats.ruleExcluded}件・Jev ${stats.jevExcluded || 0}件)` : "";
+    L.push(`収集 ${stats.total}件 → 使える投稿 ${stats.usable}件 → 分析対象 ${rows.length}件${ex}`, "");
+  }
   if (synthesis) L.push(`> ${synthesis.headline}`, "");
   if (categories?.length) {
     L.push("## カテゴリー", ...categories.map((c) => `- **${c.label}** — ${c.description}(${rows.filter((r) => r.tags?.includes(c.label)).length}件)`), "");
@@ -195,6 +200,7 @@ export function toMarkdown({ theme, rows, categories, groups, synthesis, stats }
     synthesis.deconte.forEach((d) => L.push(`| ${[d.beat, d.scene, d.visual, d.copyTone, d.colorLight, d.typography, d.motionSound].map((s) => s.replace(/\|/g, "／")).join(" | ")} |`));
     L.push("", "## デザイン原則", ...synthesis.principles.map((p) => `- ${p}`));
   }
+  if (strategy) L.push("", "# 戦略シート", "", strategyToMarkdown(strategy, cite));
   return L.join("\n");
 }
 

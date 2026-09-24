@@ -1,7 +1,7 @@
 // Brave Search API 中継(api/_brave-core.js)のテスト。fetch を差し替えるので Brave は呼ばない
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { handleBraveRequest, normalize, buildQuery } from "../api/_brave-core.js";
+import { handleBraveRequest, normalize, buildQuery, NEGATIVE_TERMS } from "../api/_brave-core.js";
 
 const json = (body, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json" } });
@@ -34,19 +34,27 @@ test("brave: site:x.com でキーワード検索し、投稿URLだけを本文�
   assert.equal(r.status, 200, JSON.stringify(r.body));
   const u = brave.seen[0].url;
   assert.equal(u.origin + u.pathname, "https://api.search.brave.com/res/v1/web/search");
-  assert.equal(u.searchParams.get("q"), "site:x.com UX");
+  assert.equal(u.searchParams.get("q"), `site:x.com UX ${NEGATIVE_TERMS.join(" ")}`);
   assert.equal(u.searchParams.get("offset"), "2");
   assert.equal(u.searchParams.get("freshness"), "pm");
   assert.equal(brave.seen[0].headers["X-Subscription-Token"], "k");
   const items = r.body.items;
   assert.equal(items.length, 3); // プロフィールページは除く
   assert.deepEqual(items[0], {
-    platform: "x", url: "https://x.com/taro_ux/status/1111111111", author: "taro_ux",
+    platform: "x", url: "https://x.com/taro_ux/status/1111111111", author: "taro_ux", authorName: "デザイナー太郎",
     text: "UXの改善で問い合わせが半分になった。導線って大事", date: "2026-09-01T10:00:00", replyTo: null, source: "brave",
   });
   assert.equal(items[1].url, "https://x.com/hanako_d/status/2222222222");
   assert.equal(items[1].text, "このアプリのUI、最高すぎる");
+  assert.equal(items[1].authorName, "花子");
   assert.equal(items[2].replyTo, "taro_ux");
+});
+
+test("brave: 公式・広告・求人を除外語で減らす(excludeMarketing: false で外せる)", () => {
+  const q = buildQuery({ site: "x", keyword: "UX" });
+  for (const t of ["-求人", "-キャンペーン", "-抽選"]) assert.ok(q.includes(t), t);
+  assert.equal(buildQuery({ site: "x", keyword: "UX", excludeMarketing: false }), "site:x.com UX");
+  assert.equal(normalize({ url: "https://www.instagram.com/p/A1/", title: "デザイン研究所 (@design_lab) • Instagram photos", description: "UIの話をする投稿" }, "instagram").authorName, "デザイン研究所");
 });
 
 test("brave: 返信は「返信先: @投稿者」で探す", () => {

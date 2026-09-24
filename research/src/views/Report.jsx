@@ -5,12 +5,16 @@ import {
   coordinates, quadrantOf, QUADRANTS, FEELINGS, INTENSITY, literalWords,
   toFigJamReport, toMarkdown, parsePastedPosts, dedupe,
 } from "../lib/report";
+import { applyRules, reasonCounts, sourceQuestion, isPersonal, EXCLUDE_DEFAULTS } from "../lib/filters";
 import { analyze, forClaude, NoClaudeKeyError } from "../lib/analyze";
 import { collectWithBrave, estimateQueries, NoBraveKeyError } from "../lib/brave";
 import { parseCSV, guessColumns, toCSV, download } from "../lib/csv";
+import Strategy from "../components/Strategy";
+import { STRATEGY_MAX_POSTS } from "../lib/strategy";
 import { useClassifier, NoKeyBanner, DemoBanner, Progress, Level, useToast, copyText } from "../components/Bits";
 
 const STEPS = ["ふるい分け", "カテゴリーとタグ", "グループの要約", "洞察とデコンテ"];
+// 費用の目安(1回あたり): Claude は要約・洞察ごとに1回、Jev は1投稿ごとに1回。要約と洞察はボタンを押したときだけ呼ぶ
 
 export default function Report() {
   const [theme, setTheme] = useState(DEFAULT_THEME);
@@ -22,12 +26,16 @@ export default function Report() {
   const [paste, setPaste] = useState("");
   const [csv, setCsv] = useState(null);
   const [keep, setKeep] = useState(100);
+  const [excl, setExcl] = useState(EXCLUDE_DEFAULTS); // 公式・広告・宣伝の除外
+  const [jevExcluded, setJevExcluded] = useState([]);
+  const [summarizing, setSummarizing] = useState({}); // 感情語 → 要約中か
 
   const [screened, setScreened] = useState(null); // 全件のJev結果
   const [rows, setRows] = useState(null);         // 選んだ上位N件
   const [categories, setCategories] = useState(null);
   const [analyses, setAnalyses] = useState({});   // 感情語 → Claudeの要約
   const [synthesis, setSynthesis] = useState(null);
+  const [strategy, setStrategy] = useState(null); // 戦略シート(押したときだけ)
   const [step, setStep] = useState(null);
   const [error, setError] = useState(null);
   const [noClaude, setNoClaude] = useState(false);
@@ -37,7 +45,7 @@ export default function Report() {
   const [toastEl, toast] = useToast();
   const keywords = keywordsText.split(/\n/).map((k) => k.trim()).filter(Boolean);
 
-  const posts = useMemo(() => {
+  const { posts, ruleExcluded } = useMemo(() => {
     let list = [];
     if (mode === "paste") list = parsePastedPosts(paste);
     else if (mode === "brave") list = braveRun?.posts || [];
@@ -45,15 +53,17 @@ export default function Report() {
       const c = csv.cols;
       list = csv.rows.map((r) => ({ text: (r[c.text] || "").trim(), url: c.url >= 0 ? r[c.url] : null, author: c.author >= 0 ? r[c.author] : "", date: c.date >= 0 ? r[c.date] : "" }));
     }
-    return dedupe(list.filter((p) => p.text.length >= 4)).map((p, i) => ({ ...p, id: `p${i + 1}` }));
-  }, [mode, paste, csv, braveRun]);
+    // ルールでの除外は無料。Jev に渡す件数(= 費用)を先に減らす
+    const { kept, excluded } = applyRules(list.filter((p) => p.text.length >= 4), excl);
+    return { posts: dedupe(kept).map((p, i) => ({ ...p, id: `p${i + 1}` })), ruleExcluded: excluded };
+  }, [mode, paste, csv, braveRun, excl]);
 
   const runBrave = async () => {
     braveCtrl.current?.abort();
     braveCtrl.current = new AbortController();
     setBraveRun({ running: true, queries: 0, found: 0, label: "開始", posts: [] });
     try {
-      const out = await collectWithBrave({ ...brave, keywords }, {
+      const out = await collectWithBrave({ ...brave, keywords, excludeMarketing: excl.on }, {
         signal: braveCtrl.current.signal,
         onProgress: (p) => setBraveRun((r) => ({ ...r, ...p })),
       });
@@ -85,8 +95,10 @@ export default function Report() {
   // 1. Jevで全件をふるい分け、上位N件を選ぶ
   const runScreening = async (forceDemo) => {
     setError(null); setStep(0);
-    setRows(null); setCategories(null); setAnalyses({}); setSynthesis(null);
-    const out = await clf.run(posts.map((p) => ({ id: p.id, state: postState(p, theme) })), screeningQuestions(theme), { forceDemo });
+    setRows(null); setCategories(null); setAnalyses({}); setSynthesis(null); setStrategy(null); setJevExcluded([]);
+    const useSource = excl.on && excl.useJev;
+    const questions = { ...screeningQuestions(theme), ...(useSource ? sourceQuestion() : {}) };
+    const out = await clf.run(posts.map((p) => ({ id: p.id, state: postState(p, theme) })), questions, { forceDemo });
     if (!out) { setStep(null); return null; }
     const all = posts.map((p) => {
       const a = out.answers.get(p.id);
@@ -95,9 +107,11 @@ export default function Report() {
         ...p, usable: a.usable.noul, depth: a.depth.score,
         feeling: a.feeling.choice, feelingConf: a.feeling.confidence, feelingProbs: a.feeling.probabilities,
         intensity: a.intensity.score, literal: literalWords(p.text),
+        source: a.source?.choice || null, personal: isPersonal(a.source),
       };
     }).filter(Boolean);
-    const top = selectTop(all, keep).map((r) => {
+    setJevExcluded(all.filter((r) => !r.personal).map((r) => ({ ...r, reasons: [`Jev: ${r.source}`] })));
+    const top = selectTop(all.filter((r) => r.personal), keep).map((r) => {
       const coord = coordinates(r);
       return { ...r, coord, quadrant: quadrantOf(coord).id, tags: [] };
     });
@@ -130,21 +144,18 @@ export default function Report() {
     .filter((g) => g.rows.length)
     .sort((a, b) => b.rows.length - a.rows.length);
 
-  // 3. 感情語グループごとにClaudeで要約(並列)
-  const runGroups = async (base = rows) => {
-    setError(null); setStep(2);
-    const next = {};
+  // 3. 感情語グループの要約。費用を抑えるため、押したグループだけ Claude を1回呼ぶ
+  const summarizeGroup = async (g) => {
+    setError(null);
+    setSummarizing((s) => ({ ...s, [g.label]: true }));
     try {
-      await Promise.all(groupsOf(base).filter((g) => g.rows.length >= 2).map(async (g) => {
-        next[g.label] = await analyze("group", { theme, group: g.label, posts: forClaude(g.rows) });
-        setAnalyses((a) => ({ ...a, [g.label]: next[g.label] }));
-      }));
-    } catch (e) { return fail(e); }
-    setStep(null);
-    return next;
+      const res = await analyze("group", { theme, group: g.label, posts: forClaude(g.rows) });
+      setAnalyses((a) => ({ ...a, [g.label]: res }));
+    } catch (e) { fail(e); }
+    setSummarizing((s) => ({ ...s, [g.label]: false }));
   };
 
-  // 4. 全体の洞察とデコンテ
+  // 4. 全体の洞察とデコンテ(押したときだけ。要約済みのグループがあればそれも渡す)
   const runSynthesis = async (base = rows, groupAnalyses = analyses) => {
     setError(null); setStep(3);
     try {
@@ -157,28 +168,29 @@ export default function Report() {
     return true;
   };
 
+  // まとめて実行するのは、ふるい分けとカテゴリー(Claude 1回)まで。要約・洞察はクリックで
   const runAll = async (forceDemo) => {
     const top = await runScreening(forceDemo);
     if (!top?.length) return;
-    const tagged = await runCategories(top, forceDemo);
-    if (!tagged) return;
-    const g = await runGroups(tagged);
-    if (!g) return;
-    await runSynthesis(tagged, g);
+    await runCategories(top, forceDemo);
   };
 
   const groups = useMemo(() => (rows ? groupsOf(rows).map((g) => ({ ...g, analysis: analyses[g.label] })) : []), [rows, analyses]); // eslint-disable-line react-hooks/exhaustive-deps
   const byId = useMemo(() => new Map((rows || []).map((r) => [r.id, r])), [rows]);
-  const stats = screened && { total: screened.length, usable: screened.filter((r) => r.usable >= 0.5).length };
+  const stats = screened && {
+    total: screened.length, usable: screened.filter((r) => r.usable >= 0.5 && r.personal).length,
+    ruleExcluded: ruleExcluded.length, jevExcluded: jevExcluded.length,
+  };
+  const excludedAll = [...ruleExcluded, ...jevExcluded];
   const busy = step !== null || clf.running;
 
   const exportMd = () => download(`social-deepdive-${new Date().toISOString().slice(0, 10)}.md`,
-    toMarkdown({ theme, rows, categories, groups, synthesis, stats }), "text/markdown;charset=utf-8");
+    toMarkdown({ theme, rows, categories, groups, synthesis, stats, strategy }), "text/markdown;charset=utf-8");
   const exportCsv = () => download(`social-deepdive-${new Date().toISOString().slice(0, 10)}.csv`, toCSV(
     ["id", "本文", "URL", "感情語", "強さ(0-3)", "象限", "タグ", "使える度", "本文中の言葉"],
     rows.map((r) => [r.id, r.text, r.url || "", r.feeling, r.intensity.toFixed(2), QUADRANTS.find((q) => q.id === r.quadrant).name, (r.tags || []).join("/"), usefulness(r).toFixed(2), r.literal.join("/")]),
   ));
-  const exportFigJam = () => copyText(JSON.stringify(toFigJamReport({ theme, rows, groups, synthesis })), toast, "FigJam用データ");
+  const exportFigJam = () => copyText(JSON.stringify(toFigJamReport({ theme, rows, groups, synthesis, strategy })), toast, "FigJam用データ");
 
   const Cite = ({ ids }) => (ids || []).map((id) => byId.get(id)).filter(Boolean).map((r) => (
     <a key={r.id} className="chip" href={r.url || undefined} target="_blank" rel="noreferrer" title={r.text} style={{ marginRight: 4 }}>{r.id}</a>
@@ -291,6 +303,45 @@ export default function Report() {
               <textarea rows={6} value={paste} onChange={(e) => setPaste(e.target.value)} />
             </label>
           )}
+          <details className="field">
+            <summary>
+              公式・広告・宣伝を除く{excl.on ? <span className="hint num"> · ルールで除外 {ruleExcluded.length}件{jevExcluded.length ? ` · Jevで除外 ${jevExcluded.length}件` : ""}</span> : <span className="hint"> · オフ</span>}
+            </summary>
+            <div className="row" style={{ marginTop: 6 }}>
+              <label className="hint"><input type="checkbox" checked={excl.on} onChange={(e) => setExcl({ ...excl, on: e.target.checked })} /> 除外する</label>
+              <label className="hint"><input type="checkbox" checked={excl.useJev} disabled={!excl.on} onChange={(e) => setExcl({ ...excl, useJev: e.target.checked })} /> Jevでも発信元を判定</label>
+              <label className="hint">同じ投稿者は <input type="number" min={0} max={50} value={excl.maxPerAuthor} onChange={(e) => setExcl({ ...excl, maxPerAuthor: Math.max(0, Math.min(50, Number(e.target.value) || 0)) })} style={{ width: 52 }} /> 件まで</label>
+            </div>
+            <div className="grid-2" style={{ gap: 8, marginTop: 6 }}>
+              <label className="field"><span>除外する@アカウント(空白・改行区切り)</span>
+                <textarea rows={2} value={excl.blockHandles} onChange={(e) => setExcl({ ...excl, blockHandles: e.target.value })} placeholder="@brand_official @design_news" /></label>
+              <label className="field"><span>除外する言葉</span>
+                <textarea rows={2} value={excl.blockWords} onChange={(e) => setExcl({ ...excl, blockWords: e.target.value })} placeholder="資料請求 無料相談" /></label>
+            </div>
+            <p className="hint">
+              まず無料のルールで外します: 広告表記(#PR・【PR】など)・キャンペーン・告知・求人・販促・アフィリエイト、表示名や@に「公式・株式会社・編集部・news」など、
+              リンクやタグだけの投稿、複数アカウントの同じ文面、同じ投稿者の出しすぎ。Brave の検索にも除外語(-求人 -キャンペーン など)を付けます。
+              残りは Jev が「企業・公式/広告・PR/メディア/告知・求人/自己宣伝/個人の声」を判定し、個人の声だけを残します。
+            </p>
+            {excludedAll.length > 0 && (
+              <>
+                <p className="hint num">{reasonCounts(excludedAll).map(([r, n]) => `${r} ${n}`).join(" · ")}</p>
+                <div className="excluded">
+                  {excludedAll.slice(0, 200).map((p, i) => (
+                    <div key={p.url || p.id || i} className="post">
+                      <div>{p.text}</div>
+                      <div className="row" style={{ marginTop: 4 }}>
+                        {p.reasons.map((r) => <span key={r} className="chip">{r}</span>)}
+                        {p.author && <span className="hint">@{p.author}{p.authorName ? `(${p.authorName})` : ""}</span>}
+                        <span className="spacer" />
+                        {p.url && <a className="hint" href={p.url} target="_blank" rel="noreferrer">元の投稿 ↗</a>}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </details>
           <div className="row">
             <span className="hint num">{posts.length} 件(重複除去後)</span>
             <span className="spacer" />
@@ -306,14 +357,13 @@ export default function Report() {
         <section className="panel">
           <h2>流れ</h2>
           <ol className="steps">
-            <li className={screened ? "done" : ""}><b>ふるい分け(Jev)</b> — 全件に「使えるか・具体性・感情語・強さ」を問い、使える上位{keep}件を残す{stats && <span className="hint num"> · {stats.total}件中 使える{stats.usable}件 → {rows?.length}件</span>}</li>
+            <li className={screened ? "done" : ""}><b>ふるい分け(Jev)</b> — 公式・広告をルールで外したあと、全件に「使えるか・具体性・感情語・強さ{excl.on && excl.useJev ? "・発信元" : ""}」を問い、個人の声で使える上位{keep}件を残す{stats && <span className="hint num"> · {stats.total}件中 使える{stats.usable}件 → {rows?.length}件(除外 ルール{stats.ruleExcluded}・Jev{stats.jevExcluded})</span>}</li>
             <li className={categories ? "done" : ""}><b>カテゴリー(Claude)とタグ(Jev)</b> — 残った投稿からカテゴリー体系をつくり、1件ずつタグ付け
               {rows && <button className="btn small ghost" disabled={busy} onClick={() => runCategories()}>やり直す</button>}</li>
-            <li className={Object.keys(analyses).length ? "done" : ""}><b>感情語グループ</b> — 好き・いい・最高・感動・やばい・悪い・嫌い・最悪・くそ に分け、強さ(少し〜めっちゃ)を添えて、グループごとに要約・感情の動き・インサイト(Claude)
-              {rows && <button className="btn small ghost" disabled={busy} onClick={() => runGroups()}>やり直す</button>}</li>
+            <li className={Object.keys(analyses).length ? "done" : ""}><b>感情語グループ</b> — 好き・いい・最高・感動・やばい・悪い・嫌い・最悪・くそ に分け、強さ(少し〜めっちゃ)を添える。要約・感情の動き・インサイト(Claude)は、見たいグループの「要約する」を押したときだけ(1回ずつ課金)</li>
             <li className={rows ? "done" : ""}><b>4象限マップ</b> — 横軸 嫌悪↔好意、縦軸 少し↔めっちゃ</li>
-            <li className={synthesis ? "done" : ""}><b>洞察とデコンテ(Claude)</b> — 一段深いUI/UXの洞察と、アートディレクションの絵コンテ
-              {rows && <button className="btn small ghost" disabled={busy} onClick={() => runSynthesis()}>やり直す</button>}</li>
+            <li className={synthesis ? "done" : ""}><b>洞察とデコンテ(Claude)</b> — 一段深いUI/UXの洞察と、アートディレクションの絵コンテ。押したときだけ(Claude 1回)
+              {rows && <button className="btn small" disabled={busy} onClick={() => runSynthesis()}>{step === 3 ? "作成中…" : synthesis ? "つくり直す" : "洞察とデコンテをつくる"}</button>}</li>
           </ol>
           {rows && (
             <div className="row" style={{ marginTop: 12 }}>
@@ -374,7 +424,14 @@ export default function Report() {
                         {g.analysis.insights.map((i, k) => <li key={k}>{i.text} <Cite ids={i.evidenceIds} /></li>)}
                       </ul>
                     </>
-                  ) : step === 2 ? <p className="hint">要約中…</p> : null}
+                  ) : null}
+                  <div className="row" style={{ margin: "6px 0" }}>
+                    <button className="btn small" disabled={summarizing[g.label] || g.rows.length < 2}
+                      onClick={() => summarizeGroup(g)} title="Claude を1回呼ぶ">
+                      {summarizing[g.label] ? "要約中…" : g.analysis ? "要約し直す" : "要約する"}
+                    </button>
+                    {g.rows.length < 2 && <span className="hint">2件以上で要約できます</span>}
+                  </div>
                   <details>
                     <summary>投稿を見る</summary>
                     {g.rows.map((r) => <PostCard key={r.id} r={r} />)}
@@ -420,6 +477,15 @@ export default function Report() {
               </section>
             </>
           )}
+
+          <Strategy theme={theme} byId={byId} value={strategy} onChange={setStrategy} getInput={() => ({
+            posts: forClaude([...rows].sort((a, b) => usefulness(b) - usefulness(a)).slice(0, STRATEGY_MAX_POSTS)),
+            notes: [
+              synthesis && `全体: ${synthesis.headline}`,
+              ...groups.filter((g) => g.analysis).map((g) => `${g.label}(${g.rows.length}件): ${g.analysis.summary}`),
+              ...QUADRANTS.map((q) => `${q.name}: ${rows.filter((r) => r.quadrant === q.id).length}件`),
+            ].filter(Boolean).join("\n"),
+          })} />
         </>
       )}
       {toastEl}

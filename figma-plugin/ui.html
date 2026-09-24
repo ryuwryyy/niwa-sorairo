@@ -6,7 +6,7 @@
   p { color: #5D636E; margin: 0 0 8px; }
   #err { color: #B4471F; }
 </style>
-<p>「聴く」のインタビュー整理・深掘りレポートで <b>FigJamへ(コピー)</b> を押し、ここに貼り付けてください。</p>
+<p>「聴く」のソーシャルリスニング・インタビュー整理・深掘りレポートで <b>FigJamへ(コピー)</b> を押し、ここに貼り付けてください。</p>
 <textarea id="src" placeholder='{"kind":"kiku/v1", ...}'></textarea>
 <label><input type="checkbox" id="aff" checked> アフィニティ図(分類ごとのセクションと付箋)</label>
 <label><input type="checkbox" id="flow" checked> 行動フロー(段階ごとのステップと矢印)</label>
@@ -19,7 +19,7 @@
     let data;
     try { data = JSON.parse(document.getElementById("src").value); }
     catch { err.textContent = "JSONとして読めません。コピーし直してください。"; return; }
-    if (data.kind !== "kiku/v1" && data.kind !== "kiku/report-v1") { err.textContent = "「聴く」から書き出したデータではないようです。"; return; }
+    if (!["kiku/v1", "kiku/report-v1", "kiku/listening-v1"].includes(data.kind)) { err.textContent = "「聴く」から書き出したデータではないようです。"; return; }
     parent.postMessage({ pluginMessage: {
       type: "import", data,
       affinity: document.getElementById("aff").checked,

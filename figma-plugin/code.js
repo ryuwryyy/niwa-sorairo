@@ -1,4 +1,4 @@
-// 「聴く」の分類結果(kiku/v1)を FigJam に配置する。
+// 「聴く」の分類結果(kiku/v1・kiku/listening-v1・kiku/report-v1)を FigJam に配置する。
 // アフィニティ図 = 分類ごとのセクション + 付箋、行動フロー = 段階ごとのセクション + ステップ + 矢印
 figma.showUI(__html__, { width: 380, height: 380 });
 
@@ -278,6 +278,127 @@ function placeReport(data, x0, y0) {
   return all;
 }
 
+// ---- 戦略シート(ペルソナ〜クリエイティブブリーフ)。report-v1 / listening-v1 の strategy ----
+
+function join(xs, sep) { return (xs || []).join(sep || " / "); }
+
+function cardsRow(sec, texts, x, y, w, h, rgb, size) {
+  for (var i = 0; i < texts.length; i++) {
+    var k = card(texts[i], w, h, rgb);
+    k.text.fontSize = size || 14;
+    sec.appendChild(k);
+    k.x = x + i * (w + GAP);
+    k.y = y;
+  }
+  return y + h;
+}
+
+function placeStrategy(st, x0, y0) {
+  var nodes = [], y = y0, W = 5 * (420 + GAP) + PAD * 2;
+  function block(name, h) {
+    var sec = section(name, x0, y, W, h);
+    nodes.push(sec);
+    y += h + 120;
+    return sec;
+  }
+
+  var core = block("コアアイデア", 420);
+  label(core, st.coreIdea.title, PAD, PAD + 10, 56, W - PAD * 2);
+  label(core, st.coreIdea.statement, PAD, PAD + 110, 28, W - PAD * 2);
+  label(core, "問い: " + st.coreIdea.howMightWe, PAD, PAD + 230, 24, W - PAD * 2);
+
+  var per = block("ペルソナ", 640);
+  cardsRow(per, st.personas.map(function (p) {
+    return p.name + "\n" + p.profile + "\n\n場面: " + p.context + "\n目的: " + join(p.goals) + "\n不満: " + join(p.frustrations) + "\n\n「" + p.quote + "」";
+  }), PAD, PAD + 20, 560, 540, STICKY_RGB.teal, 16);
+
+  // 感情マップ: 横に段階、縦は気持ちの高さ(score -2〜2)。点を矢印でつなぎ、下にペインと機会
+  var n = st.emotionMap.length, colW = 340;
+  var em = section("感情マップ(推測)", x0, y, Math.max(W, PAD * 2 + n * colW), 1500);
+  nodes.push(em);
+  label(em, "↑ 最高", PAD, PAD, 22);
+  label(em, "↓ 最悪", PAD, PAD + 560, 22);
+  var prev = null;
+  for (var i = 0; i < n; i++) {
+    var e = st.emotionMap[i];
+    var sc = Math.max(-2, Math.min(2, Number(e.score) || 0));
+    var k = card(e.stage + "\n" + e.feeling, colW - 60, 110, sc > 0 ? POS : sc < 0 ? NEG : NEU);
+    k.text.fontSize = 16;
+    em.appendChild(k);
+    k.x = PAD + 100 + i * colW;
+    k.y = PAD + 40 + (2 - sc) * 120;
+    if (prev) nodes.push(connect(prev, k, true));
+    prev = k;
+    var detail = sticky("行動: " + e.doing + "\n考え: " + e.thinking, STICKY_RGB.gray);
+    em.appendChild(detail); detail.x = PAD + 100 + i * colW; detail.y = PAD + 720;
+    var pain = sticky("ペイン: " + e.painPoint + "\n\n機会: " + e.opportunity, e.painPoint ? STICKY_RGB.red : STICKY_RGB.green);
+    em.appendChild(pain); pain.x = PAD + 100 + i * colW; pain.y = PAD + 720 + STICKY + GAP;
+  }
+  y += 1500 + 120;
+
+  var cols = [
+    ["課題", st.problems.map(function (p) { return p.problem + "\n\n誰: " + p.who + "\n影響: " + p.impact; }), STICKY_RGB.red],
+    ["仮説", st.hypotheses.map(function (h) { return h.statement + "\n\n根拠: " + h.basis + "\n確かめ方: " + h.howToVerify; }), STICKY_RGB.violet],
+    ["インサイト", st.insights.map(function (it) { return "💡 " + it.text + "\n\n葛藤: " + it.tension; }), STICKY_RGB.yellow],
+  ];
+  var rowsMax = 0;
+  for (var c = 0; c < cols.length; c++) rowsMax = Math.max(rowsMax, cols[c][1].length);
+  var three = block("課題・仮説・インサイト", PAD * 2 + 60 + rowsMax * (STICKY + GAP));
+  for (c = 0; c < cols.length; c++) {
+    label(three, cols[c][0], PAD + c * (STICKY * 2 + GAP * 3), PAD, 28);
+    for (var r = 0; r < cols[c][1].length; r++) {
+      var sk = sticky(cols[c][1][r], cols[c][2]);
+      sk.isWideWidth = true;
+      three.appendChild(sk);
+      sk.x = PAD + c * (STICKY * 2 + GAP * 3);
+      sk.y = PAD + 60 + r * (STICKY + GAP);
+    }
+  }
+
+  var sol = block("解決策・サービスの提案", 560);
+  cardsRow(sol, st.solutions.map(function (s) {
+    return "[" + s.kind + "] " + s.name + "\n\n" + s.description + "\n\n解く課題: " + s.solves + "\n最初の一歩: " + s.firstStep;
+  }), PAD, PAD + 20, 420, 460, STICKY_RGB.green);
+
+  var tm = st.toneManner, cb = st.creativeBrief;
+  var last = block("トンマナとクリエイティブブリーフ", 900);
+  cardsRow(last, [
+    "トンマナ\n\n" + join(tm.keywords, "・") + "\n\n話し方: " + tm.voice + "\nする: " + join(tm.doList) + "\nしない: " + join(tm.dontList) +
+      "\n\n色: " + tm.color + "\n書体: " + tm.typography + "\n画: " + tm.imagery,
+    "クリエイティブブリーフ\n\n背景: " + cb.background + "\n目的: " + cb.objective + "\n対象: " + cb.target + "\n本音: " + cb.insight +
+      "\n\n提案: " + cb.proposition + "\n根拠: " + join(cb.reasonsToBelieve) + "\nトーン: " + cb.tone +
+      "\n必須: " + join(cb.mandatories) + "\n成果物: " + join(cb.deliverables) + "\nKPI: " + join(cb.kpis),
+  ], PAD, PAD + 20, 1060, 800, { r: 1, g: 1, b: 1 }, 16);
+  return nodes;
+}
+
+// ---- ソーシャルリスニング(kiku/listening-v1): 話題ごとのセクションに、感情で色分けした投稿の付箋 ----
+
+var SENT_RGB = { "ポジティブ": STICKY_RGB.blue, "ネガティブ": STICKY_RGB.red, "混在": STICKY_RGB.violet, "中立": STICKY_RGB.gray };
+
+function placeListening(data, x0, y0) {
+  var nodes = [], x = x0, bottom = y0;
+  for (var t = 0; t < data.topics.length; t++) {
+    var tp = data.topics[t];
+    var cols = tp.items.length > 8 ? 3 : tp.items.length > 3 ? 2 : 1;
+    var rows = Math.ceil(tp.items.length / cols);
+    var w = PAD * 2 + cols * STICKY + (cols - 1) * GAP, h = PAD * 2 + 20 + rows * (STICKY + GAP);
+    var sec = section(tp.topic + "(" + tp.items.length + "件)", x, y0, w, h);
+    for (var i = 0; i < tp.items.length; i++) {
+      var it = tp.items[i];
+      var s = sticky(it.text + "\n\n" + it.sentiment + " · " + it.intent + " · 深刻度" + stars(it.severity) + (it.url ? "\n↗ 元の投稿" : ""), SENT_RGB[it.sentiment] || STICKY_RGB.yellow);
+      linkify(s.text, it.url);
+      sec.appendChild(s);
+      s.x = PAD + (i % cols) * (STICKY + GAP);
+      s.y = PAD + 20 + Math.floor(i / cols) * (STICKY + GAP);
+    }
+    nodes.push(sec);
+    x += w + GAP * 2;
+    bottom = Math.max(bottom, y0 + h);
+  }
+  return { nodes: nodes, bottom: bottom };
+}
+
 figma.ui.onmessage = async function (msg) {
   if (msg.type !== "import") return;
   try {
@@ -288,7 +409,23 @@ figma.ui.onmessage = async function (msg) {
       var rx = Math.round(cc.x), ry = Math.round(cc.y);
       var head = label(figma.currentPage, data.title, rx, ry, 56);
       var placed = [head].concat(placeReport(data, rx, ry + 120));
+      if (data.strategy) {
+        var lowest = ry;
+        for (var pi = 0; pi < placed.length; pi++) lowest = Math.max(lowest, (placed[pi].y || 0) + (placed[pi].height || 0));
+        placed = placed.concat(placeStrategy(data.strategy, rx, lowest + 300));
+      }
       figma.viewport.scrollAndZoomIntoView(placed);
+      figma.closePlugin("配置しました");
+      return;
+    }
+    if (data.kind === "kiku/listening-v1") {
+      var lc = figma.viewport.center;
+      var lx = Math.round(lc.x), ly = Math.round(lc.y);
+      var lhead = label(figma.currentPage, data.title, lx, ly, 56);
+      var lis = placeListening(data, lx, ly + 120);
+      var lplaced = [lhead].concat(lis.nodes);
+      if (data.strategy) lplaced = lplaced.concat(placeStrategy(data.strategy, lx, lis.bottom + 300));
+      figma.viewport.scrollAndZoomIntoView(lplaced);
       figma.closePlugin("配置しました");
       return;
     }

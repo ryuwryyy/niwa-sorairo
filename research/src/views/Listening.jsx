@@ -2,7 +2,10 @@ import { useMemo, useState } from "react";
 import { socialQuestions, socialState, SENTIMENTS, INTENTS, DEFAULT_TOPICS, parseLabels } from "../lib/presets";
 import { parseCSV, guessColumns, splitPosts, toCSV, download } from "../lib/csv";
 import { SAMPLE_CONTEXT, SAMPLE_POSTS } from "../lib/samples";
-import { useClassifier, NoKeyBanner, DemoBanner, Progress, Conf, Level, LOW_CONF, useToast } from "../components/Bits";
+import { applyRules, reasonCounts } from "../lib/filters";
+import { toFigJamListening, listeningForStrategy, strategyToMarkdown } from "../lib/strategy";
+import Strategy from "../components/Strategy";
+import { useClassifier, NoKeyBanner, DemoBanner, Progress, Conf, Level, LOW_CONF, useToast, copyText } from "../components/Bits";
 
 // 感情は極性なので、青(ポジ)↔灰(中立)↔赤(ネガ)の発散配色。凡例と表で色だけに頼らない
 const SENT_ORDER = ["ポジティブ", "中立", "混在", "ネガティブ"];
@@ -17,13 +20,15 @@ export default function Listening() {
   const [context, setContext] = useState("");
   const [topicsText, setTopicsText] = useState(DEFAULT_TOPICS);
   const [rows, setRows] = useState(null);
+  const [strategy, setStrategy] = useState(null); // 戦略シート(押したときだけ Claude)
+  const [noMarketing, setNoMarketing] = useState(true); // 公式・広告・宣伝をルールで外す(無料。Jevの件数も減る)
   const [filter, setFilter] = useState({ topic: "", sentiment: "", onlyRelevant: true, onlyReview: false });
   const clf = useClassifier();
   const [toastEl, toast] = useToast();
 
   const topics = useMemo(() => parseLabels(topicsText), [topicsText]);
 
-  const posts = useMemo(() => {
+  const rawPosts = useMemo(() => {
     if (mode === "paste") return splitPosts(paste).map((text, i) => ({ id: `p${i + 1}`, text }));
     if (!csv) return [];
     const c = csv.cols;
@@ -39,6 +44,11 @@ export default function Listening() {
       .filter((p) => p.text.length >= 4);
   }, [mode, paste, csv]);
 
+  const { posts, excluded } = useMemo(() => {
+    const { kept, excluded } = applyRules(rawPosts, { on: noMarketing });
+    return { posts: kept, excluded };
+  }, [rawPosts, noMarketing]);
+
   const onFile = async (file) => {
     if (!file) return;
     const table = parseCSV(await file.text());
@@ -53,7 +63,7 @@ export default function Listening() {
     if (!posts.length) return;
     const questions = socialQuestions({ context, topicsText });
     const items = posts.map((p) => ({ id: p.id, state: socialState(p, context) }));
-    setRows(null);
+    setRows(null); setStrategy(null);
     const out = await clf.run(items, questions, { forceDemo });
     if (!out) return;
     setRows(posts.map((p) => {
@@ -94,6 +104,12 @@ export default function Listening() {
     (!filter.onlyReview || needsReview(r)) &&
     (!filter.topic || r.topic === filter.topic) &&
     (!filter.sentiment || r.sentiment === filter.sentiment));
+
+  const byId = useMemo(() => new Map(ok.map((r) => [r.id, r])), [rows]); // eslint-disable-line react-hooks/exhaustive-deps
+  const exportFigJam = () => copyText(JSON.stringify(toFigJamListening({ title: context ? `${context.slice(0, 40)} — ソーシャルリスニング` : "", rows: ok, topics, strategy })), toast, "FigJam用データ");
+  const exportMd = () => download(`strategy-${new Date().toISOString().slice(0, 10)}.md`,
+    `# ${context || "ソーシャルリスニング"} — 戦略シート\n\n${strategyToMarkdown(strategy, (ids) => (ids || []).map((id) => byId.get(id)).filter(Boolean).map((r) => (r.url ? `[${r.id}](${r.url})` : r.id)).join(" "))}`,
+    "text/markdown;charset=utf-8");
 
   const exportCSV = () => {
     const header = ["本文", "関連度", "感情", "感情_確信度", "話題", "話題_確信度", "意図", "意図_確信度", "深刻度(0-3)", "要確認", "手修正", "日時", "投稿者", "いいね", "URL"];
@@ -149,6 +165,9 @@ export default function Listening() {
 
           <div className="row">
             <span className="hint num">{posts.length} 件</span>
+            <label className="hint" title={reasonCounts(excluded).map(([r, n]) => `${r} ${n}`).join(" · ")}>
+              <input type="checkbox" checked={noMarketing} onChange={(e) => setNoMarketing(e.target.checked)} /> 公式・広告・宣伝を除く{noMarketing && excluded.length ? `(${excluded.length}件除外)` : ""}
+            </label>
             <button className="btn ghost small" onClick={loadSample}>サンプルを入れる</button>
             <span className="spacer" />
             <button className="btn primary" disabled={!posts.length || clf.running} onClick={() => start()}>
@@ -233,6 +252,8 @@ export default function Listening() {
               <label className="hint"><input type="checkbox" checked={filter.onlyRelevant} onChange={(e) => setFilter({ ...filter, onlyRelevant: e.target.checked })} /> 体験に関するものだけ</label>
               <label className="hint"><input type="checkbox" checked={filter.onlyReview} onChange={(e) => setFilter({ ...filter, onlyReview: e.target.checked })} /> 要確認だけ</label>
               <button className="btn small" onClick={exportCSV}>CSVに書き出す</button>
+              <button className="btn small" onClick={exportFigJam} title="figma-plugin/ のプラグインに貼り付け">FigJamへ(コピー)</button>
+              {strategy && <button className="btn small" onClick={exportMd}>戦略シート(Markdown)</button>}
             </div>
             <div className="scroll-x">
               <table className="list">
@@ -271,6 +292,9 @@ export default function Listening() {
               {!shown.length && <p className="hint">条件に合う投稿はありません。</p>}
             </div>
           </section>
+
+          <Strategy theme={context || "ソーシャルリスニング"} byId={byId} value={strategy} onChange={setStrategy}
+            getInput={() => ({ posts: listeningForStrategy(ok), notes: byTopic.map((t) => `${t.topic}: ${t.total}件(${SENT_ORDER.map((s) => `${s}${t.counts[s]}`).join("・")})`).join("\n") })} />
         </>
       )}
       {toastEl}

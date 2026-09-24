@@ -31,6 +31,24 @@ function textFromXTitle(title) {
   return m ? m[1].trim() : null;
 }
 
+/** X のタイトルから表示名(「名前 on X:」「Xユーザーの名前さん:」) */
+function nameFromXTitle(title) {
+  const m = title.match(/^(.+?)\s+on X:/) || title.match(/^(?:Xユーザーの)?(.+?)(?:\s*\(@[A-Za-z0-9_]+\))?さん[:：]/);
+  return m ? m[1].replace(/\s*\(@[A-Za-z0-9_]+\)$/, "").trim().slice(0, 60) : null;
+}
+
+/** Instagram のタイトル「名前 (@user) • Instagram …」「名前 on Instagram: …」から表示名 */
+function nameFromIgTitle(title) {
+  const m = title.match(/^(.+?)\s*\(@[A-Za-z0-9_.]+\)/) || title.match(/^(.+?)\s+on Instagram/);
+  return m ? m[1].trim().slice(0, 60) : null;
+}
+
+/**
+ * 公式・広告・求人を検索の段階で減らす除外語(Brave の「-語」)。
+ * ここで減るほど、あとの Jev の判定件数(= 費用)も減る。
+ */
+export const NEGATIVE_TERMS = ["-求人", "-採用情報", "-キャンペーン", "-プレゼント企画", "-抽選", "-ウェビナー"];
+
 /** 返信の本文に含まれる「返信先: @user」「Replying to @user」 */
 function replyTarget(text) {
   const m = text.match(/(?:返信先[:：]\s*|Replying to\s+)@([A-Za-z0-9_]{1,15})/);
@@ -43,15 +61,17 @@ export function normalize(result, site) {
   if (!m) return null;
   const title = decode(result.title);
   const snippets = [decode(result.description), ...(result.extra_snippets || []).map(decode)].filter(Boolean);
-  let text, author, canonical;
+  let text, author, authorName, canonical;
   if (site === "x") {
     author = m[1];
+    authorName = nameFromXTitle(title);
     canonical = `https://x.com/${m[1]}/status/${m[2]}`;
     const fromTitle = textFromXTitle(title);
     // タイトルの本文が切れている(…)ときはスニペットの方を使う
     text = fromTitle && !/…$/.test(fromTitle) ? fromTitle : (snippets[0] || fromTitle || title);
   } else {
     author = m[1] || null;
+    authorName = nameFromIgTitle(title);
     canonical = `https://www.instagram.com/${m[2]}/${m[3]}/`;
     text = snippets[0] || title;
   }
@@ -61,6 +81,7 @@ export function normalize(result, site) {
     platform: site,
     url: canonical,
     author,
+    authorName: authorName || null,
     text,
     date: result.page_age || null,
     replyTo: replyTarget([title, ...snippets].join(" ")),
@@ -75,7 +96,8 @@ export function buildQuery(body) {
   if (mode === "posts") {
     const kw = String(body?.keyword || "").trim();
     if (!kw || kw.length > 100) throw new InputError("keyword required (1-100 chars)");
-    return `site:${SITES[site].domain} ${kw}`;
+    // excludeMarketing: false で除外語を付けない(公式の発信を調べたいとき)
+    return `site:${SITES[site].domain} ${kw}${body?.excludeMarketing === false ? "" : ` ${NEGATIVE_TERMS.join(" ")}`}`;
   }
   if (mode === "replies") {
     if (site !== "x") throw new InputError("replies are supported for x only");

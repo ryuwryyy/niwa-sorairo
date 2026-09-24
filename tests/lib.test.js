@@ -5,6 +5,8 @@ import { segmentTranscript, speakersOf } from "../research/src/lib/segment.js";
 import { parseCSV, guessColumns, splitPosts } from "../research/src/lib/csv.js";
 import { parseLabels, interviewQuestions, interviewState, DEFAULT_CATEGORIES, DEFAULT_STAGES } from "../research/src/lib/presets.js";
 import { demoAnswers } from "../research/src/lib/demo.js";
+import { strategyToMarkdown, listeningForStrategy } from "../research/src/lib/strategy.js";
+import { strategyFixture } from "./fixtures/strategy.js";
 import { buildFlow, toMermaid, toFigJamPayload, toMiroTSV } from "../research/src/lib/exporters.js";
 import { SAMPLE_TRANSCRIPT, SAMPLE_POSTS } from "../research/src/lib/samples.js";
 import {
@@ -119,4 +121,28 @@ test("深掘り: Markdown と FigJam 用データに元投稿のリンクが残�
   assert.equal(fig.kind, "kiku/report-v1");
   assert.equal(fig.posts[0].url, "https://x.com/u/status/p1");
   assert.equal(fig.quadrants.find((q) => q.id === "fever").reading, "r");
+});
+
+// ---- 戦略シート(research/src/lib/strategy.js) ----
+
+test("strategy: Markdown に9項目が並び、根拠はリンクになる", () => {
+  const md = strategyToMarkdown(strategyFixture(), (ids) => ids.map((id) => `[${id}](https://x.com/u/status/${id})`).join(" "));
+  for (const h of ["コアアイデア", "ペルソナ", "感情マップ", "課題", "仮説", "インサイト", "解決策・サービスの提案", "トンマナ", "クリエイティブブリーフ"]) {
+    assert.match(md, new RegExp(`## ${h}`), h);
+  }
+  assert.match(md, /\[p1\]\(https:\/\/x\.com\/u\/status\/p1\)/);
+  assert.match(md, /\| 困る \| 行動 \| 考え \| 気持ち \| -2 \|/);
+});
+
+test("strategy: リスニング結果は体験に関係するものだけ、深刻度順で上限まで", () => {
+  const rows = [
+    { id: "a", text: "x", relevant: 0.9, severity: 1, topic: "t", intent: "i", sentiment: "中立" },
+    { id: "b", text: "y", relevant: 0.2, severity: 3 },
+    { id: "c", text: "z", relevant: 0.8, severity: 2.5, topic: "t", intent: "i", sentiment: "ネガティブ" },
+    { id: "d", error: "x", text: "w" },
+  ];
+  const out = listeningForStrategy(rows, 5);
+  assert.deepEqual(out.map((p) => p.id), ["c", "a"]);
+  assert.deepEqual(out[0].tags, ["t", "i"]);
+  assert.equal(listeningForStrategy(rows, 1).length, 1);
 });

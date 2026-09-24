@@ -1,5 +1,6 @@
 // サーバー側(api/_jev-core.js / api/_analyze-core.js)のテスト。
 // 上流(Jev・Claude)は fetch を差し替えて偽の応答を返すので、APIキーも課金も不要。
+import { strategyFixture } from "./fixtures/strategy.js";
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { handleJevRequest } from "../api/_jev-core.js";
@@ -115,6 +116,22 @@ test("analyze: 未知のタスクや空の投稿は上流を呼ばずに 400", a
   assert.equal((await handleAnalyzeRequest({ task: "group", posts: [] }, env, claude.fetch)).status, 400);
   assert.equal((await handleAnalyzeRequest({ task: "categories", posts: Array(151).fill({ id: "x", text: "y" }) }, env, claude.fetch)).status, 400);
   assert.equal(claude.seen.length, 0);
+});
+
+test("analyze: 戦略シート(strategy)は分析メモと投稿を渡し、スキーマに9項目を持つ", async () => {
+  const claude = fakeClaude(strategyFixture());
+  const r = await handleAnalyzeRequest(
+    { task: "strategy", theme: "UX", notes: "好き: 迷わないのが好評", posts: [{ id: "p1", text: "登録で迷った", tags: ["手続き"], feeling: "悪い" }] },
+    { ANTHROPIC_API_KEY: "k" }, claude.fetch,
+  );
+  assert.equal(r.status, 200, JSON.stringify(r.body));
+  const req = claude.seen[0].body;
+  assert.equal(req.output_config.effort, "high");
+  assert.deepEqual(Object.keys(req.output_config.format.schema.properties),
+    ["personas", "emotionMap", "hypotheses", "insights", "coreIdea", "problems", "solutions", "toneManner", "creativeBrief"]);
+  assert.match(req.messages[0].content, /好き: 迷わないのが好評/);
+  assert.match(req.messages[0].content, /\[p1\] \(手続き\) <悪い> 登録で迷った/);
+  assert.equal(r.body.result.coreIdea.title, "(テスト)コア");
 });
 
 test("analyze: 拒否(refusal)は 422 にする", async () => {
