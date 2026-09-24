@@ -14,3 +14,8 @@
 
 ## UI を作るとき
 - スキル `design-md-sources`(DESIGN.md の参照先)
+
+## X・SNS のリンクが貼られたら
+- `.claude/hooks/sns-link-lookup.mjs`(UserPromptSubmit フック)が Brave Search で公開情報を探し、`[sns-link-lookup]` として渡してくる。それを使って答え、検索結果の抜粋であることを伝える
+- フックが「見つからない」「キー未設定」と言ってきたら、書かれた検索語で WebSearch を試し、それでも無ければ推測せず本文の貼り付けを頼む
+- 必要な設定: 環境変数 `BRAVE_API_KEY` と、ネットワーク許可に `api.search.brave.com`
