@@ -4,22 +4,26 @@ name: Smoke test after deploy
 
 on:
   deployment_status:
+  workflow_dispatch: # 手動で本番を確かめたいとき
 
 permissions:
   contents: read
 
 jobs:
   smoke:
-    if: github.event.deployment_status.state == 'success'
+    if: github.event_name == 'workflow_dispatch' || github.event.deployment_status.state == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - name: 庭アプリと API の疎通
         env:
-          BASE: ${{ github.event.deployment_status.environment_url || github.event.deployment_status.target_url }}
-          ENVIRONMENT: ${{ github.event.deployment.environment }}
+          DEPLOY_URL: ${{ github.event.deployment_status.environment_url || github.event.deployment_status.target_url }}
+          ENVIRONMENT: ${{ github.event.deployment.environment || 'Production' }}
+          # 本番は公開ドメインで見る。デプロイごとのURL(teire-xxxx.vercel.app)は本番でもログイン保護がかかる
+          PRODUCTION_URL: ${{ vars.PRODUCTION_URL || 'https://niwa-sorairo.vercel.app' }}
         run: |
           set -eu
+          if [ "$ENVIRONMENT" = "Production" ]; then BASE="$PRODUCTION_URL"; else BASE="$DEPLOY_URL"; fi
           echo "target: $BASE ($ENVIRONMENT)"
           code() { curl -s -o /dev/null -w "%{http_code}" "$@"; }
           top=$(code "$BASE/")
