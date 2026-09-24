@@ -5,6 +5,7 @@
 - 2つのサイトは分けておく。聴くは Vercel の API をドメインをまたいで呼ぶ(`api/_cors.js`)
 
 ## 変更・リリースするとき
+- **マージとデプロイは確認なしで進めてよい(持ち主の指示)。** 自分の PR は CI(check・e2e)が通ったらマージする。`.github/workflows/automerge.yml` も claude/* の PR を CI 成功後に自動でマージし、聴くを再デプロイする。止めたい PR には「hold」ラベルを付ける
 - 手順はスキル `ship-research`。マージ前の点検はエージェント `release-checker`
 - `npm run check`(単体テスト・両ビルド・FigJamプラグイン構文)と `npm run e2e`(偽 Jev・偽 Claude でブラウザ通し)が CI と同じ
 - テストや CI から本物の Jev・Claude・Brave を呼ばない(課金されるのはそこだけ)。キーは Vercel の環境変数と `.env.local` にだけ置く
