@@ -23,9 +23,16 @@ jobs:
           PRODUCTION_URL: ${{ vars.PRODUCTION_URL || 'https://teire-app.vercel.app' }}
         run: |
           set -eu
+          code() { curl -s -o /dev/null -w "%{http_code}" "$@"; }
+          # GitHub Pages(聴く)のデプロイ完了もこのイベントで来る。API は無いので、ページが開けるかだけ見る
+          if [ "$ENVIRONMENT" = "github-pages" ]; then
+            page=$(code -L "$DEPLOY_URL")
+            echo "GET $DEPLOY_URL -> $page"
+            [ "$page" = "200" ] || { echo "::error::聴くのページが $page を返した"; exit 1; }
+            exit 0
+          fi
           if [ "$ENVIRONMENT" = "Production" ]; then BASE="$PRODUCTION_URL"; else BASE="$DEPLOY_URL"; fi
           echo "target: $BASE ($ENVIRONMENT)"
-          code() { curl -s -o /dev/null -w "%{http_code}" "$@"; }
           top=$(code "$BASE/")
           echo "GET / -> $top"
           # プレビューは Vercel のログイン保護で 302(ログインへ転送)や 401 になる。外からは確かめられないので終える
@@ -38,7 +45,11 @@ jobs:
           for api in jev analyze brave; do
             c=$(code -X POST -H "Content-Type: application/json" -d '{}' "$BASE/api/$api")
             echo "POST /api/$api {} -> $c"
-            case "$c" in 400|501) ;; *) echo "::error::/api/$api が $c を返した"; exit 1 ;; esac
+            case "$c" in
+              400) ;;
+              501) [ "$ENVIRONMENT" = "Production" ] && echo "::warning::/api/$api のキーが Vercel に設定されていない(501)" ;;
+              *) echo "::error::/api/$api が $c を返した"; exit 1 ;;
+            esac
           done
           # GitHub Pages からの呼び出しを許可しているか(CORS のプリフライト)
           allow=$(curl -s -o /dev/null -D - -X OPTIONS -H "Origin: https://ryuwryyy.github.io" "$BASE/api/jev" | tr -d '\r' | grep -i '^access-control-allow-origin:' || true)
