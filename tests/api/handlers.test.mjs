@@ -81,6 +81,7 @@ const ENV = [
   "GOOGLE_CSE_KEY",
   "GOOGLE_CSE_CX",
   "BRAVE_SEARCH_API_KEY",
+  "BRAVE_API_KEY",
   "VERCEL",
 ];
 const saved = {};

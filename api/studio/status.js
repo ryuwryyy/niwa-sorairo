@@ -24,7 +24,7 @@ export default async function handler(req, res) {
     pinterest: Boolean(process.env.PINTEREST_ACCESS_TOKEN),
     adobe: Boolean(process.env.ADOBE_STOCK_API_KEY),
     cse: Boolean(process.env.GOOGLE_CSE_KEY && process.env.GOOGLE_CSE_CX),
-    brave: Boolean(process.env.BRAVE_SEARCH_API_KEY),
+    brave: Boolean(process.env.BRAVE_SEARCH_API_KEY || process.env.BRAVE_API_KEY),
     geminiModel: defaultModelId(),
     claudeModel: process.env.STUDIO_CLAUDE_MODEL || "claude-opus-5",
   });

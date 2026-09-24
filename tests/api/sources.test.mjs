@@ -37,6 +37,7 @@ const ENV_KEYS = [
   "GOOGLE_CSE_KEY",
   "GOOGLE_CSE_CX",
   "BRAVE_SEARCH_API_KEY",
+  "BRAVE_API_KEY",
   "ADOBE_STOCK_API_KEY",
   "ADOBE_STOCK_PRODUCT",
 ];
@@ -254,6 +255,17 @@ test("searchBrave はトークンヘッダと site: 接頭辞を使う（画像�
   assert.equal(calls[0].init.headers.Accept, "application/json");
 });
 
+test("searchBrave は聴くと共用の BRAVE_API_KEY でも動く（BRAVE_SEARCH_API_KEY が優先）", async () => {
+  process.env.BRAVE_API_KEY = "SHARED";
+  mockFetch(() => ({ json: { results: [] } }));
+  await searchBrave({ q: "余白" });
+  assert.equal(calls[0].init.headers["X-Subscription-Token"], "SHARED");
+
+  process.env.BRAVE_SEARCH_API_KEY = "OWN";
+  await searchBrave({ q: "余白" });
+  assert.equal(calls[1].init.headers["X-Subscription-Token"], "OWN");
+});
+
 test("searchAdobe は x-api-key / X-Product / result_columns[] を送る", async () => {
   process.env.ADOBE_STOCK_API_KEY = "AK";
   mockFetch(() => ({ json: { nb_results: 100, files: [] } }));
@@ -326,7 +338,7 @@ test("pinterest: キーが1つも無ければ 200 + degraded:'none' + hint", asy
   assert.deepEqual(res.payload.items, []);
   assert.equal(res.payload.degraded, "none");
   assert.match(res.payload.hint, /PINTEREST_ACCESS_TOKEN/);
-  assert.match(res.payload.hint, /BRAVE_SEARCH_API_KEY/);
+  assert.match(res.payload.hint, /BRAVE_API_KEY/);
   assert.equal(calls.length, 0);
 });
 

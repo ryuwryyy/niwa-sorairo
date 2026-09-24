@@ -1,0 +1,47 @@
+# Claude が出した PR(claude/* ブランチ)を、CI が通ったら自動でマージしてデプロイする(無料)。
+# - 対象: このリポジトリ内の claude/* ブランチからの PR だけ(フォークからの PR は対象外)
+# - CI(ci.yml)が成功し、そのあと新しい push が無いときだけマージする
+# - 止めたいときは PR に「hold」ラベルを付ける
+# マージ後、Vercel(庭アプリ・API)は Vercel 側が自動でデプロイする。
+# GITHUB_TOKEN でのマージは他のワークフローを起動しないので、聴く(GitHub Pages)はここから明示的に再デプロイする。
+name: Auto-merge Claude PRs
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  merge:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'pull_request' &&
+      startsWith(github.event.workflow_run.head_branch, 'claude/') &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: マージして聴くを再デプロイ
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ github.event.workflow_run.head_branch }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -eu
+          pr=$(gh pr list -R "$REPO" --head "$BRANCH" --state open --json number,headRefOid,labels --jq '.[0] // empty')
+          if [ -z "$pr" ]; then echo "開いている PR が無い"; exit 0; fi
+          num=$(echo "$pr" | jq -r .number)
+          head=$(echo "$pr" | jq -r .headRefOid)
+          if [ "$head" != "$SHA" ]; then echo "CI のあとに新しい push があるので見送り(次の CI で判断)"; exit 0; fi
+          if echo "$pr" | jq -e '.labels | map(.name) | index("hold")' >/dev/null; then echo "hold ラベルが付いているので見送り"; exit 0; fi
+          gh pr ready "$num" -R "$REPO" || true
+          gh pr merge "$num" -R "$REPO" --merge --match-head-commit "$SHA"
+          echo "PR #$num をマージした"
+          gh workflow run pages.yml -R "$REPO" --ref main
+          echo "聴く(GitHub Pages)の再デプロイを開始した"

@@ -14,6 +14,11 @@
   status = 200
 
 [[redirects]]
+  from = "/research/*"
+  to = "https://ryuwryyy.github.io/niwa-sorairo/"
+  status = 302
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200

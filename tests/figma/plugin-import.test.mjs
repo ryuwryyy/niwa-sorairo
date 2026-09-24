@@ -1,5 +1,5 @@
 /**
- * figma-plugin/code.js を node:vm の中で、偽物の `figma` グローバルを渡して動かす。
+ * studio-figma-plugin/code.js を node:vm の中で、偽物の `figma` グローバルを渡して動かす。
  *
  * 偽物の側で Figma 本体と同じ制約を再現している:
  *   - layoutSizingHorizontal / Vertical は auto-layout の文脈が無いと throw
@@ -19,8 +19,8 @@ import { fileURLToPath } from "node:url";
 
 const root = new URL("../../", import.meta.url);
 const readRel = (rel) => readFileSync(fileURLToPath(new URL(rel, root)), "utf8");
-const CODE = readRel("figma-plugin/code.js");
-const SAMPLE = JSON.parse(readRel("figma-plugin/samples/sample-spec.json"));
+const CODE = readRel("studio-figma-plugin/code.js");
+const SAMPLE = JSON.parse(readRel("studio-figma-plugin/samples/sample-spec.json"));
 const clone = (v) => JSON.parse(JSON.stringify(v));
 
 const DEFAULT_FONTS = {
@@ -346,7 +346,7 @@ function createFigmaMock(opts = {}) {
 
 function loadPlugin(mock) {
   const context = vm.createContext({ figma: mock.figma, __html__: "<html>ui</html>", console });
-  vm.runInContext(CODE, context, { filename: "figma-plugin/code.js" });
+  vm.runInContext(CODE, context, { filename: "studio-figma-plugin/code.js" });
   return context;
 }
 

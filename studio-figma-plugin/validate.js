@@ -1,7 +1,7 @@
 /**
  * spec.json の検証（DESIGN.md §4.6 の契約）。
  *
- * このファイルの `SORAIRO_VALIDATOR` ブロックは `figma-plugin/code.js` の同名ブロックと
+ * このファイルの `SORAIRO_VALIDATOR` ブロックは `studio-figma-plugin/code.js` の同名ブロックと
  * **1 バイトも違わない**ことを `tests/figma/validator-sync.test.mjs` が検査する。
  * 片方だけ直すとテストが落ちるので、必ず両方を同じ内容にすること。
  *

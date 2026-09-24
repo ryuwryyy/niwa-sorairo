@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
+import { devApi } from "./vite.dev-api.js";
 import { devApiPlugin } from "./server/lib/devApi.js";
 
 export default defineConfig(({ mode }) => {
@@ -9,6 +10,7 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       react(),
+      devApi(env),
       VitePWA({
         registerType: "autoUpdate",
         includeAssets: [
@@ -50,8 +52,8 @@ export default defineConfig(({ mode }) => {
         },
         workbox: {
           navigateFallback: "/index.html",
-          // /studio は別アプリ（Sorairo Studio）。SW の SPA フォールバックから除外する
-          navigateFallbackDenylist: [/^\/api/, /^\/studio/],
+          // /research は聴く（GitHub Pages）、/studio は別アプリ（空色 Studio）。SW の SPA フォールバックから除外する
+          navigateFallbackDenylist: [/^\/api/, /^\/research/, /^\/studio/],
           globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2}"],
           // Studio のバンドル（dist/assets/studio-*）は庭アプリの SW に precache させない
           globIgnores: ["**/studio/**", "**/assets/studio-*"],

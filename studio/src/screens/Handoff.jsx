@@ -325,7 +325,7 @@ export default function Handoff() {
             <strong className="small">A. 同梱プラグイン</strong>
             <ol className="small" style={{ paddingLeft: 18 }}>
               <li>Figma → Plugins → Development → Import plugin from manifest…</li>
-              <li>このリポジトリの <code>figma-plugin/manifest.json</code> を選ぶ</li>
+              <li>このリポジトリの <code>studio-figma-plugin/manifest.json</code> を選ぶ</li>
               <li>プラグインを起動し、書き出した <code>spec.json</code> を貼るかファイルで選ぶ</li>
               <li>「生成」を押すと Variables（コレクション Sorairo）・Styles・Components・KV フレームができる</li>
             </ol>

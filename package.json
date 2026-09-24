@@ -9,11 +9,17 @@
     "build": "vite build",
     "preview": "vite preview",
     "studio": "vite --open /studio/",
-    "test": "node --test \"tests/**/*.test.mjs\"",
     "worker:dev": "wrangler dev worker/index.js",
-    "worker:deploy": "wrangler deploy worker/index.js"
+    "worker:deploy": "wrangler deploy worker/index.js",
+    "build:research": "vite build --config vite.research.config.js",
+    "dev:research": "vite --config vite.research.config.js --port 5174",
+    "test": "node --test 'tests/*.test.js' 'tests/**/*.test.mjs'",
+    "check": "npm test && npm run build && npm run build:research && node --check figma-plugin/code.js && node --check studio-figma-plugin/code.js",
+    "e2e": "node tests/e2e/run.mjs"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.128.0",
+    "@typesafe-ai/sdk": "^0.6.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

@@ -1,7 +1,7 @@
 /**
  * spec.json の検証まわり。
  *
- * - figma-plugin/samples/sample-spec.json が DESIGN.md §4.6 を満たすこと
+ * - studio-figma-plugin/samples/sample-spec.json が DESIGN.md §4.6 を満たすこと
  * - validate.js と code.js の検証ロジックが 1 バイトも違わないこと
  * - 壊れた spec でちゃんと日本語のエラーが出ること
  * - manifest.json が Figma のマニフェスト仕様どおりであること
@@ -12,11 +12,11 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
-import { validateSpec } from "../../figma-plugin/validate.js";
+import { validateSpec } from "../../studio-figma-plugin/validate.js";
 
 const root = new URL("../../", import.meta.url);
 const read = (rel) => readFileSync(fileURLToPath(new URL(rel, root)), "utf8");
-const sample = JSON.parse(read("figma-plugin/samples/sample-spec.json"));
+const sample = JSON.parse(read("studio-figma-plugin/samples/sample-spec.json"));
 
 /** 深いコピー（テストごとに sample を壊さないため） */
 const clone = (v) => JSON.parse(JSON.stringify(v));
@@ -84,8 +84,8 @@ test("validate.js と code.js の検証ロジックが同一", () => {
     assert.ok(to > from, `${label} に ${END} が無い`);
     return src.slice(from, to + END.length);
   };
-  const a = extract(read("figma-plugin/validate.js"), "validate.js");
-  const b = extract(read("figma-plugin/code.js"), "code.js");
+  const a = extract(read("studio-figma-plugin/validate.js"), "validate.js");
+  const b = extract(read("studio-figma-plugin/code.js"), "code.js");
   assert.equal(a, b, "validate.js と code.js の検証ブロックがずれています（両方に同じ内容を置くこと）");
   assert.ok(a.includes("function validateSpec(spec)"));
 });
@@ -203,7 +203,7 @@ test("frames も components も無いと落ちる", () => {
 });
 
 test("manifest.json が Figma のマニフェスト仕様どおり", () => {
-  const manifest = JSON.parse(read("figma-plugin/manifest.json"));
+  const manifest = JSON.parse(read("studio-figma-plugin/manifest.json"));
   assert.equal(manifest.name, "Sorairo Studio Importer");
   assert.equal(manifest.id, "sorairo-studio-importer");
   assert.equal(manifest.api, "1.0.0");
@@ -213,12 +213,12 @@ test("manifest.json が Figma のマニフェスト仕様どおり", () => {
   assert.equal(manifest.documentAccess, "dynamic-page");
   assert.deepEqual(manifest.networkAccess, { allowedDomains: ["none"] });
   // main / ui が実在すること
-  assert.ok(read("figma-plugin/code.js").length > 0);
-  assert.ok(read("figma-plugin/ui.html").includes("pluginMessage"));
+  assert.ok(read("studio-figma-plugin/code.js").length > 0);
+  assert.ok(read("studio-figma-plugin/ui.html").includes("pluginMessage"));
 });
 
 test("ui.html は外部リソースを読み込まない", () => {
-  const html = read("figma-plugin/ui.html");
+  const html = read("studio-figma-plugin/ui.html");
   assert.equal(/<script[^>]+src=/i.test(html), false, "外部 script を読んでいる");
   assert.equal(/<link[^>]+href=/i.test(html), false, "外部 stylesheet を読んでいる");
   assert.equal(/https?:\/\//.test(html.replace(/xmlns="[^"]*"/g, "")), false, "外部 URL がある");
@@ -227,7 +227,7 @@ test("ui.html は外部リソースを読み込まない", () => {
 
 test("ui.html の中の JavaScript が構文エラーを起こさない", async () => {
   const { Script } = await import("node:vm");
-  const html = read("figma-plugin/ui.html");
+  const html = read("studio-figma-plugin/ui.html");
   const scripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map((m) => m[1]);
   assert.equal(scripts.length, 1);
   assert.doesNotThrow(() => new Script(scripts[0], { filename: "ui.html" }));

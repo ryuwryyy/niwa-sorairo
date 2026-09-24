@@ -8,7 +8,7 @@ import { buildSpec, buildTokens } from "../../studio/src/lib/figmaSpec.js";
 
 let pluginValidate = null;
 try {
-  ({ validateSpec: pluginValidate } = await import("../../figma-plugin/validate.js"));
+  ({ validateSpec: pluginValidate } = await import("../../studio-figma-plugin/validate.js"));
 } catch {
   pluginValidate = null;
 }
@@ -37,7 +37,7 @@ const TOKENS = buildTokens({
   ],
 });
 
-test("buildSpec の出力が figma-plugin の検証器を通る", { skip: pluginValidate ? false : "figma-plugin/validate.js が無い" }, () => {
+test("buildSpec の出力が studio-figma-plugin の検証器を通る", { skip: pluginValidate ? false : "studio-figma-plugin/validate.js が無い" }, () => {
   for (const [label, opts] of [
     ["画像あり", { tokens: TOKENS, imageDataUrl: "data:image/png;base64,iVBORw0KGgo=", imageWidth: 1920, imageHeight: 1080 }],
     ["画像なし", { tokens: TOKENS }],
@@ -49,7 +49,7 @@ test("buildSpec の出力が figma-plugin の検証器を通る", { skip: plugin
   }
 });
 
-test("すべてのアスペクト比・見出しゾーンで検証を通る", { skip: pluginValidate ? false : "figma-plugin/validate.js が無い" }, () => {
+test("すべてのアスペクト比・見出しゾーンで検証を通る", { skip: pluginValidate ? false : "studio-figma-plugin/validate.js が無い" }, () => {
   for (const aspect of ["1:1", "4:5", "2:3", "3:2", "9:16", "16:9", "21:9", "4:1", "1:8"]) {
     for (const zone of ["top", "bottom", "left", "right", "center"]) {
       const p = { ...PROJECT, direction: { aspect, typography: { intent: "headline_zone", zone, copy: "" } } };

@@ -59,7 +59,7 @@
 ### E. Figma 再現の条件
 - E1 生成画像から **色トークン**（k-means 抽出 → 役割割当）、**書体スケール**、**余白/角丸**を決める。
 - E2 コンポーネント仕様（`spec.json`）は決定論的テンプレート（KV フレーム / Hero / Card / Button / Tag / Header / Section）から生成し、AI が微調整する。
-- E3 Figma への投入は 2 経路: (a) 同梱 Figma プラグイン（`figma-plugin/`）で `spec.json` を読み込み Variables / Styles / Components(Variants) / 画像フレームを生成、(b) Claude Code の Figma MCP（`use_figma`）で同じ spec を流す。
+- E3 Figma への投入は 2 経路: (a) 同梱 Figma プラグイン（`studio-figma-plugin/`）で `spec.json` を読み込み Variables / Styles / Components(Variants) / 画像フレームを生成、(b) Claude Code の Figma MCP（`use_figma`）で同じ spec を流す。
 - E4 生成したコンポーネントはアプリ内でも HTML プレビューされ、Figma と見比べられる。
 
 ### F. アプリの条件
@@ -248,7 +248,7 @@ node:
 3. テンプレート（KV frame / Hero / Card / Button / Tag / Header）から `spec.json` を決定論的に生成 → 任意で Claude が画像を見て微調整（配置・トーン）。
 4. アプリ内で HTML プレビュー（`components/SpecPreview.jsx`）。
 5. `spec.json` + PNG を書き出し。
-6. Figma: プラグイン（Development → Import plugin from manifest → `figma-plugin/manifest.json`）→ JSON を貼るかファイルを選ぶ → 「生成」。
+6. Figma: プラグイン（Development → Import plugin from manifest → `studio-figma-plugin/manifest.json`）→ JSON を貼るかファイルを選ぶ → 「生成」。
    または Claude Code + Figma MCP: `docs/studio/figma-flow.md` の手順でそのまま `use_figma` に流す。
 
 ---
@@ -282,11 +282,11 @@ studio/src/
   screens/     Project.jsx Consult.jsx Idea.jsx Refs.jsx Direction.jsx Prompt.jsx Generate.jsx Handoff.jsx
 api/studio/   ai.js generate.js search.js image.js status.js   ← Vercel Functions
 server/lib/   claude.js gemini.js sources.js safeFetch.js devApi.js  ← 共有ロジック（api/ 外に置き関数化を避ける）
-figma-plugin/ manifest.json code.js ui.html  mcp/spec-to-use-figma.mjs（spec → use_figma スクリプト生成器）
+studio-figma-plugin/ manifest.json code.js ui.html  mcp/spec-to-use-figma.mjs（spec → use_figma スクリプト生成器）
 docs/studio/  DESIGN.md research-*.md figma-flow.md idea-stage.md
 ```
 
-環境変数（サーバ側のみ）: `ANTHROPIC_API_KEY`, `STUDIO_CLAUDE_MODEL`, `GEMINI_API_KEY`, `GEMINI_IMAGE_MODEL`, `PINTEREST_ACCESS_TOKEN`, `BRAVE_SEARCH_API_KEY`, `GOOGLE_CSE_KEY`, `GOOGLE_CSE_CX`, `ADOBE_STOCK_API_KEY`, `ADOBE_STOCK_PRODUCT`。
+環境変数（サーバ側のみ）: `ANTHROPIC_API_KEY`, `STUDIO_CLAUDE_MODEL`, `GEMINI_API_KEY`, `GEMINI_IMAGE_MODEL`, `PINTEREST_ACCESS_TOKEN`, `BRAVE_API_KEY`（聴くと共用。Studio 専用にするなら `BRAVE_SEARCH_API_KEY`）, `GOOGLE_CSE_KEY`, `GOOGLE_CSE_CX`, `ADOBE_STOCK_API_KEY`, `ADOBE_STOCK_PRODUCT`。
 
 ---
 
@@ -338,4 +338,4 @@ docs/studio/  DESIGN.md research-*.md figma-flow.md idea-stage.md
 | Opus 5（リサーチ） | `research-image-generation.md` + `promptGuide.json` / `research-reference-sources.md` / `cannes.json` + `frameworks.json` + `research-cannes-and-frameworks.md` |
 | Opus 5（実装 API） | `api/studio/*`, `server/lib/*`（devApi 以外） |
 | Opus 5（実装 UI） | `studio/src/screens/*`, `components/*`, `lib/{api,idb,palette,figmaSpec,guard}.js` |
-| Opus 5（実装 Figma） | `figma-plugin/*`, `docs/studio/figma-flow.md` |
+| Opus 5（実装 Figma） | `studio-figma-plugin/*`, `docs/studio/figma-flow.md` |

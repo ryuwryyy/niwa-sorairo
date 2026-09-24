@@ -1,12 +1,10 @@
 {
-  "name": "Sorairo Studio Importer",
-  "id": "sorairo-studio-importer",
+  "name": "聴く — Jevリサーチ取り込み",
+  "id": "kiku-jev-research-import",
   "api": "1.0.0",
+  "editorType": ["figjam"],
   "main": "code.js",
   "ui": "ui.html",
-  "editorType": ["figma"],
   "documentAccess": "dynamic-page",
-  "networkAccess": {
-    "allowedDomains": ["none"]
-  }
+  "networkAccess": { "allowedDomains": ["none"] }
 }

@@ -25,9 +25,9 @@ const fail = (res, status, message) => res.status(status).json({ error: { messag
 const softError = (e) => e instanceof NotConfiguredError || e instanceof UnsupportedError;
 
 const HINT_PIN =
-  "PINTEREST_ACCESS_TOKEN（チームアカウントの保存ピンを検索）か BRAVE_SEARCH_API_KEY / GOOGLE_CSE_KEY・GOOGLE_CSE_CX を設定してください。URL 貼り付け取り込みはキー無しで使えます。";
+  "PINTEREST_ACCESS_TOKEN（チームアカウントの保存ピンを検索）か BRAVE_API_KEY / GOOGLE_CSE_KEY・GOOGLE_CSE_CX を設定してください。URL 貼り付け取り込みはキー無しで使えます。";
 const HINT_WEB =
-  "BRAVE_SEARCH_API_KEY か GOOGLE_CSE_KEY / GOOGLE_CSE_CX を設定してください。URL 貼り付け取り込みはキー無しで使えます。";
+  "BRAVE_API_KEY か GOOGLE_CSE_KEY / GOOGLE_CSE_CX を設定してください。URL 貼り付け取り込みはキー無しで使えます。";
 
 /**
  * 候補を順に試し、未設定・非対応なら次へ落ちる。

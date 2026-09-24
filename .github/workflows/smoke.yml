@@ -1,0 +1,57 @@
+# Vercel のデプロイが終わるたびに、本番・プレビューが壊れていないかを確かめる(無料)。
+# API は入力検証で弾かれる空のリクエストだけを送るので、Jev・Claude は呼ばれず課金もない。
+name: Smoke test after deploy
+
+on:
+  deployment_status:
+  workflow_dispatch: # 手動で本番を確かめたいとき
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    if: github.event_name == 'workflow_dispatch' || github.event.deployment_status.state == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: 庭アプリと API の疎通
+        env:
+          DEPLOY_URL: ${{ github.event.deployment_status.environment_url || github.event.deployment_status.target_url }}
+          ENVIRONMENT: ${{ github.event.deployment.environment || 'Production' }}
+          # 本番は公開ドメインで見る。デプロイごとのURL(teire-xxxx.vercel.app)は本番でもログイン保護がかかる
+          PRODUCTION_URL: ${{ vars.PRODUCTION_URL || 'https://teire-app.vercel.app' }}
+        run: |
+          set -eu
+          code() { curl -s -o /dev/null -w "%{http_code}" "$@"; }
+          # GitHub Pages(聴く)のデプロイ完了もこのイベントで来る。API は無いので、ページが開けるかだけ見る
+          if [ "$ENVIRONMENT" = "github-pages" ]; then
+            page=$(code -L "$DEPLOY_URL")
+            echo "GET $DEPLOY_URL -> $page"
+            [ "$page" = "200" ] || { echo "::error::聴くのページが $page を返した"; exit 1; }
+            exit 0
+          fi
+          if [ "$ENVIRONMENT" = "Production" ]; then BASE="$PRODUCTION_URL"; else BASE="$DEPLOY_URL"; fi
+          echo "target: $BASE ($ENVIRONMENT)"
+          top=$(code "$BASE/")
+          echo "GET / -> $top"
+          # プレビューは Vercel のログイン保護で 302(ログインへ転送)や 401 になる。外からは確かめられないので終える
+          case "$ENVIRONMENT" in
+            Production) ;;
+            *) case "$top" in 302|401|403) echo "保護されたプレビューなので確認を省略"; exit 0 ;; esac ;;
+          esac
+          [ "$top" = "200" ] || { echo "::error::トップページが $top を返した"; exit 1; }
+          # 空のリクエストは 400(検証で弾く)か 501(キー未設定)。500 系なら壊れている
+          for api in jev analyze brave; do
+            c=$(code -X POST -H "Content-Type: application/json" -d '{}' "$BASE/api/$api")
+            echo "POST /api/$api {} -> $c"
+            case "$c" in
+              400) ;;
+              501) [ "$ENVIRONMENT" = "Production" ] && echo "::warning::/api/$api のキーが Vercel に設定されていない(501)" ;;
+              *) echo "::error::/api/$api が $c を返した"; exit 1 ;;
+            esac
+          done
+          # GitHub Pages からの呼び出しを許可しているか(CORS のプリフライト)
+          allow=$(curl -s -o /dev/null -D - -X OPTIONS -H "Origin: https://ryuwryyy.github.io" "$BASE/api/jev" | tr -d '\r' | grep -i '^access-control-allow-origin:' || true)
+          echo "CORS: ${allow:-なし}"
+          [ -n "$allow" ]

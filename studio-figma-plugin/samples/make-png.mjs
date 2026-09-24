@@ -1,11 +1,11 @@
 /**
  * サンプル spec に埋め込む KV 画像（64 × 36 PNG）を作る。
  *
- *   node figma-plugin/samples/make-png.mjs              # kv.png を書き出して dataUrl を表示
- *   node figma-plugin/samples/make-png.mjs --patch-spec # 上に加えて sample-spec.json の dataUrl を差し替える
+ *   node studio-figma-plugin/samples/make-png.mjs              # kv.png を書き出して dataUrl を表示
+ *   node studio-figma-plugin/samples/make-png.mjs --patch-spec # 上に加えて sample-spec.json の dataUrl を差し替える
  *
  * 依存は Node 標準の zlib だけ。PNG を手で組み立てている（IHDR / IDAT / IEND + CRC32）ので、
- * プラグイン側の base64 デコーダ（figma-plugin/code.js の base64ToBytes）が
+ * プラグイン側の base64 デコーダ（studio-figma-plugin/code.js の base64ToBytes）が
  * 本物の PNG バイト列を受け取れることをテストで確認できる。
  *
  * 絵柄は決定論的: 空色のグラデーション + 低い地平線 + にじんだ光。乱数は使わない。

@@ -32,7 +32,7 @@
    画像は `assets[0].dataUrl` に base64 で埋め込まれるので、**ファイルは 1 つで完結**する。
 
 `spec.json` の形は DESIGN.md §4.6 が唯一の契約。完全な実例が
-`figma-plugin/samples/sample-spec.json` にある（9 色 / 6 段 / KV 1 枚 / 5 コンポーネント 14 バリアント）。
+`studio-figma-plugin/samples/sample-spec.json` にある（9 色 / 6 段 / KV 1 枚 / 5 コンポーネント 14 バリアント）。
 
 ---
 
@@ -43,7 +43,7 @@
 ### 2-1. 入れる
 
 **Figma デスクトップアプリ**でファイルを開き、メニューの **Plugins → Development →
-Import plugin from manifest…** から `figma-plugin/manifest.json` を選ぶ。
+Import plugin from manifest…** から `studio-figma-plugin/manifest.json` を選ぶ。
 （ブラウザ版のメニューにはこの項目が無い。デスクトップアプリが要る）
 
 一度入れれば以後は **Plugins → Development → Sorairo Studio Importer** に並ぶ。
@@ -87,7 +87,7 @@ ComponentSet が横並び（Button / Tag / Card / Hero / Header）。
 手で `use_figma` のコードを書く代わりに、`spec.json` から自己完結スクリプトを生成する。
 
 ```bash
-node figma-plugin/mcp/spec-to-use-figma.mjs <spec.json> <出力先> --check
+node studio-figma-plugin/mcp/spec-to-use-figma.mjs <spec.json> <出力先> --check
 #   01-page-variables.js  ページ "Sorairo / <name>" + Variables（color/space/radius、scopes 付き）
 #   02-styles.js          Paint Styles（Sorairo/<key>）+ Text Styles（Sorairo/<style>-<family>）
 #   10-frame-<id>.js      版面（画像塗りは副色のプレースホルダ。imageTargets を返す）
@@ -238,6 +238,6 @@ Figma に載ったあと、この順で見る。片方の経路で作っても�
 ## 関連
 
 - 契約（spec の schema）: [`DESIGN.md` §4.6](./DESIGN.md)
-- プラグインの使い方・トラブルシュート: [`figma-plugin/README.md`](../../figma-plugin/README.md)
-- 実例の spec: `figma-plugin/samples/sample-spec.json`
+- プラグインの使い方・トラブルシュート: [`studio-figma-plugin/README.md`](../../studio-figma-plugin/README.md)
+- 実例の spec: `studio-figma-plugin/samples/sample-spec.json`
 - spec を作る側: `studio/src/lib/figmaSpec.js` / `studio/src/lib/palette.js`

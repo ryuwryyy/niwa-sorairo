@@ -200,8 +200,9 @@ export function normalizeBraveItem(it) {
 }
 
 export async function searchBrave({ q, page, site } = {}) {
-  const key = process.env.BRAVE_SEARCH_API_KEY;
-  if (!key) throw new NotConfiguredError("BRAVE_SEARCH_API_KEY が未設定です");
+  // 聴く（api/brave.js）と同じ BRAVE_API_KEY を共用する。Studio だけ別のキーにしたい場合は BRAVE_SEARCH_API_KEY
+  const key = process.env.BRAVE_SEARCH_API_KEY || process.env.BRAVE_API_KEY;
+  if (!key) throw new NotConfiguredError("BRAVE_API_KEY が未設定です");
   const query = str(q).trim();
   if (!query) throw new UnsupportedError("検索語が必要です");
 

@@ -2,7 +2,7 @@
 /**
  * spec.json → Claude Code + Figma MCP（use_figma）用スクリプト生成器
  *
- *   node figma-plugin/mcp/spec-to-use-figma.mjs <spec.json> <outDir> [--check]
+ *   node studio-figma-plugin/mcp/spec-to-use-figma.mjs <spec.json> <outDir> [--check]
  *
  * 出力（この順に use_figma へ 1 本ずつ渡す）:
  *   01-page-variables.js   ページ "Sorairo / <name>" と Variables（color/space/radius）
@@ -23,7 +23,7 @@ import path from "node:path";
 
 const args = process.argv.slice(2);
 const check = args.includes("--check");
-const [specPath, outDir = "figma-plugin/mcp/out"] = args.filter((a) => !a.startsWith("--"));
+const [specPath, outDir = "studio-figma-plugin/mcp/out"] = args.filter((a) => !a.startsWith("--"));
 if (!specPath) {
   console.error("usage: spec-to-use-figma.mjs <spec.json> [outDir] [--check]");
   process.exit(2);
