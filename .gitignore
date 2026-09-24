@@ -7,3 +7,5 @@ dist/
 *.log
 .wrangler/
 .vercel
+dist-research/
+e2e-artifacts/

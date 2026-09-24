@@ -4,8 +4,8 @@
 
 [[redirects]]
   from = "/research/*"
-  to = "/research/index.html"
-  status = 200
+  to = "https://ryuwryyy.github.io/niwa-sorairo/"
+  status = 302
 
 [[redirects]]
   from = "/*"

@@ -1,11 +1,14 @@
 // /api/analyze(Claude)を叩く。キーはサーバー側(api/_analyze-core.js)にしかない
 
+// 別ドメイン(GitHub Pages)で配信するときは、ビルド時に VITE_API_BASE で API の置き場所を渡す
+const API_BASE = import.meta.env?.VITE_API_BASE || "";
+
 export class NoClaudeKeyError extends Error {
   constructor() { super("ANTHROPIC_API_KEY がサーバーに設定されていません"); }
 }
 
 export async function analyze(task, payload, signal) {
-  const res = await fetch("/api/analyze", {
+  const res = await fetch(`${API_BASE}/api/analyze`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ task, ...payload }),

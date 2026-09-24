@@ -5,12 +5,15 @@ import { demoAnswers } from "./demo.js";
 const BATCH = 12;       // 1リクエストの件数(サーバー上限は25)
 const PARALLEL = 2;     // 同時に投げるバッチ数
 
+// 別ドメイン(GitHub Pages)で配信するときは、ビルド時に VITE_API_BASE で API の置き場所を渡す
+const API_BASE = import.meta.env?.VITE_API_BASE || "";
+
 export class NoKeyError extends Error {
   constructor() { super("TYPESAFE_API_KEY がサーバーに設定されていません"); }
 }
 
 async function postBatch(items, questions, signal) {
-  const res = await fetch("/api/jev", {
+  const res = await fetch(`${API_BASE}/api/jev`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ items, questions }),
