@@ -149,3 +149,43 @@ pre.code { background: var(--panel-2); border: 1px solid var(--line); border-rad
 details summary { cursor: pointer; color: var(--soft); font-size: 13px; }
 footer.note { margin-top: 32px; color: var(--muted); font-size: 12px; }
 .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 8px 16px; border-radius: 20px; font-size: 13px; }
+
+/* 深掘りレポート */
+.steps { margin: 0; padding-left: 20px; }
+.steps li { margin-bottom: 8px; color: var(--soft); }
+.steps li b { color: var(--ink); }
+.steps li.done::marker { color: var(--accent); font-weight: 700; }
+.headline { font-size: 22px; font-weight: 700; margin: 0; line-height: 1.5; }
+.groups { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+@media (max-width: 560px) { .groups { grid-template-columns: minmax(0, 1fr); } }
+.group { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; background: var(--panel-2); }
+.arc { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 12px; }
+.arc span { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 3px 8px; }
+.arc i { color: var(--muted); font-style: normal; }
+.insights { margin: 10px 0; padding-left: 18px; font-size: 13px; }
+.insight { padding: 12px 0; border-bottom: 1px solid var(--line); }
+.insight h3 { color: var(--ink); font-size: 15px; font-weight: 700; margin: 0 0 6px; }
+.insight p { margin: 2px 0; font-size: 13px; }
+.insight b { color: var(--accent); font-weight: 700; margin-right: 6px; }
+.post { padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+a.chip { text-decoration: none; }
+.deconte { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(230px, 1fr); gap: 12px; overflow-x: auto; padding-bottom: 8px; }
+.panel-frame { border: 1px solid var(--ink); border-radius: 4px; padding: 12px; background: var(--panel); }
+.panel-frame .beat { font-weight: 700; border-bottom: 1px solid var(--line); padding-bottom: 6px; margin-bottom: 8px; }
+.panel-frame .beat .num { color: var(--accent); margin-right: 6px; }
+.panel-frame .scene { font-size: 13px; margin: 0 0 8px; }
+.panel-frame dl { margin: 0; font-size: 12px; display: grid; grid-template-columns: 56px 1fr; gap: 4px 8px; }
+.panel-frame dt { color: var(--muted); }
+.panel-frame dd { margin: 0; }
+.qmap { width: 100%; max-width: 520px; display: block; margin: 0 auto; }
+.qmap .q-fever { fill: var(--pos); opacity: .10; }
+.qmap .q-like { fill: var(--pos); opacity: .04; }
+.qmap .q-friction { fill: var(--neg); opacity: .04; }
+.qmap .q-reject { fill: var(--neg); opacity: .10; }
+.qmap .axis { stroke: var(--muted); stroke-width: 1; }
+.qmap .axis-label { fill: var(--soft); font-size: 12px; }
+.qmap .q-label { fill: var(--ink); font-size: 14px; font-weight: 700; }
+.qmap .dot { fill: var(--ink); fill-opacity: .55; stroke: var(--panel); stroke-width: 2; cursor: pointer; }
+.qmap .dot:hover, .qmap .dot.on { fill: var(--accent); fill-opacity: 1; }
+.readings p { font-size: 13px; margin: 6px 0; }
+.readings b { margin-right: 6px; }

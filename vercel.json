@@ -5,7 +5,8 @@
   "functions": {
     "api/claude.js": { "maxDuration": 60 },
     "api/identify.js": { "maxDuration": 60 },
-    "api/jev.js": { "maxDuration": 60 }
+    "api/jev.js": { "maxDuration": 60 },
+    "api/analyze.js": { "maxDuration": 300 }
   },
   "headers": [
     {

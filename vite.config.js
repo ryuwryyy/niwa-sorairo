@@ -4,22 +4,27 @@ import { VitePWA } from "vite-plugin-pwa";
 import { resolve } from "node:path";
 import { handleJevRequest } from "./api/_jev-core.js";
 
-// 開発時のみ: /api/jev を本番と同じ処理(api/_jev-core.js)で受ける。キーはサーバー側に留まる
-const jevDevApi = (env) => ({
-  name: "jev-dev-api",
+import { handleAnalyzeRequest } from "./api/_analyze-core.js";
+
+// 開発時のみ: /api/jev と /api/analyze を本番と同じ処理(api/_*-core.js)で受ける。キーはサーバー側に留まる
+const devApi = (env) => ({
+  name: "research-dev-api",
   configureServer(server) {
-    server.middlewares.use("/api/jev", (req, res) => {
-      let raw = "";
-      req.on("data", (c) => { raw += c; });
-      req.on("end", async () => {
-        const { status, body } = req.method === "POST"
-          ? await handleJevRequest(raw, env)
-          : { status: 405, body: { error: { message: "Method Not Allowed" } } };
-        res.statusCode = status;
-        res.setHeader("Content-Type", "application/json");
-        res.end(JSON.stringify(body));
+    const routes = { "/api/jev": handleJevRequest, "/api/analyze": handleAnalyzeRequest };
+    for (const [path, handle] of Object.entries(routes)) {
+      server.middlewares.use(path, (req, res) => {
+        let raw = "";
+        req.on("data", (c) => { raw += c; });
+        req.on("end", async () => {
+          const { status, body } = req.method === "POST"
+            ? await handle(raw, env)
+            : { status: 405, body: { error: { message: "Method Not Allowed" } } };
+          res.statusCode = status;
+          res.setHeader("Content-Type", "application/json");
+          res.end(JSON.stringify(body));
+        });
       });
-    });
+    }
   },
 });
 
@@ -29,7 +34,7 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       react(),
-      jevDevApi(env),
+      devApi(env),
       VitePWA({
         registerType: "autoUpdate",
         includeAssets: [
