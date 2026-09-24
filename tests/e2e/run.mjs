@@ -5,7 +5,7 @@
 import { spawn } from "node:child_process";
 import fs from "node:fs";
 import { chromium } from "playwright";
-import { startJev, startClaude } from "./mocks.mjs";
+import { startJev, startClaude, startBrave } from "./mocks.mjs";
 
 const OUT = "e2e-artifacts";
 const PORT = 5199;
@@ -13,11 +13,13 @@ fs.mkdirSync(OUT, { recursive: true });
 
 const jev = startJev(9911);
 const claude = startClaude(9922);
+const brave = startBrave(9933);
 const vite = spawn("node", ["node_modules/vite/bin/vite.js", "--config", "vite.research.config.js", "--port", String(PORT), "--strictPort"], {
   env: {
     ...process.env,
     TYPESAFE_API_KEY: "test-key", TYPESAFE_BASE_URL: "http://localhost:9911",
     ANTHROPIC_API_KEY: "test-key", ANTHROPIC_BASE_URL: "http://localhost:9922",
+    BRAVE_API_KEY: "test-key", BRAVE_BASE_URL: "http://localhost:9933",
   },
   stdio: "inherit",
   detached: true, // 終了時にプロセスグループごと止める
@@ -53,11 +55,22 @@ try {
   await panel.locator("pre.code").waitFor();
   await page.screenshot({ path: `${OUT}/interview.png`, fullPage: true });
 
-  // 深掘りレポート(CSV → 4ステップ → 書き出し)
+  // 深掘りレポート(Brave で収集 → CSV で 4ステップ)
+  let collected = 0;
   const csv = ["full_text,url", ...Array.from({ length: 60 }, (_, i) =>
     `"${["登録でエラー、入力が消えた。最悪", "このUI最高、迷わない", "決済が少し分かりにくい", "サポートの対応に感動"][i % 4]} ${i}",https://x.com/u/status/${i}`)].join("\n");
   fs.writeFileSync(`${OUT}/posts.csv`, csv);
   await page.getByRole("tab", { name: "深掘りレポート" }).click();
+
+  // Brave で集める(キーワード2つに絞る)。投稿と「返信先: @…」の返信が集まる
+  await panel.locator("textarea").first().fill("UX\nデザイン");
+  await panel.getByRole("button", { name: "Braveで集める" }).last().click();
+  await panel.getByText(/完了 · \d+件/).waitFor({ timeout: 30000 });
+  collected = Number((await panel.getByText(/完了 · \d+件/).textContent()).match(/(\d+)件/)[1]);
+  if (collected < 40) throw new Error(`Brave で集めた件数が少ない: ${collected}`);
+  await page.screenshot({ path: `${OUT}/brave.png`, fullPage: true });
+
+  await panel.getByRole("button", { name: "CSV", exact: true }).click();
   await panel.locator("input[type=file]").setInputFiles(`${OUT}/posts.csv`);
   await panel.getByRole("button", { name: "まとめて分析する" }).click();
   await panel.getByText("デコンテ(アートディレクション)").waitFor({ timeout: 60000 });
@@ -70,7 +83,7 @@ try {
   const sw = await page.evaluate(() => document.documentElement.scrollWidth);
   if (sw > 390) throw new Error(`スマホ幅で横スクロール: ${sw}px`);
   if (errors.length) throw new Error(`ページのエラー: ${errors.join(" / ")}`);
-  console.log(`E2E OK (4象限の点 ${dots})`);
+  console.log(`E2E OK (Brave ${collected}件, 4象限の点 ${dots})`);
 } catch (e) {
   failed = true;
   console.error("E2E FAILED:", e.message);
@@ -79,5 +92,6 @@ try {
   stopVite();
   jev.close();
   claude.close();
+  brave.close();
 }
 process.exit(failed ? 1 : 0);

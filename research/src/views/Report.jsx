@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   DEFAULT_THEME, DEFAULT_KEYWORDS, xSearchUrl, igTagUrl, xApiQuery,
   screeningQuestions, tagQuestion, postState, selectTop, topTags, usefulness,
@@ -6,6 +6,7 @@ import {
   toFigJamReport, toMarkdown, parsePastedPosts, dedupe,
 } from "../lib/report";
 import { analyze, forClaude, NoClaudeKeyError } from "../lib/analyze";
+import { collectWithBrave, estimateQueries, NoBraveKeyError } from "../lib/brave";
 import { parseCSV, guessColumns, toCSV, download } from "../lib/csv";
 import { useClassifier, NoKeyBanner, DemoBanner, Progress, Level, useToast, copyText } from "../components/Bits";
 
@@ -14,7 +15,10 @@ const STEPS = ["ふるい分け", "カテゴリーとタグ", "グループの�
 export default function Report() {
   const [theme, setTheme] = useState(DEFAULT_THEME);
   const [keywordsText, setKeywordsText] = useState(DEFAULT_KEYWORDS.join("\n"));
-  const [mode, setMode] = useState("csv");
+  const [mode, setMode] = useState("brave");
+  const [brave, setBrave] = useState({ sites: ["x"], pages: 5, freshness: "", target: 1000, replyAuthors: 20 });
+  const [braveRun, setBraveRun] = useState(null); // { running, queries, found, label, posts, error }
+  const braveCtrl = useRef(null);
   const [paste, setPaste] = useState("");
   const [csv, setCsv] = useState(null);
   const [keep, setKeep] = useState(100);
@@ -36,12 +40,32 @@ export default function Report() {
   const posts = useMemo(() => {
     let list = [];
     if (mode === "paste") list = parsePastedPosts(paste);
+    else if (mode === "brave") list = braveRun?.posts || [];
     else if (csv) {
       const c = csv.cols;
       list = csv.rows.map((r) => ({ text: (r[c.text] || "").trim(), url: c.url >= 0 ? r[c.url] : null, author: c.author >= 0 ? r[c.author] : "", date: c.date >= 0 ? r[c.date] : "" }));
     }
     return dedupe(list.filter((p) => p.text.length >= 4)).map((p, i) => ({ ...p, id: `p${i + 1}` }));
-  }, [mode, paste, csv]);
+  }, [mode, paste, csv, braveRun]);
+
+  const runBrave = async () => {
+    braveCtrl.current?.abort();
+    braveCtrl.current = new AbortController();
+    setBraveRun({ running: true, queries: 0, found: 0, label: "開始", posts: [] });
+    try {
+      const out = await collectWithBrave({ ...brave, keywords }, {
+        signal: braveCtrl.current.signal,
+        onProgress: (p) => setBraveRun((r) => ({ ...r, ...p })),
+      });
+      setBraveRun((r) => ({ ...r, running: false, posts: out.posts, queries: out.queries }));
+    } catch (e) {
+      const msg = e instanceof NoBraveKeyError ? "サーバーに BRAVE_API_KEY が設定されていません" : e.name === "AbortError" ? "中断しました" : e.message;
+      setBraveRun((r) => ({ ...r, running: false, error: msg }));
+    }
+  };
+  const toggleSite = (site) => setBrave((b) => ({
+    ...b, sites: b.sites.includes(site) ? b.sites.filter((x) => x !== site) : [...b.sites, site],
+  }));
 
   const onFile = async (file) => {
     if (!file) return;
@@ -205,11 +229,46 @@ export default function Report() {
 
           <div className="row" style={{ margin: "14px 0 10px" }}>
             <div className="seg-toggle" role="group" aria-label="入力方法">
+              <button aria-pressed={mode === "brave"} onClick={() => setMode("brave")}>Braveで集める</button>
               <button aria-pressed={mode === "csv"} onClick={() => setMode("csv")}>CSV</button>
               <button aria-pressed={mode === "paste"} onClick={() => setMode("paste")}>貼り付け</button>
             </div>
           </div>
-          {mode === "csv" ? (
+          {mode === "brave" ? (
+            <div className="field">
+              <div className="row">
+                <label className="hint"><input type="checkbox" checked={brave.sites.includes("x")} onChange={() => toggleSite("x")} /> X</label>
+                <label className="hint"><input type="checkbox" checked={brave.sites.includes("instagram")} onChange={() => toggleSite("instagram")} /> Instagram</label>
+                <label className="hint">期間
+                  <select value={brave.freshness} onChange={(e) => setBrave({ ...brave, freshness: e.target.value })} style={{ width: "auto", marginLeft: 4 }}>
+                    <option value="">指定なし</option><option value="pw">1週間</option><option value="pm">1か月</option><option value="py">1年</option>
+                  </select>
+                </label>
+              </div>
+              <div className="row" style={{ marginTop: 6 }}>
+                <label className="hint">1キーワードあたり最大 <input type="number" min={1} max={10} value={brave.pages} onChange={(e) => setBrave({ ...brave, pages: Math.max(1, Math.min(10, Number(e.target.value) || 1)) })} style={{ width: 52 }} /> ページ(20件/ページ)</label>
+                <label className="hint">目標 <input type="number" min={20} max={2000} value={brave.target} onChange={(e) => setBrave({ ...brave, target: Math.max(20, Math.min(2000, Number(e.target.value) || 1000)) })} style={{ width: 68 }} /> 件</label>
+                <label className="hint">返信(コメント)を探す投稿者 <input type="number" min={0} max={50} value={brave.replyAuthors} onChange={(e) => setBrave({ ...brave, replyAuthors: Math.max(0, Math.min(50, Number(e.target.value) || 0)) })} style={{ width: 52 }} /> 人</label>
+              </div>
+              <div className="row" style={{ marginTop: 8 }}>
+                <span className="hint num">最大 {estimateQueries({ ...brave, keywords })} クエリ</span>
+                <span className="spacer" />
+                {braveRun?.running
+                  ? <button className="btn small" onClick={() => braveCtrl.current?.abort()}>中断</button>
+                  : <button className="btn" disabled={!keywords.length || !brave.sites.length} onClick={runBrave}>Braveで集める</button>}
+              </div>
+              {braveRun && (
+                <p className="hint num" style={{ color: braveRun.error ? "var(--warn)" : undefined }}>
+                  {braveRun.error || `${braveRun.label} · ${braveRun.found}件 · ${braveRun.queries}クエリ`}
+                </p>
+              )}
+              <p className="hint">
+                Brave が索引した公開ページを検索します(X・Instagram を直接読みにはいきません)。本文は検索結果の抜粋なので、長い投稿は途中で切れることがあります。
+                返信は「返信先: @投稿者」を含む公開ページを探すもので、スレッドのすべてのコメントが取れるわけではありません。
+              </p>
+              <p className="brave-attr">Powered by Brave</p>
+            </div>
+          ) : mode === "csv" ? (
             <div className="field">
               <input type="file" accept=".csv,.tsv,text/csv" onChange={(e) => onFile(e.target.files?.[0])} />
               {csv && (
@@ -379,6 +438,7 @@ function PostCard({ r }) {
         <Level value={r.intensity} label="強さ" />
         {(r.tags || []).map((t) => <span key={t} className="chip">{t}</span>)}
         {r.literal.length > 0 && <span className="hint">本文: {r.literal.join("・")}</span>}
+        {r.replyTo && <span className="hint">↳ @{r.replyTo} への返信</span>}
         <span className="spacer" />
         {r.url && <a className="hint" href={r.url} target="_blank" rel="noreferrer">元の投稿 ↗</a>}
       </div>

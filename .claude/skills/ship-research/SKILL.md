@@ -14,14 +14,14 @@ Two sites come out of one repository, and they must stay separate:
 
 The research page is *not* part of the garden build; `/research` on Vercel only redirects to Pages.
 The Pages site calls the Vercel API cross-origin; `api/_cors.js` allows only `https://ryuwryyy.github.io`
-(override with the `RESEARCH_ORIGINS` env var on Vercel). Keys (`ANTHROPIC_API_KEY`, `TYPESAFE_API_KEY`)
+(override with the `RESEARCH_ORIGINS` env var on Vercel). Keys (`ANTHROPIC_API_KEY`, `TYPESAFE_API_KEY`, `BRAVE_API_KEY`)
 live only in Vercel env vars / `.env.local` — never in client code, never with a `VITE_` prefix.
 
 ## The cost rule
 
 Everything automated here is free: public-repo GitHub Actions, Vercel Hobby, GitHub Pages. The only thing
-that costs money is calling Jev or Claude, so **no test, CI job, or smoke check may reach the real APIs**.
-Tests swap `fetch` or point the official SDKs elsewhere (`TYPESAFE_BASE_URL`, `ANTHROPIC_BASE_URL`) at the
+that costs money is calling Jev, Claude, or Brave Search, so **no test, CI job, or smoke check may reach the real APIs**.
+Tests swap `fetch` or point the official SDKs elsewhere (`TYPESAFE_BASE_URL`, `ANTHROPIC_BASE_URL`, `BRAVE_BASE_URL`) at the
 fakes in `tests/e2e/mocks.mjs`. The post-deploy smoke test only sends `{}` bodies that fail input
 validation before any upstream call. Keep it that way when you add endpoints: validate first, call upstream last.
 
@@ -52,7 +52,7 @@ validation before any upstream call. Keep it that way when you add endpoints: va
 ## One-time settings (the user does these in the browser; you can't)
 
 - GitHub → Settings → Pages → Source: **GitHub Actions** (otherwise `pages.yml` fails at deploy).
-- Vercel → Environment Variables: `TYPESAFE_API_KEY`, `ANTHROPIC_API_KEY` (Production and Preview).
+- Vercel → Environment Variables: `TYPESAFE_API_KEY`, `ANTHROPIC_API_KEY`, `BRAVE_API_KEY` (Production and Preview).
 - Optional repo variable `RESEARCH_API_BASE` if the Vercel domain changes.
 
 ## When CI fails

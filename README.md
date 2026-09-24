@@ -140,17 +140,17 @@ VITE_API_ENDPOINT=https://teire-api.<あなた>.workers.dev
 | ソーシャルリスニング | X / Instagram / レビューの投稿を貼り付け、またはCSV | 体験に関係あるか・感情・話題(編集可)・意図・深刻度 | 話題×感情の棒、まず読むべき投稿、確信度の低い「要確認」、手修正、CSV |
 | インタビュー整理 | 文字起こし・議事録(話者形式を自動判別し、聞き手を除外) | アフィニティ分類(編集可)・ジャーニー段階・具体的な行動か・重要度 | アフィニティ図、行動フロー、FigJam / Miro / Mermaid / CSV 書き出し |
 
-| 深掘りレポート | X / Instagram などの投稿CSV(本文+元URL)。検索キーワードごとの検索リンクと X API クエリも出す | Jev: 使えるか・具体性・感情語(好き/いい/最高/感動/やばい/悪い/嫌い/最悪/くそ)・強さ(少し〜めっちゃ)。上位N件にClaudeがカテゴリーを作り、Jevがタグ付け | 感情語グループの要約・感情の動き・インサイト、4象限マップ(嫌悪↔好意 × 少し↔めっちゃ)、一段深いUI/UX洞察、アートディレクションのデコンテ。FigJam / Markdown / CSV |
+| 深掘りレポート | **Braveで集める**(Brave Search API で X・Instagram の公開投稿と、その投稿者への返信を検索)、またはCSV(本文+元URL)・貼り付け | Jev: 使えるか・具体性・感情語(好き/いい/最高/感動/やばい/悪い/嫌い/最悪/くそ)・強さ(少し〜めっちゃ)。上位N件にClaudeがカテゴリーを作り、Jevがタグ付け | 感情語グループの要約・感情の動き・インサイト、4象限マップ(嫌悪↔好意 × 少し↔めっちゃ)、一段深いUI/UX洞察、アートディレクションのデコンテ。FigJam / Markdown / CSV |
 
 - **FigJam** — `figma-plugin/` の開発用プラグインに「FigJamへ(コピー)」の内容を貼ると、セクション+付箋のアフィニティ図と、矢印つきの行動フローを配置(手順は `figma-plugin/README.md`)
 - **Miro** — 「Miroへ(コピー)」は分類ごとの列に並べたタブ区切りテキスト。ボードに貼ると付箋になる。フローは Mermaid で
-- **キー** — `.env.local` / Vercel の環境変数に `TYPESAFE_API_KEY`(Jev)。深掘りレポートの文章部分は `ANTHROPIC_API_KEY`(Claude、`api/analyze.js` → `api/_analyze-core.js`、構造化出力でJSONを受ける)。未設定でも「デモ判定」(キーワード照合。Jevではない)で画面は試せる
+- **キー** — `.env.local` / Vercel の環境変数に `TYPESAFE_API_KEY`(Jev)。Brave での収集は `BRAVE_API_KEY`(`api/brave.js` → `api/_brave-core.js`。新規は毎月5ドル分の無料クレジット、画面に Powered by Brave を表示)。深掘りレポートの文章部分は `ANTHROPIC_API_KEY`(Claude、`api/analyze.js` → `api/_analyze-core.js`、構造化出力でJSONを受ける)。未設定でも「デモ判定」(キーワード照合。Jevではない)で画面は試せる
 - **構成** — `api/jev.js`(Vercel関数)→ `api/_jev-core.js`(検証・上限・並列実行・公式SDK `@typesafe-ai/sdk`)。開発時は `vite.config.js` が同じ処理を `/api/jev` で受ける
 
 **なぜ Jev か** — 分類は「文章を書く」必要がなく、選択肢と確率が返れば十分。JSONを生成させる方式より速く、出力が壊れない。
 確率が返るので、確信度の低いものだけを人が見直す運用にできる。
 **限界** — Jev は要約を書かないので、フローの各ステップは発言の原文(短縮)。要約ラベルが要るなら、既存の `/api/claude` で後段に一言書かせる構成が次の一手。
-X / Instagram の自動収集はしない(各社APIの規約と費用があるため)。書き出したCSVや貼り付けを入口にしている。
+X / Instagram を直接スクレイピングはしない(各社の規約で禁止)。Brave が索引した公開ページを検索するので、本文は検索結果の抜粋で、返信もスレッドのすべてではない。
 
 ## 今後の拡張候補
 

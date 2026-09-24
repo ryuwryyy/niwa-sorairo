@@ -35,7 +35,7 @@ jobs:
           esac
           [ "$top" = "200" ] || { echo "::error::トップページが $top を返した"; exit 1; }
           # 空のリクエストは 400(検証で弾く)か 501(キー未設定)。500 系なら壊れている
-          for api in jev analyze; do
+          for api in jev analyze brave; do
             c=$(code -X POST -H "Content-Type: application/json" -d '{}' "$BASE/api/$api")
             echo "POST /api/$api {} -> $c"
             case "$c" in 400|501) ;; *) echo "::error::/api/$api が $c を返した"; exit 1 ;; esac

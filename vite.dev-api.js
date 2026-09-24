@@ -1,11 +1,12 @@
 import { handleJevRequest } from "./api/_jev-core.js";
 import { handleAnalyzeRequest } from "./api/_analyze-core.js";
+import { handleBraveRequest } from "./api/_brave-core.js";
 
-// 開発時のみ: /api/jev と /api/analyze を本番と同じ処理(api/_*-core.js)で受ける。キーはサーバー側に留まる
+// 開発時のみ: /api/jev・/api/analyze・/api/brave を本番と同じ処理(api/_*-core.js)で受ける。キーはサーバー側に留まる
 export const devApi = (env) => ({
   name: "research-dev-api",
   configureServer(server) {
-    const routes = { "/api/jev": handleJevRequest, "/api/analyze": handleAnalyzeRequest };
+    const routes = { "/api/jev": handleJevRequest, "/api/analyze": handleAnalyzeRequest, "/api/brave": handleBraveRequest };
     for (const [path, handle] of Object.entries(routes)) {
       server.middlewares.use(path, (req, res) => {
         let raw = "";

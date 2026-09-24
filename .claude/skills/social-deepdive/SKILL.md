@@ -14,6 +14,13 @@ insights and storyboard. Both run server-side on Vercel (`api/jev.js`, `api/anal
 X and Instagram forbid automated scraping in their terms, and accounts that do it get suspended. So don't
 drive a browser to scroll and click "load more", and don't write scrapers. Offer these instead:
 
+- **「Braveで集める」 (built in, default).** The report tab searches Brave's index of public pages with
+  `site:x.com <keyword>` / `site:instagram.com <keyword>`, pages through up to 10×20 results per keyword, and
+  dedupes by post URL. It can also look for replies ("thread comments") by searching
+  `"返信先: @author" OR "Replying to @author"` for the most frequent authors. Needs `BRAVE_API_KEY` on Vercel
+  (new accounts get $5/month of credit ≈ 1,000 queries; the UI shows the max query count before running, and
+  "Powered by Brave" must stay visible). Limits to state plainly: text is the search snippet (long posts can be
+  cut), coverage is whatever Brave has indexed, and replies found this way are not the complete thread.
 - **X API** (paid, recent search). The report tab prints a ready query, e.g.
   `(サービスデザイン OR UX OR …) lang:ja -is:retweet -is:reply`.
 - **Instagram Graph API** hashtag search (needs a business/creator account).
