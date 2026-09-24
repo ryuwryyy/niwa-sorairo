@@ -1,6 +1,6 @@
 # Sorairo Studio — 設計書（仮説課題解決 → 画像生成 → Figma 再現）
 
-> 役割分担: 設計 = Fable 5.1 / リサーチ・実装 = Opus 5。
+> 役割分担: 設計担当のエージェントと、リサーチ・実装担当のサブエージェント群で分担して作成。
 > 本書は「ゴールを達成するための条件」を列挙し、仮説→課題→解決策の順に精査した上で、
 > Web アプリと Figma 再現フローを規定する。実装エージェントはこの文書を契約として扱う。
 
@@ -46,7 +46,7 @@
 - C2 構造: 成果物/意図 → 主題/シーン → 構図 → 光/カメラ → 媒体/技法/質感 → 配色 → 文字の扱い → ムード語 → 参照の使い方 → 制約。各ブロックが UI 上で変数に紐づく。
 - C3 EN 本文（モデルに渡す）と JA 解説（人が読む）を必ず対にする。
 - C4 バージョン管理: 生成のたびにプロンプト版 ID を残し、いつでも復元できる。
-- C5 AI 無しでも決定的コンパイラでプロンプトが出る（`lib/prompt.js`）。AI（Claude Opus 5）は「磨き」担当。
+- C5 AI 無しでも決定的コンパイラでプロンプトが出る（`lib/prompt.js`）。AI（Claude）は「磨き」担当。
 
 ### D. 生成の条件
 - D1 モデルは環境変数で切替（既定 `gemini-2.5-flash-image` = 依頼どおりの「Image 2.5」。ただし Google は同モデルを 2027-03-15 廃止予定としており、後継 `gemini-3.1-flash-image`（Nano Banana 2）を UI で推奨表示する。詳細は `research-image-generation.md`）。
@@ -128,7 +128,7 @@
 | 5 生成 | Six Thinking Hats（批評）/ Crazy 8s（複数案）| プロンプト+参照 | `gens[]` + `critique` |
 | 6 Figma | Design tokens / Atomic components | 画像 | `handoff.spec` |
 
-フレームの本体テキストは `studio/src/data/frameworks.json`（Opus 5 がリサーチ）に置き、UI は同 JSON を汎用レンダリングする。
+フレームの本体テキストは `studio/src/data/frameworks.json`（リサーチ担当が作成）に置き、UI は同 JSON を汎用レンダリングする。
 
 ---
 
@@ -160,7 +160,7 @@
 
 ### 4.3 アートディレクション語彙
 
-`studio/src/data/directionVars.json`（Fable 執筆）。各項目は `{ id, ja, en, hint }` で、`en` がそのままプロンプト断片になる。軸（スライダー）は両端に断片を持ち、値に応じて強度語を選ぶ。
+`studio/src/data/directionVars.json`（設計担当が執筆）。各項目は `{ id, ja, en, hint }` で、`en` がそのままプロンプト断片になる。軸（スライダー）は両端に断片を持ち、値に応じて強度語を選ぶ。
 
 ### 4.4 プロンプト構造（`lib/prompt.js`）
 
@@ -334,8 +334,8 @@ docs/studio/  DESIGN.md research-*.md figma-flow.md idea-stage.md
 
 | 担当 | 範囲 |
 |---|---|
-| Fable | 本設計書、`store.jsx`、`lib/prompt.js`、`directionVars.json`、`styles.css`、`App.jsx` シェル、`vite.config.js`、`server/lib/devApi.js`、統合/レビュー/PR |
-| Opus 5（リサーチ） | `research-image-generation.md` + `promptGuide.json` / `research-reference-sources.md` / `cannes.json` + `frameworks.json` + `research-cannes-and-frameworks.md` |
-| Opus 5（実装 API） | `api/studio/*`, `server/lib/*`（devApi 以外） |
-| Opus 5（実装 UI） | `studio/src/screens/*`, `components/*`, `lib/{api,idb,palette,figmaSpec,guard}.js` |
-| Opus 5（実装 Figma） | `studio-figma-plugin/*`, `docs/studio/figma-flow.md` |
+| 設計担当 | 本設計書、`store.jsx`、`lib/prompt.js`、`directionVars.json`、`styles.css`、`App.jsx` シェル、`vite.config.js`、`server/lib/devApi.js`、統合/レビュー/PR |
+| リサーチ担当 | `research-image-generation.md` + `promptGuide.json` / `research-reference-sources.md` / `cannes.json` + `frameworks.json` + `research-cannes-and-frameworks.md` |
+| 実装担当（API） | `api/studio/*`, `server/lib/*`（devApi 以外） |
+| 実装担当（UI） | `studio/src/screens/*`, `components/*`, `lib/{api,idb,palette,figmaSpec,guard}.js` |
+| 実装担当（Figma） | `studio-figma-plugin/*`, `docs/studio/figma-flow.md` |
