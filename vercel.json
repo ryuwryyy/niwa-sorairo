@@ -4,7 +4,8 @@
   "outputDirectory": "dist",
   "functions": {
     "api/claude.js": { "maxDuration": 60 },
-    "api/identify.js": { "maxDuration": 60 }
+    "api/identify.js": { "maxDuration": 60 },
+    "api/jev.js": { "maxDuration": 60 }
   },
   "headers": [
     {

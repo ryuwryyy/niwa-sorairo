@@ -1,0 +1,10 @@
+{
+  "name": "聴く — Jevリサーチ取り込み",
+  "id": "kiku-jev-research-import",
+  "api": "1.0.0",
+  "editorType": ["figjam"],
+  "main": "code.js",
+  "ui": "ui.html",
+  "documentAccess": "dynamic-page",
+  "networkAccess": { "allowedDomains": ["none"] }
+}
