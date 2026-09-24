@@ -134,6 +134,19 @@ test("analyze: 戦略シート(strategy)は分析メモと投稿を渡し、ス�
   assert.equal(r.body.result.coreIdea.title, "(テスト)コア");
 });
 
+test("analyze: リサーチの方向(directions)は質の集計と今のワードを渡す", async () => {
+  const claude = fakeClaude({ diagnosis: "d", gaps: [], directions: [] });
+  const r = await handleAnalyzeRequest(
+    { task: "directions", theme: "UX", keywords: ["UX", "デザイン"], quality: "判定: 低い(40/100)", posts: [{ id: "p1", text: "登録で迷った" }] },
+    { ANTHROPIC_API_KEY: "k" }, claude.fetch,
+  );
+  assert.equal(r.status, 200, JSON.stringify(r.body));
+  const req = claude.seen[0].body;
+  assert.deepEqual(Object.keys(req.output_config.format.schema.properties), ["diagnosis", "gaps", "directions"]);
+  assert.match(req.messages[0].content, /いま使っている検索ワード: UX \/ デザイン/);
+  assert.match(req.messages[0].content, /判定: 低い\(40\/100\)/);
+});
+
 test("analyze: 拒否(refusal)は 422 にする", async () => {
   const fetch = async (url, init) => json({
     id: "m", type: "message", role: "assistant", model: "claude-opus-5", stop_reason: "refusal",

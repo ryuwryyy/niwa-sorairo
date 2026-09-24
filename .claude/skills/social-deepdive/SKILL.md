@@ -54,9 +54,19 @@ When reporting results, say how many were excluded by rules and by Jev. The List
 
 ## 2. Running it
 
-On the report tab: set the theme, load the CSV, set how many to keep (default 100), press 「まとめて分析する」.
-「まとめて分析する」 runs only the cheap part: rule exclusion → Jev screening → Claude categories + Jev tags → the quadrant map.
-**Everything else is on click, to keep API costs down** (the owner asked for this): each feeling group has its own
+On the report tab: set the theme, load the CSV, set how many to keep (default 100), press 「ふるい分けて質を見る」.
+「ふるい分けて質を見る」 runs only the cheap part: rule exclusion → Jev screening → the quadrant map → a free **quality check**
+(`assessQuality` in `research/src/lib/report.js`: kept count vs target, usable rate, share excluded as official/ads, average
+concreteness, feeling skew, author variety → 良い/注意/低い with reasons). **Then it stops.** Nothing goes further until the user
+presses one of three buttons (the owner asked for this gate because research quality is sometimes low):
+- 「インサイトを抽出する」 → Claude categories + Jev tags, and unlocks group summaries, synthesis and the strategy sheet.
+- 「リサーチのワードを変える」 → jumps to the keyword box to edit and re-collect.
+- 「リサーチの方向を提案してもらう」 → one Claude call (task `directions`): a diagnosis, missing voices, and 3–4 directions with a
+  research question, colloquial keywords likely to surface personal experience, and words to avoid. Each has
+  「このワードに変える」/「今のワードに足す」; collecting again is still a separate button press.
+When the verdict is 低い, recommend changing words or asking for directions before extracting insights.
+
+**Everything after the gate is on click, to keep API costs down** (the owner asked for this): each feeling group has its own
 「要約する」 button (one Claude call per group), 「洞察とデコンテをつくる」 is one call, and 「戦略シートをつくる」 is one call.
 Don't turn these back into an automatic chain.
 

@@ -43,7 +43,13 @@ export function startClaude(port) {
     const props = Object.keys(b.output_config?.format?.schema?.properties || {});
     const ids = [...String(b.messages?.[0]?.content).matchAll(/\[(p\d+)\]/g)].map((m) => m[1]);
     let out;
-    if (props.includes("personas")) {
+    if (props.includes("diagnosis")) {
+      out = {
+        diagnosis: "(テスト)診断: 業界の話が多く、使う場面の声が少ない",
+        gaps: ["初めて使う人の声"],
+        directions: [1, 2].map((i) => ({ title: `(テスト)方向${i}`, why: "理由", researchQuestion: "問い", keywords: [`提案ワード${i}a`, `提案ワード${i}b`], avoid: ["DX"] })),
+      };
+    } else if (props.includes("personas")) {
       out = strategyFixture(ids.slice(0, 2));
     } else if (props.includes("categories")) {
       out = { categories: ["情報設計", "見た目・トーン", "手続き・フロー", "対人・サポート", "デザインの仕事"].map((label) => ({ label, description: `${label}の話` })) };

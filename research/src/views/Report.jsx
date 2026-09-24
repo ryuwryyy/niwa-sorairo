@@ -3,7 +3,7 @@ import {
   DEFAULT_THEME, DEFAULT_KEYWORDS, xSearchUrl, igTagUrl, xApiQuery,
   screeningQuestions, tagQuestion, postState, selectTop, topTags, usefulness,
   coordinates, quadrantOf, QUADRANTS, FEELINGS, INTENSITY, literalWords,
-  toFigJamReport, toMarkdown, parsePastedPosts, dedupe,
+  toFigJamReport, toMarkdown, parsePastedPosts, dedupe, assessQuality, qualityText,
 } from "../lib/report";
 import { applyRules, reasonCounts, sourceQuestion, isPersonal, EXCLUDE_DEFAULTS } from "../lib/filters";
 import { analyze, forClaude, NoClaudeKeyError } from "../lib/analyze";
@@ -36,6 +36,11 @@ export default function Report() {
   const [analyses, setAnalyses] = useState({});   // 感情語 → Claudeの要約
   const [synthesis, setSynthesis] = useState(null);
   const [strategy, setStrategy] = useState(null); // 戦略シート(押したときだけ)
+  // 質チェックの関門: 「インサイトを抽出する」を押すまで、カテゴリー・要約・洞察・戦略には進まない
+  const [unlocked, setUnlocked] = useState(false);
+  const [directions, setDirections] = useState(null); // Claude が提案するリサーチの方向
+  const [dirBusy, setDirBusy] = useState(false);
+  const keywordsRef = useRef(null);
   const [step, setStep] = useState(null);
   const [error, setError] = useState(null);
   const [noClaude, setNoClaude] = useState(false);
@@ -96,6 +101,7 @@ export default function Report() {
   const runScreening = async (forceDemo) => {
     setError(null); setStep(0);
     setRows(null); setCategories(null); setAnalyses({}); setSynthesis(null); setStrategy(null); setJevExcluded([]);
+    setUnlocked(false); setDirections(null);
     const useSource = excl.on && excl.useJev;
     const questions = { ...screeningQuestions(theme), ...(useSource ? sourceQuestion() : {}) };
     const out = await clf.run(posts.map((p) => ({ id: p.id, state: postState(p, theme) })), questions, { forceDemo });
@@ -168,11 +174,31 @@ export default function Report() {
     return true;
   };
 
-  // まとめて実行するのは、ふるい分けとカテゴリー(Claude 1回)まで。要約・洞察はクリックで
-  const runAll = async (forceDemo) => {
-    const top = await runScreening(forceDemo);
-    if (!top?.length) return;
-    await runCategories(top, forceDemo);
+  // ボタンで実行するのはふるい分け(Jev)と質チェック(無料)まで。そこで止まり、次の一手を人が選ぶ
+  const runAll = (forceDemo) => runScreening(forceDemo);
+
+  // 関門の3つのボタン
+  const extractInsights = async () => {
+    setUnlocked(true);
+    await runCategories(rows, clf.demo || undefined);
+  };
+  const changeWords = () => {
+    if (mode !== "brave") setMode("brave");
+    keywordsRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    keywordsRef.current?.focus();
+  };
+  const suggestDirections = async () => {
+    setError(null); setDirBusy(true);
+    try {
+      const sample = [...rows].sort((a, b) => usefulness(b) - usefulness(a)).slice(0, 60);
+      setDirections(await analyze("directions", { theme, keywords, quality: qualityText(quality), posts: forClaude(sample) }));
+    } catch (e) { fail(e); }
+    setDirBusy(false);
+  };
+  const useDirection = (d, append) => {
+    setKeywordsText(append ? [...new Set([...keywords, ...d.keywords])].join("\n") : d.keywords.join("\n"));
+    changeWords();
+    toast(append ? "キーワードに足しました。「Braveで集める」から集め直せます" : "キーワードを差し替えました。「Braveで集める」から集め直せます");
   };
 
   const groups = useMemo(() => (rows ? groupsOf(rows).map((g) => ({ ...g, analysis: analyses[g.label] })) : []), [rows, analyses]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -182,6 +208,9 @@ export default function Report() {
     ruleExcluded: ruleExcluded.length, jevExcluded: jevExcluded.length,
   };
   const excludedAll = [...ruleExcluded, ...jevExcluded];
+  const quality = useMemo(() => (screened && rows
+    ? assessQuality({ screened, kept: rows, keep, ruleExcluded: ruleExcluded.length, jevExcluded: jevExcluded.length })
+    : null), [screened, rows, keep, ruleExcluded, jevExcluded]);
   const busy = step !== null || clf.running;
 
   const exportMd = () => download(`social-deepdive-${new Date().toISOString().slice(0, 10)}.md`,
@@ -216,7 +245,7 @@ export default function Report() {
           </label>
           <label className="field">
             <span>検索キーワード(1行1語。関連語を足して広げる)</span>
-            <textarea rows={5} value={keywordsText} onChange={(e) => setKeywordsText(e.target.value)} />
+            <textarea ref={keywordsRef} rows={5} value={keywordsText} onChange={(e) => setKeywordsText(e.target.value)} />
           </label>
           <details>
             <summary>キーワードごとの検索リンクと X API のクエリ</summary>
@@ -347,7 +376,7 @@ export default function Report() {
             <span className="spacer" />
             <label className="hint">残す件数 <input type="number" min={20} max={150} value={keep} onChange={(e) => setKeep(Math.max(20, Math.min(150, Number(e.target.value) || 100)))} style={{ width: 64 }} /></label>
             <button className="btn primary" disabled={!posts.length || busy} onClick={() => runAll()}>
-              {busy ? `${STEPS[step] ?? "判定"}中…` : "まとめて分析する"}
+              {busy ? `${STEPS[step] ?? "判定"}中…` : "ふるい分けて質を見る"}
             </button>
           </div>
           <Progress progress={clf.progress} onCancel={clf.cancel} />
@@ -358,12 +387,14 @@ export default function Report() {
           <h2>流れ</h2>
           <ol className="steps">
             <li className={screened ? "done" : ""}><b>ふるい分け(Jev)</b> — 公式・広告をルールで外したあと、全件に「使えるか・具体性・感情語・強さ{excl.on && excl.useJev ? "・発信元" : ""}」を問い、個人の声で使える上位{keep}件を残す{stats && <span className="hint num"> · {stats.total}件中 使える{stats.usable}件 → {rows?.length}件(除外 ルール{stats.ruleExcluded}・Jev{stats.jevExcluded})</span>}</li>
-            <li className={categories ? "done" : ""}><b>カテゴリー(Claude)とタグ(Jev)</b> — 残った投稿からカテゴリー体系をつくり、1件ずつタグ付け
-              {rows && <button className="btn small ghost" disabled={busy} onClick={() => runCategories()}>やり直す</button>}</li>
-            <li className={Object.keys(analyses).length ? "done" : ""}><b>感情語グループ</b> — 好き・いい・最高・感動・やばい・悪い・嫌い・最悪・くそ に分け、強さ(少し〜めっちゃ)を添える。要約・感情の動き・インサイト(Claude)は、見たいグループの「要約する」を押したときだけ(1回ずつ課金)</li>
             <li className={rows ? "done" : ""}><b>4象限マップ</b> — 横軸 嫌悪↔好意、縦軸 少し↔めっちゃ</li>
+            <li className={unlocked ? "done" : ""}><b>声の質チェック(無料)</b> — ここで止まる。「インサイトを抽出する」「リサーチのワードを変える」「リサーチの方向を提案してもらう」のどれかを押して進む
+              {quality && <span className="hint num"> · {quality.verdict}({quality.score}/100)</span>}</li>
+            <li className={categories ? "done" : ""}><b>カテゴリー(Claude)とタグ(Jev)</b> — 残った投稿からカテゴリー体系をつくり、1件ずつタグ付け
+              {unlocked && categories && <button className="btn small ghost" disabled={busy} onClick={() => runCategories()}>やり直す</button>}</li>
+            <li className={Object.keys(analyses).length ? "done" : ""}><b>感情語グループ</b> — 好き・いい・最高・感動・やばい・悪い・嫌い・最悪・くそ に分け、強さ(少し〜めっちゃ)を添える。要約・感情の動き・インサイト(Claude)は、見たいグループの「要約する」を押したときだけ(1回ずつ課金)</li>
             <li className={synthesis ? "done" : ""}><b>洞察とデコンテ(Claude)</b> — 一段深いUI/UXの洞察と、アートディレクションの絵コンテ。押したときだけ(Claude 1回)
-              {rows && <button className="btn small" disabled={busy} onClick={() => runSynthesis()}>{step === 3 ? "作成中…" : synthesis ? "つくり直す" : "洞察とデコンテをつくる"}</button>}</li>
+              {unlocked && <button className="btn small" disabled={busy} onClick={() => runSynthesis()}>{step === 3 ? "作成中…" : synthesis ? "つくり直す" : "洞察とデコンテをつくる"}</button>}</li>
           </ol>
           {rows && (
             <div className="row" style={{ marginTop: 12 }}>
@@ -374,6 +405,59 @@ export default function Report() {
           )}
         </section>
       </div>
+
+      {rows && quality && (
+        <section className="panel quality" style={{ marginTop: 20 }}>
+          <div className="row">
+            <h2 style={{ margin: 0 }}>声の質チェック</h2>
+            <span className={`verdict v-${quality.verdict}`}>{quality.verdict} <span className="num">{quality.score}/100</span></span>
+          </div>
+          <div className="tiles" style={{ marginTop: 10 }}>
+            <div className="tile"><div className="k">分析対象</div><div className="v num">{quality.metrics.kept}</div><div className="s num">目標 {quality.metrics.keep}件 · 収集 {quality.metrics.collected}件</div></div>
+            <div className="tile"><div className="k">使える割合</div><div className="v num">{Math.round(quality.metrics.usableRate * 100)}%</div><div className="s num">公式・宣伝の除外 {Math.round(quality.metrics.noiseRate * 100)}%</div></div>
+            <div className="tile"><div className="k">具体性</div><div className="v num">{quality.metrics.avgDepth.toFixed(1)}<small>/3</small></div><div className="s num">場面や理由がある {Math.round(quality.metrics.concreteRate * 100)}%</div></div>
+            <div className="tile"><div className="k">いちばん多い感情</div><div className="v">{quality.metrics.topFeeling}</div><div className="s num">{Math.round(quality.metrics.topFeelingShare * 100)}%</div></div>
+          </div>
+          {quality.issues.length > 0
+            ? <ul className="insights">{quality.issues.map((i) => <li key={i}>{i}</li>)}</ul>
+            : <p className="hint">目立った問題はありません。</p>}
+          <p className="hint">
+            {unlocked
+              ? "インサイトの抽出に進みました。ワードを変えて集め直すと、ここからやり直しになります。"
+              : "ここで止まっています。質が低いまま進むと、浅いインサイトになりがちです。次の一手を選んでください(方向の提案とインサイトの抽出は、それぞれ Claude を1回呼びます)。"}
+          </p>
+          <div className="row gate">
+            {!unlocked && (
+              <button className="btn primary" disabled={busy} onClick={extractInsights}>
+                {quality.verdict === "低い" ? "それでもインサイトを抽出する" : "インサイトを抽出する"}
+              </button>
+            )}
+            <button className="btn" onClick={changeWords}>リサーチのワードを変える</button>
+            <button className="btn" disabled={dirBusy} onClick={suggestDirections}>{dirBusy ? "提案を考え中…" : directions ? "方向をもう一度提案してもらう" : "リサーチの方向を提案してもらう"}</button>
+          </div>
+          {directions && (
+            <div className="directions">
+              <p style={{ margin: "12px 0 4px" }}><b>診断</b> {directions.diagnosis}</p>
+              {directions.gaps.length > 0 && <p className="hint" style={{ margin: "0 0 8px" }}>足りない声: {directions.gaps.join(" / ")}</p>}
+              <div className="dir-cards">
+                {directions.directions.map((d, i) => (
+                  <div className="dir-card" key={i}>
+                    <b>{d.title}</b>
+                    <p>{d.why}</p>
+                    <p className="hint">問い: {d.researchQuestion}</p>
+                    <div className="row">{d.keywords.map((k) => <span key={k} className="chip">{k}</span>)}</div>
+                    {d.avoid.length > 0 && <p className="hint">避ける: {d.avoid.join("・")}</p>}
+                    <div className="row" style={{ marginTop: 6 }}>
+                      <button className="btn small" onClick={() => useDirection(d, false)}>このワードに変える</button>
+                      <button className="btn small ghost" onClick={() => useDirection(d, true)}>今のワードに足す</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </section>
+      )}
 
       {rows && (
         <>
@@ -391,7 +475,7 @@ export default function Report() {
             </section>
             <section className="panel">
               <h2>カテゴリー</h2>
-              {categories ? categories.map((c) => {
+              {!unlocked ? <p className="hint">「インサイトを抽出する」を押すと、カテゴリーをつくってタグを付けます。</p> : categories ? categories.map((c) => {
                 const n = rows.filter((r) => r.tags?.includes(c.label)).length;
                 return (
                   <div key={c.label} style={{ padding: "6px 0", borderBottom: "1px solid var(--line)" }}>
@@ -405,6 +489,7 @@ export default function Report() {
 
           <section className="panel" style={{ marginTop: 16 }}>
             <h2>感情語グループ</h2>
+            {!unlocked && <p className="hint">要約は「インサイトを抽出する」を押したあと、グループごとに押してつくります。</p>}
             <div className="groups">
               {groups.map((g) => (
                 <div className="group" key={g.label}>
@@ -425,13 +510,13 @@ export default function Report() {
                       </ul>
                     </>
                   ) : null}
-                  <div className="row" style={{ margin: "6px 0" }}>
+                  {unlocked && <div className="row" style={{ margin: "6px 0" }}>
                     <button className="btn small" disabled={summarizing[g.label] || g.rows.length < 2}
                       onClick={() => summarizeGroup(g)} title="Claude を1回呼ぶ">
                       {summarizing[g.label] ? "要約中…" : g.analysis ? "要約し直す" : "要約する"}
                     </button>
                     {g.rows.length < 2 && <span className="hint">2件以上で要約できます</span>}
-                  </div>
+                  </div>}
                   <details>
                     <summary>投稿を見る</summary>
                     {g.rows.map((r) => <PostCard key={r.id} r={r} />)}
@@ -478,14 +563,14 @@ export default function Report() {
             </>
           )}
 
-          <Strategy theme={theme} byId={byId} value={strategy} onChange={setStrategy} getInput={() => ({
+          {unlocked && <Strategy theme={theme} byId={byId} value={strategy} onChange={setStrategy} getInput={() => ({
             posts: forClaude([...rows].sort((a, b) => usefulness(b) - usefulness(a)).slice(0, STRATEGY_MAX_POSTS)),
             notes: [
               synthesis && `全体: ${synthesis.headline}`,
               ...groups.filter((g) => g.analysis).map((g) => `${g.label}(${g.rows.length}件): ${g.analysis.summary}`),
               ...QUADRANTS.map((q) => `${q.name}: ${rows.filter((r) => r.quadrant === q.id).length}件`),
             ].filter(Boolean).join("\n"),
-          })} />
+          })} />}
         </>
       )}
       {toastEl}

@@ -4,6 +4,7 @@
  *   categories … 投稿群からカテゴリー体系をつくる
  *   group      … 感情語グループごとのサマリー・感情の動き・インサイト
  *   synthesis  … 全体のUX洞察、4象限の読み解き、アートディレクション的デコンテ
+ *   directions … 集まった声の質を診断し、リサーチの方向と検索ワードの組み直しを提案する
  *   strategy   … ペルソナ・感情マップ・仮説・インサイト・コアアイデア・課題・解決策・トンマナ・クリエイティブブリーフ
  * を構造化JSONで返す。プロンプトはサーバー側で固定し、任意の指示は受け付けない。
  */
@@ -47,6 +48,14 @@ const SCHEMAS = {
       items: obj({ beat: str, scene: str, visual: str, copyTone: str, colorLight: str, typography: str, motionSound: str }),
     },
     principles: strArr,
+  }),
+  directions: obj({
+    diagnosis: str,
+    gaps: strArr,
+    directions: {
+      type: "array",
+      items: obj({ title: str, why: str, researchQuestion: str, keywords: strArr, avoid: strArr }),
+    },
   }),
   strategy: obj({
     personas: {
@@ -140,6 +149,26 @@ ${postsBlock(posts)}
 3. uxInsights: 表面の不満・称賛の奥にある、一段深いUI/UXの洞察を3〜5個。why(なぜそう言えるか)、designImplication(具体的な設計への示唆)、evidenceIds
 4. deconte: この声から生まれる体験・表現を、アートディレクションの絵コンテとして5〜7ビートに分解する。beat(起承転結などの役割)、scene(場面)、visual(画づくり・構図)、copyTone(言葉とトーン)、colorLight(色と光)、typography(書体の方向)、motionSound(動きと音)
 5. principles: デザイン原則を3〜5個(各20字以内)`;
+  }
+
+  if (task === "directions") {
+    const keywords = (Array.isArray(body.keywords) ? body.keywords : []).slice(0, 40).map((k) => clip(k, 60));
+    const quality = clip(body.quality, 1500);
+    return `調査テーマ: ${theme}
+いま使っている検索ワード: ${keywords.join(" / ") || "(なし)"}
+
+## 集まった声の質(Jevの判定から機械的に集計)
+${quality}
+
+## 集まった投稿(使える度の高い順の代表)
+${postsBlock(posts)}
+
+この調査は、デザインの意思決定に使える「生の体験の声」を集めたい。公式アカウント・広告・宣伝は除いている。
+1. diagnosis: 今の集まり方の問題を2〜3文で(ワードが広すぎる/業界の話ばかり/体験の場面がない など、投稿を根拠に)
+2. gaps: 足りていない声や視点を3〜5個
+3. directions: 次に進むリサーチの方向を3〜4案。title(15字以内)、why(なぜこの方向か)、researchQuestion(この方向で答えたい問い)、
+   keywords(X・Instagramで個人の体験が出やすい検索ワードを5〜8個。「〜 使いにくい」「〜 やめた」「〜 助かった」のような口語や具体的な場面・サービス名を含める)、
+   avoid(宣伝や業界論ばかり拾うので避けたいワード)`;
   }
 
   if (task === "strategy") {
