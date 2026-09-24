@@ -1,0 +1,459 @@
+[
+  {
+    "id": "product_as_proof",
+    "ja": "製品を証拠として出す",
+    "en": "Product as proof / the demo is the idea",
+    "summaryJa": "言葉で約束せず、製品そのものに証明させる跳躍。説明をすべて捨てて、見た瞬間に反論できない事実を一つだけ差し出す。",
+    "mechanismEn": "Take the single claim the product can physically prove, then stage that proof as the advertisement itself instead of describing it in words.",
+    "whenJa": "製品に検証可能な優位があるのに、言葉にすると凡庸な広告文句に落ちてしまうとき。",
+    "howToJa": [
+      "製品が物理的に証明できる事実を1つだけ選ぶ（2つ選んだ時点で負け）",
+      "その事実が最も過酷に現れる条件を探す（時間・環境・使い手）",
+      "証明の過程をそのまま見せる形式を決める（実演・経年・製造・結果物）",
+      "コピーとロゴを足さずに成立するかを確認する"
+    ],
+    "kvSeedEn": "A product or its raw material caught mid-demonstration, lit like a still life so the evidence itself is the composition",
+    "examples": [
+      "2026-industry-craft-gp-tiny-coffee-shops",
+      "2021-outdoor-gp-moldy-whopper",
+      "2016-outdoor-gp-brewtroleum",
+      "2011-print-gp-heaven-and-hell",
+      "1995-film-gold-levis-drugstore"
+    ],
+    "risksJa": "証明が「実験」に見えると科学番組になり、ブランドの体温が消える。"
+  },
+  {
+    "id": "make_invisible_visible",
+    "ja": "見えないものを見せる",
+    "en": "Make the invisible visible",
+    "summaryJa": "誰もが感じているのに形のない現象に、初めて輪郭を与える。翻訳装置の精度そのものがアイデアになる。",
+    "mechanismEn": "Find a felt-but-formless truth, then invent one representation device—a comparison, a sensor, a material, a typography—that gives it a shape people can point at.",
+    "whenJa": "課題の本体が感情・格差・リスク・時間のように、目で確認できないものであるとき。",
+    "howToJa": [
+      "見えていないものを名詞で言い切る（不安・差・遅れ・声色・痕）",
+      "それを測る／記録する／取り出す装置を1つに絞る",
+      "出力を1枚の図像に固定する（比較・重ね・軌跡・発光）",
+      "説明文を消しても意味が残るかを他人で試す"
+    ],
+    "kvSeedEn": "Two states of the same subject placed side by side, or a trace of something imperceptible rendered as light, line or texture",
+    "examples": [
+      "2013-titanium-gp-real-beauty-sketches",
+      "2014-titanium-gp-sound-of-honda",
+      "2025-design-gp-caption-with-intention",
+      "2012-design-gp-solar-annual-report",
+      "2026-titanium-gp-haven"
+    ],
+    "risksJa": "可視化の技法に見とれて、何のための可視化かを言い忘れる。"
+  },
+  {
+    "id": "hijack_ritual",
+    "ja": "儀式を乗っ取る",
+    "en": "Hijack a ritual or convention",
+    "summaryJa": "すでに全員が繰り返している行為の内側に、ブランドの意味を差し込む。新しい行動をゼロから作らないぶん立ち上がりが速い。",
+    "mechanismEn": "Locate a repeated, socially fixed act the audience already performs, and change exactly one element inside it so the ritual now carries the message.",
+    "whenJa": "行動変容が目的なのに、新しい習慣をゼロから作る予算も時間もないとき。",
+    "howToJa": [
+      "ターゲットが毎日／毎年必ず通過する行為を列挙する",
+      "その行為の中で誰も疑っていない手続きを1つ特定する",
+      "手続きの一部だけを置き換える（言葉・所作・道具・順番）",
+      "元の行為が持つ強制力や権威を壊していないか検証する"
+    ],
+    "kvSeedEn": "A familiar everyday procedure photographed straight, with exactly one element swapped out",
+    "examples": [
+      "2018-titanium-gp-palau-pledge",
+      "2023-outdoor-gp-a-british-original",
+      "2014-outdoor-gp-gaytms",
+      "2016-print-gp-mcwhopper"
+    ],
+    "risksJa": "乗っ取る対象が神聖すぎると、面白さより不快が先に立つ。"
+  },
+  {
+    "id": "weakness_as_idea",
+    "ja": "弱点をアイデアにする",
+    "en": "Turn the weakness into the idea",
+    "summaryJa": "隠したい事実を、隠さずに主題の中心へ置く。弱点は競合が絶対に真似できない唯一の非対称性だと考える。",
+    "mechanismEn": "Take the fact the brand would normally hide, and re-argue it as the necessary consequence of something the brand is proud of.",
+    "whenJa": "不利な事実（失敗・季節外れ・高価格・供給停止・ばらつき）が既に公になっているとき。",
+    "howToJa": [
+      "隠したい事実を1文で正直に書く",
+      "その事実が生まれる原因を、誇れる原因に到達するまで遡る",
+      "原因のほうを主語にして、事実を結論として言い直す",
+      "自虐が卑屈に落ちないトーンの基準線を先に決める"
+    ],
+    "kvSeedEn": "The unflattering state of a product or situation rendered with the care normally reserved for a hero shot",
+    "examples": [
+      "2018-print-gold-fck",
+      "2017-print-gp-burning-stores",
+      "2021-outdoor-gp-moldy-whopper",
+      "2024-outdoor-gp-find-your-summer",
+      "2026-design-gold-dear-difference"
+    ],
+    "risksJa": "開き直りとユーモアの線を外すと、誠実さではなく無責任に見える。"
+  },
+  {
+    "id": "brand_act_utility",
+    "ja": "ブランドが実際に解決する",
+    "en": "Brand act / real utility",
+    "summaryJa": "語らずに直す。広告予算を表現ではなく、課題そのものの解決手段に変える跳躍。行為が完成した時点でメッセージも完成している。",
+    "mechanismEn": "Spend the communication budget on building or changing a real thing—a product, a policy, an infrastructure—so the act itself is the message.",
+    "whenJa": "ブランドが持つ資産（技術・データ・店舗・契約・素材）が、課題の解決手段に直結しているとき。",
+    "howToJa": [
+      "自社が既に持っていて他社が持たない資産を棚卸しする",
+      "その資産で本当に消える不便・不安を1つ特定する",
+      "「表現」ではなく「提供物」として設計する（仕様・運用・継続年数）",
+      "誰が使い続けるのか、やめたら誰が困るのかを書く"
+    ],
+    "kvSeedEn": "An ordinary object or public surface in real use, documented plainly, where the improvement is the only visible change",
+    "examples": [
+      "2025-titanium-gp-three-words",
+      "2024-design-gp-sightwalks",
+      "2026-titanium-gp-haven",
+      "2013-outdoor-gp-people-for-smarter-cities",
+      "2023-design-gp-adlam"
+    ],
+    "risksJa": "解決が本業とつながっていないと、善行の広告という一番寒い形になる。"
+  },
+  {
+    "id": "data_made_human",
+    "ja": "データを人間に戻す",
+    "en": "Data made human",
+    "summaryJa": "数字のままでは誰も動かない。データを身体で受け取れる形（音・光・場所・時間）に翻訳し、統計を一人称の経験に戻す。",
+    "mechanismEn": "Convert a dataset into a sensory or spatial experience so that one person can feel what the aggregate number only states.",
+    "whenJa": "証拠となるデータはあるのに、提示しても「ふーん」で終わってしまうとき。",
+    "howToJa": [
+      "データの中で最も人に近い1行（1人・1日・1軒）を選ぶ",
+      "その1行を体感できる出力先を決める（音・光・体温・移動）",
+      "集計値ではなく個別値を主役にする",
+      "画面に数字を出さずに意味が伝わるかを試す"
+    ],
+    "kvSeedEn": "A data pattern materialised in physical space—lines of light, sound sources or objects standing in for numbers",
+    "examples": [
+      "2014-titanium-gp-sound-of-honda",
+      "2026-titanium-gp-haven",
+      "2024-outdoor-gp-find-your-summer"
+    ],
+    "risksJa": "インフォグラフィックの美しさで満足し、行動の出口を設計し忘れる。"
+  },
+  {
+    "id": "participation_mechanic",
+    "ja": "参加の装置をつくる",
+    "en": "Participation mechanic",
+    "summaryJa": "見せるのではなく、やらせる。ルールを1行で言えるゲームにして、参加そのものをメッセージの体験に変える。",
+    "mechanismEn": "Design a rule simple enough to state in one line, where performing the rule teaches the message better than any statement of it could.",
+    "whenJa": "理解ではなく体験や習慣が目的で、ターゲットに少しの手間を払う動機があるとき。",
+    "howToJa": [
+      "ルールを1行で書く（読んだ人が即座に自分の行動を想像できること）",
+      "参加コスト（時間・移動・恥ずかしさ）を数え、1つずつ削る",
+      "報酬を用意する（割引・収集・称号・可視化された成果）",
+      "参加者の痕跡が次の参加者を呼ぶ構造を入れる"
+    ],
+    "kvSeedEn": "A person in a real location performing a small odd action, with the marker or interface that triggered it visible in frame",
+    "examples": [
+      "2019-titanium-gp-whopper-detour",
+      "2023-industry-craft-gp-my-japan-railway",
+      "2011-outdoor-gp-decode-jay-z-with-bing",
+      "2026-outdoor-gp-field-barcode",
+      "2018-design-gp-trash-isles"
+    ],
+    "risksJa": "ルールが2行になった瞬間、参加率は桁で落ちる。"
+  },
+  {
+    "id": "cultural_tension",
+    "ja": "文化の緊張を解く",
+    "en": "Resolve a cultural tension",
+    "summaryJa": "社会の中で言いにくいまま溜まっている矛盾を、ブランドが先に口に出す。正しさではなく、当事者の切実さで立つ。",
+    "mechanismEn": "Name the specific contradiction a community lives with daily, and give the brand a role in relieving it rather than merely commenting on it.",
+    "whenJa": "ターゲットの日常に、誰も公には言わないが全員が知っている不均衡があるとき。",
+    "howToJa": [
+      "矛盾を当事者の言葉で1文にする（評論家の言葉にしない）",
+      "ブランドがそこに関与できる正当な理由を確認する",
+      "言うだけで終わらない具体的な提供物を最低1つ用意する",
+      "当事者と共同で作り、彼らが最初の受益者になる設計にする"
+    ],
+    "kvSeedEn": "A person doing an ordinary thing in a place where they were previously not expected to be",
+    "examples": [
+      "2022-outdoor-gp-liquid-billboard",
+      "2025-industry-craft-gp-nigrum-corpus",
+      "2014-outdoor-gp-gaytms",
+      "2019-outdoor-gp-dream-crazy",
+      "2019-pr-gp-the-tampon-book"
+    ],
+    "risksJa": "当事者不在で作ると、支援ではなく消費に見える。"
+  },
+  {
+    "id": "reframe_category",
+    "ja": "カテゴリーを定義し直す",
+    "en": "Reframe the category",
+    "summaryJa": "商品の優劣を争わず、競技場そのものを移す。何のカテゴリーかを言い換えれば、比較相手も評価軸も入れ替わる。",
+    "mechanismEn": "Redefine what business the brand is in, so the audience judges it by a new criterion the brand already wins on.",
+    "whenJa": "カテゴリー内の差別化が出尽くし、機能比較では勝ち目がないとき。",
+    "howToJa": [
+      "現在のカテゴリーの暗黙の評価軸を書き出す",
+      "その軸が誰の都合で作られたのかを疑う",
+      "自社が勝てる新しい軸を1つ立て、言い切る",
+      "新しい軸に合わせてトーン・媒体・成果指標まで全部入れ替える"
+    ],
+    "kvSeedEn": "A subject shot in the visual language of a completely different category from the one it belongs to",
+    "examples": [
+      "2021-print-gp-courage-is-beautiful",
+      "2013-direct-gp-dumb-ways-to-die",
+      "2005-film-gp-grrr",
+      "2009-print-gp-we-are-animals",
+      "2026-titanium-gp-haven"
+    ],
+    "risksJa": "定義を変えただけで中身が伴わないと、言い換えの小手先に見える。"
+  },
+  {
+    "id": "long_idea_platform",
+    "ja": "長く効く型をつくる",
+    "en": "The long idea / platform",
+    "summaryJa": "1本の傑作ではなく、何百回繰り返しても壊れない型を作る。強度は新奇さではなく、反復に耐える規律から出る。",
+    "mechanismEn": "Define a repeatable rule—of framing, format or question—that keeps generating new executions indefinitely without diluting the idea.",
+    "whenJa": "単発では届かず、年単位・多数展開で積み上げる必要があるとき。",
+    "howToJa": [
+      "型を「変えない要素」と「毎回変わる要素」に分けて明文化する",
+      "変わる要素だけで100本作れるか机上で試す",
+      "3年後に同じ型で言えることを1つ書いておく",
+      "誰が作っても同じ品質になる最低条件（版面・撮り方）を決める"
+    ],
+    "kvSeedEn": "A series of images sharing one rigid frame and one changing subject, readable as a set at a glance",
+    "examples": [
+      "2024-industry-craft-gp-the-100th-edition",
+      "2023-outdoor-gp-a-british-original",
+      "2021-design-gp-shot-on-iphone",
+      "2014-design-gp-festspillene-i-bergen",
+      "2022-print-gp-the-elections-edition"
+    ],
+    "risksJa": "型が緩いと数を重ねるほど薄まり、厳しすぎると2回目で息が詰まる。"
+  },
+  {
+    "id": "absence_as_message",
+    "ja": "不在で語る",
+    "en": "Absence / what is missing",
+    "summaryJa": "最も強い図像は、見せなかったもののほうにある。引き算を限界まで進め、欠落そのものを主張に変える。",
+    "mechanismEn": "Remove the element the format is expected to contain, and let the audience's memory or discomfort supply what is missing.",
+    "whenJa": "対象が有名すぎる、権利上使えない、あるいは無いこと自体が論点であるとき。",
+    "howToJa": [
+      "この媒体で当然あるべき要素を列挙する",
+      "一番重要な1つを消す",
+      "消した穴を埋めるための最小の手がかりだけ置く（言葉・寸法・余白）",
+      "受け手の頭の中で何が再生されるかを他人でテストする"
+    ],
+    "kvSeedEn": "A format stripped of its expected central element, with generous empty space carrying the meaning",
+    "examples": [
+      "2019-print-gp-the-blank-edition",
+      "2018-print-gp-tagwords",
+      "2012-design-gp-solar-annual-report",
+      "2010-print-gp-billboard-magazine",
+      "2021-design-gp-shot-on-iphone"
+    ],
+    "risksJa": "手がかりが足りないと、引き算ではなくただの未完成に見える。"
+  },
+  {
+    "id": "scale_shift",
+    "ja": "スケールをずらす",
+    "en": "Scale shift",
+    "summaryJa": "同じ対象を、極端に大きくするか小さくするだけで意味が変わる。寸法は演出ではなく論理になりうる。",
+    "mechanismEn": "Keep the subject identical but move it several orders of magnitude in size or distance, so the required viewing position itself makes the argument.",
+    "whenJa": "対象が見慣れすぎていて、通常の寸法では誰も目を留めないとき。",
+    "howToJa": [
+      "対象の「本来の見られ方」の寸法と距離を書く",
+      "10倍と1/10 のどちらにずらすと意味が増えるかを決める",
+      "新しい寸法でしか成立しない視点を確保する（上空・衛星・接写）",
+      "拡大／縮小した先で図と地が壊れないか検証する"
+    ],
+    "kvSeedEn": "A familiar object rendered at an impossible size, framed from the one viewpoint that makes the scale legible",
+    "examples": [
+      "2026-outdoor-gp-field-barcode",
+      "2026-industry-craft-gp-tiny-coffee-shops",
+      "2011-outdoor-gp-decode-jay-z-with-bing",
+      "2013-print-gp-ipad-mini",
+      "2022-industry-craft-gp-hope-reef"
+    ],
+    "risksJa": "大きさだけが主役になると、驚きの後に何も残らない。"
+  },
+  {
+    "id": "juxtaposition",
+    "ja": "並べて語る",
+    "en": "Juxtaposition",
+    "summaryJa": "説明せず、2つ並べる。差そのものが論証になり、受け手が自分の頭で結論に到達する。",
+    "mechanismEn": "Place two states, two subjects or two worlds in one frame under identical conditions, so the difference between them carries the entire argument.",
+    "whenJa": "主張が比較・格差・変化・矛盾を含んでいて、言葉にすると説教臭くなるとき。",
+    "howToJa": [
+      "比べる2項を決め、片方を変数、もう片方を定数に固定する",
+      "撮り方・照明・書体など条件を完全に揃える",
+      "差以外の情報をすべて画面から排除する",
+      "キャプションを消しても差が読めるかを確認する"
+    ],
+    "kvSeedEn": "Two near-identical images or objects side by side, differing in exactly one respect",
+    "examples": [
+      "2013-titanium-gp-real-beauty-sketches",
+      "2023-titanium-gp-the-first-digital-nation",
+      "2012-print-gp-unhate",
+      "2011-print-gp-heaven-and-hell",
+      "2016-print-gp-mcwhopper"
+    ],
+    "risksJa": "条件が揃っていないと、差ではなく作為に見える。"
+  },
+  {
+    "id": "name_the_enemy",
+    "ja": "敵を名指す",
+    "en": "Name the enemy",
+    "summaryJa": "ブランドを好きにさせる前に、何と戦っているかを決める。敵の輪郭がはっきりするほど、味方の輪郭もはっきりする。",
+    "mechanismEn": "Define a concrete antagonist—a rival, a rule, a habit, a system—and position every execution as a move against it.",
+    "whenJa": "ブランドの立場が曖昧で、賛同者ではなく共犯者を増やしたいとき。",
+    "howToJa": [
+      "敵の候補を3つ出す（競合・制度・自社の過去・生活者の習慣）",
+      "公に名指ししても筋が通るものを選ぶ",
+      "戦い方を1つの具体的な行為に落とす（提案・交換・置換・申請）",
+      "敵を貶めずに争点だけを鋭くする書き方を決める"
+    ],
+    "kvSeedEn": "A direct confrontational composition where the opposing thing is visibly present rather than implied",
+    "examples": [
+      "2019-titanium-gp-whopper-detour",
+      "2025-outdoor-gp-phone-break",
+      "2019-pr-gp-the-tampon-book",
+      "2009-outdoor-gp-the-zimbabwean",
+      "2022-design-gp-portuguese-reconstitution"
+    ],
+    "risksJa": "敵が特定の個人になると、批評ではなく攻撃になり、ブランドが小さく見える。"
+  },
+  {
+    "id": "medium_is_idea",
+    "ja": "媒体そのものをアイデアにする",
+    "en": "The medium is the idea",
+    "summaryJa": "何を言うかではなく、どこに載るかで意味を作る。媒体の物理・制度・習慣を主題の側に引き上げる跳躍。",
+    "mechanismEn": "Choose a carrier whose own properties—material, location, legal status, ritual—already state the message, then keep the content minimal.",
+    "whenJa": "メッセージが抽象的で、どんなコピーを書いても説明に落ちてしまうとき。",
+    "howToJa": [
+      "候補の接点を「面」ではなく「性質」で書き出す（素材・所有者・法的地位・読まれ方）",
+      "メッセージと性質が一致する接点を1つ選ぶ",
+      "その接点でしか成立しない形式に合わせて作る（寸法・製法・配布経路）",
+      "他の媒体に移したら壊れるかを確認する（壊れないなら弱い）"
+    ],
+    "kvSeedEn": "An everyday carrier surface photographed so the surface itself, not the graphic on it, reads as the message",
+    "examples": [
+      "2026-outdoor-gp-field-barcode",
+      "2025-print-gp-price-packs",
+      "2023-print-gp-newspapers-inside-the-newspaper",
+      "2009-outdoor-gp-the-zimbabwean",
+      "2013-print-gp-ipad-mini"
+    ],
+    "risksJa": "媒体の珍しさが目的化すると、面白い場所に出した普通の広告になる。"
+  },
+  {
+    "id": "craft_as_idea",
+    "ja": "クラフトを論拠にする",
+    "en": "Craft as the idea",
+    "summaryJa": "作り方そのものが主張になる場合がある。手数・素材・精度が、コンセプトを言葉なしで証明する。",
+    "mechanismEn": "Pick a production method whose difficulty or material logic is itself the proof of the claim, and let execution quality carry the argument.",
+    "whenJa": "主張が「本物」「人の手」「丁寧」「正確さ」など、質そのものに関わるとき。",
+    "howToJa": [
+      "主張を体現する製法を1つ選ぶ（模型・手描き・実写・活版・撮影条件）",
+      "CG や合成で代替したら意味が消えるかを確認する",
+      "工程を記録し、作り方自体を公開できる形にする",
+      "細部の密度を落とさない予算配分を先に確保する"
+    ],
+    "kvSeedEn": "A handmade or physically built subject shot close enough that material grain and tool marks stay visible",
+    "examples": [
+      "2026-design-gp-apple-tv-rebrand",
+      "2026-industry-craft-gp-tiny-coffee-shops",
+      "2025-industry-craft-gp-nigrum-corpus",
+      "2009-design-gp-paper-battlefield",
+      "2024-film-craft-gp-the-square-metre"
+    ],
+    "risksJa": "手数の自慢に終わると、上手いだけで何も言っていない作品になる。"
+  },
+  {
+    "id": "humor_by_truth",
+    "ja": "真実で笑わせる",
+    "en": "Humor built on truth",
+    "summaryJa": "冗談を書かない。誰もが知っているのに言わなかった事実を、そのまま置く。笑いは観察の副産物として出る。",
+    "mechanismEn": "State an uncomfortable or absurd truth about the brand, the category or the audience plainly, with no joke attached, and let recognition produce the laugh.",
+    "whenJa": "ブランドや状況に、皆が薄々気づいている滑稽さや矛盾があるとき。",
+    "howToJa": [
+      "「実は皆こう思っている」を10個書き出す",
+      "ブランドが言っても筋が通るものだけ残す",
+      "説明・オチ・ダジャレを足さず、事実だけで提示する",
+      "当事者が笑えるか（笑われていないか）を確認する"
+    ],
+    "kvSeedEn": "A deadpan straightforward image of an ordinary situation whose absurdity is simply left visible",
+    "examples": [
+      "2018-print-gold-fck",
+      "2019-titanium-gp-whopper-detour",
+      "2014-print-gp-sorry-i-spent-it-on-myself",
+      "2018-outdoor-gp-trump-twitter-library",
+      "2013-direct-gp-dumb-ways-to-die"
+    ],
+    "risksJa": "笑いを足しにいくと寒くなる。引くほど効く。"
+  },
+  {
+    "id": "provocation_with_purpose",
+    "ja": "目的のある挑発",
+    "en": "Provocation with purpose",
+    "summaryJa": "不快と議論を織り込んだ上で、逃げ道のない一枚を出す。炎上狙いとの差は、ブランドがその後も立場を降りないかどうかだけ。",
+    "mechanismEn": "Deliberately break a taboo of the category or the culture, but only where the brand can defend the position with a substantive commitment behind it.",
+    "whenJa": "無視されることが最大のリスクで、ブランドに引き受ける覚悟と根拠があるとき。",
+    "howToJa": [
+      "破るタブーを特定し、それが誰の都合で守られてきたかを書く",
+      "破った後に問われる質問を10個想定し、全部に答えを用意する",
+      "挑発の受け皿（行動・制度・商品・寄付）を同時に出す",
+      "撤回しない期間と責任者を先に決める"
+    ],
+    "kvSeedEn": "A single uncompromising image showing the thing the category normally hides, composed with formal restraint",
+    "examples": [
+      "2012-print-gp-unhate",
+      "2021-outdoor-gp-moldy-whopper",
+      "2019-outdoor-gp-dream-crazy",
+      "2024-print-gp-recycle-me",
+      "2025-industry-craft-gp-nigrum-corpus"
+    ],
+    "risksJa": "覚悟のない挑発は、翌週の謝罪文を先に書いているのと同じ。"
+  },
+  {
+    "id": "borrowed_format",
+    "ja": "権威ある様式を借りる",
+    "en": "Borrow an authoritative format",
+    "summaryJa": "国家・法律・学術・報道といった既存の様式を、本気の真面目さで運用する。形式の重さが中身を裁いてくれる。",
+    "mechanismEn": "Adopt the complete visual and procedural grammar of an official institution, and put the brand's content inside it without any irony in the craft.",
+    "whenJa": "主張に制度的な重みが必要なとき、または形式と中身の落差で批評したいとき。",
+    "howToJa": [
+      "借りる様式を決め、構成要素を全部書き出す（判型・書体・手続き・署名）",
+      "省略せずに全部作る（一部だけだとパロディに落ちる）",
+      "中身だけを入れ替え、様式には一切冗談を入れない",
+      "実際にその制度の中で機能するところまで詰める"
+    ],
+    "kvSeedEn": "An official-looking document, stamp, flag or museum display rendered with full institutional seriousness",
+    "examples": [
+      "2018-outdoor-gp-trump-twitter-library",
+      "2018-design-gp-trash-isles",
+      "2019-pr-gp-the-tampon-book",
+      "2022-design-gp-portuguese-reconstitution",
+      "2018-titanium-gp-palau-pledge"
+    ],
+    "risksJa": "様式を崩した瞬間にただのパロディになり、主張の重みが消える。"
+  },
+  {
+    "id": "brand_asset_surgery",
+    "ja": "ブランド資産を手術する",
+    "en": "Operate on the brand's own asset",
+    "summaryJa": "新しい記号を作らず、既にある資産（ロゴ・色・形・タグライン）に最小の操作を加える。切る・回す・壊す・見つけるだけで意味が更新される。",
+    "mechanismEn": "Take an asset the audience already recognises instantly and apply exactly one operation to it—crop, rotate, break, rearrange, or find it out in the world—so the meaning changes while recognition survives.",
+    "whenJa": "ブランドの認知が十分に高く、説明を省いても記号だけで伝わるとき。",
+    "howToJa": [
+      "説明なしに識別される資産を1つ選ぶ",
+      "加える操作を1つだけ決める（切る・回す・崩す・並べ替える・世界の中に発見する）",
+      "操作後も0.5秒で識別できるかを他人で確認する",
+      "その操作を選んだ理由が課題と直結しているか言語化する"
+    ],
+    "kvSeedEn": "A single instantly recognisable graphic mark altered by one clean operation, sitting on a plain field",
+    "examples": [
+      "2026-print-gp-look-familiar",
+      "2025-outdoor-gp-phone-break",
+      "2018-outdoor-gp-follow-the-arches",
+      "2012-outdoor-gp-coke-hands",
+      "2024-print-gp-recycle-me"
+    ],
+    "risksJa": "操作を2つ以上重ねると、識別性と意味の両方を同時に失う。"
+  }
+]

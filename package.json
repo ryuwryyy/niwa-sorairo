@@ -8,12 +8,13 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "studio": "vite --open /studio/",
     "worker:dev": "wrangler dev worker/index.js",
     "worker:deploy": "wrangler deploy worker/index.js",
     "build:research": "vite build --config vite.research.config.js",
     "dev:research": "vite --config vite.research.config.js --port 5174",
-    "test": "node --test 'tests/*.test.js'",
-    "check": "npm test && npm run build && npm run build:research && node --check figma-plugin/code.js",
+    "test": "node --test 'tests/*.test.js' 'tests/**/*.test.mjs'",
+    "check": "npm test && npm run build && npm run build:research && node --check figma-plugin/code.js && node --check studio-figma-plugin/code.js",
     "e2e": "node tests/e2e/run.mjs"
   },
   "dependencies": {

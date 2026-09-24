@@ -1,0 +1,1565 @@
+[
+  {
+    "id": "2026-outdoor-gp-field-barcode",
+    "problemJa": "EC の認知は十分でも、試合を観ている数時間は完全に買い物の外側にあった。",
+    "humanTruthJa": "人は画面に映るものなら、反射的にスマホを向ける。",
+    "brandTruthJa": "読み取られて初めて価値が動くのが EC の本質。",
+    "tensionJa": "全員がスマホを握っているのに、スタジアムの広告は誰にも触られない。",
+    "coreIdeaJa": "ピッチの芝そのものをバーコードに刈り、客席でも中継の前でも同じ図像をスキャンできるようにした。",
+    "coreIdeaEn": "Mow the stadium pitch itself into a working barcode so every viewer, on site or on screen, can scan the ad.",
+    "twistJa": "広告面を「見る場所」から「読み取る場所」へ反転させた。",
+    "patterns": [
+      "medium_is_idea",
+      "scale_shift",
+      "participation_mechanic"
+    ],
+    "executionJa": "刈り目の明暗だけで縞を作り、色数は二つ。俯瞰カメラの画角を版面として設計し、斜めや部分でも読めるよう補正した。",
+    "mediaLogicJa": "全員が同じ画角を同時に見ている瞬間は中継のあるピッチにしかなく、他の面ではスキャンが同期しない。",
+    "resultJa": "104m 幅のバーコードで25%割引が開いたと報道。売上数値は未検証。",
+    "timelessJa": "接点を選ぶ前に「全員が同じ絵を同時に見る瞬間」が存在するかを探す。",
+    "kvDescriptionEn": "An aerial view of a green sports field mown into wide light-and-dark stripes that read as a scannable code.",
+    "sources": [
+      "https://reel360.com/article/cannes-lions-reveals-first-2026-grand-prix-winners/"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2026-print-gp-look-familiar",
+    "problemJa": "定番調味料は棚に並び続けるだけで、ロゴを見せる以外の記憶の作り方が尽きていた。",
+    "humanTruthJa": "人は毎日見ているものほど、形として見ていない。",
+    "brandTruthJa": "キーストーン型の輪郭は、説明なしで識別される数少ない資産。",
+    "tensionJa": "世界中の食卓に自社の形が置かれているのに、誰も気づいていない。",
+    "coreIdeaJa": "各国のポテト用の箱がロゴとほぼ同じ形だと指摘し、既製品を自社の記号として回収した。",
+    "coreIdeaEn": "Point out that fry boxes worldwide already share the brand's keystone silhouette, claiming existing objects as brand assets.",
+    "twistJa": "資産を新しく作らず、世界の中から発見した。",
+    "patterns": [
+      "brand_asset_surgery",
+      "absence_as_message"
+    ],
+    "executionJa": "商品も人も出さず、箱の輪郭だけを正対で撮る。並置と余白だけで気づかせ、コピーは問いかけ一行に留めた。",
+    "mediaLogicJa": "気づくまでに数秒の凝視が要るため、スクロールされない静止媒体でしか成立しない。",
+    "resultJa": "商業的な成長につながったと報じられているが、具体数値は未検証。",
+    "timelessJa": "新しい記号を探す前に、世界に既にある形の中から自社の形を探す。",
+    "kvDescriptionEn": "A plain paper fry carton shot head-on against a flat ground, its silhouette isolated so the shape reads as a mark.",
+    "sources": [
+      "https://www.famouscampaigns.com/2026/06/case-study-heinz-look-familiar/"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2026-design-gp-apple-tv-rebrand",
+    "problemJa": "サービス名に残った記号が事業の統合を妨げ、映像体験としての格も伝えきれていなかった。",
+    "humanTruthJa": "人は生成された画より、人の手が触れた痕跡を信用する。",
+    "brandTruthJa": "光と質感の扱いこそ、このブランドが一貫して持つ言語。",
+    "tensionJa": "全員が CG に流れる年なのに、映像の魔法は物理の光からしか出ない。",
+    "coreIdeaJa": "名前から記号を一つ外して統合し、ロゴを手作りのガラス彫刻として実写で撮り直した。",
+    "coreIdeaEn": "Drop one character from the name and rebuild the identity around a hand-sculpted glass mnemonic filmed for real, not rendered.",
+    "twistJa": "ロゴを図形ではなく物体として扱った。",
+    "patterns": [
+      "craft_as_idea",
+      "brand_asset_surgery"
+    ],
+    "executionJa": "暗い環境でガラスに光を通し、屈折と反射を実写で拾う。CG を使わないという判断がそのまま主張になっている。",
+    "mediaLogicJa": "暗い部屋で観るサービスだからこそ、暗闇と光という素材が接点の条件と一致する。",
+    "resultJa": "審査委員長は「美しい反逆」と評価。新規登録が過去最高四半期との報道があるが数値は未検証。",
+    "timelessJa": "AI 前提の時代には「人の手で作った」こと自体が差別化の材料になる。",
+    "kvDescriptionEn": "A hand-blown glass form lit in a dark studio, catching refracted light along its edges with no background detail.",
+    "sources": [
+      "https://lbbonline.com/news/apple-cannes-lions-grand-prix-win"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2026-industry-craft-gp-tiny-coffee-shops",
+    "problemJa": "家庭用エスプレッソマシンは「店の味が家で」と言い続けたが、言葉では信じてもらえなかった。",
+    "humanTruthJa": "人はカフェの味ではなく、カフェにいる時間を買っている。",
+    "brandTruthJa": "抽出機構の精度が、店と家の差を実際に埋めている。",
+    "tensionJa": "味は再現できるのに、家には店の空気がない。",
+    "coreIdeaJa": "マシンの周囲に実在のカフェをミニチュアで作り込み、「家がカフェになる」を模型として提示した。",
+    "coreIdeaEn": "Build real cafes as handmade miniatures around the home machine so the promise is an object, not a line.",
+    "twistJa": "ベネフィットを説明せず、寸法の関係に翻訳した。",
+    "patterns": [
+      "craft_as_idea",
+      "scale_shift",
+      "product_as_proof"
+    ],
+    "executionJa": "映画美術のミニチュア職人と組み、CG に逃げず実物を作って撮影。密度が「本当にそこにある」感覚を担保している。",
+    "mediaLogicJa": "模型は近距離で細部を凝視されるほど強くなるため、静止画と印刷が最適だった。",
+    "resultJa": "Industry Craft で Grand Prix、Outdoor で Gold。売上への影響は未検証。",
+    "timelessJa": "「家が◯◯になる」型の約束は、比喩ではなく寸法で見せると一瞬で伝わる。",
+    "kvDescriptionEn": "A countertop appliance surrounded by a hand-built miniature cafe set, shot at eye level.",
+    "sources": [
+      "https://www.reasonwhy.es/actualidad/lola-madrid-delonghi-grand-prix-industry-craft-cannes-lions-2026"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2026-titanium-gp-haven",
+    "problemJa": "異常気象で支払いが膨らみ、保険は「起きた後に払う」だけでは事業として持たなくなっていた。",
+    "humanTruthJa": "人は自分の家だけは大丈夫だと思っている。",
+    "brandTruthJa": "どの家がどう壊れるかを最も知っているのは保険会社。",
+    "tensionJa": "被害データは山ほどあるのに、住人には一度も渡されてこなかった。",
+    "coreIdeaJa": "自社データを統合し、住宅ごとの災害耐性診断と具体的な対策手順を返すツールを作った。",
+    "coreIdeaEn": "Combine the insurer's own datasets into a tool telling each household how its home will fail and what to fix.",
+    "twistJa": "保険の役割を「事後の補填」から「事前の防御」へ書き換えた。",
+    "patterns": [
+      "brand_act_utility",
+      "data_made_human",
+      "reframe_category"
+    ],
+    "executionJa": "広告表現ではなく情報設計が要。複雑なリスク値を、今週できる行動のリストにまで落としている。",
+    "mediaLogicJa": "住所ごとに答えが違う以上、一斉配信ではなく個別に応答するツールでしか成立しない。",
+    "resultJa": "12 のデータセットと API を統合と報道。被害削減の数値は未検証。",
+    "timelessJa": "自社が溜め込んだデータの中に、顧客が一番欲しがっている答えがないか疑う。",
+    "kvDescriptionEn": "A suburban house seen from the street with a data overlay marking vulnerable points on roof and windows.",
+    "sources": [
+      "https://lbbonline.com/news/leo-australia-suncorp-haven-titanium-grand-prix-cannes-2026"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2026-design-gold-dear-difference",
+    "problemJa": "複数の原酒を掛け合わせるウイスキーは、味の「ばらつき」を弱点と読まれやすい。",
+    "humanTruthJa": "人は均質さを品質だと思い込んでいる。",
+    "brandTruthJa": "異なるものが出会って初めて新しい価値が生まれる、という創業者の思想。",
+    "tensionJa": "違いこそが価値なのに、市場は違いを不良と読む。",
+    "coreIdeaJa": "原酒ごとの差異をブランドの主題に据え、無数の点の衝突と調和としてデザイン言語にした。",
+    "coreIdeaEn": "Treat the differences between malts as the brand's subject, abstracting their collision and blending into countless interacting dots.",
+    "twistJa": "弱点とされてきた差異を、思想の名前に変えた。",
+    "patterns": [
+      "weakness_as_idea",
+      "craft_as_idea"
+    ],
+    "executionJa": "最小単位である点だけで運動と緊張と均衡を描く。新聞広告と期間限定のバーに同じ造形原理を展開した。",
+    "mediaLogicJa": "一覧性のある大判の紙面でこそ、点の集合が全体の調和として読める。",
+    "resultJa": "Industry Craft で Gold と Bronze、Design は Silver（Design の Gold ではない点に注意）。",
+    "timelessJa": "製造工程にある「ばらつき」は、たいてい言い換え次第で思想になる。",
+    "kvDescriptionEn": "A field of fine dots of differing size and density colliding and settling into a balanced composition on pale paper.",
+    "sources": [
+      "https://www.asahigroup-holdings.com/en/newsroom/detail/20260709-0201.html"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2025-outdoor-gp-phone-break",
+    "problemJa": "90 年近いタグラインが慣れきり、休憩を促す言葉として機能しなくなっていた。",
+    "humanTruthJa": "人は休憩時間にスマホを見て、休めないまま次の作業に戻る。",
+    "brandTruthJa": "「休憩」という言葉の所有権を持つ数少ないブランド。",
+    "tensionJa": "休んでいるつもりなのに、手の中の画面が休ませてくれない。",
+    "coreIdeaJa": "日常のスマホを見る場面で、手の中の端末をそのまま板チョコに置き換えた。",
+    "coreIdeaEn": "In everyday scenes of people staring at phones, swap the device in their hands for a chocolate bar, with no line and no logo.",
+    "twistJa": "タグラインを言い直さず、当てる文脈だけを替えて意味を更新した。",
+    "patterns": [
+      "brand_asset_surgery",
+      "name_the_enemy"
+    ],
+    "executionJa": "コピーもロゴも使わず、置換という操作ひとつで成立させた。日常光と単一のアクセント色で演出臭を消している。",
+    "mediaLogicJa": "スマホを見ている人が最も多い路上・停留所・駅に貼ることで、現物と広告が同じ視界に入る。",
+    "resultJa": "チェコ初の Grand Prix。デジタル予算ゼロで屋外と印刷のみ。販売数値は未検証。",
+    "timelessJa": "古いタグラインは書き換えるのではなく、当てる文脈を替えると生き返る。",
+    "kvDescriptionEn": "A person waiting at a tram stop holding a chocolate bar at exactly the angle a phone would be held, eyes down.",
+    "sources": [
+      "https://www.famouscampaigns.com/2025/06/kitkat-wins-big-by-calling-out-screen-addiction/"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2025-print-gp-price-packs",
+    "problemJa": "インフレ下で価格据え置きを訴えたいが、値札の広告は読まれず信用もされない。",
+    "humanTruthJa": "人は広告の価格表示を疑うが、棚の現物は疑わない。",
+    "brandTruthJa": "定番商品の価格を実際に据え置いているという、検証できる事実。",
+    "tensionJa": "一番言いたいのが価格なのに、価格を言う広告が一番信用されない。",
+    "coreIdeaJa": "定番5品のパッケージそのものを巨大な価格表示に作り替え、商品を媒体にした。",
+    "coreIdeaEn": "Redesign the packaging of staple products so the price becomes the pack's entire graphic, turning the product into the medium.",
+    "twistJa": "紙面を買わずに、自社の棚をメディアに変えた。",
+    "patterns": [
+      "medium_is_idea",
+      "brand_asset_surgery"
+    ],
+    "executionJa": "商品名より価格の数字を大きく組み、高彩度の地に極太の数字。売場の視線距離から読める級数に合わせている。",
+    "mediaLogicJa": "価格の意思決定は棚の前でしか起きず、そこに置ける媒体はパッケージだけだった。",
+    "resultJa": "4週間で140万個超を販売し月間最高、価格安定の連想は 2,220% 上昇と報道。",
+    "timelessJa": "自社が既に所有していて費用ゼロの面を、媒体として数え直す。",
+    "kvDescriptionEn": "A supermarket shelf of everyday packs whose faces are filled edge to edge with a single oversized price numeral.",
+    "sources": [
+      "https://adage.com/events-awards/cannes-lions/aa-penny-price-packs-print-publishing/"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2025-design-gp-caption-with-intention",
+    "problemJa": "字幕は発話内容しか伝えず、ろう・難聴の観客は演技の感情を受け取れないままだった。",
+    "humanTruthJa": "人は何を言われたかより、どう言われたかで意味を判断している。",
+    "brandTruthJa": "映画の価値は演技の抑揚そのものにある、という業界の前提。",
+    "tensionJa": "台詞は全部読めるのに、芝居は何も伝わっていない。",
+    "coreIdeaJa": "話者・語気・間を、書体と色と動きで書き分ける字幕システムを設計した。",
+    "coreIdeaEn": "Redesign captions as a typographic system where weight, colour and motion encode who speaks and how.",
+    "twistJa": "字幕を「記録」から「演技の楽譜」に変えた。",
+    "patterns": [
+      "make_invisible_visible",
+      "brand_act_utility"
+    ],
+    "executionJa": "話者ごとに色を割り当て、音量と音色を字面の変化に対応させる。当事者と約1年かけて実地検証しながら仕様を詰めた。",
+    "mediaLogicJa": "感情は台詞と同時に届かねば意味がないため、画面内のタイポグラフィ以外に置き場所がない。",
+    "resultJa": "Design・Digital Craft・Brand Experience で Grand Prix。技術部門のオスカーも受賞。",
+    "timelessJa": "アクセシビリティは福祉の付加ではなく、表現の機能として設計すると強い。",
+    "kvDescriptionEn": "A dark film frame overlaid with caption text whose weight, colour and position shift word by word.",
+    "sources": [
+      "https://adage.com/events-awards/cannes-lions/aa-caption-with-intention-digital-design/"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2025-industry-craft-gp-nigrum-corpus",
+    "problemJa": "医学教育の図版がほぼ白人の身体で描かれ、黒い肌の症例を学ばないまま医師が現場に出ていた。",
+    "humanTruthJa": "人は自分が見たことのある症状しか診断できない。",
+    "brandTruthJa": "医学教育機関の責務は、正しい図版を供給すること。",
+    "tensionJa": "医学は客観を標榜するのに、教科書の身体は一種類しかない。",
+    "coreIdeaJa": "黒い肌の症例を正確に描き起こした医学書を作り、主要な医学校に配布した。",
+    "coreIdeaEn": "Produce and distribute a medical reference book that renders clinical signs accurately on Black skin.",
+    "twistJa": "主張ではなく「正しく描く」という制作行為そのものを論拠にした。",
+    "patterns": [
+      "craft_as_idea",
+      "cultural_tension",
+      "provocation_with_purpose"
+    ],
+    "executionJa": "医学図版の様式を守ったまま、イラストの精度だけで議論を成立させる。新奇な装飾を一切足していない。",
+    "mediaLogicJa": "医師が実際に参照するのは書籍であり、書籍の中でしか教育の前提を書き換えられない。",
+    "resultJa": "Industry Craft で Grand Prix、Design と Health で Gold。配布規模は未検証。",
+    "timelessJa": "社会課題は、批判の言葉より「欠けている資料を作る」ほうが早く動く。",
+    "kvDescriptionEn": "A medical textbook spread with precise anatomical illustration of clinical signs on dark skin.",
+    "sources": [
+      "https://acontecendoaqui.com.br/marketing/nigrum-corpus-conquista-grand-prix-em-cannes/"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2025-titanium-gp-three-words",
+    "problemJa": "家庭内暴力の被害者には避難先も費用もなく、住宅保険は「災害」だけを事故として扱っていた。",
+    "humanTruthJa": "人は家が一番安全な場所だと前提して保険を選ぶ。",
+    "brandTruthJa": "保険会社は約款の一行で、数百万人の権利を同時に変えられる。",
+    "tensionJa": "住まいの危険に備える保険なのに、家の中の暴力だけが対象外だった。",
+    "coreIdeaJa": "約款に「および家庭内暴力」の3語を足し、緊急避難と法的・心理支援を遡及適用した。",
+    "coreIdeaEn": "Add three words to a home insurance policy so domestic violence becomes covered grounds for emergency relocation and support.",
+    "twistJa": "広告ではなく商品条件そのものを書き換えた。",
+    "patterns": [
+      "brand_act_utility",
+      "cultural_tension"
+    ],
+    "executionJa": "クリエイティブの実体は契約書の一行。発表はその改訂を淡々と示す最小限の体裁に留めている。",
+    "mediaLogicJa": "約款という法的文書でしか、遡及と強制力のある変更は起こせない。",
+    "resultJa": "350 万件の契約に遡及適用。Titanium・Direct・Creative Business Transformation で Grand Prix。",
+    "timelessJa": "最小の介入で最大の効力を持つ場所は、たいてい表現ではなく規約の中にある。",
+    "kvDescriptionEn": "A close crop of a printed contract page where three added words sit in the middle of dense legal type.",
+    "sources": [
+      "https://adage.com/events-awards/cannes-lions/aa-axa-three-words-titanium/"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2024-print-gp-recycle-me",
+    "problemJa": "容器の環境負荷が批判される中、リサイクルを促す説教型の広告はもう届かなくなっていた。",
+    "humanTruthJa": "人は飲み終わった缶を、商品ではなくゴミとして見る。",
+    "brandTruthJa": "世界で最も認知された記号を持つ企業には、使用後まで責任がある。",
+    "tensionJa": "ロゴは完璧な状態で管理されるのに、現実の缶は潰れてから捨てられる。",
+    "coreIdeaJa": "つぶれた缶やボトルの状態のロゴを描き、使用後の姿をそのまま主役にした。",
+    "coreIdeaEn": "Depict the brand's own logo as it appears on crushed cans and bottles, making the post-use state the hero image.",
+    "twistJa": "最重要資産を意図的に歪めた。",
+    "patterns": [
+      "brand_asset_surgery",
+      "provocation_with_purpose"
+    ],
+    "executionJa": "背景を排し、潰れた曲面の歪みだけで識別させる。コピーは缶の側面から取った短い一語に抑えている。",
+    "mediaLogicJa": "一瞬で識別される記号の崩れは、静止した一枚絵でしか丁寧に味わえない。",
+    "resultJa": "Print & Publishing と Media で Grand Prix。回収率への影響は未検証。",
+    "timelessJa": "資産を守り切ることより、意図をもって壊すほうが記憶に残ることがある。",
+    "kvDescriptionEn": "A crushed aluminium can photographed flat-on, its printed script distorted but still legible, on an empty ground.",
+    "sources": [
+      "https://www.ogilvy.com/ideas/ogilvy-takes-home-grand-prix-coca-colas-recycle-me-day-one-cannes-lions"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2024-outdoor-gp-find-your-summer",
+    "problemJa": "アイスは冬に売れないという前提のまま、一年の半分を捨てていた。",
+    "humanTruthJa": "人は寒い日に射す一瞬の陽射しを、異常に嬉しく感じる。",
+    "brandTruthJa": "このブランドが売っているのは冷たさではなく、贅沢な一瞬。",
+    "tensionJa": "夏の商品なのに、夏を一番欲しているのは冬の人だった。",
+    "coreIdeaJa": "灰色の街に落ちる細い陽だまりを「夏」と定義し、気象データで実際の場所を案内した。",
+    "coreIdeaEn": "Define the thin patches of winter sunlight in a grey city as summer, and use weather data to point people to them in real time.",
+    "twistJa": "オフシーズンという不利を、アイデアの前提条件に変えた。",
+    "patterns": [
+      "weakness_as_idea",
+      "data_made_human"
+    ],
+    "executionJa": "モノクロに近い冬の街で、陽の帯と製品だけが色を持つ。同じ視覚原理でポスターとデジタル掲出を統一した。",
+    "mediaLogicJa": "陽だまりは場所と時刻に固定されるため、位置と時間を持つ屋外面でしか案内できない。",
+    "resultJa": "Outdoor で Grand Prix、Outdoor と Print で Gold。低需要期に過去最高との報道。",
+    "timelessJa": "季節や状況の不利は、消すのではなく前提として書き込むと武器になる。",
+    "kvDescriptionEn": "A grey winter street where one narrow shaft of sunlight falls on a doorstep, a single figure sitting inside the light.",
+    "sources": [
+      "https://www.contagious.com/news-and-views/cannes-lions-outdoor-winners-2024"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2024-design-gp-sightwalks",
+    "problemJa": "視覚障害者は点字ブロックで方向は分かっても、その先に何があるかは分からなかった。",
+    "humanTruthJa": "人は道順より、目的地の中身を知りたい。",
+    "brandTruthJa": "セメント会社は、歩道という都市の表面そのものを作っている。",
+    "tensionJa": "案内のための床なのに、何も案内していない。",
+    "coreIdeaJa": "突起の本数と向きで施設の種類と左右を伝える触覚の記号体系を、歩道に追加した。",
+    "coreIdeaEn": "Extend tactile paving into a code where the number and direction of ridges tell blind pedestrians what kind of place is ahead.",
+    "twistJa": "自社製品そのものを解決策の素材として使った。",
+    "patterns": [
+      "brand_act_utility",
+      "cultural_tension"
+    ],
+    "executionJa": "既存規格を壊さず、突起の数という一変数だけを追加。設計と特許を開放し他都市が無償で採用できる。",
+    "mediaLogicJa": "情報を足裏でしか受け取れない相手なので、床以外に媒体が存在しない。",
+    "resultJa": "Design で Grand Prix ほか計7 Lions。設計と特許は無償公開。導入都市数は未検証。",
+    "timelessJa": "自社の製品が課題の現場の素材そのものなら、広告より仕様変更のほうが速い。",
+    "kvDescriptionEn": "A close overhead view of textured paving tiles whose raised bars vary in count and direction along a sidewalk.",
+    "sources": [
+      "https://www.contagious.com/news-and-views/cannes-lions-2024-design-winner"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2024-industry-craft-gp-the-100th-edition",
+    "problemJa": "新聞のブランド広告シリーズが99回続き、まだ続ける理由を失いかけていた。",
+    "humanTruthJa": "人は顔が見えないほど、その人が誰かを考え続ける。",
+    "brandTruthJa": "この新聞の読者は、状況から答えを組み立てられるという前提。",
+    "tensionJa": "顔を隠しているのに、誰なのかが分かってしまう。",
+    "coreIdeaJa": "「新聞で顔が隠れた人物を周囲の状況だけで特定させる」型の第100回を、最も重い文脈で撮った。",
+    "coreIdeaEn": "For the 100th edition of a long-running portrait format, place the hidden-face device in its heaviest setting.",
+    "twistJa": "型を更新せず、被写体の選択だけで意味を最大化した。",
+    "patterns": [
+      "long_idea_platform",
+      "absence_as_message"
+    ],
+    "executionJa": "撮影に映画監督を起用し、光と背景の情報量を厳密に管理。顔以外のすべてが読解の手がかりになるよう設計した。",
+    "mediaLogicJa": "新聞が実物として写ることが前提の型で、他媒体では自己言及そのものが成立しない。",
+    "resultJa": "Industry Craft で Grand Prix。購読・認知への影響は未検証。",
+    "timelessJa": "型を持っているなら、新しさより「どこで使い切るか」を考える。",
+    "kvDescriptionEn": "A seated figure holding an open newspaper that hides the face, the location carrying all the meaning.",
+    "sources": [
+      "https://www.contagious.com/news-and-views/cannes-lions-2024-digital-film-and-industry-craft-winners"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2024-film-craft-gp-the-square-metre",
+    "problemJa": "ホームセンターは広さや品揃えを訴えがちで、狭い住まいの人を励ます言葉を持たなかった。",
+    "humanTruthJa": "人は狭い部屋を、運の結果だと思って諦めている。",
+    "brandTruthJa": "DIY の価値は面積ではなく、手を加える意思で決まる。",
+    "tensionJa": "面積は変えられないのに、価値は変えられる。",
+    "coreIdeaJa": "1平方メートルの空間で一日の身支度を完結させる男を通して、狭さの価値を描いた。",
+    "coreIdeaEn": "Follow a man completing a full daily routine inside one square metre, so the smallest possible space becomes the subject.",
+    "twistJa": "制約を不便としてではなく、主題として扱った。",
+    "patterns": [
+      "craft_as_idea",
+      "scale_shift"
+    ],
+    "executionJa": "セットは特殊効果に頼らず全て実作し、画角の制約そのもので語る。説明的なナレーションを置いていない。",
+    "mediaLogicJa": "空間の窮屈さは時間の経過でしか体感できないため、映像以外では成立しない。",
+    "resultJa": "Film Craft で Grand Prix。販売への影響は未検証。",
+    "timelessJa": "制約は言い訳ではなく、画面設計の原理として使うと強度が出る。",
+    "kvDescriptionEn": "A man performing a daily routine inside a tightly built one-metre-square set, the frame cropped to the space's edges.",
+    "sources": [
+      "https://lbbonline.com/news/hornbach-and-heimattbwa-enchant-on-1-square-metre"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2023-outdoor-gp-a-british-original",
+    "problemJa": "航空ブランドは信頼の回復が必要で、路線や設備の訴求では気持ちが動かなかった。",
+    "humanTruthJa": "人は出張でも観光でもない、私的な理由で飛んでいる。",
+    "brandTruthJa": "この航空会社にとって、乗客の理由の多様さそのものが資産。",
+    "tensionJa": "全員が別々の理由で乗るのに、渡航目的は二択でしか聞かれない。",
+    "coreIdeaJa": "「渡航目的は？」という定型の問いに、500点以上の個別の答えで返した。",
+    "coreIdeaEn": "Answer the standard border question about purpose of travel with hundreds of personal reasons instead of two boxes.",
+    "twistJa": "手続きの二択を、無数の一人称で埋め尽くした。",
+    "patterns": [
+      "hijack_ritual",
+      "long_idea_platform"
+    ],
+    "executionJa": "同じ版面規律と書体で500点超を統一し、変わるのは写真と一行だけ。場所・時刻・天候で出し分けた。",
+    "mediaLogicJa": "個別性は物量でしか実感されず、同時多発的に貼れる屋外以外では成立しない。",
+    "resultJa": "500 点超（512 とする報道もあり）で Outdoor Grand Prix。搭乗数への影響は未検証。",
+    "timelessJa": "数を出す前に「変えない要素」を決め切ると、量が薄まらず強度に変わる。",
+    "kvDescriptionEn": "A quiet documentary photograph of one traveller with a single short personal line in a fixed frame.",
+    "sources": [
+      "https://www.contagious.com/news-and-views/cannes-lions-outdoor-winners-2023"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2023-print-gp-newspapers-inside-the-newspaper",
+    "problemJa": "経済危機で複数の新聞が廃刊し、言論の場そのものが消えつつあった。",
+    "humanTruthJa": "人は失って初めて、その声があったことを思い出す。",
+    "brandTruthJa": "残った新聞にとって、紙面は主張ではなく他者に渡せる場所。",
+    "tensionJa": "自紙が生き残るほど、消えた声は誰にも聞こえなくなる。",
+    "coreIdeaJa": "廃刊した他紙の紙面を自紙の中に再現し、消えた言論の場を一日だけ復活させた。",
+    "coreIdeaEn": "Reproduce the pages of shut-down rival papers inside your own edition, giving vanished editorial voices one day back.",
+    "twistJa": "表現を作らず、場所を差し出した。",
+    "patterns": [
+      "medium_is_idea",
+      "borrowed_format"
+    ],
+    "executionJa": "各紙の題字・組版・書体を忠実に再現して入れ子にする。自紙のデザインを一切被せていない。",
+    "mediaLogicJa": "紙面の中に紙面を入れる入れ子は、物理的な印刷物でしか成立しない。",
+    "resultJa": "Print & Publishing で Grand Prix。部数・政治的影響は未検証。",
+    "timelessJa": "自分が語るより、自分の場所を誰に渡すかで態度が伝わることがある。",
+    "kvDescriptionEn": "A newspaper spread with faithfully reproduced front pages of other papers nested inside its columns.",
+    "sources": [
+      "https://lbbonline.com/news/cannes-lions-2023-grand-prix-winners-in-pharma-health-wellness-outdoor-print-publishing-and-radio-audio"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2023-design-gp-adlam",
+    "problemJa": "4000万人以上が話す言語に整備された文字がなく、デジタル上で自分の言葉を書けなかった。",
+    "humanTruthJa": "人は自分の言葉で書けない環境では、文化を次の世代に渡せない。",
+    "brandTruthJa": "OS と書体を配る側は、画面上に何が存在するかを決められる。",
+    "tensionJa": "文字は30年前に作られていたのに、画面の上には存在しなかった。",
+    "coreIdeaJa": "西アフリカのフラニ語のための文字を書体として整備し、主要なオフィス環境に搭載した。",
+    "coreIdeaEn": "Digitise a young West African script as a working typeface and ship it inside mainstream office software.",
+    "twistJa": "デザインの成果を美しさではなく「使えること」で定義した。",
+    "patterns": [
+      "brand_act_utility",
+      "craft_as_idea"
+    ],
+    "executionJa": "文字の創案者と共同で字形を設計し、実務に耐える書体まで詰めた。装飾的な表現物を一切作っていない。",
+    "mediaLogicJa": "書けるようになることが目的なので、キャンペーンではなく書体配信が唯一の接点になる。",
+    "resultJa": "Design と Creative Business Transformation で Grand Prix、計7 Lions。",
+    "timelessJa": "文化の課題は、語る作品より「使える道具」にしたほうが長く効く。",
+    "kvDescriptionEn": "Specimen sheets of a non-Latin script shown at several weights and sizes on a plain white field.",
+    "sources": [
+      "https://www.contagious.com/news-and-views/cannes-lions-design-winners-2023"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2023-industry-craft-gp-my-japan-railway",
+    "problemJa": "鉄道150周年を機に、移動そのものの価値を国内で再認識させる必要があった。",
+    "humanTruthJa": "人は集め始めた瞬間、行く理由のなかった場所へ行き始める。",
+    "brandTruthJa": "駅スタンプという文化が、全国の網の目の上に既に存在していた。",
+    "tensionJa": "全国に駅はあるのに、降りる理由のない駅ばかりだった。",
+    "coreIdeaJa": "1000 以上の駅ごとに土地の名物を織り込んだデジタルスタンプを作り、集めるために旅をさせた。",
+    "coreIdeaEn": "Create a location-specific digital stamp for every station on a national network, so collecting them becomes a reason to travel.",
+    "twistJa": "広告を作らず、収集という行動設計そのものを作品にした。",
+    "patterns": [
+      "participation_mechanic",
+      "craft_as_idea",
+      "long_idea_platform"
+    ],
+    "executionJa": "1000 点超を同じ線幅と版面規律で描き切る体力が核。押す強さで濃淡が変わる触覚まで再現している。",
+    "mediaLogicJa": "駅に近づいたときだけ押せる設計なので、位置を持つスマートフォン以外では成立しない。",
+    "resultJa": "Industry Craft で Grand Prix。全国1000 以上の駅が対象。旅客数への影響は未検証。",
+    "timelessJa": "行動を促すなら、報酬は値引きより「揃っていない状態」のほうが強い。",
+    "kvDescriptionEn": "A grid of monoline circular stamp illustrations, each depicting a different local landmark or specialty.",
+    "sources": [
+      "https://dentsu-ho.com/en/articles/8703"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2023-titanium-gp-the-first-digital-nation",
+    "problemJa": "海面上昇で国土が消えると、国家としての主権と海洋権益まで失われる恐れがあった。",
+    "humanTruthJa": "人は自分の国が地図から消える事態を想像できない。",
+    "brandTruthJa": "国家は土地ではなく、承認と記録によって成立している。",
+    "tensionJa": "国土は沈むのに、国家は沈ませない方法があるかもしれない。",
+    "coreIdeaJa": "国土・文化・国家機能をデジタル空間に複製し、世界初のデジタル国家を宣言した。",
+    "coreIdeaEn": "Replicate a nation's land, culture and statehood in digital space and claim recognition as a digital nation.",
+    "twistJa": "気候問題を被害の訴えから、法的地位の主張へ移した。",
+    "patterns": [
+      "juxtaposition",
+      "provocation_with_purpose",
+      "brand_act_utility"
+    ],
+    "executionJa": "国際会議の演説という様式のまま、足元だけが海になっている。儀式と異常環境の落差で一枚が成立する。",
+    "mediaLogicJa": "国家の主張は外交の場で行われなければ効力を持たず、演説そのものが本体になる。",
+    "resultJa": "有料媒体なしで359 媒体・21億人に到達、同年12月までに26か国が承認と報道。",
+    "timelessJa": "訴えが届かないときは、感情ではなく法的な地位へ争点を移せないか考える。",
+    "kvDescriptionEn": "A figure in formal dress at a lectern, seawater reaching the base of the podium behind them.",
+    "sources": [
+      "https://newsroom.accenture.com/news/2023/accenture-song-wins-dan-wieden-titanium-grand-prix-for-tuvalu-the-first-digital-nation"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2022-outdoor-gp-liquid-billboard",
+    "problemJa": "全身を覆う水着を出しても、公共の場で泳ぐこと自体をためらう人が多く、着る機会が生まれなかった。",
+    "humanTruthJa": "人は見られることが怖くて、泳ぎたい気持ちのほうを諦める。",
+    "brandTruthJa": "スポーツブランドの役目は、参加の障壁を物理的に取り除くこと。",
+    "tensionJa": "泳ぐための服はあるのに、泳げる場所がなかった。",
+    "coreIdeaJa": "ビーチに実際に泳いで入れる巨大な水槽型の掲出物を設置し、泳ぐ自由を体験として差し出した。",
+    "coreIdeaEn": "Install a billboard-shaped public pool on a beach people can actually swim inside.",
+    "twistJa": "屋外広告の物理的な形式そのものを再定義した。",
+    "patterns": [
+      "medium_is_idea",
+      "cultural_tension",
+      "participation_mechanic"
+    ],
+    "executionJa": "透明アクリルの水槽を掲出サイズで作り、泳ぐ姿がシルエットとして読める照明と配信を設計した。",
+    "mediaLogicJa": "見られる恐怖を扱う以上、安全に泳げる実物の場所以外では何も証明できない。",
+    "resultJa": "Outdoor で Grand Prix ほか4 Lions。高さ5m・奥行3m と報道。着用者数は未検証。",
+    "timelessJa": "行動の障壁が物理的なら、メッセージではなく場所を作るほうが速い。",
+    "kvDescriptionEn": "A large transparent water tank on a beach with swimmers visible as silhouettes inside it.",
+    "sources": [
+      "https://www.thedrum.com/news/adidas-liquid-billboard-campaign-wins-outdoor-grand-prix-cannes-lions"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2022-print-gp-the-elections-edition",
+    "problemJa": "選挙報道は政治家の主張の場になり、有権者の声が紙面から消えていた。",
+    "humanTruthJa": "人は代弁されるほど、自分の言葉を失っていく。",
+    "brandTruthJa": "新聞の紙面は、毎日「誰の声を載せるか」を決めている権力。",
+    "tensionJa": "選挙は国民のものなのに、紙面は政治家のものだった。",
+    "coreIdeaJa": "選挙当日の紙面を国民の声だけで構成し、新聞そのものを投票の場として差し出した。",
+    "coreIdeaEn": "Fill an election-day edition entirely with citizens' voices, offering the newspaper itself as a place to be heard.",
+    "twistJa": "報じる側から、場を明け渡す側に回った。",
+    "patterns": [
+      "medium_is_idea",
+      "long_idea_platform"
+    ],
+    "executionJa": "編集判断そのものが作品で、装飾を足していない。同紙は形式を主張に変える手法を数年にわたり反復している。",
+    "mediaLogicJa": "投票日の朝に全員の手へ同時に届く物理的な面は、新聞以外に存在しない。",
+    "resultJa": "Print & Publishing で Grand Prix。投票率への影響は未検証。",
+    "timelessJa": "媒体を持つ側は、何を言うかより誰に場所を渡すかで態度を示せる。",
+    "kvDescriptionEn": "A newspaper front page composed entirely of short quoted statements set in uniform type, no photographs.",
+    "sources": [
+      "https://creative.salon/articles/cannes/cannes-2022/cannes-lions-decoded-print-publishing-2022"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2022-industry-craft-gp-hope-reef",
+    "problemJa": "ペットフードブランドが持続可能性を語っても、海の再生は生活者の日常から遠すぎた。",
+    "humanTruthJa": "人は「守ろう」より「育っていく様子」に心を動かされる。",
+    "brandTruthJa": "魚を原料にする以上、海の回復は事業の前提条件でもある。",
+    "tensionJa": "回復には何年もかかるのに、広告は数週間で消える。",
+    "coreIdeaJa": "珊瑚を植え直し、成長した珊瑚が上空から文字を形づくるようにして、衛星で経過を見られるようにした。",
+    "coreIdeaEn": "Replant a coral reef in the shape of a word so the letters appear as the coral grows, seen from satellite.",
+    "twistJa": "制作物ではなく生態系そのものを素材にし、完成を未来に置いた。",
+    "patterns": [
+      "scale_shift",
+      "craft_as_idea",
+      "brand_act_utility"
+    ],
+    "executionJa": "鋼の構造体に珊瑚片を固定し、俯瞰で図と地が読める配置に植える。時間そのものが仕上げ工程になっている。",
+    "mediaLogicJa": "文字が読めるのは衛星の高度だけで、成長の記録は公開地図上でしか検証できない。",
+    "resultJa": "46 フィートの鋼の文字に 12,600 の珊瑚片を固定と報道。Industry Craft と Media で Grand Prix。",
+    "timelessJa": "完成まで時間がかかることは弱みではなく、見に来る理由に変えられる。",
+    "kvDescriptionEn": "An aerial view of shallow turquoise water where reef structures form large letters on the seabed.",
+    "sources": [
+      "https://lbbonline.com/news/hope-grows-a-year-after-launch-shebas-hope-reef-is-flourishing"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2022-design-gp-portuguese-reconstitution",
+    "problemJa": "憲法に書かれた権利が現実には守られていない事例が積み上がっていたが、可視化されていなかった。",
+    "humanTruthJa": "人は法律の条文を、自分の生活と結びつけて読まない。",
+    "brandTruthJa": "出版社は、既存のテキストを編集して意味を変えられる立場にいる。",
+    "tensionJa": "条文は全員に保証しているのに、現実は誰にも保証していない。",
+    "coreIdeaJa": "憲法の条文を、その条文が破られた実例の記録で置き換え／注記した書籍を作った。",
+    "coreIdeaEn": "Publish the national constitution with each article annotated by a documented case of its violation.",
+    "twistJa": "権威ある文書の形式を保ったまま、中身だけを告発に入れ替えた。",
+    "patterns": [
+      "borrowed_format",
+      "name_the_enemy"
+    ],
+    "executionJa": "法典の判型・書体・条番号の体裁を厳守し、装飾を足さない。介入は最小限で、落差だけが効いている。",
+    "mediaLogicJa": "法典という様式の権威は、製本された書籍としての物理性がないと立ち上がらない。",
+    "resultJa": "ポルトガル初の Design Grand Prix。政策への影響は未検証。",
+    "timelessJa": "強い形式を持つ既存文書は、最小の介入で最大の意味の反転を起こせる。",
+    "kvDescriptionEn": "An open law book whose numbered articles are interleaved with case records in the same type style.",
+    "sources": [
+      "https://www.adobomagazine.com/advertising-awards/cannes-lions-2022-the-winners-of-this-years-design-lions-fcb-lisbon-wins-grand-prix/"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2021-print-gp-courage-is-beautiful",
+    "problemJa": "美容ブランドは加工された美を前提にした表現を続け、コロナ禍で語る資格を問われていた。",
+    "humanTruthJa": "人は疲れ切った人の顔に、いちばん強い美しさを見る。",
+    "brandTruthJa": "「本当の美」を掲げてきたブランドは、その定義を試される。",
+    "tensionJa": "美を語るブランドなのに、いま最も美しい顔は傷ついた顔だった。",
+    "coreIdeaJa": "医療従事者の顔に残ったマスクの痕を、加工せずそのまま「美しさ」の定義として提示した。",
+    "coreIdeaEn": "Present the mask marks left on healthcare workers' faces, unretouched, as the definition of beauty.",
+    "twistJa": "自分たちが作ってきた表現規範を、自分たちで破った。",
+    "patterns": [
+      "reframe_category",
+      "provocation_with_purpose"
+    ],
+    "executionJa": "商品も背景も出さず、暗い地に顔だけを置く。レタッチを一切しない判断が、そのままメッセージになっている。",
+    "mediaLogicJa": "皮膚の痕という細部を凝視させられるのは、印刷の大判という形式だけだった。",
+    "resultJa": "Print & Publishing と Industry Craft で Grand Prix。売上への影響は未検証。",
+    "timelessJa": "カテゴリーの表現規範を破る権利は、それを作った側が一番強く持っている。",
+    "kvDescriptionEn": "A close unretouched portrait of an exhausted healthcare worker, deep mask marks visible, dark ground.",
+    "sources": [
+      "https://www.contagious.com/en/article/news-and-views/cannes-lions-print-publishing-winners-2021"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2021-outdoor-gp-moldy-whopper",
+    "problemJa": "保存料を除いた事実を伝えたかったが、食品広告で「腐る」を見せるのは最大のタブーだった。",
+    "humanTruthJa": "人は腐らない食べ物のほうを、かえって不気味だと感じる。",
+    "brandTruthJa": "保存料を抜いたなら、カビることが正しさの証拠になる。",
+    "tensionJa": "腐ることが品質の証拠なのに、腐った絵は絶対に出せない。",
+    "coreIdeaJa": "ハンバーガーがカビていく過程を、そのまま広告のメインビジュアルにした。",
+    "coreIdeaEn": "Make the time-lapse decay of a burger without preservatives the campaign's hero image.",
+    "twistJa": "見たくないものを、最も美しい商品写真の作法で撮った。",
+    "patterns": [
+      "product_as_proof",
+      "weakness_as_idea",
+      "provocation_with_purpose"
+    ],
+    "executionJa": "スタジオ商品撮影の照明と構図を完全に守り、被写体だけを腐らせる。形式の遵守が逆説を成立させている。",
+    "mediaLogicJa": "経過日数を明示した静止画の連作でしか「時間が証拠だ」という論理は読めない。",
+    "resultJa": "Outdoor で Grand Prix。売上・来店への影響は未検証。",
+    "timelessJa": "タブーは、カテゴリーの作法を守ったまま破ると批判ではなく主張になる。",
+    "kvDescriptionEn": "A studio-lit food still life of a decaying burger, shot with the lighting and framing of a classic product photograph.",
+    "sources": [
+      "https://www.creativereview.co.uk/cannes-lions-2021-grand-prix-winners/"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2021-design-gp-shot-on-iphone",
+    "problemJa": "スマートフォンの画質を語る広告は仕様比較に落ちやすく、ブランドの格を下げる。",
+    "humanTruthJa": "人は自分が撮った一枚を、他人の作品より誇りに思う。",
+    "brandTruthJa": "製品の価値は仕様ではなく、使い手の作品の中にしか現れない。",
+    "tensionJa": "性能を証明したいのに、企業が作った写真では何も証明できない。",
+    "coreIdeaJa": "広告の被写体をユーザーの写真そのものにし、ブランドの発言をキュレーションに置き換えた。",
+    "coreIdeaEn": "Make user-taken photographs the advertising itself, replacing brand messaging with curation and a strict frame.",
+    "twistJa": "作らないという選択を、デザインシステムとして成立させた。",
+    "patterns": [
+      "absence_as_message",
+      "long_idea_platform"
+    ],
+    "executionJa": "写真の統一感ではなく、余白・級数・クレジット位置という版面規律だけで一貫性を担保している。",
+    "mediaLogicJa": "巨大な屋外面に引き伸ばすこと自体が、画質という主張の唯一の証明になる。",
+    "resultJa": "Design で Grand Prix。販売への影響は未検証。",
+    "timelessJa": "一貫性は「同じ絵を繰り返す」ではなく「同じ規律を守る」でも作れる。",
+    "kvDescriptionEn": "A large outdoor panel showing one amateur photograph full bleed, with a single small credit line in a fixed position.",
+    "sources": [
+      "https://www.creativereview.co.uk/cannes-lions-2021-grand-prix-winners/"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2019-outdoor-gp-dream-crazy",
+    "problemJa": "スポーツブランドの「信じろ」というメッセージが、言葉として摩耗していた。",
+    "humanTruthJa": "人は代償を払った人の言葉しか信じない。",
+    "brandTruthJa": "このブランドは勝者ではなく、挑む者の側に立つと言い続けてきた。",
+    "tensionJa": "全員に好かれたいのに、立場を示さなければ誰の心も動かない。",
+    "coreIdeaJa": "「すべてを失うとしても何かを信じろ」という一文を、社会的に分断された人物の顔の上に置いた。",
+    "coreIdeaEn": "Place a single line about believing in something even at total cost over the face of a socially divisive figure.",
+    "twistJa": "表現ではなく「誰を選ぶか」という判断そのものをアイデアにした。",
+    "patterns": [
+      "provocation_with_purpose",
+      "cultural_tension"
+    ],
+    "executionJa": "モノクロの顔写真に白抜きの一文を重ねるだけ。ポスターという最古の形式を一切飾っていない。",
+    "mediaLogicJa": "立場の表明は、掲出された場所と大きさそのものが覚悟の証拠になる。",
+    "resultJa": "Outdoor で Grand Prix。不買運動と株価上昇の双方が報じられたが数値は未検証。",
+    "timelessJa": "強い表現より、強い選択のほうが記憶に残ることがある。",
+    "kvDescriptionEn": "A monochrome close-up portrait filling the frame with a short line of white type set across the face.",
+    "sources": [
+      "https://www.creativereview.co.uk/cannes-lions-winners-2019/"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2019-print-gp-the-blank-edition",
+    "problemJa": "政治の空転が続き、報じるべき進展そのものが存在しなくなっていた。",
+    "humanTruthJa": "人は何も書かれていない紙面の前で、初めて自分の言葉を探す。",
+    "brandTruthJa": "新聞の力は載せる内容だけでなく、発行するという行為にもある。",
+    "tensionJa": "報じるのが仕事なのに、報じるべきことが何も起きていない。",
+    "coreIdeaJa": "抗議として、文字のない白紙のまま新聞を発行した。",
+    "coreIdeaEn": "Publish the newspaper as blank pages, using the absence of content as the entire editorial statement.",
+    "twistJa": "情報を載せないという最大の引き算を、そのまま主張にした。",
+    "patterns": [
+      "absence_as_message",
+      "medium_is_idea"
+    ],
+    "executionJa": "題字と日付以外を残さず、紙質と余白だけで成立させる。装飾も説明も一切足していない。",
+    "mediaLogicJa": "白紙が意味を持つのは、そこに何かがあるはずだと全員が知っている印刷物の中だけ。",
+    "resultJa": "Print & Publishing で Grand Prix。政治的影響は未検証。",
+    "timelessJa": "引き算は、受け手が「何が消えたか」を知っている媒体でしか効かない。",
+    "kvDescriptionEn": "A newspaper front page left entirely blank except for the masthead and date at the top.",
+    "sources": [
+      "https://www.contagious.com/news-and-views/cannes-lions-print-publishing-grand-prix-2019"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2019-design-gp-creatability",
+    "problemJa": "描く・奏でるという創作の道具が、身体の条件によって使えない人を置き去りにしていた。",
+    "humanTruthJa": "人は支援の対象として扱われるより、作る側でいたい。",
+    "brandTruthJa": "機械学習は、入力の形そのものを自由にするために使える。",
+    "tensionJa": "創作は誰にでも開かれているはずなのに、道具が入口を閉じている。",
+    "coreIdeaJa": "身体の制約にかかわらず描く・奏でることができる実験群を作り、誰でも使える形で公開した。",
+    "coreIdeaEn": "Build and open creative tools that let people draw and make music regardless of physical ability.",
+    "twistJa": "アクセシビリティを福祉ではなく、創作の楽しさの文脈に置き直した。",
+    "patterns": [
+      "brand_act_utility",
+      "reframe_category"
+    ],
+    "executionJa": "完成品ではなく手法を小さく複数配る構成。原色と単純な図形で、操作と結果の因果を一目で分かるようにしている。",
+    "mediaLogicJa": "使ってみるまで価値が分からないため、その場で触れる形以外に接点がない。",
+    "resultJa": "Design で Grand Prix。利用者数は未検証。",
+    "timelessJa": "成果を「使える人が増えたか」で定義すると、デザインの評価軸そのものが変わる。",
+    "kvDescriptionEn": "A bright primary-coloured interface where a body movement traces a line or triggers a note.",
+    "sources": [
+      "https://www.adobomagazine.com/global-news/cannes-lions-2019-grand-prix-winners-for-design-pharma-health-wellness-outdoor-and-print-publishing/"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2019-industry-craft-gp-hq-at-the-church",
+    "problemJa": "都市の若者にはスポーツをする場所がなく、ブランドの言葉だけでは何も変わらなかった。",
+    "humanTruthJa": "人は語られるより、自分の街に何が建つかで信用を決める。",
+    "brandTruthJa": "スポーツブランドの本業は、プレーできる場所を増やすこと。",
+    "tensionJa": "スポーツを応援すると言いながら、コートは減り続けていた。",
+    "coreIdeaJa": "使われなくなった教会を、地域の若者のためのバスケットボール施設に作り替えた。",
+    "coreIdeaEn": "Convert a disused church into a basketball facility for local young people, making the building itself the message.",
+    "twistJa": "広告を作らず、建築と施工そのものを表現にした。",
+    "patterns": [
+      "brand_act_utility",
+      "craft_as_idea"
+    ],
+    "executionJa": "教会の構造と光を残したままコートを挿入し、素材と塗り分けの精度で語る。装飾的なブランディングを載せていない。",
+    "mediaLogicJa": "場所の価値は使われ続けることでしか証明できず、恒久的な建築以外では成立しない。",
+    "resultJa": "Industry Craft で Grand Prix。利用者数は未検証。",
+    "timelessJa": "既存の建物の用途変更は、新築より少ない予算で強い物語を作れる。",
+    "kvDescriptionEn": "A basketball court built inside a former church nave, tall windows casting light across the painted floor.",
+    "sources": [
+      "https://www.bizcommunity.com/Article/196/111/192121.html"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2019-titanium-gp-whopper-detour",
+    "problemJa": "アプリのダウンロードが伸びず、注文のデジタル化が進まなかった。",
+    "humanTruthJa": "人は安さより、ちょっとした悪ふざけに乗りたくなる。",
+    "brandTruthJa": "このブランドは競合を名指しすることを自らのトーンにしてきた。",
+    "tensionJa": "自社に来てほしいのに、一番人が集まっているのは競合の店頭だった。",
+    "coreIdeaJa": "競合店の至近距離でアプリを開いたときだけ 1 セントのバーガーが買える仕掛けを作った。",
+    "coreIdeaEn": "Unlock a one-cent burger only when the app is opened close to a rival chain's restaurant.",
+    "twistJa": "競合の店舗網を、自社の販促装置として使った。",
+    "patterns": [
+      "name_the_enemy",
+      "participation_mechanic",
+      "humor_by_truth"
+    ],
+    "executionJa": "地図 UI と現在地の演出をそのままゲームの盤面にする。技術の使い方とユーモアが分離していない。",
+    "mediaLogicJa": "位置情報がなければ成立しない冗談なので、スマートフォン以外に媒体が存在しない。",
+    "resultJa": "アプリ DL は 150 万件増、50 万個超が引き換えられ、ROI は 37 対 1 と報道。",
+    "timelessJa": "競合の資産（店舗網・行列・話題）を、自社の装置として数え直せないか考える。",
+    "kvDescriptionEn": "A phone map screen showing a user at a rival restaurant as a one-cent offer unlocks on the display.",
+    "sources": [
+      "https://www.marketingdive.com/news/burger-kings-whopper-detour-generated-15m-app-downloads/548203/"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2019-pr-gp-the-tampon-book",
+    "problemJa": "生理用品は19%、書籍は7%という税率差が放置され、抗議の言葉では動かなかった。",
+    "humanTruthJa": "人は制度の不合理を、具体的な金額で見せられて初めて怒る。",
+    "brandTruthJa": "この会社は、自社商品の分類そのものを設計できる売り手でもある。",
+    "tensionJa": "必需品が贅沢品として課税され、贅沢品のほうが安く売られていた。",
+    "coreIdeaJa": "タンポンを本の中に封入し、「本」として低い税率で販売した。",
+    "coreIdeaEn": "Package tampons inside a printed book so they are legally sold as a book at the lower tax rate.",
+    "twistJa": "表現ではなく「物としてどう分類されるか」を設計した。",
+    "patterns": [
+      "borrowed_format",
+      "name_the_enemy",
+      "cultural_tension"
+    ],
+    "executionJa": "本として成立する分量の読み物と図版を実際に作り込み、パロディに落とさない。製本の精度が抗議の正当性を担保する。",
+    "mediaLogicJa": "税率は物理的な商品の分類に紐づくため、書籍という現物以外では論証にならない。",
+    "resultJa": "初版1000部が即完売し増刷。ドイツは 2020 年に生理用品の税率を引き下げた。",
+    "timelessJa": "制度を変えたいときは、制度の定義そのものを満たす物を作るのが最短になりうる。",
+    "kvDescriptionEn": "A hardback book lying open to show tampons seated in a cut-out cavity within the printed pages.",
+    "sources": [
+      "https://www.wpp.com/en/case-studies/scholz-and-friends-the-female-company-the-tampon-book"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2018-print-gp-tagwords",
+    "problemJa": "伝説的なライブの写真は使用権が取れず、しかしその記憶こそがブランドの資産だった。",
+    "humanTruthJa": "人は見せられた画像より、自分で思い出した画像を強く信じる。",
+    "brandTruthJa": "そのブランドは音楽の歴史的な瞬間に実際に居合わせてきた。",
+    "tensionJa": "最も効く画像があるのに、絶対に使えない。",
+    "coreIdeaJa": "写真の代わりに、検索すれば必ずその写真に辿り着く検索語だけをポスターに載せた。",
+    "coreIdeaEn": "Instead of the unlicensable photograph, run only the search terms that lead straight to it.",
+    "twistJa": "権利という制約を、回避策ではなくアイデアの中心に変えた。",
+    "patterns": [
+      "absence_as_message",
+      "participation_mechanic"
+    ],
+    "executionJa": "画像を一切置かず、検索語を大きく組んだ文字だけの紙面。書体と余白の管理だけで成立させている。",
+    "mediaLogicJa": "検索という行為を誘発するには、その場で答えの出ない静止媒体のほうが強い。",
+    "resultJa": "Print & Publishing で Grand Prix。検索数への影響は未検証。",
+    "timelessJa": "使えない素材があるときは、受け手の記憶のほうを素材として数える。",
+    "kvDescriptionEn": "A poster containing only a few large words of search-query text on a plain coloured field.",
+    "sources": [
+      "https://www.adweek.com/creativity/check-out-all-30-grand-prix-winners-from-cannes-lions-2018/"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2018-outdoor-gp-follow-the-arches",
+    "problemJa": "看板は認知には効いても、実際に店へ曲がらせる役には立っていなかった。",
+    "humanTruthJa": "人は運転中、読む前に形で判断している。",
+    "brandTruthJa": "このロゴは、世界で最も少ない情報量で識別される形。",
+    "tensionJa": "誰もが知っている形なのに、道案内の役には一度も使われていなかった。",
+    "coreIdeaJa": "アーチ型のロゴを切り取り回転させるだけで方向を示す、道案内のサインに変えた。",
+    "coreIdeaEn": "Crop and rotate the brand's arch mark so the fragment itself works as a directional wayfinding sign.",
+    "twistJa": "資産を装飾ではなく純粋な機能に変換した。",
+    "patterns": [
+      "brand_asset_surgery"
+    ],
+    "executionJa": "単色・単一要素・文字なし。切り取り位置と角度だけで左右と距離を伝える体系にしている。",
+    "mediaLogicJa": "移動中の一瞬で読ませる必要があるため、連続して掲出できる屋外以外では機能しない。",
+    "resultJa": "Outdoor で Grand Prix。来店数への影響は未検証。",
+    "timelessJa": "強いロゴは、見せるより「使う」ほうが新しい意味を生む。",
+    "kvDescriptionEn": "A single cropped fragment of a curved arch mark on a flat colour field, oriented to point one way.",
+    "sources": [
+      "https://lbbonline.com/news/immerse-yourself-in-the-winning-lions-from-design-mobile-outdoor-and-print"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2018-outdoor-gp-trump-twitter-library",
+    "problemJa": "政治批評は言葉で書くほど党派的に読まれ、届く範囲が狭まっていた。",
+    "humanTruthJa": "人は同じ中身でも、飾られ方で価値の判断を変える。",
+    "brandTruthJa": "風刺番組の武器は論評ではなく、見せ方の設計にある。",
+    "tensionJa": "中身は軽いのに、扱いを重厚にすると批評が成立してしまう。",
+    "coreIdeaJa": "大統領の投稿を、大統領図書館という国家的様式で額装・分類して展示した。",
+    "coreIdeaEn": "Exhibit a president's social posts with the full curatorial seriousness of a presidential library.",
+    "twistJa": "批評をコピーで書かず、展示の形式だけで成立させた。",
+    "patterns": [
+      "borrowed_format",
+      "humor_by_truth"
+    ],
+    "executionJa": "銘板・キャプション・展示ケース・順路まで様式を完全再現し、中身にだけ手を触れない。冗談を一切足していない。",
+    "mediaLogicJa": "権威の様式は、入場して歩く体験でしか身体に入らないため展示以外では成立しない。",
+    "resultJa": "Outdoor で Grand Prix。来場者数は未検証。",
+    "timelessJa": "批評は語るより、対象を「どう扱うか」で示すほうが強い。",
+    "kvDescriptionEn": "A museum-style gallery with framed screenshots, engraved plaques and vitrines arranged along a formal route.",
+    "sources": [
+      "https://lbbonline.com/news/immerse-yourself-in-the-winning-lions-from-design-mobile-outdoor-and-print"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2018-design-gp-trash-isles",
+    "problemJa": "海洋プラスチックの規模は数字で語られても、誰の責任か分からないまま放置されていた。",
+    "humanTruthJa": "人は面積の数字では驚かないが、国名がつくと実在すると感じる。",
+    "brandTruthJa": "メディアと NGO は、承認の手続きに申請する主体になれる。",
+    "tensionJa": "国ほどの大きさがあるのに、どこの国の問題でもなかった。",
+    "coreIdeaJa": "太平洋のごみベルトを「国」として国連に申請し、国旗・通貨・旅券・切手を作った。",
+    "coreIdeaEn": "Apply to the UN to recognise an ocean garbage patch as a country, and design its full national identity.",
+    "twistJa": "デザインの役割を「伝える」から「制度を作る」へ拡張した。",
+    "patterns": [
+      "borrowed_format",
+      "participation_mechanic",
+      "scale_shift"
+    ],
+    "executionJa": "紋章学の作法に従って国家識別の一式を設計し、素材にはごみを想起させる質感を使う。パロディの記号を入れていない。",
+    "mediaLogicJa": "国家として扱われるには実際の申請と署名が必要で、表現物だけでは論理が閉じない。",
+    "resultJa": "22 万人超が署名して市民になったと報道。Design と PR で Grand Prix。",
+    "timelessJa": "規模を伝えたいときは、数字ではなく「既知の単位」に変換する。",
+    "kvDescriptionEn": "A set of national identity items — flag, passport, banknote and stamp — in debris-like textures.",
+    "sources": [
+      "https://adage.com/article/special-report-cannes-lions/trash-aisles-grand-prix-PR/313977/"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2018-titanium-gp-palau-pledge",
+    "problemJa": "観光客の増加が珊瑚礁と野生生物を壊し、注意喚起の掲示では止まらなかった。",
+    "humanTruthJa": "人は自分が署名した約束だけは、少しだけ守ろうとする。",
+    "brandTruthJa": "国は、入国という手続きそのものを設計できる。",
+    "tensionJa": "来てほしいのに、来た人が環境を壊していく。",
+    "coreIdeaJa": "入国スタンプを環境保護の誓約書に変え、全入国者に署名を義務づける制度にした。",
+    "coreIdeaEn": "Turn the passport entry stamp into an environmental pledge every visitor must sign in front of an immigration officer.",
+    "twistJa": "最小の接点（入国審査の数十秒）に、最大の強制力を載せた。",
+    "patterns": [
+      "hijack_ritual",
+      "borrowed_format",
+      "brand_act_utility"
+    ],
+    "executionJa": "公文書の書式・印面・署名欄の体裁を厳守し、子どもたちに宛てた一人称で書く。表現の遊びを入れていない。",
+    "mediaLogicJa": "全入国者に例外なく到達する面は、旅券への押印以外に存在しない。",
+    "resultJa": "世界初の入国時誓約制度として導入。Titanium ほか複数の Grand Prix。効果の数値は未検証。",
+    "timelessJa": "全員が必ず通る手続きを一つ見つけると、予算ではなく設計で行動が変わる。",
+    "kvDescriptionEn": "An open passport page bearing a printed pledge stamp with a blank signature line filled in by hand.",
+    "sources": [
+      "https://www.adnews.com.au/behind-palau-pledge"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2018-print-gold-fck",
+    "problemJa": "鶏肉の供給が止まって大半の店舗が閉鎖し、謝罪が必要になった。",
+    "humanTruthJa": "人は言い訳より、正面から間抜けを認めた相手を許す。",
+    "brandTruthJa": "チキンが届かないチキン店は、それ自体が最大の失態。",
+    "tensionJa": "謝るほど守りに入りたくなるのに、守るほど信用は落ちる。",
+    "coreIdeaJa": "バケツのロゴの3文字を並べ替え、失態そのものを見出しにした謝罪広告を出した。",
+    "coreIdeaEn": "Rearrange the three letters on the brand's own bucket into a self-deprecating headline for the apology ad.",
+    "twistJa": "謝罪の場で、自社の記号を自分で汚した。",
+    "patterns": [
+      "brand_asset_surgery",
+      "humor_by_truth",
+      "weakness_as_idea"
+    ],
+    "executionJa": "商品写真1点と短い本文だけ。バケツの現物を使うことで、いじっているのが自分だと即座に分かる。",
+    "mediaLogicJa": "謝罪の誠実さは、金を払って新聞に載せるという行為の重さが担保する。",
+    "resultJa": "2紙の掲載が 700 超の記事に転じ、3か月で 10 億超の到達、好意的注目は 7%→29% と報道。",
+    "timelessJa": "危機のときこそ、平時のトーンを崩さないほうがブランドは守られる。",
+    "kvDescriptionEn": "An empty branded paper bucket shot straight-on, its three front letters reordered, on a plain background.",
+    "sources": [
+      "https://www.campaignlive.co.uk/article/kfc-fcking-clever-campaign/1498912"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2017-outdoor-gp-fearless-girl",
+    "problemJa": "投資先に女性役員の登用を求めていたが、金融の主張は誰にも届いていなかった。",
+    "humanTruthJa": "人は統計ではなく、立ち姿ひとつで力関係を理解する。",
+    "brandTruthJa": "議決権を持つ運用会社は、実際に企業を動かせる立場にいる。",
+    "tensionJa": "変えられる力を持っているのに、その主張が最も伝わらない業界だった。",
+    "coreIdeaJa": "金融街の突進する牛の像の正面に少女の像を置き、既存の記号の意味を一夜で書き換えた。",
+    "coreIdeaEn": "Place a statue of a small girl facing an existing charging-bull monument so the older symbol's meaning flips.",
+    "twistJa": "新しい像を作ったのではなく、既存の像に相手役を与えた。",
+    "patterns": [
+      "juxtaposition",
+      "hijack_ritual",
+      "cultural_tension"
+    ],
+    "executionJa": "彫刻単体ではなく「向き合う配置」が作品。腰に手を当てた姿勢と視線の高さが、対峙の関係を一枚に固定している。",
+    "mediaLogicJa": "意味の反転は、元の像がある場所でしか起こせない。",
+    "resultJa": "Outdoor・PR・Glass・Titanium で Grand Prix。3年で 681 社が女性役員を追加と運用会社は発表。",
+    "timelessJa": "文脈のある場所では、作るより「何の隣に置くか」のほうが効く。",
+    "kvDescriptionEn": "A small bronze figure standing hands-on-hips facing a much larger animal statue across pavement.",
+    "sources": [
+      "https://worth.com/did-fearless-girl-change-anything-for-women-on-wall-street/"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2017-print-gp-burning-stores",
+    "problemJa": "自社店舗の火事という悪いニュースが、写真つきで各地に出回っていた。",
+    "humanTruthJa": "人は事故の写真を、説明なしで最後まで見てしまう。",
+    "brandTruthJa": "直火焼きを創業から掲げてきたブランドにとって、火は出自そのもの。",
+    "tensionJa": "燃えているのは事故なのに、燃やすのが商品の作り方だった。",
+    "coreIdeaJa": "実際に火事になった自社店舗の報道写真に、直火焼きを示す一行だけを添えた。",
+    "coreIdeaEn": "Run news photographs of the brand's own burnt-down restaurants with one line about flame grilling since 1954.",
+    "twistJa": "ネガティブな事実を、ブランドの核の証拠に反転させた。",
+    "patterns": [
+      "weakness_as_idea",
+      "humor_by_truth"
+    ],
+    "executionJa": "素材を作らず、既にある報道写真をそのまま使う。加工も演出も足さず、タイポグラフィは一行だけ。",
+    "mediaLogicJa": "報道写真の生々しさは、印刷の一枚絵で余計な情報を排したときにしか残らない。",
+    "resultJa": "Print & Publishing で Grand Prix。売上・好感度への影響は未検証。",
+    "timelessJa": "起きてしまった事実は、隠すより自社の核と接続できないかを先に考える。",
+    "kvDescriptionEn": "A documentary night photograph of a burning restaurant building with one short line of type in the corner.",
+    "sources": [
+      "https://www.creativereview.co.uk/cannes-lions-2017-winners/"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2016-outdoor-gp-brewtroleum",
+    "problemJa": "ビール消費が減り続ける中で、飲む理由を新しく作る必要があった。",
+    "humanTruthJa": "人は自分の楽しみが誰かの役に立つと知ると、堂々と楽しむ。",
+    "brandTruthJa": "醸造の過程で酵母の残渣が必ず出るという、製造上の事実。",
+    "tensionJa": "飲むことは後ろめたいのに、飲まないと燃料が作れない。",
+    "coreIdeaJa": "醸造で出る酵母の残りをバイオ燃料に変え、全国のガソリンスタンドで実際に販売した。",
+    "coreIdeaEn": "Turn brewing yeast waste into a real biofuel and sell it at petrol stations across the country.",
+    "twistJa": "広告を掲出せず、流通の場そのものを作った。",
+    "patterns": [
+      "product_as_proof",
+      "brand_act_utility",
+      "medium_is_idea"
+    ],
+    "executionJa": "給油機とキャノピーをブランドの色で覆い、スタンド全体を屋外広告として設計している。製品が広告の実体そのもの。",
+    "mediaLogicJa": "「飲むと燃料になる」は、実際に給油できる場所がなければ主張として閉じない。",
+    "resultJa": "エタノール 3 万 L から 30 万 L の燃料を作り、約 60 の給油所で販売と報道。",
+    "timelessJa": "製造工程の廃棄物は、語る前に「売れる形」に変えられないかを検討できる。",
+    "kvDescriptionEn": "A petrol station forecourt rebranded in one product colour, its pumps dispensing a beer-derived fuel.",
+    "sources": [
+      "https://campaignbrief.com/kiwis-first-in-the-world-to-fu/"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2016-print-gp-mcwhopper",
+    "problemJa": "競合との差別化が消耗戦になり、話題の主導権を取る手がなかった。",
+    "humanTruthJa": "人は喧嘩より、意外な和解のほうを面白がる。",
+    "brandTruthJa": "挑戦者の側は、対等に呼びかけること自体が得になる。",
+    "tensionJa": "和平を語る日なのに、業界は一年中戦争をしている。",
+    "coreIdeaJa": "平和の日に合わせ、競合に「両社のバーガーを合体させよう」と全面広告で公開提案した。",
+    "coreIdeaEn": "On Peace Day, publish a full-page open letter proposing that two rival chains combine their signature burgers.",
+    "twistJa": "紙面を掲示ではなく、公開書簡の器として使った。",
+    "patterns": [
+      "hijack_ritual",
+      "juxtaposition",
+      "name_the_enemy"
+    ],
+    "executionJa": "左右対称の構図と分解図で交渉の対等さを視覚化し、書体は中立的なものに統一。攻撃的な意匠を入れていない。",
+    "mediaLogicJa": "公開の申し出は、断られた事実まで含めて記録される紙面でしか成立しない。",
+    "resultJa": "Print と Media で Grand Prix。競合は提案を断った。到達数は未検証。",
+    "timelessJa": "交渉や提案は、閉じた場ではなく公開の場に置くとそれ自体がメディアになる。",
+    "kvDescriptionEn": "A symmetrical exploded diagram of two burgers' components meeting in the middle of a full newspaper page.",
+    "sources": [
+      "https://www.adweek.com/brand-marketing/yrs-mcwhopper-burger-king-gobbles-print-publishing-grand-prix-cannes-172111/"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2015-print-gp-buenos-aires-city",
+    "problemJa": "清掃や緑化といった公共サービスは、やって当たり前とされ成果が認識されなかった。",
+    "humanTruthJa": "人は環境が良くなったことには気づかず、悪いことにだけ気づく。",
+    "brandTruthJa": "行政の仕事の成果は、街の細部の中にしか現れない。",
+    "tensionJa": "効果は確かに出ているのに、誰の目にも留まらない。",
+    "coreIdeaJa": "サービスの効果を、擬人化も説明もせず、写真的な構図の中の小さな異変だけで語った。",
+    "coreIdeaEn": "Show the effect of a public service through one small anomaly hidden inside an otherwise ordinary photographic scene.",
+    "twistJa": "成果を主張せず、受け手に発見させる構造にした。",
+    "patterns": [
+      "absence_as_message",
+      "juxtaposition"
+    ],
+    "executionJa": "画面はごく普通の街の風景で、変化は一点だけ。視線誘導を意図的に弱くし、探す時間そのものを体験にしている。",
+    "mediaLogicJa": "見つけるまで数秒かかる仕掛けなので、時間を止められる印刷以外では成立しない。",
+    "resultJa": "Print & Publishing で Grand Prix。行政評価への影響は未検証。",
+    "timelessJa": "コピーで説明する前に、画面の中の一点だけで論理が通らないかを試す。",
+    "kvDescriptionEn": "An ordinary city scene photographed plainly, with a single small unexpected detail hidden somewhere in the frame.",
+    "sources": [
+      "https://www.campaignlive.co.uk/article/watch-every-grand-prix-winner-cannes-lions-2015/1353661"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2014-outdoor-gp-gaytms",
+    "problemJa": "祝祭のスポンサーになっても、金融ブランドの支持表明は言葉だけでは信用されなかった。",
+    "humanTruthJa": "人は支持の言葉より、誰が何に手間をかけたかを見ている。",
+    "brandTruthJa": "銀行は、街じゅうに自社の設備を持っている稀な業種。",
+    "tensionJa": "支持すると言うのは簡単なのに、日常の設備は何も変わらなかった。",
+    "coreIdeaJa": "街中の ATM をラインストーンや羽で装飾し、金融インフラそのものを祝祭の表現に変えた。",
+    "coreIdeaEn": "Decorate the bank's own street cash machines with rhinestones and feathers so its infrastructure itself joins the celebration.",
+    "twistJa": "広告枠を買わず、自社の所有物で態度を示した。",
+    "patterns": [
+      "medium_is_idea",
+      "cultural_tension",
+      "hijack_ritual"
+    ],
+    "executionJa": "画面を作らず素材で語る。装飾は一台ごとに手作業で、量産の均質さを避けたことが本気度の証拠になっている。",
+    "mediaLogicJa": "日常的に触る設備だからこそ、装飾が「見る」ではなく「使う」体験に変わる。",
+    "resultJa": "Outdoor で Grand Prix。利用件数・支持率への影響は未検証。",
+    "timelessJa": "態度を示すなら、買った枠より自社が既に持っている設備を先に探す。",
+    "kvDescriptionEn": "A street cash machine entirely covered in rhinestones and feathers, still in normal use by a passer-by.",
+    "sources": [
+      "https://www.thedrum.com/news/cannes-2014-media-outdoors-and-mobile-lions-announced"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2014-print-gp-sorry-i-spent-it-on-myself",
+    "problemJa": "高級百貨店のクリスマス商戦は、贈り物の美しさを競う同質な表現に埋もれていた。",
+    "humanTruthJa": "人は本当は、他人への贈り物より自分のために使いたい。",
+    "brandTruthJa": "気取りを自認しているブランドだけが、その気取りを笑える。",
+    "tensionJa": "贈る季節なのに、いちばん欲しいのは自分の分だった。",
+    "coreIdeaJa": "他人への贈り物として極端に安い日用品のギフトを発売し、「自分に使った」と正直に言わせた。",
+    "coreIdeaEn": "Sell a range of deliberately cheap novelty gifts for others, so shoppers can admit they spent the real money on themselves.",
+    "twistJa": "ブランドのトーン（気取り）を、自分の手で茶化した。",
+    "patterns": [
+      "humor_by_truth",
+      "weakness_as_idea"
+    ],
+    "executionJa": "パッケージは高級品の様式（箔押し・セリフ体・余白）を厳守し、中身だけが安物。様式と中身の落差が笑いを作る。",
+    "mediaLogicJa": "落差は実際に手に取れる商品でしか成立せず、店頭に並ぶことが前提になる。",
+    "resultJa": "Print & Publishing で Grand Prix。売上数値は未検証。",
+    "timelessJa": "自社のトーンを笑えるのは自社だけで、それは競合が真似できない資産になる。",
+    "kvDescriptionEn": "A cheap everyday item presented in luxury packaging with foil type and generous white space, shot as a hero product.",
+    "sources": [
+      "https://www.adobomagazine.com/global-news/cannes-lions-2014-grand-prix-showcase/"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2014-design-gp-festspillene-i-bergen",
+    "problemJa": "国際芸術祭は毎年演目が変わるのに、固定ロゴではその年の個性を表現できなかった。",
+    "humanTruthJa": "人は毎年同じ顔のイベントを、去年と同じものだと思って行かなくなる。",
+    "brandTruthJa": "芸術祭の本質は、毎回違うものが起きるという約束そのもの。",
+    "tensionJa": "一貫性は要るのに、毎年同じ顔では祭りの意味が消える。",
+    "coreIdeaJa": "アイデンティティを固定ロゴではなく、演目ごとに姿を変える可変の視覚システムとして設計した。",
+    "coreIdeaEn": "Design the festival identity as a variable system that changes with each programme instead of a fixed logo.",
+    "twistJa": "一貫性の定義を「同じ絵」から「同じ規律」へ移した。",
+    "patterns": [
+      "long_idea_platform"
+    ],
+    "executionJa": "グリッド・書体・余白の規則だけを固定し、色と図像は毎回入れ替える。規則が厳しいほど変化が効く設計になっている。",
+    "mediaLogicJa": "印刷物・サイン・チケット・映像へ同時展開されるため、絵ではなく規則でしか統一できない。",
+    "resultJa": "Design で Grand Prix。来場者数への影響は未検証。",
+    "timelessJa": "毎年中身が変わる事業のブランディングは、絵ではなく規則を資産にする。",
+    "kvDescriptionEn": "A set of posters sharing one strict grid and type system while colour and imagery differ completely between them.",
+    "sources": [
+      "https://www.adobomagazine.com/global-news/cannes-lions-2014-grand-prix-showcase/"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2014-titanium-gp-sound-of-honda",
+    "problemJa": "自動車ブランドの技術資産である走行データが社内に眠り、感情的な価値に変換されていなかった。",
+    "humanTruthJa": "人は記録された数字ではなく、そこにいた人の気配に泣く。",
+    "brandTruthJa": "計測と記録の精度こそ、このメーカーが積み上げてきたもの。",
+    "tensionJa": "本人はもういないのに、走行の記録だけが正確に残っていた。",
+    "coreIdeaJa": "1989年の走行データを掘り起こし、光と音のインスタレーションとしてサーキット上に再現した。",
+    "coreIdeaEn": "Recover a driver's 1989 telemetry and replay the lap as an installation of light and sound on the actual circuit.",
+    "twistJa": "乾いたデータを、一人の人間の存在として再生した。",
+    "patterns": [
+      "data_made_human",
+      "make_invisible_visible"
+    ],
+    "executionJa": "闇の中に光の点列とエンジン音だけを走らせ、映像や説明を足さない。速度と軌跡を身体で受け取らせる設計。",
+    "mediaLogicJa": "再現の正当性は、実際に走った同じ路面の上でしか立ち上がらない。",
+    "resultJa": "Titanium で Grand Prix。到達・販売への影響は未検証。",
+    "timelessJa": "社内に眠るログは、出力先を身体に変えるだけで物語になることがある。",
+    "kvDescriptionEn": "A dark racetrack at night with a moving line of lights tracing a lap, no vehicle present.",
+    "sources": [
+      "https://global.honda/en/newsroom/news/2014/4140623eng.html"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2013-print-gp-ipad-mini",
+    "problemJa": "小型タブレットの価値は寸法の話になりやすく、体験の質が伝わらなかった。",
+    "humanTruthJa": "人は寸法の数字だけでは大きさを実感できない。",
+    "brandTruthJa": "この製品の主張は「画面が紙と同じ大きさで読める」こと。",
+    "tensionJa": "小ささを訴えたいのに、小ささは比較対象がないと分からない。",
+    "coreIdeaJa": "雑誌の紙面に実寸の画面を置き、そこに同じ雑誌の表紙を表示させて紙とデジタルの一致を示した。",
+    "coreIdeaEn": "Print the device at actual size on a magazine page, showing that same magazine's own cover on its screen.",
+    "twistJa": "掲載媒体ごとに中身を変える媒体計画そのものをアイデアにした。",
+    "patterns": [
+      "medium_is_idea",
+      "scale_shift",
+      "juxtaposition"
+    ],
+    "executionJa": "実寸・同一表紙・同一角度という3条件を厳守。装飾を足さず、寸法の一致だけで論理が閉じている。",
+    "mediaLogicJa": "実寸の比較は、読者が今まさに手に持っているその雑誌の上でしか成立しない。",
+    "resultJa": "Print & Publishing で Grand Prix。販売への影響は未検証。",
+    "timelessJa": "媒体ごとに出し分けること自体を、アイデアの中心に置けないかを疑う。",
+    "kvDescriptionEn": "A magazine page showing a tablet at exactly life size, its screen displaying that same magazine's cover.",
+    "sources": [
+      "https://www.luerzersarchive.com/features/the-grand-prix-winners-of-cannes-lions-2013/"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2013-outdoor-gp-people-for-smarter-cities",
+    "problemJa": "都市向けの技術企業が「街を賢くする」と語っても、抽象的で何も伝わらなかった。",
+    "humanTruthJa": "人は広告を、街から場所を奪うものだと思っている。",
+    "brandTruthJa": "この企業の主張は、既存のものに機能を足して街を良くすること。",
+    "tensionJa": "街を良くすると言う広告が、街の場所を占有しているだけだった。",
+    "coreIdeaJa": "屋外広告のボードを曲げて、ベンチ・雨よけ・スロープとして実際に使える街の設備にした。",
+    "coreIdeaEn": "Bend the outdoor advertising panel itself into a bench, shelter or ramp so the ad returns a function.",
+    "twistJa": "広告の物理的な形式そのものを、主張の証明に使った。",
+    "patterns": [
+      "medium_is_idea",
+      "brand_act_utility"
+    ],
+    "executionJa": "単色・単一素材で、曲げるという一操作だけ。構造が機能を生んでいるので説明のグラフィックが要らない。",
+    "mediaLogicJa": "「街に何を返すか」という問いは、街路に置かれた物でしか答えられない。",
+    "resultJa": "Outdoor で Grand Prix。設置数・利用実績は未検証。",
+    "timelessJa": "媒体の物理的性質そのものが、メッセージの証明になっていないかを疑う。",
+    "kvDescriptionEn": "A flat advertising panel bent into a curve so it functions as a public bench on a city pavement.",
+    "sources": [
+      "https://investor.clearchannel.com/news/detail/235/ogilvy-france-wins-2013-outdoor-lions-grand-prix-award-for-ibm-people-for-smarter-cities-campaign"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2013-titanium-gp-real-beauty-sketches",
+    "problemJa": "自己評価の低さという課題は、統計で示しても自分事にならなかった。",
+    "humanTruthJa": "人は自分の顔を、他人が見ているよりずっと厳しく見ている。",
+    "brandTruthJa": "このブランドは「本当の美」を定義し直すと宣言してきた。",
+    "tensionJa": "自分のことは自分が一番知っているはずなのに、一番間違えている。",
+    "coreIdeaJa": "似顔絵捜査官に、本人の自己申告と他人の証言から2枚の肖像を描かせ、その差を見せた。",
+    "coreIdeaEn": "Have a forensic artist draw two portraits of one person, from her own description and a stranger's, and show the gap.",
+    "twistJa": "インサイトを説明せず、差が自動的に出る装置に落とし込んだ。",
+    "patterns": [
+      "make_invisible_visible",
+      "juxtaposition"
+    ],
+    "executionJa": "白い背景と同じ画材で2枚を揃え、条件差を完全に排除。差だけが残るよう情報を削り切っている。",
+    "mediaLogicJa": "描かれる過程と本人の反応が同時に要るため、時間を持つ映像でしか成立しない。",
+    "resultJa": "Titanium で Grand Prix。再生数や売上の具体値は未検証。",
+    "timelessJa": "インサイトは語るものではなく、差が自動的に出る装置を作るもの。",
+    "kvDescriptionEn": "Two pencil portraits of the same person hung side by side on a white wall, visibly different in expression.",
+    "sources": [
+      "https://www.contagious.com/news-and-views/cannes-lions-titanium-grand-prix-award-winners-20-years"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2013-direct-gp-dumb-ways-to-die",
+    "problemJa": "鉄道の安全啓発は恐怖訴求が定番で、若年層には完全に無視されていた。",
+    "humanTruthJa": "人は怖がらされるほど、その話を遠ざける。",
+    "brandTruthJa": "鉄道事故の多くは、不注意という間抜けな理由で起きている。",
+    "tensionJa": "命の話なのに、真面目に語るほど誰も聞かない。",
+    "coreIdeaJa": "安全啓発を、恐怖ではなく間抜けな死に方を歌うポップソングとキャラクターで伝えた。",
+    "coreIdeaEn": "Deliver a rail-safety message as a cheerful pop song and cast of characters about absurd ways to die, not as a fear appeal.",
+    "twistJa": "啓発のトーンを正反対に反転させた。",
+    "patterns": [
+      "reframe_category",
+      "humor_by_truth",
+      "participation_mechanic"
+    ],
+    "executionJa": "平面的なイラストとパステルで死を無害化し、キャラクターは駅サイン・ゲーム・グッズへ展開できる汎用性を持たせた。",
+    "mediaLogicJa": "自発的に共有されないと届かない相手なので、反復に耐える音楽という形式が中心になる。",
+    "resultJa": "史上最多の5 Grand Prix。1億2700万人が安全を誓約、事故は10〜20%減と報道。",
+    "timelessJa": "誰も聞かない話は、内容ではなくトーンを反転させると届くことがある。",
+    "kvDescriptionEn": "Flat pastel-coloured bean-shaped characters meeting comic misfortunes on a plain background.",
+    "sources": [
+      "https://en.wikipedia.org/wiki/Dumb_Ways_to_Die"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2012-outdoor-gp-coke-hands",
+    "problemJa": "世界的な飲料ブランドが「分かち合う」という価値を、言葉なしで伝える必要があった。",
+    "humanTruthJa": "人は瓶を差し出す動作そのものを、友情の記号として読む。",
+    "brandTruthJa": "ロゴの中の白いリボンは、既に世界中で識別されている形。",
+    "tensionJa": "伝えたいのは行為なのに、手元にあるのは記号だけだった。",
+    "coreIdeaJa": "ロゴの白いリボンを、瓶を手渡す2本の腕に見立てて「分かち合う」を一図で表した。",
+    "coreIdeaEn": "Read the white ribbon inside the logo as two arms passing a bottle, so sharing is stated in a single graphic.",
+    "twistJa": "資産を壊さず、既にある形の中に別の意味を発見した。",
+    "patterns": [
+      "brand_asset_surgery",
+      "juxtaposition"
+    ],
+    "executionJa": "図と地の反転だけで成立させ、線を1本も足していない。学生の1枚のポスターがそのまま受賞した純度。",
+    "mediaLogicJa": "一瞬で識別される記号の読み替えは、静止した1枚絵が最も速い。",
+    "resultJa": "Outdoor で Grand Prix。到達・売上は未検証。",
+    "timelessJa": "アイデアの純度は、予算やスケールと相関しない。",
+    "kvDescriptionEn": "A simple two-colour graphic in which a white ribbon shape reads as two arms handing over a bottle.",
+    "sources": [
+      "https://www.campaignlive.com/article/cannes-2012-two-grand-prix-winners-outdoor-lions/1137138"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2012-print-gp-unhate",
+    "problemJa": "アパレルブランドが社会的な立場を示す手段を求めていたが、コピーでは埋もれた。",
+    "humanTruthJa": "人は対立する二人が触れ合う画像を、直視せずにいられない。",
+    "brandTruthJa": "このブランドは論争を起こすことを一貫した表現手段にしてきた。",
+    "tensionJa": "憎しみをやめろと言うのに、言葉では誰も止まらない。",
+    "coreIdeaJa": "対立する国家・宗教の指導者同士がキスする合成写真を作り、一枚絵で突きつけた。",
+    "coreIdeaEn": "Composite photographs of opposing world leaders kissing, delivering the anti-hatred message as one confrontational image.",
+    "twistJa": "不快と議論が起きることを、あらかじめ織り込んだ。",
+    "patterns": [
+      "provocation_with_purpose",
+      "juxtaposition"
+    ],
+    "executionJa": "報道写真の質感に合わせて合成し、演出臭を消す。中央配置と最小限のロゴで、画像だけを見せている。",
+    "mediaLogicJa": "議論を起こすには、削除できない物理的な紙面と掲出が必要だった。",
+    "resultJa": "Print & Publishing で Grand Prix。一部は抗議を受け撤回された。売上影響は未検証。",
+    "timelessJa": "挑発は、批判が来た後に立場を降りない準備があるときだけ成立する。",
+    "kvDescriptionEn": "A photorealistic composite of two public figures in formal dress in an unexpected embrace, centred in frame.",
+    "sources": [
+      "https://www.luerzersarchive.com/features/cannes-lions-2012-grand-prix-winners/"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2012-design-gp-solar-annual-report",
+    "problemJa": "太陽光業界団体の年次報告書は、誰も読まない義務的な印刷物だった。",
+    "humanTruthJa": "人は読まされるものより、条件を満たして初めて読めるものに関心を持つ。",
+    "brandTruthJa": "この業界の主張は「太陽がなければ何も動かない」ということ。",
+    "tensionJa": "太陽の価値を語る文書が、屋内の蛍光灯の下で配られていた。",
+    "coreIdeaJa": "報告書を、光に当てないと文字が読めないインクで印刷し、太陽を情報の条件にした。",
+    "coreIdeaEn": "Print the annual report in photochromic ink so its text only becomes readable when taken out into sunlight.",
+    "twistJa": "コンセプトを、読む体験の条件そのものに変えた。",
+    "patterns": [
+      "make_invisible_visible",
+      "medium_is_idea",
+      "absence_as_message"
+    ],
+    "executionJa": "屋内では白紙、屋外で図版と本文が立ち上がる。印刷技術とコンセプトが1対1で結びついている。",
+    "mediaLogicJa": "太陽を条件にできるのは、屋外へ持ち出せる物理的な印刷物だけ。",
+    "resultJa": "Design で Grand Prix。読了率・会員数への影響は未検証。",
+    "timelessJa": "コンセプトは、見せ方ではなく「読める条件」にまで落とせないかを考える。",
+    "kvDescriptionEn": "A printed report shown twice: blank white pages indoors, the same pages filled with text and charts in sunlight.",
+    "sources": [
+      "https://www.adweek.com/creativity/solar-companys-annual-report-visible-only-sunlight-138584/"
+    ],
+    "verified": true
+  },
+  {
+    "id": "2011-print-gp-heaven-and-hell",
+    "problemJa": "スーツケースの丈夫さは機能説明になりやすく、価格差の理由として伝わらなかった。",
+    "humanTruthJa": "人は自分の荷物が預けられた後、何をされているか知らない。",
+    "brandTruthJa": "貨物室で起きることに耐える設計こそ、このブランドの存在理由。",
+    "tensionJa": "乗客は快適な座席にいるのに、荷物は同じ機内で虐待されている。",
+    "coreIdeaJa": "客室（天国）と貨物室（地獄）を上下に描いた一枚の断面図で、製品の耐久性を表した。",
+    "coreIdeaEn": "Draw one cross-section of an aircraft with a serene cabin above and an infernal hold below to argue the product's durability.",
+    "twistJa": "機能説明を、神話的な世界観に翻訳した。",
+    "patterns": [
+      "product_as_proof",
+      "juxtaposition"
+    ],
+    "executionJa": "上下で色温度と密度を反転させ、境界線一本で天国と地獄を分ける。読み解く時間が楽しさになる情報量に調整している。",
+    "mediaLogicJa": "上下の対比と細部の発見は、じっくり見られる一枚絵でしか成立しない。",
+    "resultJa": "Print & Publishing で Grand Prix。販売への影響は未検証。",
+    "timelessJa": "機能の主張は、比喩ではなく「見える世界」として描き切ると強くなる。",
+    "kvDescriptionEn": "A cutaway illustration of an aircraft: a calm bright cabin above, a chaotic dark cargo hold below.",
+    "sources": [
+      "https://shots.net/news/view/70282-cannes-lions-2011-print-design-and-cyber-winners"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2011-outdoor-gp-decode-jay-z-with-bing",
+    "problemJa": "検索エンジンの後発ブランドは、機能で語っても比較の土俵に上がれなかった。",
+    "humanTruthJa": "人は探せと言われた瞬間、探したくなる。",
+    "brandTruthJa": "検索の価値は、探す対象が魅力的なときにしか実感されない。",
+    "tensionJa": "検索の性能を語りたいのに、検索したいものが用意されていなかった。",
+    "coreIdeaJa": "自伝の全ページを内容に関係する実在の場所に印刷して世界中に散らし、検索で集めさせた。",
+    "coreIdeaEn": "Print every page of a memoir in the real-world location it describes, scattering them worldwide to be found by search.",
+    "twistJa": "屋外面を掲出面ではなく、捜索の手がかりに変えた。",
+    "patterns": [
+      "participation_mechanic",
+      "scale_shift",
+      "medium_is_idea"
+    ],
+    "executionJa": "プール底・ビリヤード台・屋外面など、文章の内容と場所を一対一で対応させる。掲出計画そのものが物語になっている。",
+    "mediaLogicJa": "場所と文章の対応が謎解きの核なので、位置を持つ屋外面以外では成立しない。",
+    "resultJa": "Outdoor で Grand Prix。検索シェアへの影響は未検証。",
+    "timelessJa": "媒体計画は「どこに出すか」ではなく「どこにあると意味が増えるか」で考える。",
+    "kvDescriptionEn": "A page of printed text applied to an unexpected real-world surface such as the bottom of an empty swimming pool.",
+    "sources": [
+      "https://shots.net/news/view/70243-cannes-lions-2011-radio-outdoor-media-winners"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2010-print-gp-billboard-magazine",
+    "problemJa": "音楽誌は読者を広げようとするほど、専門性という最大の資産を薄めてしまう。",
+    "humanTruthJa": "人は自分だけが分かる記号を見せられると、仲間だと感じる。",
+    "brandTruthJa": "この雑誌の価値は、音楽を深く知っている読者に向いていること。",
+    "tensionJa": "広く届けたいのに、広げるほど読む理由が消える。",
+    "coreIdeaJa": "アーティストを描かず、その音楽を知っていれば分かる記号だけで誌面を作った。",
+    "coreIdeaEn": "Depict no artists at all, using only signs that make sense to people who already know the music.",
+    "twistJa": "ターゲットをあえて狭めることで、表現から説明を全部捨てた。",
+    "patterns": [
+      "absence_as_message",
+      "humor_by_truth"
+    ],
+    "executionJa": "無地の地に最小限のシルエットと物だけ。名前もロゴも極小で、分かる人だけが立ち止まる設計になっている。",
+    "mediaLogicJa": "分かる／分からないの選別は、スクロールされない静止した一枚で最も鋭く働く。",
+    "resultJa": "Print & Publishing で Grand Prix。購読数への影響は未検証。",
+    "timelessJa": "読者の知識を前提にできると、説明を捨てられて表現が強くなる。",
+    "kvDescriptionEn": "A minimal object or silhouette on a plain ground that only reads as a reference to those who know the subject.",
+    "sources": [
+      "https://www.adweek.com/brand-marketing/archive-grand-prix-winners-film-press-2000-132646/"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2009-print-gp-we-are-animals",
+    "problemJa": "デニムブランドは丈夫さや履き心地を語るほど、同質な機能競争に落ちていた。",
+    "humanTruthJa": "人は服を着ることで、社会的な自分をいったん脱ぎたくなる。",
+    "brandTruthJa": "作業着を出自に持つデニムは、都会的洗練よりも野生の側にある。",
+    "tensionJa": "ファッションとして売るのに、本当の魅力は洗練の反対側にあった。",
+    "coreIdeaJa": "ブランドの世界観を、ファッション写真ではなく、獣性を帯びた身体と自然の生々しい情景として撮った。",
+    "coreIdeaEn": "Shoot the brand's world as raw animal physicality in nature rather than as conventional fashion photography.",
+    "twistJa": "機能ではなく、原始的な本能というテリトリーを取りに行った。",
+    "patterns": [
+      "reframe_category",
+      "provocation_with_purpose"
+    ],
+    "executionJa": "自然光と抑えた彩度、粗い質感で統一しポーズを演出しない。身体の一部を切るトリミングが人間性を弱めている。",
+    "mediaLogicJa": "質感と粒子の情報量は、大判の印刷でしか受け取れない。",
+    "resultJa": "Print & Publishing で Grand Prix。売上への影響は未検証。",
+    "timelessJa": "カテゴリーの言葉が尽きたら、機能ではなく「どの領域を取るか」を変える。",
+    "kvDescriptionEn": "A cropped figure in natural light within dense wild landscape, muted palette, visible grain and skin texture.",
+    "sources": [
+      "https://adage.com/article/top-work/cannes-grand-prix-winners-press-design-outdoor/137641/"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2009-design-gp-paper-battlefield",
+    "problemJa": "スポーツブランドのストリート向け表現は、写真とロゴの競争に埋もれていた。",
+    "humanTruthJa": "人は手で作られたものに、街の手触りを感じる。",
+    "brandTruthJa": "このブランドのストリート文化は、既製品ではなく自作の側にある。",
+    "tensionJa": "描きたいのは激しさなのに、選んだ素材は最も脆い紙だった。",
+    "coreIdeaJa": "コートと選手を紙工作で作り上げ、試合の激しさを最も脆い素材で表現した。",
+    "coreIdeaEn": "Build the court and the players entirely out of cut paper, expressing the violence of the game in the most fragile material.",
+    "twistJa": "主題と素材をあえて逆方向に振った。",
+    "patterns": [
+      "craft_as_idea",
+      "juxtaposition"
+    ],
+    "executionJa": "単一素材で統一し、影と折り目だけで立体感と運動を作る。制作技術そのものが手作りのトーンと一致している。",
+    "mediaLogicJa": "紙の厚みと影は、印刷の一枚絵で寄って見せたときにしか伝わらない。",
+    "resultJa": "Design で Grand Prix。販売への影響は未検証。",
+    "timelessJa": "素材の選択は装飾ではなく、主題との距離でトーンを決める設計判断になる。",
+    "kvDescriptionEn": "A scene built entirely from cut and folded paper in one colour, lit from the side so shadows create depth.",
+    "sources": [
+      "https://adage.com/article/top-work/cannes-grand-prix-winners-press-design-outdoor/137641/"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2009-outdoor-gp-the-zimbabwean",
+    "problemJa": "国外に拠点を置く新聞が、ハイパーインフレ下の体制批判を国際世論に届ける必要があった。",
+    "humanTruthJa": "人は経済崩壊の数字を聞いても、その規模を想像できない。",
+    "brandTruthJa": "この新聞の立場は、体制と正面から対立することそのもの。",
+    "tensionJa": "紙幣なのに、紙としての価値のほうが高かった。",
+    "coreIdeaJa": "価値を失った超高額紙幣を、そのまま印刷用紙・ポスター素材として使った。",
+    "coreIdeaEn": "Use hyperinflated banknotes themselves as the paper stock for posters, so the material is the evidence.",
+    "twistJa": "メッセージを説明せず、素材そのものを論証にした。",
+    "patterns": [
+      "medium_is_idea",
+      "name_the_enemy",
+      "provocation_with_purpose"
+    ],
+    "executionJa": "紙幣を貼り合わせた面に短いコピーだけを重ね、加工を最小限にする。質感と枚数がそのまま情報量になっている。",
+    "mediaLogicJa": "「紙幣が紙より安い」は、実際にその紙幣で刷られた物を見ないと信じられない。",
+    "resultJa": "Outdoor で Grand Prix。政治的影響は未検証。",
+    "timelessJa": "素材の選択が論証になるとき、コピーはほとんど要らなくなる。",
+    "kvDescriptionEn": "A large poster surface tiled from worthless banknotes, with a single short line of type across it.",
+    "sources": [
+      "https://adage.com/article/top-work/cannes-grand-prix-winners-press-design-outdoor/137641/"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2008-design-gp-coca-cola-identity",
+    "problemJa": "長年の拡張でブランドの視覚要素が増えすぎ、世界中で見え方がばらついていた。",
+    "humanTruthJa": "人は要素が多いほど、そのブランドを思い出せなくなる。",
+    "brandTruthJa": "このブランドは、既に世界最強の識別要素をいくつも持っている。",
+    "tensionJa": "資産は十分あるのに、多すぎて一つも際立たない。",
+    "coreIdeaJa": "視覚資産を足し算ではなく引き算で整理し、赤・ロゴ・輪郭瓶・白いリボンという核だけに戻した。",
+    "coreIdeaEn": "Rebuild the identity by subtraction, reducing it to a few core assets: the red, the script, the bottle contour and the ribbon.",
+    "twistJa": "リブランドの成果を「作ったもの」ではなく「捨てたもの」で語った。",
+    "patterns": [
+      "brand_asset_surgery",
+      "absence_as_message"
+    ],
+    "executionJa": "2色に絞り、資産を大胆にトリミングして一要素ずつ主役にする。新しい図像をほとんど作っていない。",
+    "mediaLogicJa": "最も接触回数の多いパッケージ面で整理しないと、世界規模の統一は起きない。",
+    "resultJa": "Design 部門の初代 Grand Prix。売上への影響は未検証。",
+    "timelessJa": "ブランドの整理は、何を足すかより何を捨てるかで成果を定義する。",
+    "kvDescriptionEn": "A two-colour packaging system where one cropped brand element fills each surface with no additional graphics.",
+    "sources": [
+      "https://adage.com/article/cannes08/coke-wins-inaugural-design-lion-grand-prix/127825"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2008-outdoor-gp-hbo-voyeur",
+    "problemJa": "有料放送局は「他人の人生を覗く面白さ」という価値を、番組宣伝では伝えられなかった。",
+    "humanTruthJa": "人は他人の生活を覗きたいという欲を、公然とは認めない。",
+    "brandTruthJa": "この放送局の商品は、複数の物語を同時に走らせること。",
+    "tensionJa": "覗きたいのに、覗いていると思われたくない。",
+    "coreIdeaJa": "建物の外壁に、断面を切り取ったような複数の部屋の映像を投影し、通行人に同時に覗かせた。",
+    "coreIdeaEn": "Project a cutaway of several apartments onto a building facade so passers-by watch multiple lives unfold at once.",
+    "twistJa": "覗き見を、公共の場で堂々とできる行為に変えた。",
+    "patterns": [
+      "medium_is_idea",
+      "scale_shift",
+      "juxtaposition"
+    ],
+    "executionJa": "映像・建築・物語を同じグリッドで設計し、部屋割りがそのまま編集になる。夜の暗さが投影の条件になっている。",
+    "mediaLogicJa": "実在の建物の壁でなければ「本当にそこで起きている」という錯覚が成立しない。",
+    "resultJa": "Outdoor と Promo で Grand Prix。視聴・加入への影響は未検証。",
+    "timelessJa": "複数の物語を同時に見せたいときは、編集ではなく空間の分割で解ける。",
+    "kvDescriptionEn": "A night-time building facade with a grid of lit rooms projected onto it, each showing a separate scene.",
+    "sources": [
+      "https://en.wikipedia.org/wiki/The_HBO_Voyeur_Project"
+    ],
+    "verified": false
+  },
+  {
+    "id": "2005-film-gp-grrr",
+    "problemJa": "ディーゼルエンジンは騒音と排気で嫌われており、技術改良を語っても印象が変わらなかった。",
+    "humanTruthJa": "人は一度嫌いになったものの説明を、最後まで聞かない。",
+    "brandTruthJa": "このメーカーは、嫌いなものを作り直すという姿勢を出自に持つ。",
+    "tensionJa": "技術の話をしたいのに、感情のほうが先に閉じている。",
+    "coreIdeaJa": "ディーゼルへの憎しみを、花と鳥と虹の牧歌的なアニメーションと歌で表現した。",
+    "coreIdeaEn": "Express hatred of diesel engines through a pastoral animated world of flowers, birds and rainbows set to a song.",
+    "twistJa": "技術的な主張を、最も遠いトーンに翻訳した。",
+    "patterns": [
+      "reframe_category",
+      "humor_by_truth"
+    ],
+    "executionJa": "平面的で高彩度のベクター表現と童謡調の歌が、憎しみという言葉を無害化する。製品カットをほとんど出さない。",
+    "mediaLogicJa": "感情の反転は、歌と時間の流れを持つ映像でしか起こせない。",
+    "resultJa": "Film と Titanium で Grand Prix。販売への影響は未検証。",
+    "timelessJa": "言いたいことが嫌われているなら、トーンを正反対まで振ってみる。",
+    "kvDescriptionEn": "A flat, highly saturated vector landscape of stylised flowers, birds and rainbows in a storybook style.",
+    "sources": [
+      "https://adage.com/article/cannes05/honda-grrr-wins-cannes-grand-prix/46138"
+    ],
+    "verified": false
+  },
+  {
+    "id": "1999-film-gold-guinness-surfer",
+    "problemJa": "黒ビールは注いでから飲めるまでの待ち時間が長く、その手間が購入の障壁になっていた。",
+    "humanTruthJa": "人は待たされるほど、手に入れたものを特別に感じる。",
+    "brandTruthJa": "注いでから飲めるまでの時間は、このビールの製法上の必然。",
+    "tensionJa": "待たせるのは短所なのに、待つことこそがこのブランドの意味だった。",
+    "coreIdeaJa": "「待つ者に良きものが来る」という主題を、巨大な波を待つサーファーの神話的な情景として描いた。",
+    "coreIdeaEn": "Render the idea that good things come to those who wait as a mythic scene of surfers waiting for an enormous wave.",
+    "twistJa": "商品の短所を、ブランドの哲学そのものに変えた。",
+    "patterns": [
+      "weakness_as_idea",
+      "craft_as_idea"
+    ],
+    "executionJa": "白い泡と黒い海というブランドの配色に映像を合わせ、波が馬に変わる造形で主題を可視化する。機能説明を一切しない。",
+    "mediaLogicJa": "「待つ時間」は、時間を持つ映像でしか体感として伝えられない。",
+    "resultJa": "Film で Gold。以後の広告映像の基準になったと評されるが、販売数値は未検証。",
+    "timelessJa": "製品の待ち時間や手間は、意味を与えると最大の差別化点になる。",
+    "kvDescriptionEn": "A monochrome seascape of an enormous breaking wave whose white foam resolves into galloping horse forms.",
+    "sources": [
+      "https://en.wikipedia.org/wiki/Surfer_(advertisement)"
+    ],
+    "verified": false
+  },
+  {
+    "id": "1995-film-gold-levis-drugstore",
+    "problemJa": "ジーンズは仕様で差をつけにくく、ブランドの正統性を語る別の手段が要った。",
+    "humanTruthJa": "人は大きな物語より、小さなディテールの由来を面白がる。",
+    "brandTruthJa": "この製品には、意味を持ったまま残り続けた小さなポケットがある。",
+    "tensionJa": "語りたいのは歴史なのに、歴史は退屈に聞こえる。",
+    "coreIdeaJa": "小さなコインポケットの用途を短い物語のオチに使い、製品ディテールをドラマに変えた。",
+    "coreIdeaEn": "Use the purpose of the tiny coin pocket as the punchline of a short narrative, turning a product detail into drama.",
+    "twistJa": "最も小さなディテールを、物語の中心に据えた。",
+    "patterns": [
+      "product_as_proof",
+      "humor_by_truth"
+    ],
+    "executionJa": "時代設定と美術の精度でブランドの正統性を担保し、説明の台詞を置かない。オチの一瞬まで製品を見せない構成。",
+    "mediaLogicJa": "オチで意味が反転する構造なので、時間を持つ映像以外では成立しない。",
+    "resultJa": "Film で Gold。以後のプロダクト・ストーリーテリングの型になったと評される。販売数値は未検証。",
+    "timelessJa": "製品の最小のディテールは、物語の中心に置くと最大の差別化になる。",
+    "kvDescriptionEn": "A period-accurate small-town interior in a narrow palette, a young figure at a counter in mid-story.",
+    "sources": [
+      "https://www.campaignlive.co.uk/article/close-up-why-levis-proved-good-fit-bbh/1019445"
+    ],
+    "verified": false
+  }
+]

@@ -158,6 +158,52 @@ VITE_API_ENDPOINT=https://teire-api.<あなた>.workers.dev
 **限界** — Jev は要約を書かないので、フローの各ステップは発言の原文(短縮)。要約ラベルが要るなら、既存の `/api/claude` で後段に一言書かせる構成が次の一手。
 X / Instagram を直接スクレイピングはしない(各社の規約で禁止)。Brave が索引した公開ページを検索するので、本文は検索結果の抜粋で、返信もスレッドのすべてではない。
 
+## 空色 Studio（/studio/）— 仮説から画像、画像から Figma へ
+
+本番: https://teire-app.vercel.app/studio/ (庭アプリと同じ Vercel。`main` へのマージで一緒にデプロイ)
+
+同じリポジトリの第 2 のエントリ。曖昧な依頼を **仮説→課題→1行ブリーフ → 企画（インサイト→コアアイデア）→ 参照 → アートディレクション変数 → 叙述プロンプト → 画像生成 → 批評・修正 → Figma コンポーネント** に変換するデザイン・コンサルティング用ワークベンチです。設計の全文は `docs/studio/DESIGN.md`（達成条件・課題ツリー・仮説と解決策・フレーム・データ契約）。
+
+```bash
+npm run dev            # http://localhost:5173/studio/  （庭アプリは / のまま）
+npm test               # 庭・聴く・Studio の単体テスト（Studio はサーバ API・プロンプトコンパイラ・Figma プラグイン）
+```
+
+| ステージ | できること | 使う API キー |
+|---|---|---|
+| 0 案件 | 名前・ブランド・成果物（KV / ポスター / OOH / SNS / Web / 誌面 / パッケージ / アプリ） | なし |
+| 1 課題 | Issue Tree・仮説 3 案・How Might We・Get–To–By の 1 行ブリーフ・Art Thinking の問い。20 のフレーム（Double Diamond / SCAMPER / Six Hats …）をワークショップ形式で回答 | `ANTHROPIC_API_KEY`（無くても手入力で進める） |
+| 2 企画 | 受賞作の分解（デコンテ）を先生に選び、発想の型 20 種から組み立てる。インサイト 5 本 → 緊張 → コアアイデア 6 案（10 問の検査・カンヌの 3 基準で採点・反転/極端化/媒体/主語の変種）→ KV コンセプトとタグライン。仕様は `docs/studio/idea-stage.md` | `ANTHROPIC_API_KEY`（無くても「型から」決定的に出せる） |
+| 3 参照 | カンヌ歴代受賞作 67 件（原理・プロンプト種付き）／Pinterest（自分のピン検索・URL 取り込み・ボード埋め込み）／Adobe Stock 検索／自前画像。参照ごとに役割（構図・配色・光・質感・書体・空気・主題）と重み、「画像を渡す／原理だけ渡す」を選ぶ | `PINTEREST_ACCESS_TOKEN` / `BRAVE_API_KEY`（聴くと共用）/ `ADOBE_STOCK_API_KEY`（任意） |
+| 4 方向 | 6 軸スライダー・媒体・技法・構図・光・カメラ・質感・配色（60-30-10）・文字方針・ムード語・必須/禁止・アスペクト比・モデル。SCAMPER ボタンで変種を作る | なし |
+| 5 プロンプト | 変数から決定的に編んだ叙述プロンプト（EN）+ 日本語解説。Claude で磨く、テンプレートから作る、版管理、権利ガード | `ANTHROPIC_API_KEY`（任意） |
+| 6 生成 | Gemini 画像生成（既定 `gemini-2.5-flash-image`、上位モデル切替可）。参照画像を役割付きで渡す。6 基準の批評 → 修正指示で image-to-image 編集 | `GEMINI_API_KEY` |
+| 7 Figma | 生成画像から配色抽出 → トークン → `spec.json`（フレーム・コンポーネント・バリアント）→ アプリ内プレビュー → 書き出し | `ANTHROPIC_API_KEY`（微調整のみ任意） |
+
+### Figma へ再現する 2 つの経路
+
+1. **同梱プラグイン** `studio-figma-plugin/`（聴くの FigJam プラグイン `figma-plugin/` とは別物）— Figma デスクトップ → Plugins → Development → Import plugin from manifest… → `spec.json` を貼るか選ぶ → Variables / Styles / KV フレーム / Components（Variants）を自動生成。
+2. **Claude Code + Figma MCP** — `docs/studio/figma-flow.md` の手順で同じ `spec.json` を `use_figma` に渡す（`node studio-figma-plugin/mcp/spec-to-use-figma.mjs` がスクリプトを書き出す）。
+
+### キーと権利の注意
+
+- キーはすべてサーバ側（`.env.local` / Vercel の Environment Variables）。`VITE_` は付けない。
+- 画像生成モデル `gemini-2.5-flash-image`（Nano Banana）は Google が 2027-03-15 に廃止予定。後継 `gemini-3.1-flash-image` は UI とモデル選択で切り替えられます（`docs/studio/research-image-generation.md`）。
+- Pinterest 公式 API の検索は「トークン所有者自身のピン」のみ。全体検索は Brave Search API（`site:pinterest.com`）→ ピン URL 貼り付け（oEmbed）→ ボード埋め込みの順にフォールバックします。
+- Adobe Stock 素材は開発者規約により AI 利用不可のため、アプリでは表示・参考のみ（画像をモデルに渡さない・AI 原理抽出もしない）。
+- 参照は「原理」に変換して使い、特定作品・ロゴ・商標の再現は指示しません（プロンプトガードが警告します）。
+
+### 構成
+
+```
+studio/            /studio/ のフロント（React）— screens/ components/ lib/ data/
+api/studio/        Vercel Functions（ai / generate / search / image / status）
+server/lib/        共有ロジック（Claude・Gemini・検索・SSRF セーフな取得・開発用シム）
+studio-figma-plugin/  spec.json → Figma を組み立てるプラグインと use_figma スクリプト生成器
+docs/studio/       設計書・リサーチ・Figma フロー
+tests/api・tests/studio・tests/figma  node --test（*.test.mjs、依存パッケージ不要）
+```
+
 ## 今後の拡張候補
 
 - 判定精度の向上 — PlantNet-300K(Kaggle)で専用CNNを学習し、上位候補をClaudeに事前情報として渡すハイブリッド構成

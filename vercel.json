@@ -17,8 +17,14 @@
     },
     "api/brave.js": {
       "maxDuration": 30
+    },
+    "api/studio/*.js": {
+      "maxDuration": 60
     }
   },
+  "rewrites": [
+    { "source": "/studio", "destination": "/studio/index.html" }
+  ],
   "headers": [
     {
       "source": "/sw.js",
