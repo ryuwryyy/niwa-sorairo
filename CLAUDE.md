@@ -12,6 +12,8 @@
 
 ## SNS・インタビューのリサーチを頼まれたら
 - スキル `social-deepdive`。X・Instagram は Brave Search API(公開ページの検索)で集める。直接の自動収集(スクレイピング)はしない
+- 公式アカウント・広告・マーケティングは除く(持ち主の方針。`research/src/lib/filters.js`)
+- API の費用を抑える: Claude の要約・洞察・戦略シートは、ボタンを押したときだけ呼ぶ。自動で連続実行しない
 
 ## UI を作るとき
 - スキル `design-md-sources`(DESIGN.md の参照先)

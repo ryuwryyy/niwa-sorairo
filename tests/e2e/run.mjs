@@ -45,6 +45,11 @@ try {
   await panel.getByText("サンプルを入れる").click();
   await panel.getByRole("button", { name: "Jevで仕分ける" }).click();
   await panel.getByText("まず読むべき投稿").waitFor({ timeout: 30000 });
+  if (!(await panel.getByText(/公式・広告・宣伝を除く\(\d+件除外\)/).count())) throw new Error("サンプルのキャンペーン投稿が除外されていない");
+  // 戦略シートは押したときだけ Claude を呼ぶ
+  if (await panel.getByText("(テスト)コア").count()) throw new Error("押す前に戦略シートができている");
+  await panel.getByRole("button", { name: "戦略シートをつくる" }).click();
+  await panel.getByText("(テスト)提案").waitFor({ timeout: 30000 });
   await page.screenshot({ path: `${OUT}/listening.png`, fullPage: true });
 
   // インタビュー整理
@@ -73,7 +78,20 @@ try {
   await panel.getByRole("button", { name: "CSV", exact: true }).click();
   await panel.locator("input[type=file]").setInputFiles(`${OUT}/posts.csv`);
   await panel.getByRole("button", { name: "まとめて分析する" }).click();
+  // まとめて実行はカテゴリーまで。要約・洞察は押したときだけ(費用を抑える)
+  await panel.getByRole("button", { name: "要約する" }).first().waitFor({ timeout: 60000 });
+  await panel.getByRole("button", { name: "やり直す" }).first().waitFor({ state: "attached" });
+  await panel.getByText("情報設計").first().waitFor({ timeout: 30000 }); // カテゴリー
+  if (await panel.getByText("(テスト)要約").count()) throw new Error("押す前にグループが要約されている");
+  if (await panel.getByText("デコンテ(アートディレクション)").count()) throw new Error("押す前に洞察がつくられている");
+  await panel.getByRole("button", { name: "要約する" }).first().click();
+  await panel.getByText("(テスト)要約").waitFor({ timeout: 30000 });
+  if ((await panel.getByText("(テスト)要約").count()) !== 1) throw new Error("押したグループ以外も要約された");
+  await panel.getByRole("button", { name: "洞察とデコンテをつくる" }).click();
   await panel.getByText("デコンテ(アートディレクション)").waitFor({ timeout: 60000 });
+  await panel.getByRole("button", { name: "戦略シートをつくる" }).click();
+  await panel.getByText("(テスト)提案").waitFor({ timeout: 30000 });
+  await panel.locator(".strategy").screenshot({ path: `${OUT}/strategy.png` });
   const dots = await panel.locator("circle.dot").count();
   if (dots < 10) throw new Error(`4象限の点が少なすぎる: ${dots}`);
   await page.screenshot({ path: `${OUT}/report.png`, fullPage: true });

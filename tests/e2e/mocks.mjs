@@ -2,6 +2,7 @@
 // 公式SDKは TYPESAFE_BASE_URL / ANTHROPIC_BASE_URL で向き先を変えられるので、それをここへ向ける。
 import http from "node:http";
 import { demoAnswers } from "../../research/src/lib/demo.js";
+import { strategyFixture } from "../fixtures/strategy.js";
 
 const readJson = (req) => new Promise((resolve) => {
   let raw = "";
@@ -42,7 +43,9 @@ export function startClaude(port) {
     const props = Object.keys(b.output_config?.format?.schema?.properties || {});
     const ids = [...String(b.messages?.[0]?.content).matchAll(/\[(p\d+)\]/g)].map((m) => m[1]);
     let out;
-    if (props.includes("categories")) {
+    if (props.includes("personas")) {
+      out = strategyFixture(ids.slice(0, 2));
+    } else if (props.includes("categories")) {
       out = { categories: ["情報設計", "見た目・トーン", "手続き・フロー", "対人・サポート", "デザインの仕事"].map((label) => ({ label, description: `${label}の話` })) };
     } else if (props.includes("emotionArc")) {
       out = { summary: "(テスト)要約", emotionArc: { trigger: "きっかけ", reaction: "反応", afterglow: "余韻" }, insights: [{ text: "(テスト)インサイト", evidenceIds: ids.slice(0, 2) }] };

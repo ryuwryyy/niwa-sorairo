@@ -4,6 +4,7 @@
  *   categories … 投稿群からカテゴリー体系をつくる
  *   group      … 感情語グループごとのサマリー・感情の動き・インサイト
  *   synthesis  … 全体のUX洞察、4象限の読み解き、アートディレクション的デコンテ
+ *   strategy   … ペルソナ・感情マップ・仮説・インサイト・コアアイデア・課題・解決策・トンマナ・クリエイティブブリーフ
  * を構造化JSONで返す。プロンプトはサーバー側で固定し、任意の指示は受け付けない。
  */
 import Anthropic from "@anthropic-ai/sdk";
@@ -46,6 +47,28 @@ const SCHEMAS = {
       items: obj({ beat: str, scene: str, visual: str, copyTone: str, colorLight: str, typography: str, motionSound: str }),
     },
     principles: strArr,
+  }),
+  strategy: obj({
+    personas: {
+      type: "array",
+      items: obj({ name: str, profile: str, context: str, goals: strArr, frustrations: strArr, quote: str, evidenceIds: strArr }),
+    },
+    emotionMap: {
+      type: "array",
+      items: obj({ stage: str, doing: str, thinking: str, feeling: str, score: { type: "integer" }, painPoint: str, opportunity: str, evidenceIds: strArr }),
+    },
+    hypotheses: { type: "array", items: obj({ statement: str, basis: str, howToVerify: str, evidenceIds: strArr }) },
+    insights: { type: "array", items: obj({ text: str, tension: str, evidenceIds: strArr }) },
+    coreIdea: obj({ title: str, statement: str, howMightWe: str }),
+    problems: { type: "array", items: obj({ problem: str, who: str, impact: str, evidenceIds: strArr }) },
+    solutions: { type: "array", items: obj({ name: str, kind: str, description: str, solves: str, firstStep: str }) },
+    toneManner: obj({
+      keywords: strArr, voice: str, doList: strArr, dontList: strArr, color: str, typography: str, imagery: str,
+    }),
+    creativeBrief: obj({
+      background: str, objective: str, target: str, insight: str, proposition: str,
+      reasonsToBelieve: strArr, tone: str, mandatories: strArr, deliverables: strArr, kpis: strArr,
+    }),
   }),
 };
 
@@ -119,6 +142,25 @@ ${postsBlock(posts)}
 5. principles: デザイン原則を3〜5個(各20字以内)`;
   }
 
+  if (task === "strategy") {
+    const notes = clip(body.notes, 4000);
+    return `調査テーマ: ${theme}
+${notes ? `\n## これまでの分析メモ\n${notes}\n` : ""}
+## 投稿
+${postsBlock(posts)}
+
+これらの声から、サービス・体験づくりの戦略シートをまとめてください。投稿から言えることと推測を混同しないこと。
+1. personas: 声から浮かぶペルソナを2〜3人。name(呼び名)、profile(属性・立場)、context(使う場面)、goals、frustrations、quote(その人が言いそうな一言。投稿の言い回しを活かす)、evidenceIds
+2. emotionMap: 典型的な体験の流れを5〜7段階の感情マップとして推測する。stage、doing(行動)、thinking(考え)、feeling(気持ち)、score(-2〜2の整数。-2=最悪、2=最高)、painPoint、opportunity、evidenceIds
+3. hypotheses: 検証すべき仮説を3〜5個。statement(「〜なのは〜だからではないか」)、basis(根拠)、howToVerify(小さく確かめる方法)、evidenceIds
+4. insights: 本人も言葉にしていない本音を3〜5個。text、tension(本音の裏の葛藤・矛盾)、evidenceIds
+5. coreIdea: 全体を貫くコアアイデア。title(15字以内)、statement(2文以内)、howMightWe(「どうすれば〜できるか」の問い)
+6. problems: 解くべき課題を3〜5個。problem、who(誰にとって)、impact(放置すると何が起きるか)、evidenceIds
+7. solutions: 解決策・サービスの提案を3〜5個。name、kind(機能改善/新サービス/運用/コミュニケーション など)、description、solves(どの課題を解くか)、firstStep(明日できる最初の一歩)
+8. toneManner: トンマナ。keywords(3〜5語)、voice(話し方)、doList、dontList、color(色の方向)、typography(書体の方向)、imagery(写真・イラストの方向)
+9. creativeBrief: クリエイティブブリーフ。background、objective、target、insight、proposition(一番伝えたいこと、1文)、reasonsToBelieve、tone、mandatories、deliverables、kpis`;
+  }
+
   throw new InputError(`unknown task: ${task}`);
 }
 
@@ -136,7 +178,7 @@ export async function analyze(body, { apiKey, fetch } = {}) {
     fallbacks: "default",
     thinking: { type: "adaptive" },
     output_config: {
-      effort: task === "synthesis" ? "high" : "medium",
+      effort: task === "synthesis" || task === "strategy" ? "high" : "medium",
       format: { type: "json_schema", schema: SCHEMAS[task] },
     },
     system: SYSTEM,

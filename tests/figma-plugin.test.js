@@ -3,6 +3,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { toFigJamReport, coordinates, quadrantOf, FEELING_LABELS } from "../research/src/lib/report.js";
+import { toFigJamListening } from "../research/src/lib/strategy.js";
+import { strategyFixture } from "./fixtures/strategy.js";
 
 const created = {};
 const links = [];
@@ -72,4 +74,29 @@ test("インタビュー整理(kiku/v1)も配置できる", async () => {
   });
   assert.equal(uiError, null);
   assert.equal(closed, "配置しました");
+});
+
+test("深掘りレポートに戦略シート(ペルソナ〜ブリーフ)も配置する", async () => {
+  closed = null; uiError = null;
+  const before = created.SECTION || 0;
+  const rows = [{ id: "p1", text: "t", url: null, feeling: "最高", tags: [], coord: { x: 0.5, y: 0.5 }, quadrant: "fever" }];
+  await handler({ type: "import", data: toFigJamReport({ theme: "UX", rows, groups: [], synthesis: null, strategy: strategyFixture() }) });
+  assert.equal(uiError, null);
+  assert.equal(closed, "配置しました");
+  // 象限マップ + コアアイデア・ペルソナ・感情マップ・課題仮説インサイト・解決策・トンマナとブリーフ
+  assert.equal((created.SECTION || 0) - before, 1 + 6);
+});
+
+test("ソーシャルリスニング(kiku/listening-v1)を話題ごとに配置し、元リンクを付ける", async () => {
+  closed = null; uiError = null;
+  const linksBefore = links.length;
+  const rows = ["使いやすさ", "料金", "使いやすさ"].map((topic, i) => ({
+    id: `p${i}`, text: `投稿${i}`, url: `https://x.com/u/status/${i}`, relevant: 0.9, topic, sentiment: i ? "ネガティブ" : "ポジティブ", intent: "不満", severity: 2,
+  }));
+  const data = toFigJamListening({ title: "t", rows, topics: { "使いやすさ": "", "料金": "", "その他": "" }, strategy: strategyFixture() });
+  assert.deepEqual(data.topics.map((t) => [t.topic, t.items.length]), [["使いやすさ", 2], ["料金", 1]]);
+  await handler({ type: "import", data });
+  assert.equal(uiError, null);
+  assert.equal(closed, "配置しました");
+  assert.equal(links.length - linksBefore, 3);
 });

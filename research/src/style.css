@@ -168,6 +168,7 @@ footer.note { margin-top: 32px; color: var(--muted); font-size: 12px; }
 .insight p { margin: 2px 0; font-size: 13px; }
 .insight b { color: var(--accent); font-weight: 700; margin-right: 6px; }
 .post { padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.excluded { max-height: 280px; overflow-y: auto; margin-top: 6px; opacity: .85; }
 a.chip { text-decoration: none; }
 .deconte { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(230px, 1fr); gap: 12px; overflow-x: auto; padding-bottom: 8px; }
 .panel-frame { border: 1px solid var(--ink); border-radius: 4px; padding: 12px; background: var(--panel); }
@@ -190,3 +191,25 @@ a.chip { text-decoration: none; }
 .readings p { font-size: 13px; margin: 6px 0; }
 .readings b { margin-right: 6px; }
 .brave-attr { font-size: 11px; color: var(--muted); letter-spacing: .04em; margin: 4px 0 0; }
+
+/* 戦略シート */
+.strategy h3 { margin: 18px 0 8px; font-size: 14px; }
+.strategy .core { border-left: 4px solid var(--accent); padding: 8px 14px; margin-top: 12px; background: var(--panel-2); border-radius: 0 8px 8px 0; }
+.strategy .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.strategy .card, .strategy .grid-2 > .card { border: 1px solid var(--line); border-radius: 10px; padding: 12px; font-size: 13px; background: var(--panel-2); min-width: 0; }
+.strategy .card p { margin: 6px 0; }
+.strategy .quote { font-style: italic; }
+.strategy dl { margin: 6px 0; display: grid; grid-template-columns: 72px 1fr; gap: 4px 8px; font-size: 12px; }
+.strategy dt { color: var(--muted); }
+.strategy dd { margin: 0; }
+.strategy .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 860px) { .strategy .grid-3 { grid-template-columns: minmax(0, 1fr); } }
+.strategy .table-wrap { overflow-x: auto; }
+.strategy .table-wrap table { min-width: 640px; font-size: 12px; }
+.emap { width: 100%; max-width: 760px; display: block; }
+.emap .axis { stroke: var(--line); stroke-dasharray: 4 4; }
+.emap .axis-label { font-size: 11px; fill: var(--muted); }
+.emap-line { fill: none; stroke: var(--ink); stroke-width: 2; }
+.emap-dot.pos { fill: var(--pos); }
+.emap-dot.neg { fill: var(--neg); }
+.emap-feel { font-size: 11px; fill: var(--ink); }
