@@ -20,7 +20,7 @@ jobs:
           DEPLOY_URL: ${{ github.event.deployment_status.environment_url || github.event.deployment_status.target_url }}
           ENVIRONMENT: ${{ github.event.deployment.environment || 'Production' }}
           # 本番は公開ドメインで見る。デプロイごとのURL(teire-xxxx.vercel.app)は本番でもログイン保護がかかる
-          PRODUCTION_URL: ${{ vars.PRODUCTION_URL || 'https://niwa-sorairo.vercel.app' }}
+          PRODUCTION_URL: ${{ vars.PRODUCTION_URL || 'https://teire-app.vercel.app' }}
         run: |
           set -eu
           if [ "$ENVIRONMENT" = "Production" ]; then BASE="$PRODUCTION_URL"; else BASE="$DEPLOY_URL"; fi
@@ -35,7 +35,7 @@ jobs:
           esac
           [ "$top" = "200" ] || { echo "::error::トップページが $top を返した"; exit 1; }
           # 空のリクエストは 400(検証で弾く)か 501(キー未設定)。500 系なら壊れている
-          for api in jev analyze; do
+          for api in jev analyze brave; do
             c=$(code -X POST -H "Content-Type: application/json" -d '{}' "$BASE/api/$api")
             echo "POST /api/$api {} -> $c"
             case "$c" in 400|501) ;; *) echo "::error::/api/$api が $c を返した"; exit 1 ;; esac

@@ -61,3 +61,22 @@ export function startClaude(port) {
     });
   }).listen(port);
 }
+
+/** Brave: site:x.com の検索に、ページごと20件の投稿(3ページ目で尽きる)と、返信の検索に3件を返す */
+export function startBrave(port) {
+  return http.createServer((req, res) => {
+    const u = new URL(req.url, "http://localhost");
+    const q = u.searchParams.get("q") || "";
+    const offset = Number(u.searchParams.get("offset") || 0);
+    const reply = q.match(/@([A-Za-z0-9_]+)/);
+    const phrases = ["登録でエラー、入力が消えた。最悪", "このUI最高、迷わない", "決済が少し分かりにくい", "サポートの対応に感動"];
+    const results = reply
+      ? [1, 2, 3].map((i) => ({ title: "返信 on X", url: `https://x.com/replier${i}/status/9${i}${reply[1].length}`, description: `返信先: @${reply[1]} わかる、${phrases[i % 4]}` }))
+      : Array.from({ length: offset < 2 ? 20 : 5 }, (_, i) => {
+          const n = offset * 20 + i + q.length * 100;
+          return { title: `user on X: "${phrases[n % 4]} ${n}" / X`, url: `https://x.com/user${n % 7}/status/${n}`, description: `${phrases[n % 4]} ${n}` };
+        });
+    res.writeHead(200, { "content-type": "application/json" });
+    res.end(JSON.stringify({ type: "search", web: { results } }));
+  }).listen(port);
+}

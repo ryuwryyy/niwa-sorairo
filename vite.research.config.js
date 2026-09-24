@@ -1,5 +1,5 @@
 // 「聴く」(research/)だけを静的サイトとしてビルドする。GitHub Pages で庭アプリとは別の場所に出す。
-//   VITE_API_BASE=https://niwa-sorairo.vercel.app RESEARCH_BASE=/niwa-sorairo/ npm run build:research
+//   VITE_API_BASE=https://teire-app.vercel.app RESEARCH_BASE=/niwa-sorairo/ npm run build:research
 // API(/api/jev・/api/analyze)は Vercel に残り、キーはそこから出ない。
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
