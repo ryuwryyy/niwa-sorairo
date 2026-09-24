@@ -3,6 +3,7 @@
 名前を知り、季節を待ち、手を入れる。成果のいらない庭仕事の記録帳。
 
 本番: https://niwa-sorairo.vercel.app (`main` へのマージで Vercel が自動デプロイ)
+デザインリサーチ道具「聴く」: https://ryuwryyy.github.io/niwa-sorairo/ (GitHub Pages。庭アプリとは別の場所)
 
 通知ゼロ・スコアゼロ・streakゼロ。開いた時だけ季節(七十二候)が応えるモードレス設計。
 
@@ -20,7 +21,8 @@
 
 ```bash
 npm install
-npm run dev        # http://localhost:5173
+npm run dev            # 庭アプリ http://localhost:5173
+npm run dev:research   # 聴く http://localhost:5174
 ```
 
 AI機能(名前判定・添え書き)を使う場合のみ、APIキーの設定が必要です。
@@ -115,7 +117,20 @@ VITE_API_ENDPOINT=https://teire-api.<あなた>.workers.dev
 `arch` に既存の描画型(kabudachi / layered / dome / round / shrub / flower / bamboo / tuft / fern / moss)を
 指定し、葉色と実の色を決めれば、スプライトは自動生成されます。
 
-## 聴く — Jevリサーチ(`/research/`)
+## CI/CD(すべて無料)
+
+| いつ | 何が | どこで |
+|---|---|---|
+| PR・`main` への push | 単体テスト、両ビルド、FigJamプラグイン構文(`npm run check`)と、偽 Jev・偽 Claude でのブラウザ通しテスト(`npm run e2e`) | `.github/workflows/ci.yml` |
+| `main` へのマージ | 庭アプリと API を本番へ | Vercel(Git連携) |
+| `main` へのマージ(`research/` などが変わったとき) | 聴くを GitHub Pages へ | `.github/workflows/pages.yml` |
+| Vercel のデプロイ完了 | トップ・API(入力検証で弾かれる空リクエストのみ)・CORS を確認 | `.github/workflows/smoke.yml` |
+
+テストと CI は本物の Jev・Claude を呼ばないので、API の課金は発生しない。
+初回だけ GitHub の Settings → Pages → Source を「GitHub Actions」にする。
+手順の詳細は `.claude/skills/ship-research/`、マージ前の点検は `.claude/agents/release-checker.md`。
+
+## 聴く — Jevリサーチ(GitHub Pages)
 
 庭アプリとは別ページのデザインリサーチ道具。TypeSafe AI の **Jev**(文章を生成せず、決めた選択肢から判断と確率だけを返す System One モデル)で、
 大量の声を一瞬で仕分けます。
