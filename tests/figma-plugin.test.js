@@ -100,3 +100,38 @@ test("ソーシャルリスニング(kiku/listening-v1)を話題ごとに配置�
   assert.equal(closed, "配置しました");
   assert.equal(links.length - linksBefore, 3);
 });
+
+// Claude Code から use_figma で直接置くときのコード(scripts/figjam-direct.mjs)も、同じ偽物の上で最後まで動くこと
+test("figjam-direct: 部品ごとのコードが上限内で、置いたノードの id と次の位置を返す", async () => {
+  const { partsOf, scriptFor, MAX_CODE } = await import("../scripts/figjam-direct.mjs");
+  const rows = Array.from({ length: 100 }, (_, i) => {
+    const feeling = FEELING_LABELS[i % 10];
+    const probs = Object.fromEntries(FEELING_LABELS.map((l) => [l, l === feeling ? 1 : 0]));
+    const r = { id: `p${i}`, text: "登録の途中でエラーが出て、入力した内容が全部消えた。もう一度最初からやり直すのは本当につらい。".repeat(2), url: `https://x.com/user_${i}/status/18${i}0000000000000`, feeling, feelingProbs: probs, intensity: i % 4, tags: ["手続き・フロー", "情報設計"] };
+    const coord = coordinates(r);
+    return { ...r, coord, quadrant: quadrantOf(coord).id };
+  });
+  const groups = [{ label: "最悪", rows: rows.slice(0, 5), analysis: { summary: "s", emotionArc: { trigger: "a", reaction: "b", afterglow: "c" }, insights: [{ text: "i", evidenceIds: [] }] } }];
+  const synthesis = {
+    headline: "h", quadrantReading: [], principles: ["p"],
+    uxInsights: [{ insight: "u", why: "w", designImplication: "d", evidenceIds: [] }],
+    deconte: [{ beat: "起", scene: "s", visual: "v", copyTone: "c", colorLight: "l", typography: "t", motionSound: "m" }],
+  };
+  const payload = toFigJamReport({ theme: "UX", rows, groups, synthesis, strategy: strategyFixture() });
+  const parts = partsOf(payload);
+  assert.deepEqual(parts.map((p) => p.name), ["map", "groups", "synthesis", "strategy"]);
+  const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
+  let y = 0;
+  for (const p of parts) {
+    const code = scriptFor(p, { x: 100, y });
+    assert.ok(code.length < MAX_CODE, `${p.name}: ${code.length}字`);
+    const out = await new AsyncFunction(code)();
+    assert.equal(out.part, p.name);
+    assert.ok(out.createdNodeIds.length > 0, p.name);
+    assert.ok(out.bottom >= y, p.name);
+    y = out.bottom + 300;
+  }
+  // 位置を省くと、ページ上の既存ノードの右に置く
+  assert.match(scriptFor(parts[0]), /figma\.currentPage\.children/);
+  assert.throws(() => partsOf({ kind: "other" }));
+});

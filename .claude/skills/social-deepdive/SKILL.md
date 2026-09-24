@@ -112,6 +112,24 @@ group summaries already made. Emotion maps and personas are inferences — say s
 When you summarise results for the user, lead with the headline and the 違和感/拒絶 insights, cite post links,
 and say how many posts were collected, kept, and analysed.
 
+## Running it from Claude Code and placing it straight into FigJam
+
+When the user asks you to research and put the result in FigJam, you can do it without the browser or the plugin:
+
+1. **Run the pipeline against production** with `scripts/research-run.mjs` (same lib code, same gate, real paid APIs — never in
+   tests or CI). Stages: `collect` → `screen` (stops at the quality check and prints it) → then, as the gate requires, one of
+   `extract` / `collect` with new `--keywords` / `directions`. After `extract`: `groups --groups N` (or `--group 最悪`), `synthesis`,
+   `strategy`, `export` (writes `payload.json` = kiku/report-v1 and `report.md` into `--out`, keep `--out` under the scratchpad or `runs/`,
+   which is git-ignored). Report the quality verdict to the user before extracting when it is 低い. The container must be allowed to
+   reach `teire-app.vercel.app` (environment network settings); if the proxy denies it, say so and stop.
+2. **Place it with the Figma connection.** Load the `figma-use` skill first. `node scripts/figjam-direct.mjs payload.json --list`
+   shows the parts (map / groups / synthesis / strategy for a report; topics / strategy for listening) and their code size; each must
+   stay under use_figma's 50,000-character limit. For each part, generate `--part NAME --x 0 --y Y` and pass the file's content as the
+   `code` of `use_figma`; each run returns `createdNodeIds` and `bottom`, so place the next part at `bottom + 300`. The layout code is
+   `figma-plugin/code.js` itself, so it looks the same as the plugin.
+3. **Where**: the owner wants boards in their **personal team** (`ryusuke.okazawaのチーム`), not the NTT DATA organization. Create a
+   FigJam there with `create_new_file` unless the user gives a board URL. End with the board link and what was placed.
+
 ## When the user pastes an X / Instagram / Threads / TikTok / Facebook link
 
 This repo's `UserPromptSubmit` hook (`.claude/hooks/sns-link-lookup.mjs`) looks the link up on Brave Search and
