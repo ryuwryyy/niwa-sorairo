@@ -1,6 +1,27 @@
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
+import { resolve } from "node:path";
+import { handleJevRequest } from "./api/_jev-core.js";
+
+// 開発時のみ: /api/jev を本番と同じ処理(api/_jev-core.js)で受ける。キーはサーバー側に留まる
+const jevDevApi = (env) => ({
+  name: "jev-dev-api",
+  configureServer(server) {
+    server.middlewares.use("/api/jev", (req, res) => {
+      let raw = "";
+      req.on("data", (c) => { raw += c; });
+      req.on("end", async () => {
+        const { status, body } = req.method === "POST"
+          ? await handleJevRequest(raw, env)
+          : { status: 405, body: { error: { message: "Method Not Allowed" } } };
+        res.statusCode = status;
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify(body));
+      });
+    });
+  },
+});
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
@@ -8,6 +29,7 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       react(),
+      jevDevApi(env),
       VitePWA({
         registerType: "autoUpdate",
         includeAssets: [
@@ -49,7 +71,7 @@ export default defineConfig(({ mode }) => {
         },
         workbox: {
           navigateFallback: "/index.html",
-          navigateFallbackDenylist: [/^\/api/],
+          navigateFallbackDenylist: [/^\/api/, /^\/research/],
           globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2}"],
           runtimeCaching: [
             {
@@ -78,6 +100,15 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
-    build: { outDir: "dist", sourcemap: true },
+    build: {
+      outDir: "dist",
+      sourcemap: true,
+      rollupOptions: {
+        input: {
+          main: resolve(__dirname, "index.html"),
+          research: resolve(__dirname, "research/index.html"),
+        },
+      },
+    },
   };
 });
