@@ -39,7 +39,10 @@ validation before any upstream call. Keep it that way when you add endpoints: va
 3. **Add tests** for new logic in `tests/*.test.js` (`node:test`, no extra deps). Pure functions from
    `research/src/lib/` and the `api/_*-core.js` handlers are the easy, valuable targets.
 4. **Commit, push, open a PR.** CI (`.github/workflows/ci.yml`) runs `check` and `e2e`; Vercel posts a preview.
-5. **Merge** only when CI is green. After merge:
+5. **Merge** only when CI is green — and then do merge, without asking: the repo owner has authorized merging and
+   deploying your PRs once `check` and `e2e` pass. `.github/workflows/automerge.yml` does the same on its own for
+   `claude/*` PRs after CI succeeds (it skips PRs labelled `hold`, and PRs that got a new push after CI), then
+   re-dispatches `pages.yml` because merges made with `GITHUB_TOKEN` don't trigger other workflows. After merge:
    - Vercel deploys `main`; `.github/workflows/smoke.yml` runs on the `deployment_status` event and checks the
      top page, that both research APIs answer 400/501 (not 5xx), and the CORS header for Pages. Production is
      checked on the public domain (`vars.PRODUCTION_URL`, default `https://teire-app.vercel.app`) because
