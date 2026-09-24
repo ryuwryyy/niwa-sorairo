@@ -71,3 +71,10 @@ network access, say so plainly rather than inventing results.
 
 When you summarise results for the user, lead with the headline and the 違和感/拒絶 insights, cite post links,
 and say how many posts were collected, kept, and analysed.
+
+## When the user pastes an X / Instagram / Threads / TikTok / Facebook link
+
+This repo's `UserPromptSubmit` hook (`.claude/hooks/sns-link-lookup.mjs`) looks the link up on Brave Search and
+adds an `[sns-link-lookup]` block with the post's public snippet, author and date. Use it, say it is a search
+snippet rather than the full post, and never fill gaps by guessing. If the block says nothing was found or the
+key is missing, try the suggested queries with WebSearch, then ask the user to paste the text.

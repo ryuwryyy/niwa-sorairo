@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/sns-link-lookup.mjs\" 2>/dev/null || true",
+            "timeout": 15,
+            "statusMessage": "SNSリンクをBrave Searchで確認中…"
+          }
+        ]
+      }
+    ]
+  }
+}
