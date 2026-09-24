@@ -120,6 +120,8 @@
 |---|---|---|---|
 | 1 課題 | Issue Tree（MECE）/ 仮説思考 / So what? / HMW / Get–To–By / Reverse brief | 依頼文・対象・制約 | `consult.brief` |
 | 1 課題 | Art Thinking（Lighthouse question: 到達点 B が未知の問い）| ブリーフ | `consult.brief.lighthouse` |
+| 2 企画 | デコンテ（課題→人間の真実→ブランドの真実→緊張→コアアイデア→跳躍→実行→接点→結果）/ アイデア型 20 / インサイトの源泉 6（人間・ブランド・製品・カテゴリー慣習・文化的緊張・接点）/ 緊張ペア / アイデア判定 10 / Cannes lens（Idea・Execution・Impact）/ Creative Effectiveness Ladder / CD の問い | ブリーフ + 先生 | `idea.{teachers,patterns,insights,tensions,ideas,core}` |
+| 2 企画 → 4 方向 | KV 文法 12 / タグライン方向 10 / AD 原則・レビュー（`craftAd.json`） | コアアイデア | `direction.subject` の種、`typography.copy` |
 | 2 参照 | Mood board → tone words → visual system / Cannes lens（Idea / Execution / Impact）| 検索・投入 | `refs.board[]` + 原理 |
 | 3 方向 | Tone-of-voice sliders / 60-30-10 / Gestalt / 構図文法 / Big Idea→Visual Metaphor→Craft / SCAMPER（バリエーション）| 変数 | `direction` |
 | 4 プロンプト | Nano Banana 叙述ガイド / Prompt anatomy | 1〜3 | `prompt.versions[]` |
@@ -135,8 +137,12 @@
 ### 4.1 ステージ
 
 ```
-0 Project → 1 課題(Consult) → 2 参照(Refs) → 3 方向(Direction) → 4 プロンプト(Prompt) → 5 生成(Generate) → 6 Figma(Handoff)
+0 Project → 1 課題(Consult) → 2 企画(Idea) → 3 参照(Refs) → 4 方向(Direction) → 5 プロンプト(Prompt) → 6 生成(Generate) → 7 Figma(Handoff)
 ```
+
+「企画（Idea）」は 2026-09-18 に追加した段。課題（ブリーフ）と参照のあいだで、
+**先生（カンヌ受賞作のデコンテ）→ インサイトの源泉 6 種 → 緊張（〜なのに〜）→ コアアイデア 6 案 → カンヌ基準の採点 → KV コンセプト + タグライン** を作る。
+結論 `idea.core` は、方向ステージの主題が空のときプロンプトの主題文になり、Figma の見出しにもなる（`docs/studio/idea-stage.md`）。
 
 右側の「コンテキストパネル」に、常に ブリーフ要約 / ボード縮小版 / 現在のプロンプト冒頭 / 最新生成 を表示し、どのステージからでも上流を編集できる。
 
@@ -269,13 +275,15 @@ node:
 studio/src/
   main.jsx  App.jsx  store.jsx  styles.css
   data/   directionVars.json  promptGuide.json  cannes.json  frameworks.json
-  lib/    api.js  prompt.js  idb.js  palette.js  figmaSpec.js  guard.js
-  components/  (共通 UI)
-  screens/     Project.jsx Consult.jsx Refs.jsx Direction.jsx Prompt.jsx Generate.jsx Handoff.jsx
+          cannesDeconstruction.json（デコンテ 67）  ideaPatterns.json（アイデア型 20）
+          craft.json（企画術・CD・AD の方法論）  craftAd.json（AD 原則・KV レビュー・CD 作法）
+  lib/    api.js  prompt.js  idb.js  palette.js  figmaSpec.js  guard.js  idea.js  placeholder.js
+  components/  (共通 UI)  Deconte / InsightMiner / IdeaBoard / IdeaTests / KvConcept
+  screens/     Project.jsx Consult.jsx Idea.jsx Refs.jsx Direction.jsx Prompt.jsx Generate.jsx Handoff.jsx
 api/studio/   ai.js generate.js search.js image.js status.js   ← Vercel Functions
 server/lib/   claude.js gemini.js sources.js safeFetch.js devApi.js  ← 共有ロジック（api/ 外に置き関数化を避ける）
-figma-plugin/ manifest.json code.js ui.html
-docs/studio/  DESIGN.md research-*.md figma-flow.md
+figma-plugin/ manifest.json code.js ui.html  mcp/spec-to-use-figma.mjs（spec → use_figma スクリプト生成器）
+docs/studio/  DESIGN.md research-*.md figma-flow.md idea-stage.md
 ```
 
 環境変数（サーバ側のみ）: `ANTHROPIC_API_KEY`, `STUDIO_CLAUDE_MODEL`, `GEMINI_API_KEY`, `GEMINI_IMAGE_MODEL`, `PINTEREST_ACCESS_TOKEN`, `BRAVE_SEARCH_API_KEY`, `GOOGLE_CSE_KEY`, `GOOGLE_CSE_CX`, `ADOBE_STOCK_API_KEY`, `ADOBE_STOCK_PRODUCT`。

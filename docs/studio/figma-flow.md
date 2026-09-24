@@ -82,6 +82,28 @@ ComponentSet が横並び（Button / Tag / Card / Hero / Header）。
 同じ `spec.json` を、プラグインを入れずに Claude に組ませる経路。
 **Figma MCP サーバが繋がっていて、対象ファイルを開く権限がある**ことが前提。
 
+### 3-0. 生成器でスクリプトを作る（推奨・実走済み）
+
+手で `use_figma` のコードを書く代わりに、`spec.json` から自己完結スクリプトを生成する。
+
+```bash
+node figma-plugin/mcp/spec-to-use-figma.mjs <spec.json> <出力先> --check
+#   01-page-variables.js  ページ "Sorairo / <name>" + Variables（color/space/radius、scopes 付き）
+#   02-styles.js          Paint Styles（Sorairo/<key>）+ Text Styles（Sorairo/<style>-<family>）
+#   10-frame-<id>.js      版面（画像塗りは副色のプレースホルダ。imageTargets を返す）
+#   20-component-<id>.js  コンポーネント（createComponent → combineAsVariants → グリッド配置）
+#   assets/<id>.png       dataUrl を復号した画像（upload_assets の nodeIds に貼る）
+```
+
+各スクリプトは `use_figma` の作法に沿っている: 最上位 `await`/`return`、`setCurrentPageAsync` は 1 回、
+HUG/FILL は `appendChild` の後、`setBoundVariableForPaint` の戻り値を使う、Variables/Styles は名前で再利用（再実行しても壊れない）。
+`--check` は `use_figma` と同じ async ラップで構文検査する。
+
+**2026-09-18 の実走（アプリ書き出しの spec → 新規 Figma ファイル）**: 8 本のスクリプトを順に流し、
+Variables 22 / Paint Styles 9 / Text Styles 6 / KV フレーム 1 / ComponentSet 5（Button 6・Tag 2・Card 2・Hero 2・Header 2 = 14 バリアント）が
+エラー・フォント代替なしで生成された。`upload_assets` の POST だけは実行環境の egress 制限で送れなかったため、
+画像はローカル環境から `curl -F "file=@assets/kv.png;type=image/png" <submitUrl>` で貼る（URL は 10 分で失効）。
+
 ### 3-1. 渡すプロンプト（そのまま貼る）
 
 ````text

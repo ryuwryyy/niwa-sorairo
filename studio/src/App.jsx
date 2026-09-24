@@ -4,6 +4,7 @@ import { useBlobUrl } from "./lib/idb";
 import { api } from "./lib/api";
 import Project from "./screens/Project";
 import Consult from "./screens/Consult";
+import Idea from "./screens/Idea";
 import Refs from "./screens/Refs";
 import Direction from "./screens/Direction";
 import Prompt from "./screens/Prompt";
@@ -11,7 +12,7 @@ import Generate from "./screens/Generate";
 import Handoff from "./screens/Handoff";
 import { ToastProvider } from "./components/Toast";
 
-const SCREENS = { project: Project, consult: Consult, refs: Refs, direction: Direction, prompt: Prompt, generate: Generate, handoff: Handoff };
+const SCREENS = { project: Project, consult: Consult, idea: Idea, refs: Refs, direction: Direction, prompt: Prompt, generate: Generate, handoff: Handoff };
 
 export default function App() {
   return (
@@ -184,6 +185,7 @@ function ProjectSwitcher() {
 function ContextPanel({ open, onClose }) {
   const { project, setStage } = useStudio();
   const brief = project.consult.brief;
+  const core = project.idea?.core || {};
   const prompt = activePrompt(project);
   const gen = latestGen(project);
   const genUrl = useBlobUrl(gen?.blobKey);
@@ -202,6 +204,18 @@ function ContextPanel({ open, onClose }) {
           ? <p className="one">{brief.oneLiner}</p>
           : <button className="btn btn-sm" onClick={() => setStage("consult")}>1行ブリーフを作る</button>}
         {!!brief.tone?.length && <div className="chips" style={{ marginTop: 6 }}>{brief.tone.map((t) => <span key={t} className="badge sora">{t}</span>)}</div>}
+      </section>
+
+      <section>
+        <h3>Idea</h3>
+        {core.oneLiner
+          ? (
+            <>
+              <p className="one">{core.oneLiner}</p>
+              {core.tagline && <p className="tagline">{core.tagline}</p>}
+            </>
+          )
+          : <button className="btn btn-sm" onClick={() => setStage("idea")}>コアアイデアを決める</button>}
       </section>
 
       <section>

@@ -4,6 +4,7 @@ import { compilePrompt } from "../lib/prompt";
 import { api, ApiError } from "../lib/api";
 import { putBlob, getBlob, base64ToBlob, useBlobUrl } from "../lib/idb";
 import { refToPayload, blobToPayload, maxRefImages, modelSpec, thumbSrc, canPassPixels } from "../lib/refsources";
+import { renderPlaceholder } from "../lib/placeholder";
 import GenDetail from "../components/GenDetail";
 import { useToast } from "../components/Toast";
 
@@ -81,6 +82,33 @@ export default function Generate() {
       const status = e instanceof ApiError ? e.status : 0;
       const msg = e?.message || "生成に失敗しました";
       setErr({ message: msg, status, canShrink: status === 413 || /size|サイズ|too large|大き/i.test(msg) });
+    } finally {
+      setBusy(false);
+      setProgress({ done: 0, total: 0, label: "" });
+    }
+  };
+
+  /** 生成モデル未接続でも下流（配色抽出 → spec → Figma）を試せるデモ画像 */
+  const makeDemo = async () => {
+    setBusy(true); setErr(null); setBlocked(null);
+    setProgress({ done: 0, total: 1, label: "デモ画像を描いています…" });
+    try {
+      const { blob, width, height } = await renderPlaceholder({
+        aspect: d.aspect,
+        palette: d.palette?.colors || [],
+        composition: d.composition,
+        zone: d.typography?.zone,
+        label: project.meta.brand || project.name,
+        seed: project.gens.length + 1,
+      });
+      const blobKey = `gen-${uid()}`;
+      await putBlob(blobKey, blob);
+      const id = uid();
+      dispatch({ type: "gens/add", gen: { id, blobKey, width, height, promptVersionId: active?.id || null, model: "placeholder", aspect: d.aspect, demo: true } });
+      setSelectedId(id);
+      toast("デモ画像を追加しました（生成モデル未接続）", "ok");
+    } catch (e) {
+      setErr({ message: e?.message || "デモ画像を作れませんでした", status: 0 });
     } finally {
       setBusy(false);
       setProgress({ done: 0, total: 0, label: "" });
@@ -174,6 +202,9 @@ export default function Generate() {
           <button className="btn btn-primary" onClick={run} disabled={!hasGemini || busy || !active?.en}>
             {busy ? <><span className="spinner" /> 生成中…</> : "生成する"}
           </button>
+          <button className="btn btn-ghost" onClick={makeDemo} disabled={busy} title="方向の変数（比率・配色・構図・見出しゾーン）から構図の雛形を描きます。Figma までの流れを鍵無しで試すためのものです">
+            デモ画像で先へ進む
+          </button>
           {busy && progress.total > 0 && <span className="small muted">{progress.label}</span>}
         </div>
 
@@ -252,6 +283,7 @@ function GenTile({ gen, selected, onSelect, onStar }) {
         {new Date(gen.at).toLocaleString("ja-JP", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" })}
         {gen.critique ? ` · ${gen.critique.total}/30` : ""}
         {gen.parentId ? " · 編集" : ""}
+        {gen.demo ? " · デモ" : ""}
       </span>
     </div>
   );

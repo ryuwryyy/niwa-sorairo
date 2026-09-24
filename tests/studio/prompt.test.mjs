@@ -141,6 +141,64 @@ test("compilePrompt: ブロックは 10 種の key を使い、en を連結し�
   assert.ok(r.ja.includes("【配色】"));
 });
 
+/* ---------- 企画（Idea）ステージとの連結 ---------- */
+
+const withIdea = (core, over = {}) => fixture({ ...over, idea: { core: { oneLiner: "", kvConcept: "", tagline: "", rationale: "", ...core } } });
+
+test("compilePrompt: 方向の主題が空なら企画の KV コンセプトを主題にする", () => {
+  const p = withIdea(
+    { kvConcept: "A single unglazed cup of pale tea seen from directly above." },
+    { direction: { subject: "", scene: "" } },
+  );
+  const { en, blocks } = compilePrompt(p);
+  assert.match(en, /The image shows a single unglazed cup of pale tea seen from directly above\./);
+  assert.ok(blocks.find((b) => b.key === "subject").ja.includes("企画"));
+});
+
+test("compilePrompt: 方向の主題があれば企画の KV コンセプトは使わない", () => {
+  const p = withIdea({ kvConcept: "A single unglazed cup of pale tea." });
+  const { en } = compilePrompt(p);
+  assert.match(en, /The image shows a single stoneware cup of pale green tea/);
+  assert.doesNotMatch(en, /unglazed/);
+});
+
+test("compilePrompt: 企画の KV コンセプトにもシーンが続く", () => {
+  const p = withIdea({ kvConcept: "A worn wooden counter." }, { direction: { subject: "", scene: "in a quiet old Kyoto machiya" } });
+  assert.match(compilePrompt(p).en, /The image shows a worn wooden counter, in a quiet old Kyoto machiya\./);
+});
+
+test("compilePrompt: ブリーフの1行が空なら企画のコアアイデアを冒頭に置く", () => {
+  const p = withIdea({ oneLiner: "待っている 3 分間のほうを主役にする。" }, {
+    consult: { brief: { problem: "", insight: "", audience: "", promise: "", tone: [], oneLiner: "", lighthouse: "", successCriteria: [] } },
+  });
+  assert.match(compilePrompt(p).en, /The idea in one line: 待っている 3 分間のほうを主役にする。/);
+});
+
+test("compilePrompt: タグラインは画像プロンプトに入らない（既定の文字方針）", () => {
+  for (const intent of ["headline_zone", "none"]) {
+    const p = withIdea({ tagline: "待つ。それでいい。" }, { direction: { typography: { intent, zone: "top", copy: "" } } });
+    assert.doesNotMatch(compilePrompt(p).en, /待つ。それでいい。/, `${intent} でタグラインが漏れている`);
+  }
+});
+
+test("compilePrompt: 文字を画像に統合するときだけタグラインがコピーになる", () => {
+  const p = withIdea({ tagline: "待つ。それでいい。" }, { direction: { typography: { intent: "integrated", zone: "top", copy: "" } } });
+  const { en, blocks } = compilePrompt(p);
+  assert.match(en, /Integrate the headline "待つ。それでいい。"/);
+  assert.ok(blocks.find((b) => b.key === "typography").ja.includes("企画のタグライン"));
+
+  // 方向ステージで文字を書いていれば、そちらが優先される
+  const manual = withIdea({ tagline: "待つ。それでいい。" }, { direction: { typography: { intent: "integrated", zone: "top", copy: "SLOW" } } });
+  assert.match(compilePrompt(manual).en, /Integrate the headline "SLOW"/);
+  assert.doesNotMatch(compilePrompt(manual).en, /待つ。それでいい。/);
+});
+
+test("compilePrompt: idea が無い案件（旧バージョン）でも落ちない", () => {
+  const p = fixture();
+  delete p.idea;
+  assert.ok(compilePrompt(p).en.length > 0);
+});
+
 test("guardPrompt: 実在ブランド名を警告する", () => {
   const w = guardPrompt("a photorealistic nike sneaker on concrete");
   assert.ok(w.some((x) => x.level === "warn" && x.term === "nike"));

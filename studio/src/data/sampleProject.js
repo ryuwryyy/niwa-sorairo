@@ -98,6 +98,91 @@ export function makeSampleProject() {
       },
       aiRun: null,
     },
+    idea: {
+      // 先生は cannes.json の id（cannesDeconstruction.json に分解がある作品）
+      teachers: ["2026-design-gold-dear-difference", "2026-industry-craft-gp-tiny-coffee-shops"],
+      patterns: ["make_invisible_visible", "absence_as_message"],
+      insights: [
+        {
+          id: "ins-1",
+          text: "この人たちが避けているのはお茶の味ではなく、「正しく淹れられていない自分」を見られることだ。",
+          source: "human_truth",
+          evidence: "店頭ヒアリング 20 件中 14 件が急須を持っておらず、最頻出の声は「おいしい淹れ方が分からない」。味への不満はほぼ出ていない。",
+          chosen: true,
+        },
+        {
+          id: "ins-2",
+          text: "日本茶の広告はいつも抹茶の緑と和装から始まる。その入口自体が「これは自分のものではない」と告げている。",
+          source: "category_convention",
+          evidence: "競合 8 ブランドの直近 KV はすべて緑＋和の設え。差がつくのは商品ではなく入口の設計。",
+          chosen: false,
+        },
+        {
+          id: "ins-3",
+          text: "コーヒーを毎日飲むのは、味のためだけではなく「手を止める口実」が要るからだ。",
+          source: "context_truth",
+          evidence: "毎日飲むと答えた人の多くが、飲む理由を「休憩のきっかけ」と説明した（未検証：人数を数え直す）。",
+          chosen: false,
+        },
+      ],
+      tensions: [
+        { id: "ten-1", text: "静かな時間がほしい。なのに、その時間を取るための作法が重い。", chosen: true },
+        { id: "ten-2", text: "毎日そこにあるのに、家で淹れた記憶だけが誰にも無い。", chosen: false },
+      ],
+      ideas: [
+        {
+          id: "idea-1",
+          oneLiner: "淹れ方ではなく、待っている 3 分間のほうを主役にする。",
+          twist: "ふつうは湯気と急須で「お茶らしさ」を説明して終わる。この案は違う——道具を全部画面から外し、湯の中で葉がひらいていく時間だけを見せる。作法が写っていないことが、そのままメッセージになる。",
+          kvConcept:
+            "A single unglazed cup of pale tea seen from directly above, leaves slowly opening in still water, wide empty ground around it and no tools, no hands, no props.",
+          tagline: "待つ。それでいい。",
+          why: "「正しく淹れられていない自分を見られたくない」という本音に、道具を消すという一手で直接応える。カテゴリーの入口（緑と和装）も同時に外せる。",
+          risk: "引き算が足りないと、ただの綺麗な静物になる。3 分という時間が読めるかどうかが分かれ目。",
+          patterns: ["absence_as_message"],
+          scores: { idea: 4, execution: 4, impact: 3 },
+          tests: { true: true, single_minded: true, ownable: true, simple_to_say: true, new: true },
+          chosen: true,
+        },
+        {
+          id: "idea-2",
+          oneLiner: "見えない 3 分間を、湯気の長さとして目に見える形にする。",
+          twist: "ふつうは時間を数字で説明する。この案は違う——立ちのぼる湯気の一本を長い線として写し、時間そのものを図像にする。",
+          kvConcept:
+            "One thin ribbon of steam rising from a plain cup, photographed as a single continuous line against a flat, unlit background.",
+          tagline: "3 分は、長い。",
+          why: "「何もしなくていい時間」という約束を、説明せずに 1 秒で読ませられる。可視化の対象が商品ではなく時間なので、競合と同質化しない。",
+          risk: "可視化の技法に見とれて、何のための 3 分かを言い忘れる。",
+          patterns: ["make_invisible_visible"],
+          scores: { idea: 4, execution: 3, impact: 3 },
+          tests: { true: true, new: true, single_minded: true },
+          chosen: false,
+        },
+        {
+          id: "idea-3",
+          oneLiner: "急須の置き場所に、何も置かない。",
+          twist: "ふつうは道具一式を並べて「始め方」を教える。この案は違う——道具が並ぶはずの台の上を空けたまま撮り、要らないことを構図で言う。",
+          kvConcept:
+            "A worn wooden counter photographed straight on, with one cup at the far edge and a conspicuously empty space where utensils would normally sit.",
+          tagline: "道具は、いらない。",
+          why: "参入障壁そのものを画面から消すことで、敷居の低さを言葉なしに伝える。",
+          risk: "手がかりが足りないと、引き算ではなくただの未完成に見える。",
+          patterns: ["absence_as_message"],
+          scores: { idea: 3, execution: 3, impact: 2 },
+          tests: { single_minded: true, simple_to_say: true },
+          chosen: false,
+        },
+      ],
+      core: {
+        oneLiner: "淹れ方ではなく、待っている 3 分間のほうを主役にする。",
+        kvConcept:
+          "A single unglazed cup of pale tea seen from directly above, leaves slowly opening in still water, wide empty ground around it and no tools, no hands, no props.",
+        tagline: "待つ。それでいい。",
+        rationale:
+          "「正しく淹れられていない自分を見られたくない」という本音に、道具を消すという一手で直接応える。カテゴリーの入口（緑と和装）も同時に外せる。",
+      },
+      aiRun: null,
+    },
     refs: {
       board: [
         newRef({

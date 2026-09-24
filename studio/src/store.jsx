@@ -12,11 +12,12 @@ export const STORAGE_KEY = "sorairo.studio.v1";
 export const STAGES = [
   { id: "project", n: 0, ja: "案件", en: "Project", hint: "名前・ブランド・成果物" },
   { id: "consult", n: 1, ja: "課題", en: "Consult", hint: "仮説 → 課題 → 1行ブリーフ" },
-  { id: "refs", n: 2, ja: "参照", en: "References", hint: "カンヌ・Pinterest・Adobe・自前" },
-  { id: "direction", n: 3, ja: "方向", en: "Direction", hint: "アートディレクション変数" },
-  { id: "prompt", n: 4, ja: "プロンプト", en: "Prompt", hint: "叙述プロンプト（EN + JA）" },
-  { id: "generate", n: 5, ja: "生成", en: "Generate", hint: "生成 → 批評 → 修正" },
-  { id: "handoff", n: 6, ja: "Figma", en: "Handoff", hint: "トークン → spec → プラグイン" },
+  { id: "idea", n: 2, ja: "企画", en: "Idea", hint: "デコンテ → インサイト → コアアイデア" },
+  { id: "refs", n: 3, ja: "参照", en: "References", hint: "カンヌ・Pinterest・Adobe・自前" },
+  { id: "direction", n: 4, ja: "方向", en: "Direction", hint: "アートディレクション変数" },
+  { id: "prompt", n: 5, ja: "プロンプト", en: "Prompt", hint: "叙述プロンプト（EN + JA）" },
+  { id: "generate", n: 6, ja: "生成", en: "Generate", hint: "生成 → 批評 → 修正" },
+  { id: "handoff", n: 7, ja: "Figma", en: "Handoff", hint: "トークン → spec → プラグイン" },
 ];
 
 export const DEFAULT_ASPECT = {
@@ -53,6 +54,23 @@ export function newRef(partial = {}) {
   };
 }
 
+/**
+ * 企画（Idea）ステージの初期値。課題（consult）と参照（refs）のあいだで、
+ * 先生（カンヌの分解）→ インサイト → 緊張 → コアアイデア → KV コンセプト + タグライン を作る。
+ * 旧バージョンで保存された案件には無いので、読むときは `p.idea || emptyIdea()` を通す。
+ */
+export function emptyIdea() {
+  return {
+    teachers: [],   // cannes.json の id[]（最大 3）
+    patterns: [],   // ideaPatterns.json の id[]（最大 3）
+    insights: [],   // [{ id, text, source, evidence, chosen }]
+    tensions: [],   // [{ id, text, chosen }]
+    ideas: [],      // [{ id, oneLiner, twist, kvConcept, tagline, why, risk, patterns[], scores{idea,execution,impact}|null, tests{}, chosen }]
+    core: { oneLiner: "", kvConcept: "", tagline: "", rationale: "" },
+    aiRun: null,    // { at, model, op }
+  };
+}
+
 export function emptyProject(name = "無題の案件") {
   return {
     id: uid(),
@@ -78,6 +96,7 @@ export function emptyProject(name = "無題の案件") {
       },
       aiRun: null,          // { at, model }
     },
+    idea: emptyIdea(),
     refs: {
       board: [],            // newRef()[]
       cannesPicks: [],      // cannes.json の id[]
@@ -227,6 +246,21 @@ function reducer(state, action) {
         return action.ids.map((id) => map.get(id)).filter(Boolean);
       }));
 
+    /* ---- 企画（Idea） ---- */
+    case "idea/addIdeas": {   // { items } 末尾に足す
+      const items = (Array.isArray(action.items) ? action.items : [action.item]).filter(Boolean);
+      return withProject(setIn(cur, "idea.ideas", (l) => [...(l || []), ...items]));
+    }
+    case "idea/updateIdea":   // { id, patch }
+      return withProject(setIn(cur, "idea.ideas", (l) => (l || []).map((x) => (x.id === action.id ? { ...x, ...action.patch } : x))));
+    case "idea/removeIdea":
+      return withProject(setIn(cur, "idea.ideas", (l) => (l || []).filter((x) => x.id !== action.id)));
+    case "idea/choose": {     // { key: "insights"|"tensions"|"ideas", id } ちょうど1本を採用にする
+      const key = ["insights", "tensions", "ideas"].includes(action.key) ? action.key : null;
+      if (!key) return state;
+      return withProject(setIn(cur, `idea.${key}`, (l) => (l || []).map((x) => ({ ...x, chosen: x.id === action.id }))));
+    }
+
     case "prompt/addVersion": {
       const v = { id: uid(), at: now(), source: "manual", note: "", refIds: [], blocks: [], ...action.version };
       const versions = [...cur.prompt.versions, v];
@@ -299,6 +333,11 @@ export function stageStatus(p) {
   const st = {};
   st.project = p.name && p.meta.deliverable ? "done" : "partial";
   st.consult = p.consult.brief.oneLiner ? "done" : (p.consult.context ? "partial" : "empty");
+  {
+    const i = p.idea || emptyIdea();
+    const started = (i.insights || []).length || (i.ideas || []).length;
+    st.idea = i.core?.oneLiner ? "done" : (started ? "partial" : "empty");
+  }
   st.refs = p.refs.board.length >= 3 ? "done" : (p.refs.board.length ? "partial" : "empty");
   st.direction = p.direction.subject ? "done" : "partial";
   st.prompt = p.prompt.versions.length ? "done" : "empty";
@@ -328,6 +367,7 @@ export function parseProject(text) {
     ...base, ...p,
     meta: { ...base.meta, ...p.meta },
     consult: { ...base.consult, ...(p.consult || {}), brief: { ...base.consult.brief, ...((p.consult || {}).brief || {}) } },
+    idea: { ...base.idea, ...(p.idea || {}), core: { ...base.idea.core, ...((p.idea || {}).core || {}) } },
     refs: { ...base.refs, ...(p.refs || {}) },
     direction: { ...base.direction, ...(p.direction || {}),
       axes: { ...base.direction.axes, ...((p.direction || {}).axes || {}) },

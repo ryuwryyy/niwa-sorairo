@@ -74,6 +74,8 @@ export function compilePrompt(project, opts = {}) {
   const maxRefImages = opts.maxRefImages ?? 3;
   const { meta, consult, refs, direction: d } = project;
   const brief = consult.brief || {};
+  // 企画（Idea）ステージの結論。方向ステージが空のときだけ穴を埋める（上書きはしない）
+  const core = project.idea?.core || {};
   const deliverable = byId(vars.deliverables, meta.deliverable) || vars.deliverables[0];
   const medium = byId(vars.medium, d.medium);
   const composition = byId(vars.composition, d.composition);
@@ -91,23 +93,34 @@ export function compilePrompt(project, opts = {}) {
   // 1. 成果物と意図
   {
     const brand = clean(meta.brand);
-    const one = clean(brief.oneLiner);
+    const one = clean(brief.oneLiner) || clean(core.oneLiner);
     const en = `A ${medium ? medium.en + " " : ""}${deliverable.en}${brand ? ` for ${brand}` : ""}.` +
       (one ? ` The idea in one line: ${one}` : "") +
       (brief.promise ? ` It should make the viewer feel: ${clean(brief.promise)}.` : "");
     blocks.push({ key: "deliverable", labelJa: "成果物と意図",
-      en, ja: `${deliverable.ja}（${medium?.ja || "媒体未指定"}）。ブリーフの1行と約束を冒頭に置き、画像の目的を先に伝える。` });
+      en, ja: `${deliverable.ja}（${medium?.ja || "媒体未指定"}）。${clean(brief.oneLiner) ? "ブリーフの1行" : (one ? "企画のコアアイデア" : "1行")}と約束を冒頭に置き、画像の目的を先に伝える。` });
   }
 
-  // 2. 主題とシーン
+  // 2. 主題とシーン（方向の主題が空なら、企画の KV コンセプトを主題に使う）
   {
     const subject = clean(d.subject);
     const scene = clean(d.scene);
-    const en = subject
-      ? `The image shows ${subject}${scene ? `, ${scene}` : "."}${scene && !/[.!?]$/.test(scene) ? "." : ""}`
-      : `The subject is left for you to decide from the idea above; choose one concrete, physical thing that embodies it${scene ? `, set in ${scene}.` : "."}`;
-    blocks.push({ key: "subject", labelJa: "主題とシーン", en,
-      ja: subject ? "主題と舞台。具体的な「モノ」を一つ決めると安定する。" : "主題が未入力。方向ステージで主題を決めると精度が上がる。" });
+    const kv = clean(core.kvConcept).replace(/[.\s]+$/, "");
+    let en;
+    let ja;
+    if (subject) {
+      en = `The image shows ${subject}${scene ? `, ${scene}` : "."}${scene && !/[.!?]$/.test(scene) ? "." : ""}`;
+      ja = "主題と舞台。具体的な「モノ」を一つ決めると安定する。";
+    } else if (kv) {
+      // 文頭の大文字だけを小さくする（NASA のような全部大文字の語は触らない）
+      const body = /^[A-Z][^A-Z]/.test(kv) ? kv[0].toLowerCase() + kv.slice(1) : kv;
+      en = `The image shows ${body}${scene ? `, ${scene}` : "."}${scene && !/[.!?]$/.test(scene) ? "." : ""}`;
+      ja = "企画ステージの KV コンセプトを主題にしている。方向ステージで主題を書けばそちらが優先される。";
+    } else {
+      en = `The subject is left for you to decide from the idea above; choose one concrete, physical thing that embodies it${scene ? `, set in ${scene}.` : "."}`;
+      ja = "主題が未入力。企画ステージで KV コンセプトを決めるか、方向ステージで主題を書くと精度が上がる。";
+    }
+    blocks.push({ key: "subject", labelJa: "主題とシーン", en, ja });
   }
 
   // 3. 構図
@@ -157,13 +170,18 @@ export function compilePrompt(project, opts = {}) {
   }
 
   // 7. 文字の扱い
+  //    タグラインは「文字を画像に統合する」と明示したときだけ本文に入れる。
+  //    既定（文字なし / 見出しゾーン）では、企画のタグラインを画像プロンプトへ漏らさない。
   {
     const intent = byId(vars.typographyIntent, d.typography?.intent) || vars.typographyIntent[1];
     const zone = byId(vars.zones, d.typography?.zone) || vars.zones[0];
-    const copy = clean(d.typography?.copy);
+    const integrated = intent.id === "integrated";
+    const copy = clean(d.typography?.copy) || (integrated ? clean(core.tagline) : "");
     let en = intent.en.replace("{zone}", zone.en).replace("{copy}", copy || "HEADLINE");
-    if (intent.id === "integrated" && !copy) en = vars.typographyIntent[1].en.replace("{zone}", zone.en);
-    blocks.push({ key: "typography", labelJa: "文字の扱い", en, ja: `${intent.ja}${intent.id === "headline_zone" ? `（${zone.ja}を空ける）` : ""}。文字は Figma で載せるのが既定。` });
+    if (integrated && !copy) en = vars.typographyIntent[1].en.replace("{zone}", zone.en);
+    const fromIdea = integrated && !clean(d.typography?.copy) && !!clean(core.tagline);
+    blocks.push({ key: "typography", labelJa: "文字の扱い", en,
+      ja: `${intent.ja}${intent.id === "headline_zone" ? `（${zone.ja}を空ける）` : ""}。文字は Figma で載せるのが既定。${fromIdea ? "（企画のタグラインを使用）" : ""}` });
   }
 
   // 8. ムード

@@ -276,10 +276,12 @@ function headerVariant(t, variant, brief) {
 function briefText(project) {
   const brief = project?.consult?.brief || {};
   const meta = project?.meta || {};
-  const headline = (brief.oneLiner || project?.name || "見出しをここに").trim();
+  // 見出しは企画のタグラインが最優先（画像には描かせず、Figma でここに載せる）。
+  const core = project?.idea?.core || {};
+  const headline = (core.tagline || brief.oneLiner || project?.name || "見出しをここに").trim();
   return {
     headline,
-    sub: (brief.promise || brief.insight || "サブコピーをここに置きます").trim(),
+    sub: (core.oneLiner || brief.promise || brief.insight || "サブコピーをここに置きます").trim(),
     brand: (meta.brand || meta.client || project?.name || "BRAND").trim(),
     cardTitle: (brief.problem || "カードの見出し").trim().slice(0, 28),
     cardBody: (brief.insight || "カードの本文。三行ほどの説明が入ります。").trim().slice(0, 90),

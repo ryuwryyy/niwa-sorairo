@@ -32,6 +32,9 @@ export default function Direction() {
     return [...new Set(src.split(/[、。\n,]/).map((s) => s.trim()).filter((s) => s.length >= 4))].slice(0, 3);
   }, [brief.oneLiner, brief.insight]);
 
+  // 企画ステージの KV コンセプト（主題が空ならプロンプトでも自動採用されるが、ここで明示的に入れられる）
+  const kvConcept = (project.idea?.core?.kvConcept || "").trim();
+
   const copyWords = (d.typography.copy || "").trim().split(/\s+/).filter(Boolean);
   const refsWithPalette = project.refs.board.filter((r) => (r.palette || []).length);
 
@@ -88,10 +91,24 @@ export default function Direction() {
           <span className="label">主題（EN 推奨）</span>
           <textarea className="textarea" style={{ minHeight: 68 }} value={d.subject} placeholder="a single unglazed stoneware cup of pale green tea on a worn wooden counter" onChange={(e) => patch("direction.subject", e.target.value)} />
         </label>
-        <label className="field" style={{ marginBottom: ideas.length ? 10 : 0 }}>
+        <label className="field" style={{ marginBottom: ideas.length || kvConcept ? 10 : 0 }}>
           <span className="label">シーン</span>
           <textarea className="textarea" style={{ minHeight: 60 }} value={d.scene} placeholder="in a quiet old Kyoto machiya at mid-morning" onChange={(e) => patch("direction.scene", e.target.value)} />
         </label>
+        {!!kvConcept && (
+          <div className="field" style={{ marginBottom: ideas.length ? 10 : 0 }}>
+            <span className="label">企画から <span className="hint">主題が空のままでもプロンプトでは自動的に使われます</span></span>
+            <div className="chips">
+              <button
+                className="chip"
+                title={kvConcept}
+                onClick={() => { patch("direction.subject", (s) => (s ? `${s} ${kvConcept}` : kvConcept)); toast("KV コンセプトを主題に入れました", "ok"); }}
+              >
+                企画から: {kvConcept.length > 48 ? `${kvConcept.slice(0, 48)}…` : kvConcept}
+              </button>
+            </div>
+          </div>
+        )}
         {!!ideas.length && (
           <div className="field" style={{ marginBottom: 0 }}>
             <span className="label">ブリーフから拾った手がかり <span className="hint">押すと主題に足します</span></span>

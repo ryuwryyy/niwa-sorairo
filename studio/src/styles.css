@@ -368,3 +368,52 @@ input.color { width: 40px; height: 32px; padding: 2px; border: 1px solid var(--l
 
 /* .card + .card の既定マージンは、gap を持つコンテナの中では二重になるので無効化する */
 .stack > .card + .card, .grid > .card + .card { margin-top: 0; }
+
+/* ---------- 企画（Idea）ステージ ---------- */
+
+/* 型チップ（本体 + 「?」で説明を開く） */
+.chip.pattern-chip { padding: 0 6px 0 0; gap: 0; }
+.chip.pattern-chip .chip-main { border: 0; background: transparent; color: inherit; font: inherit; font-size: 12px; cursor: pointer; padding: 5px 8px 5px 11px; border-radius: 999px; }
+.chip.pattern-chip .x { font-size: 11px; opacity: .6; padding: 0 4px; }
+.chip.pattern-chip .x:hover { opacity: 1; }
+.pattern-detail { margin-top: 10px; border: 1px solid var(--sora); border-radius: var(--radius); background: var(--sora-pale); padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; }
+.pattern-detail p { margin: 0; }
+.howto { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 3px; color: var(--ink-soft); }
+.seed-line { border-left: 2px solid var(--line-strong); padding-left: 8px; color: var(--ink-soft); margin: 0; white-space: pre-wrap; }
+
+/* デコンテ（受賞作の分解） */
+.deconte-card { border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface-2); padding: 12px 14px; }
+.deconte-card.teacher { border-color: var(--moss); background: color-mix(in srgb, var(--moss) 7%, var(--surface)); }
+.deconte-card dl.cannes-dl { grid-template-columns: 104px 1fr; }
+
+/* 企画の材料（採用インサイト・緊張・型・先生） */
+.idea-source { display: flex; flex-direction: column; gap: 3px; border-left: 3px solid var(--sora); padding: 6px 0 6px 10px; }
+.idea-source strong { color: var(--ink-soft); }
+
+/* アイデアカード */
+.idea-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; align-items: start; }
+.idea-grid > .card { margin-top: 0; }
+.idea-card { background: var(--surface); }
+.idea-card.chosen { border-color: var(--moss); box-shadow: 0 0 0 1px var(--moss) inset, var(--shadow); }
+.idea-card .field { margin-bottom: 10px; }
+
+/* 検査チェックリスト */
+.idea-tests { display: flex; flex-direction: column; gap: 8px; }
+.testlist, .cdlist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.testlist label, .cdlist label { width: 100%; }
+.testlist input[type="checkbox"], .cdlist input[type="checkbox"] { margin-top: 4px; flex-shrink: 0; }
+
+/* 結論（コアアイデア） */
+.core-block { border-left: 3px solid var(--line-strong); background: var(--surface-2); border-radius: 0 var(--radius) var(--radius) 0; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+.core-block.filled { border-left-color: var(--sora); background: var(--sora-pale); }
+.core-block .k { font-size: 11px; letter-spacing: .1em; color: var(--ink-mute); font-family: var(--font-mono); text-transform: uppercase; }
+.core-block .one { font-family: var(--font-display); font-size: 17px; line-height: 1.6; margin: 0; }
+.core-block .tagline { font-family: var(--font-display); font-size: 22px; letter-spacing: .06em; margin: 0; color: var(--sora-ink); }
+.core-block .kv, .core-block .why { margin: 0; }
+.panel .tagline { font-family: var(--font-display); font-size: 15px; letter-spacing: .04em; color: var(--sora-deep); margin: 2px 0 0; }
+
+@media (max-width: 760px) {
+  .idea-grid { grid-template-columns: minmax(0, 1fr); }
+  .deconte-card dl.cannes-dl { grid-template-columns: 1fr; }
+  .core-block .tagline { font-size: 19px; }
+}

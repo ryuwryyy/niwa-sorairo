@@ -1,0 +1,777 @@
+{
+  "verifiedAt": "2026-09-18",
+  "sources": [
+    { "title": "Cannes Lions — Design Lions: What You Need to Know", "url": "https://www.canneslions.com/awards/lions/design/what-you-need-to-know", "note": "審査比率を明記している数少ない部門。40% idea / 40% execution / 20% results。「アイデア・実行・効果」の三分法の一次的な裏付け。" },
+    { "title": "Cannes Lions — Print & Publishing Lions: What You Need to Know", "url": "https://www.canneslions.com/awards/lions/print-publishing/what-you-need-to-know", "note": "KV に最も近い部門。審査基準は the idea / the execution / the impact の3点と明記。ただし比率は非公開（本ファイルの 40/30/30 は部門横断の平均化＝distilled）。" },
+    { "title": "Cannes Lions — Creative Effectiveness Lions: What You Need to Know", "url": "https://www.canneslions.com/awards/lions/creative-effectiveness/what-you-need-to-know", "note": "25% idea / 25% strategy / 50% impact and results。効果部門は結果の比重が倍になることの根拠。" },
+    { "title": "Cannes Lions — Creative Strategy Lions: What You Need to Know", "url": "https://www.canneslions.com/awards/lions/creative-strategy/what-you-need-to-know", "note": "30% 課題解釈 / 30% インサイト・breakthrough thinking / 20% アイデア / 20% 結果。「課題の立て方そのものが評価対象」という思想の根拠。" },
+    { "title": "Cannes Lions — Entertainment Lions: What You Need to Know", "url": "https://www.canneslions.com/awards/lions/entertainment/what-you-need-to-know", "note": "30% idea / 20% strategy & insight / 30% craft & execution / 20% results。craft を独立項目として立てる例。" },
+    { "title": "Cannes Lions — Direct Lions: What You Need to Know", "url": "https://www.canneslions.com/awards/lions/direct/what-you-need-to-know", "note": "30% idea / 20% strategy / 20% execution / 30% impact and results。行動変容部門は結果の比重が上がる。" },
+    { "title": "Cannes Lions — How Judging Works", "url": "https://www.canneslions.com/awards/awards-support/how-judging-works", "note": "審査員は応募者の書いた説明文を判断の基礎にする、という運用の記述。『説明できないアイデアは勝てない』の根拠。" },
+    { "title": "Cannes Lions — Awards Entry Guide", "url": "https://www.canneslions.com/awards/awards-support/awards-entry-guide", "note": "「量ではなく明快さ（It's not about volume. It's about clarity.）」「文化的文脈とインサイトを説明せよ」という応募指針。" },
+    { "title": "WARC — Creative Effectiveness Ladder", "url": "https://www.warc.com/en/case-studies/creative-effectiveness-ladder", "note": "6段のはしごの一次ソース。Cannes Lions と WARC の共同。" },
+    { "title": "WARC — Creative Effectiveness Ladder Level 6", "url": "https://www.warc.com/creative/creative-effectiveness-ladder/level-6", "note": "Level 6 Enduring Icon の定義（3年以上、同じ戦略・同じクリエイティブを続けて成長を継続）。" },
+    { "title": "The Effectiveness Code — James Hurman with Peter Field（PDF）", "url": "https://www.mm.be/userfiles/media/The%20effectiveness%20code.pdf", "note": "はしごの原典白書（2020）。4,863件の効果賞エントリー（Cannes 1,031／WARC 3,616／IPA 216）を 2011–2019 で分析。" },
+    { "title": "IPA — Creative Effectiveness Ladder launched by Cannes Lions & WARC", "url": "https://ipa.co.uk/effworks/marketing-marketing-v2/creative-effectiveness-ladder", "note": "6段の名称と「継続的改善ツールとして使う」という位置づけの確認。" },
+    { "title": "Kickframe Toolbox — Get-Who-To-By", "url": "https://kickframetoolbox.com/get-who-to-by", "note": "Get–Who–To–By の実務的な使い方。ブリーフの核を1行に圧縮する型。" },
+    { "title": "Origin of the GET/WHO/TO/BY Model（Baiba Matisone）", "url": "https://medium.com/@baiba.matisone/origin-of-the-get-who-to-by-model-0ed51eafd65d", "note": "出自は 2004–05 の BBDO NY（Martyn Straw）。Ogilvy の戦略教育の影響下だが BBH 発ではない、という来歴の訂正。" },
+    { "title": "Droga5 — Strategy", "url": "https://droga5.com/people/strategy/", "note": "Four Cs（company / category / consumer / culture）。「文化」を独立した探索面として置く発想の裏付け。" },
+    { "title": "Knowledge at Wharton — The 4 C's of Impactful Ad Campaigns（Colm Murphy, Droga5）", "url": "https://knowledge.wharton.upenn.edu/article/colm-murphy-droga5-interview/", "note": "Four Cs の解説インタビュー。cultural tension は運用語であり、公式に定義された固有フレーム名ではない点も確認。" },
+    { "title": "eatbigfish — Eating the Big Fish", "url": "https://www.eatbigfish.com/thinking/eating-the-big-fish", "note": "Adam Morgan。チャレンジャーの 8 credos（うち #2 が lighthouse identity）。" },
+    { "title": "Alex Murrell — Dave Trott, Predatory Thinking（要約）", "url": "https://www.alexmurrell.co.uk/summaries/dave-trott-predatory-thinking", "note": "「症状ではなく本当の問題を見る」「ブリーフに答える前にブリーフを疑う」「push ではなく pull」。" },
+    { "title": "Alex Murrell — Paul Arden, It's Not How Good You Are（要約）", "url": "https://www.alexmurrell.co.uk/summaries/paul-arden-its-not-how-good-you-are-its-how-good-you-want-to-be", "note": "「正しいことは間違い（既知の焼き直しになる）」「ラフの方がアイデアが伝わる」「賞賛ではなく批判を求めよ」「悪いブリーフなど無い」。" },
+    { "title": "Blinkist — Truth, Lies and Advertising（Jon Steel）", "url": "https://www.blinkist.com/en/books/truth-lies-and-advertising-en", "note": "アカウントプランニングの目的は「本当に人に届く広告をつくること」。調査は単純さ・常識・創造性で、生活者を受け手でなく共犯者にする。" },
+    { "title": "Zappi — Principles of How Brands Grow（Byron Sharp）", "url": "https://learn.zappi.io/en_US/audience-and-sample/principles-of-how-brands-grow-by-byron-sharp", "note": "mental availability / physical availability / distinctive brand assets。資産は「一貫して長く使うほど強い記憶の手がかりになる」。" },
+    { "title": "Growth Method — The Long and the Short of It: Binet & Field's Framework Explained", "url": "https://growthmethod.com/long-and-short/", "note": "IPA Databank 約1,000件。60:40（ブランド構築:刈り取り）。感情主導の方が長期の利益成長と結びつく。" },
+    { "title": "博報堂 — フィロソフィー（生活者発想／パートナー主義）", "url": "https://www.hakuhodo.co.jp/about/dna/philosophy/", "note": "1981年提唱。人を「消費者」ではなく、矛盾や葛藤を抱えた「生活者」として全方位から理解する。" },
+    { "title": "博報堂 The H Magazine — 「生活者発想」と博報堂のクリエイティビティ", "url": "https://www.hakuhodo.co.jp/magazine/65314/", "note": "生活者発想はもともと広告制作を支える技術として構想された、という来歴。" },
+    { "title": "電通デジタル — 商品の強みを伝えるための基本のマーケティングフレームワーク", "url": "https://www.dentsudigital.co.jp/knowledge-charge/articles/0915-marketing-framework", "note": "クリエイティブブリーフの項目列＝目的／目標／ターゲット／ターゲットインサイト／戦略ベネフィット／RTB／メインメッセージ。" },
+    { "title": "宣伝会議 — クリエイティブブリーフとは広告の設計図である。", "url": "https://www.sendenkaigi.com/marketing/media/sendenkaigi/003537/", "note": "ブリーフは「何を・なぜ・誰に・どのように」を言語化して制作者との認識のズレを最小化する設計図、という定義。" },
+    { "title": "flier — 佐藤可士和の超整理術（要約）", "url": "https://www.flierinc.com/summary/3227", "note": "仕事の整理は「状況把握 → 視点導入 → 課題設定」の3段。問診で情報を出し切り、自分なりの視点で並べ替え、本質を一言にする。" },
+    { "title": "1book.co.jp — 小霜和也『ここらで広告コピーの本当の話をします。』", "url": "http://www.1book.co.jp/005803.html", "note": "コピーは商品を売るのではなく言葉で商品の価値を上げる仕事。タグラインは価値が最大化される「定義付け」に特化したコピー。" },
+    { "title": "TASCHEN — D&AD. The Copy Book", "url": "https://www.taschen.com/en/books/graphic-design/43914/d-and-ad-the-copy-book", "note": "1995年 D&AD 刊。David Abbott, Dan Wieden, Neil French ら53名。明快さ・簡潔さ・受け手理解・物語性が共通原理。" },
+    { "title": "Wildish & Co. — The 3-Second Rule: Psychology of Effective Billboard Advertising", "url": "https://www.wildishandco.co.uk/blog/billboard-advertising-psychology-3-second-rule", "note": "OOH は約3秒で意味が通る必要がある（経験則であり厳密な計測値ではない点も明記）。要素が競合する版面は前注意的処理が働かず無視される。" },
+    { "title": "Marpipe — Thumbstop（用語集）", "url": "https://www.marpipe.com/ad-glossary/thumbstop", "note": "最初の1フレームで価値が一瞬で分かることがスクロールを止める条件。" }
+  ],
+
+  "insightSources": [
+    {
+      "id": "human_truth",
+      "ja": "人間の真実",
+      "descJa": "カテゴリーやブランドを外しても成り立つ、人の行動・感情のほんとうのところ。「言っていること」ではなく「やってしまっていること」の側にある。博報堂の生活者発想が言う『矛盾や葛藤を抱えた生活者』を、消費者データではなく生活の側から見る視点。",
+      "questionsJa": [
+        "この人たちが、口では言わないが実際にやってしまっていることは何か。",
+        "この行動をとるとき、当人はどんな気まずさ・後ろめたさ・見栄を抱えているか。",
+        "商品名を全部消しても、この文は人の真実として成り立つか。"
+      ],
+      "exampleJa": "「掃除が嫌いなのではない。掃除が終わっていない状態を人に見られるのが嫌なだけだ。」",
+      "promptEn": "From the brief and any interview notes, extract three statements about how people in this audience actually behave, not what they say they value. Each statement must remain true if you delete the brand and the category from it. Prefer contradictions between stated attitude and observed behaviour. Write each as one plain sentence, no adjectives of praise."
+    },
+    {
+      "id": "brand_truth",
+      "ja": "ブランドの真実",
+      "descJa": "このブランドだけが、嘘にならずに言えること。創業の動機、こだわりの理由、断ってきた仕事、社員が本気で信じていること。競合が同じ文を言った瞬間に嘘になるなら、それはブランドの真実である。",
+      "questionsJa": [
+        "この会社が創業以来ずっと譲らなかったことは何か。",
+        "競合がこの一文をそのまま言ったら、なぜ嘘っぽく聞こえるのか。",
+        "このブランドが「やらないと決めていること」は何か。"
+      ],
+      "exampleJa": "「うちは速く作れない。発酵に三日かかるからだ。それを短縮する研究を、うちは一度もしていない。」",
+      "promptEn": "From the brief, the brand history and the product facts, write three statements that only this brand can say without lying. Test each by substituting the two largest competitors' names: if the sentence still sounds plausible, discard it and write a sharper one. Prefer facts about origin, refusal, or cost the brand pays that others do not."
+    },
+    {
+      "id": "product_truth",
+      "ja": "商品の真実",
+      "descJa": "実物に触れて初めて分かる、検証可能な事実。成分・構造・工程・数値・所作。RTB（reason to believe）の在庫であり、アイデアが飛躍したときに地面に引き戻す錘でもある。ここが薄いと、広告は必ず「気分」だけになる。",
+      "questionsJa": [
+        "実物を手に取ったとき、最初に意外に思うのはどの一点か。",
+        "この商品にしかない数値・工程・素材を3つ挙げるとしたら何か。",
+        "その事実は、第三者が確かめられる形になっているか。"
+      ],
+      "exampleJa": "「刃が付いているのは片面だけ。だから研ぐ回数が半分で済む。」",
+      "promptEn": "List five verifiable facts about the product: materials, process, numbers, timings, physical behaviour. Mark each as (a) checkable by a third party or (b) claim only. Then pick the one fact a first-time user would find most surprising and say in one sentence why it surprises."
+    },
+    {
+      "id": "category_convention",
+      "ja": "カテゴリーの常識",
+      "descJa": "そのカテゴリーの広告が、誰も疑わないまま共有している型。同じ被写体、同じ笑顔、同じ言い回し、同じ色。常識の棚卸しは「新しさ」を測る物差しになる。Dave Trott の言う『ブリーフに答える前にブリーフを疑う』の材料でもある。",
+      "questionsJa": [
+        "この業界の広告を10本並べたら、共通して出てくるものは何か（被写体・構図・色・言葉）。",
+        "その共通点は、誰のためにあるのか。守らないと本当に困るのは誰か。",
+        "1つだけ破るとしたら、どれを破ると一番ざわつくか。"
+      ],
+      "exampleJa": "「この業界の広告は必ず、商品を誰かが持って微笑んでいる。持たない・笑わないだけで異物になる。」",
+      "promptEn": "Describe the visual and verbal conventions this category's advertising shares: recurring subjects, compositions, colours, promises and phrasings. List at least six. For each, state who the convention protects. Then name the single convention that would cause the most discomfort if broken, and why."
+    },
+    {
+      "id": "cultural_tension",
+      "ja": "文化の緊張",
+      "descJa": "いま社会の中でほどけていない対立・変化・気まずさ。世代、働き方、性、地域、言葉づかい、時間の使い方。Droga5 の Four Cs が company / category / consumer と並べて culture を独立させているのは、ここに触れた作品だけが会話を起こすから。ただし乗るだけでは搾取になり、ブランドの真実と接続して初めて成立する。",
+      "questionsJa": [
+        "この人たちのまわりで、ここ2〜3年で言いにくくなった／言いやすくなったことは何か。",
+        "その変化に、みんながまだ答えを出せていない点はどこか。",
+        "うちのブランドがそこに口を出す資格は、どの事実に支えられているか。"
+      ],
+      "exampleJa": "「『休む』が推奨されるようになったのに、休んだ人の仕事を誰がやるかは決まっていない。」",
+      "promptEn": "Name three unresolved tensions in the wider culture that this audience lives inside right now: shifts in norms, language, work, family, time. For each, state what has changed, what has not caught up, and one concrete fact about this brand that gives it standing to speak about it. Reject any tension the brand has no standing to enter."
+    },
+    {
+      "id": "context_truth",
+      "ja": "接点の真実",
+      "descJa": "その広告が実際に置かれる場所・時間・姿勢・秒数の事実。駅の階段の踊り場、雨の夜の車窓、親指の下、朝の会議の直前。同じアイデアでも接点が変われば正解の形が変わる。3秒で読ませる OOH と、止まって読ませる紙面は別の設計になる。",
+      "questionsJa": [
+        "これは誰が、どこで、どんな姿勢で、何秒見るのか。",
+        "その瞬間、見る人の頭の中には直前まで何があったか。",
+        "その場所で、周りに何が並んでいるのか（競合か、無関係か、暗いか、うるさいか）。"
+      ],
+      "exampleJa": "「見られるのは改札を出た直後の3秒、傘を持った右手が視界の右下を塞いでいる。」",
+      "promptEn": "For each planned touchpoint, state the viewer's physical situation: where they are, what posture, how many seconds of attention, what is adjacent in the environment, and what was occupying their mind immediately before. Then say what this forces the creative work to do differently in each touchpoint."
+    }
+  ],
+
+  "tensionPairs": [
+    {
+      "id": "want_but",
+      "ja": "したいのに、してしまう",
+      "templateJa": "人は{X}したいのに、{Y}してしまう",
+      "templateEn": "People want to {X}, yet they {Y}",
+      "exampleJa": "人は自炊したいのに、帰り道でいつも総菜を買ってしまう。"
+    },
+    {
+      "id": "know_but",
+      "ja": "分かっているのに、できない",
+      "templateJa": "{X}だと分かっているのに、{Y}できない",
+      "templateEn": "People know {X}, yet they cannot {Y}",
+      "exampleJa": "早く寝たほうがいいと分かっているのに、その日の自由時間を手放せない。"
+    },
+    {
+      "id": "say_do",
+      "ja": "言うことと、やることが違う",
+      "templateJa": "{X}と言いながら、実際には{Y}を選んでいる",
+      "templateEn": "People say {X}, but they actually choose {Y}",
+      "exampleJa": "長く使えるものがいいと言いながら、実際には毎年いちばん安いものを選んでいる。"
+    },
+    {
+      "id": "love_hate",
+      "ja": "好きなのに、気まずい",
+      "templateJa": "{X}が好きなのに、それを{Y}のは気まずい",
+      "templateEn": "People love {X}, yet they are embarrassed to {Y}",
+      "exampleJa": "ひとりで食べる時間が好きなのに、それを職場で言うのは気まずい。"
+    },
+    {
+      "id": "should_want",
+      "ja": "べきと、たいの綱引き",
+      "templateJa": "{X}すべきだと思う一方で、本当は{Y}たい",
+      "templateEn": "People feel they should {X}, while what they really want is {Y}",
+      "exampleJa": "実家に顔を出すべきだと思う一方で、本当はその週末はどこにも行かず眠っていたい。"
+    },
+    {
+      "id": "proud_ashamed",
+      "ja": "誇りと、隠したさ",
+      "templateJa": "{X}を誇りに思っているのに、人前では{Y}にしている",
+      "templateEn": "People are proud of {X}, yet in public they keep it {Y}",
+      "exampleJa": "自分の手が荒れるほど働いていることを誇りに思っているのに、人前では手を隠している。"
+    },
+    {
+      "id": "near_far",
+      "ja": "近すぎて、見えない",
+      "templateJa": "{X}は毎日そこにあるのに、{Y}は誰も知らない",
+      "templateEn": "{X} is there every day, yet nobody knows {Y}",
+      "exampleJa": "その道具は毎日手に取られているのに、誰が何のために設計したかは誰も知らない。"
+    },
+    {
+      "id": "old_new",
+      "ja": "変わったのに、呼び名が古い",
+      "templateJa": "実態は{X}に変わったのに、まだ{Y}と呼ばれ続けている",
+      "templateEn": "The reality has become {X}, yet it is still called {Y}",
+      "exampleJa": "実態は共同の仕事場に変わったのに、まだ「自宅」と呼ばれ続けている。"
+    }
+  ],
+
+  "ideaTests": [
+    {
+      "id": "true",
+      "ja": "本当か",
+      "questionJa": "このアイデアの土台になっている一文は、ブランド名を消しても事実として成り立つか。実物・数字・現場のどれで裏が取れるか。",
+      "descJa": "最初に落とすべきは「嘘ではないが本当でもない」アイデア。Jon Steel の言う、生活者の側から検証できる真実があるか。ここが空だと、以降の全ての強さが借り物になる。",
+      "weight": 3
+    },
+    {
+      "id": "new",
+      "ja": "新しいか",
+      "questionJa": "同じカテゴリーの直近の広告10本の中に、これに似たものはあるか。無いとしたら、それは何を破ったからか。",
+      "descJa": "Paul Arden の「正しいことは間違い」。正しさは既知の再生産になりやすい。新しさはカテゴリーの常識という物差しに対してだけ測れるので、常識の棚卸しとセットで使う。",
+      "weight": 2
+    },
+    {
+      "id": "single_minded",
+      "ja": "一つに絞れているか",
+      "questionJa": "これは何を言っているのか、一文で言えるか。「と、」「かつ」でつながる要素が2つ以上残っていないか。",
+      "descJa": "クリエイティブブリーフの中心にある single-minded proposition。佐藤可士和の「本質を一言にする」も同じ要請。絞れていないアイデアは、実行のどの段階でも必ず弱いほうへ崩れる。",
+      "weight": 3
+    },
+    {
+      "id": "ownable",
+      "ja": "自分たちのものか",
+      "questionJa": "競合が明日そのままやったら、成立してしまうか。成立してしまうなら、何が足りないのか。",
+      "descJa": "Byron Sharp の distinctive assets は「そのブランドだと分かる手がかり」。アイデアも同じで、誰でも言えることは誰の記憶にも残らない。ブランドの真実に接続されているかで判定する。",
+      "weight": 3
+    },
+    {
+      "id": "brave",
+      "ja": "こわいか",
+      "questionJa": "これを出すとき、誰が反対しそうか。その反対は、正しい理由か、ただ前例が無いだけか。",
+      "descJa": "良いアイデアは提案の場で必ず少し気まずい。気まずさがゼロなら、それは既に誰かがやったことの言い換えである可能性が高い。ただし「炎上する」と「勇気がある」は別物で、ブランドの真実に支えられているかが分岐点。",
+      "weight": 2
+    },
+    {
+      "id": "simple_to_say",
+      "ja": "人に言えるか",
+      "questionJa": "資料を見ずに、友人に15秒で説明できるか。説明を聞いた相手が、さらに他人に説明し直せるか。",
+      "descJa": "Cannes の応募指針が言う「量ではなく明快さ」。審査員もクライアントも生活者も、要約されたものを受け取る。要約に耐えないアイデアは、伝言の途中で必ず死ぬ。",
+      "weight": 2
+    },
+    {
+      "id": "hard_to_ignore",
+      "ja": "無視できないか",
+      "questionJa": "最初の3秒、あるいは最初の1フレームだけを見せたとき、人は目を止めるか。止める理由は何か。",
+      "descJa": "OOH の3秒ルールと、フィードの thumb-stop は同じ要請の別名。注意を勝ち取れないアイデアは、どれだけ賢くても存在しないのと同じ。",
+      "weight": 2
+    },
+    {
+      "id": "scalable",
+      "ja": "広がるか",
+      "questionJa": "KV・OOH・SNS・店頭・イベント・商品そのものに、同じ考えのまま姿を変えて出せるか。出せないのはどれで、なぜか。",
+      "descJa": "1点物の名作と、システムになるアイデアは違う。媒体をまたいで同じ骨格で立てるかどうかが、キャンペーンとしての体力を決める。",
+      "weight": 2
+    },
+    {
+      "id": "durable",
+      "ja": "何年もつか",
+      "questionJa": "3年後も同じことを言い続けられるか。飽きるとしたら、飽きるのはアイデアか、それとも今回の実行か。",
+      "descJa": "Creative Effectiveness Ladder の Level 6（Enduring Icon）は「3年以上、同じ戦略・同じ作品で伸ばし続けたもの」。Binet & Field の長期側も同じ方向を指す。時事ネタは短期には効くが、はしごは登れない。",
+      "weight": 2
+    },
+    {
+      "id": "culturally_resonant",
+      "ja": "いまの空気に触れているか",
+      "questionJa": "これは、いま人が話題にしている何かに触れているか。触れているとして、ブランドがそこに口を出す資格はどの事実に支えられているか。",
+      "descJa": "Droga5 の Four Cs が culture を独立させた理由。文化に触れると会話が生まれるが、資格のない参入は搾取に見える。『触れているか』と『資格があるか』を必ず二つ一組で問う。",
+      "weight": 2
+    }
+  ],
+
+  "cannesLens": {
+    "criteria": [
+      {
+        "id": "idea",
+        "ja": "アイデア",
+        "weightPct": 40,
+        "questionJa": "そのアイデアは一文で言えるか。どのインサイトから来ていて、その分野の常識の何を破っているか。ブランド名を入れ替えたら成立しなくなるか。"
+      },
+      {
+        "id": "execution",
+        "ja": "実行",
+        "weightPct": 30,
+        "questionJa": "アイデアが、いちばん強く出る形で作られているか。構図・文字・色・素材の一つひとつが、そのアイデアのために選ばれた理由を言えるか。置いた場所と時間に合っているか。"
+      },
+      {
+        "id": "impact",
+        "ja": "効果",
+        "weightPct": 30,
+        "questionJa": "何が変わったか。誰の、どの行動や認識が、どれだけ動いたか。その数字は、この作品がやったこととして因果を説明できるか。"
+      }
+    ],
+    "ladder": [
+      {
+        "level": 1,
+        "ja": "影響力のあるアイデア",
+        "en": "Influential idea",
+        "descJa": "話題化・共有・エンゲージメントなど、キャンペーン自体の指標を想定以上に超えた段階。メディア効率が上がる。ここは入口で、まだ人の行動も売上も動いていない。"
+      },
+      {
+        "level": 2,
+        "ja": "行動の突破",
+        "en": "Behaviour breakthrough",
+        "descJa": "見た人の行動が実際に変わった段階。購買行動に限らず、ブランドの成功に関係する行動（来店・応募・登録・利用頻度・やめること）が動いたことを示せる。"
+      },
+      {
+        "level": 3,
+        "ja": "売上の急伸",
+        "en": "Sales spike",
+        "descJa": "短期の売上・シェア・利益がはっきり伸びた段階。キャンペーン期間に紐づく一過性の伸びであり、終われば戻る性質のもの。"
+      },
+      {
+        "level": 4,
+        "ja": "ブランドの積み上げ",
+        "en": "Brand buildup",
+        "descJa": "認知・想起・検討・好意・購入意向といったブランド健全性の基礎指標そのものが改善した段階。次の年の売上の土台になる。"
+      },
+      {
+        "level": 5,
+        "ja": "事業としての勝利",
+        "en": "Commercial triumph",
+        "descJa": "1四半期やキャンペーン期間を超えて、利益を伴う売上・シェアの成長が続いた段階。目安は12か月の売上目標を立て、それに見合う期間キャンペーンを走らせて年末に測ること。"
+      },
+      {
+        "level": 6,
+        "ja": "続く象徴",
+        "en": "Enduring icon",
+        "descJa": "3年以上にわたり、同じ戦略・同じクリエイティブを続けたまま、ブランドと売上を伸ばし続けた段階。作り変えないことが条件であり、最も到達が難しい。"
+      }
+    ],
+    "sourceUrl": "https://www.warc.com/en/case-studies/creative-effectiveness-ladder"
+  },
+
+  "kvGrammar": [
+    {
+      "id": "single_object_hero",
+      "ja": "一物の主役",
+      "en": "Single-object hero",
+      "descJa": "画面の中に意味を担う物をひとつだけ置き、それ以外を徹底的に引く。余白が主役の輪郭を彫る。3秒で読ませたいとき、最も失敗の少ない基本形。",
+      "whenJa": "商品そのものに驚きがあるとき。OOH・ポスターなど短時間で読ませる接点。言いたいことが1つに絞れているとき。",
+      "promptSeedEn": "one object centred in a wide empty field, isolated on a plain seamless ground, single directional light carving the silhouette, no props, no hands, generous negative space on three sides, quiet studio stillness",
+      "typographyJa": "見出しは物から最も遠い角に小さく。物と文字を近づけない。文字は1行、最大でも2行。物のシルエットが作る余白の形に沿わせる。"
+    },
+    {
+      "id": "visual_metaphor",
+      "ja": "視覚の比喩",
+      "en": "Visual metaphor",
+      "descJa": "言いたい抽象（速い・軽い・続く・守る）を、別の具体物に置き換えて一枚で成立させる。見る人が頭の中で一歩だけ計算する余地を残すと、記憶に残る。",
+      "whenJa": "利点が目に見えないとき（成分・保険・回線・思想）。説明を短くしたいとき。海外・多言語に展開するとき。",
+      "promptSeedEn": "two unrelated things fused into one believable object, single clean read, literal photographic realism so the impossibility lands as fact not illustration, plain background, no text, no explanatory props",
+      "typographyJa": "比喩が読めた直後に着地させる短い一行。比喩を説明する文は書かない（説明した瞬間に比喩は死ぬ）。下部に小さく置く。"
+    },
+    {
+      "id": "before_after",
+      "ja": "前と後",
+      "en": "Before / after",
+      "descJa": "同じ構図・同じ光で二つの状態を並べ、差だけを見せる。差分が主語になるので、効能の証明に強い。並べ方（左右・上下・分割）で読む順番を決める。",
+      "whenJa": "変化そのものが商品価値のとき。実証・実演型の課題。SNS で秒で伝えたいとき。",
+      "promptSeedEn": "two identical framings side by side, same camera height, same lighting, same background, only one variable changed between them, clean split with a hard vertical seam, documentary neutrality",
+      "typographyJa": "左右に短いラベルを対で置き、見出しは下に一行。ラベルは同じ級数・同じ位置に揃える（揃っていないと差が読めない）。"
+    },
+    {
+      "id": "typographic_statement",
+      "ja": "文字が絵になる",
+      "en": "Typographic statement",
+      "descJa": "写真を捨て、言葉そのものを図像にする。組み方・太さ・改行位置・欠落が意味を運ぶ。言い切る勇気がある一文を持っているときだけ成立する。",
+      "whenJa": "言葉が強いとき。宣言・謝罪・主張。予算や撮影が難しいとき。連続シリーズの旗印。",
+      "promptSeedEn": "a flat graphic field built only from typography, extreme weight contrast, one word given four times the size of the rest, deliberate line breaks, high-contrast ground, no imagery, no decorative elements",
+      "typographyJa": "本体が文字なので、書体は1〜2種に絞る。改行位置が意味の切れ目と一致しているか必ず確認。日本語は約物の前後の空きを詰め、行長は全角25字前後まで。"
+    },
+    {
+      "id": "product_as_landscape",
+      "ja": "商品が風景になる",
+      "en": "Product as landscape",
+      "descJa": "商品を極端に寄る／俯瞰することで、地形・都市・天体のように見せる。見慣れたものを見慣れない縮尺で見せる驚きで、注意を奪う。",
+      "whenJa": "質感・構造に語るものがあるとき。横長の大型 OOH やヒーロー画像。カテゴリーが陳腐化しているとき。",
+      "promptSeedEn": "extreme macro of a material surface read as terrain, raking low light exaggerating relief, horizon-like edge near the upper third, atmospheric depth, no sense of scale given, no human reference object",
+      "typographyJa": "地平線に見立てた線の上か下、どちらか一方だけに文字を置く。小さく、余白の多い側に。地形の起伏と文字を重ねない。"
+    },
+    {
+      "id": "human_moment",
+      "ja": "人の一瞬",
+      "en": "Human moment",
+      "descJa": "決めポーズではなく、その人が自分を意識していない一瞬を捕まえる。視線を外す、手が止まる、息を吐く。演出された笑顔の対極にある。",
+      "whenJa": "人間の真実が強いとき。共感で動かす課題。カテゴリーの常識が「持って微笑む」であるとき。",
+      "promptSeedEn": "an unposed instant caught mid-action, subject not acknowledging the camera, natural available light, slight imperfection in framing, real skin and real fabric, no styling gloss, no eye contact",
+      "typographyJa": "人物の視線の抜ける方向の余白に置く。顔の近くに置かない。文字は主張せず、一行の囁きとして。"
+    },
+    {
+      "id": "data_as_image",
+      "ja": "数字が絵になる",
+      "en": "Data as image",
+      "descJa": "統計や量を、グラフではなく実体の物量・面積・長さとして画にする。数字を読ませるのではなく、規模を身体で感じさせる。",
+      "whenJa": "説得材料が数字しかないとき。社会課題・啓発。RTB を一枚で見せたいとき。",
+      "promptSeedEn": "a physical quantity rendered as real mass in real space, thousands of identical units arranged to form one readable shape, overhead or wide human-scale reference for magnitude, documentary lighting, no charts, no infographic styling",
+      "typographyJa": "数字は一つだけ、極端に大きく。単位と出典は最小級で隅に。グラフの軸やラベルを画面に入れない。"
+    },
+    {
+      "id": "absence_negative",
+      "ja": "欠けているもの",
+      "en": "Absence / negative",
+      "descJa": "あるべきものが無い状態を見せて、その不在に意味を担わせる。空いた席、消えた線、抜かれた一文字。見る人が欠落を埋める働きが、記憶を作る。",
+      "whenJa": "喪失・不足・不在が主題のとき。社会課題。ブランドが「やめたこと」を語るとき。",
+      "promptSeedEn": "a complete ordinary scene with exactly one expected element missing, everything else intact and unremarkable, the gap placed at the optical centre, even neutral light, no arrow, no highlight, no marker",
+      "typographyJa": "欠落の説明を文字でしない。短い一行を画面の端に置き、欠落に視線が行ってから読まれる位置にする。"
+    },
+    {
+      "id": "scale_shift",
+      "ja": "縮尺をずらす",
+      "en": "Scale shift",
+      "descJa": "対象を極端に大きく／小さくして、既知のものを未知にする。比較対象を一つ入れるか、あえて入れないかで、驚きの種類が変わる。",
+      "whenJa": "小さいものの価値／大きな問題の身近さを言いたいとき。大型 OOH。",
+      "promptSeedEn": "a familiar object rendered at an impossible size relative to its surroundings, one everyday object included as the only scale reference, consistent lighting and perspective so the impossibility reads as photographed fact",
+      "typographyJa": "巨大側ではなく、小さい側の近くに文字を置く。文字自体の級数も控えめにして、縮尺の落差を壊さない。"
+    },
+    {
+      "id": "juxtaposition",
+      "ja": "並置",
+      "en": "Juxtaposition",
+      "descJa": "本来並ばない二つを、同じ画面・同じ扱いで並べる。説明せず、並べるだけで対比・皮肉・等価が発生する。比喩と違い、二つは融合せず二つのまま残る。",
+      "whenJa": "対立・不公平・意外な共通点を示したいとき。見出しを短くしたいとき。",
+      "promptSeedEn": "two subjects from unrelated worlds given identical treatment, same framing, same light, same distance, placed with equal weight in one frame, no visual ranking between them, neutral background",
+      "typographyJa": "二つの中央、または両者の下に等距離で一行。どちらか一方に寄せると意味が偏るので避ける。"
+    },
+    {
+      "id": "series_system",
+      "ja": "シリーズになる型",
+      "en": "Series / system",
+      "descJa": "1枚では完結せず、同じ規則で何枚でも作れる型を設計する。変わらない要素（構図・色・位置・書式）と、変わる要素（被写体・言葉）を最初に決めるのがすべて。",
+      "whenJa": "長期キャンペーン。複数商品・複数地域。Enduring Icon を狙うとき。予算を分散して回すとき。",
+      "promptSeedEn": "a repeatable template composition, fixed camera position and fixed light setup, one designated slot where the subject changes, identical margins and identical placement of every fixed element, catalogue-like consistency",
+      "typographyJa": "文字の位置・級数・書体を固定し、中身だけを入れ替える。固定枠は最初の1枚で決め、以後絶対に動かさない（動かした瞬間にシリーズではなくなる）。"
+    },
+    {
+      "id": "demonstration",
+      "ja": "やってみせる",
+      "en": "Demonstration",
+      "descJa": "主張を文で書かず、目の前で起きている事実として見せる。実演・実験・実測。証拠が画そのものになるので、最も反論されにくい。",
+      "whenJa": "商品の真実が強いとき。懐疑が強いカテゴリー。比較広告。",
+      "promptSeedEn": "a plain unedited-looking demonstration in progress, the mechanism visible and self-explanatory, functional lighting, no stylisation, the result caught at the exact moment it becomes undeniable, no hands blocking the action",
+      "typographyJa": "実演が読めた後に、短い結論を一行。実演の手順を文字で説明しない。数値を入れるなら一つだけ。"
+    }
+  ],
+
+  "taglineDirections": [
+    {
+      "id": "truth_stated",
+      "ja": "真実を言い切る",
+      "templateJa": "{発見した真実}。（修飾も逃げ道もつけずに置く）",
+      "exampleJa": "（架空の例）手が荒れているのは、働いた証拠だ。",
+      "whenJa": "インサイトそのものが強く、まだ誰も言葉にしていないとき。言い切る勇気がブランドの姿勢として読まれる場合。"
+    },
+    {
+      "id": "question",
+      "ja": "問いを投げる",
+      "templateJa": "{当たり前}は、本当に{前提}か？",
+      "exampleJa": "（架空の例）休むのに、理由は要りますか。",
+      "whenJa": "常識の再考を促したいとき。答えを押しつけず、相手に考えさせたいとき。社会課題。"
+    },
+    {
+      "id": "command",
+      "ja": "命じる",
+      "templateJa": "{動詞}。（二語以内の命令形）",
+      "exampleJa": "（架空の例）まず、座れ。",
+      "whenJa": "行動を起こさせたいとき。ブランドに言い切る資格（実績・立場）があるとき。短い接点。"
+    },
+    {
+      "id": "contradiction",
+      "ja": "矛盾をぶつける",
+      "templateJa": "{Aなのに}、{Bである}。",
+      "exampleJa": "（架空の例）遅いのに、いちばん早く着く。",
+      "whenJa": "商品の真実に意外性があるとき。カテゴリーの常識と自社の事実が食い違っているとき。"
+    },
+    {
+      "id": "reframe",
+      "ja": "言い換える",
+      "templateJa": "{Xと呼ばれてきたもの}は、{Y}だ。",
+      "exampleJa": "（架空の例）待ち時間は、発酵の時間だ。",
+      "whenJa": "弱点を価値に転換したいとき。カテゴリーの定義そのものを取りに行くとき。小霜和也の言う「定義付けとしてのタグライン」の直系。"
+    },
+    {
+      "id": "promise",
+      "ja": "約束する",
+      "templateJa": "{対象}に、{約束}を。",
+      "exampleJa": "（架空の例）夜勤明けの人に、朝のいちばん静かな席を。",
+      "whenJa": "サービス・小売など、守れる約束が具体的にあるとき。RTB が明確なとき。"
+    },
+    {
+      "id": "invitation",
+      "ja": "招く",
+      "templateJa": "{一緒に}{行為}しませんか。",
+      "exampleJa": "（架空の例）今日はひとつだけ、手放してみませんか。",
+      "whenJa": "参加型の施策。コミュニティを作りたいとき。命令では反発される相手のとき。"
+    },
+    {
+      "id": "manifesto_line",
+      "ja": "旗を立てる",
+      "templateJa": "私たちは、{信じること}を信じている。／{我々の立場}である。",
+      "exampleJa": "（架空の例）速いことより、続くことを。",
+      "whenJa": "lighthouse identity を掲げるとき。チャレンジャーが立場を宣言するとき。長期のブランドプラットフォーム。"
+    },
+    {
+      "id": "wordplay_on_truth",
+      "ja": "言葉で遊ぶ（ただし真実の上で）",
+      "templateJa": "{商品の事実}と{慣用句}を一語で重ねる",
+      "exampleJa": "（架空の例）ひと手間、ひと生。",
+      "whenJa": "事実が先にあり、その事実を覚えやすくしたいとき。遊びだけが目的になった瞬間に失格になるので、必ず事実の上で使う。"
+    },
+    {
+      "id": "number",
+      "ja": "数字で殴る",
+      "templateJa": "{数字}{単位}、{意味}。",
+      "exampleJa": "（架空の例）72時間。それが、待つという仕事です。",
+      "whenJa": "検証可能な数値が一つだけあり、それが競合には言えないとき。懐疑の強いカテゴリー。"
+    }
+  ],
+
+  "adChecklist": [
+    {
+      "id": "one_frame",
+      "category": "composition",
+      "ja": "1 フレームで意味が通るか",
+      "questionJa": "この1枚だけを、説明なしで人に見せたとき、何の話か言えるか。言えないとしたら、足りないのは情報か、それとも絞り込みか。",
+      "fixJa": "要素を1つずつ消して、意味が壊れる直前まで減らす。減らしても壊れないなら、その要素は最初から不要だった。主役を1つに決め直す。"
+    },
+    {
+      "id": "focal_point",
+      "category": "composition",
+      "ja": "視線がまず落ちる点が1つに決まっているか",
+      "questionJa": "目を細めて見たとき、いちばん強いかたまりはどこか。2つ以上あるなら、どちらが勝つべきか。",
+      "fixJa": "明度差・面積・鮮やかさのどれか1つだけを主役に集中させ、他は下げる。3つとも主役に与えると逆に散る。"
+    },
+    {
+      "id": "negative_space",
+      "category": "composition",
+      "ja": "余白が形として意図されているか",
+      "questionJa": "余白は「余った場所」か、それとも「そう切り取った場所」か。余白の輪郭に意味はあるか。",
+      "fixJa": "被写体を動かすのではなく、フレームの端を動かす。余白を三辺に寄せて非対称にすると、余りではなく設計に見える。"
+    },
+    {
+      "id": "eye_path",
+      "category": "composition",
+      "ja": "読む順番が設計されているか",
+      "questionJa": "絵 → 見出し → ロゴ、の順に目が動くか。途中で迷子になる箇所はどこか。",
+      "fixJa": "要素間の距離を不均等にする。関係するものは近づけ、関係しないものは大きく離す。等間隔は順序を殺す。"
+    },
+    {
+      "id": "type_hierarchy",
+      "category": "typography",
+      "ja": "文字の階層が3段以内か",
+      "questionJa": "見出し・本文・注記のサイズ差ははっきりしているか。中間サイズが増えて階層が溶けていないか。",
+      "fixJa": "段を3つに削る。差は1.5倍では足りないことが多く、2倍以上つける。太さでの差別化は書体を増やさずに済む。"
+    },
+    {
+      "id": "legibility_at_distance",
+      "category": "typography",
+      "ja": "想定距離・想定秒数で読めるか",
+      "questionJa": "実寸の見え方（OOH なら縮小画像、SNS ならスマホ幅）で見て、見出しは3秒で読み切れるか。",
+      "fixJa": "画像を親指の爪ほどに縮小して確認する。読めないなら文字数を削る（級数を上げるより先に文字を削るほうが効く）。"
+    },
+    {
+      "id": "ja_typesetting",
+      "category": "typography",
+      "ja": "日本語の組みが崩れていないか",
+      "questionJa": "改行位置は意味の切れ目と一致しているか。約物の前後が空きすぎていないか。和欧混植で字面の大きさが揃っているか。",
+      "fixJa": "改行を手で決める（自動折り返しに任せない）。約物を詰め、欧文は和文より 5〜10% 大きめに。禁則処理で行頭に句読点が来ていないか確認。"
+    },
+    {
+      "id": "color_meaning",
+      "category": "color",
+      "ja": "色が意味を持っているか",
+      "questionJa": "この色である理由を一文で言えるか。「きれいだから」以外の理由があるか。",
+      "fixJa": "アイデアの中心語（冷たい・古い・急ぐ・許す）から色を引き直す。理由が言えないなら、無彩色に戻して1色だけ足す。"
+    },
+    {
+      "id": "palette_discipline",
+      "category": "color",
+      "ja": "色数が絞られているか",
+      "questionJa": "画面に意味を持つ色は何色あるか。4色以上あるとしたら、どれが減らせるか。",
+      "fixJa": "主1・従1・差し色1の3役に割り当て直す。役が決まらない色は落とす。彩度の高い色は1つだけに。"
+    },
+    {
+      "id": "contrast_accessibility",
+      "category": "color",
+      "ja": "文字と背景のコントラストが足りているか",
+      "questionJa": "グレースケールに変換しても、文字は背景から分離して見えるか。写真の上に置いた文字は最も明るい／暗い箇所でも読めるか。",
+      "fixJa": "写真の上なら、文字を置く帯を作るか、その領域だけ明度を沈める。色相の差ではなく明度の差で分離する。"
+    },
+    {
+      "id": "craft_fidelity",
+      "category": "craft",
+      "ja": "細部が嘘をついていないか",
+      "questionJa": "拡大したとき、手の指、文字の形、反射、影の向きに破綻はないか。生成物なら、意味のない模様や崩れた文字が残っていないか。",
+      "fixJa": "破綻箇所だけを部分的に作り直すか、その要素をフレーム外に出す。文字は生成に任せず、必ず後から組み直す。"
+    },
+    {
+      "id": "light_consistency",
+      "category": "craft",
+      "ja": "光の辻褄が合っているか",
+      "questionJa": "影の向き・硬さ・色温度は、画面の中で1つの光源に還元できるか。合成した要素だけ浮いていないか。",
+      "fixJa": "主光源を1つ決め、全要素の影を同じ向き・同じ硬さに揃える。浮いた要素は接地影（contact shadow）を足すと収まる。"
+    },
+    {
+      "id": "texture_and_edge",
+      "category": "craft",
+      "ja": "質感と輪郭が想定媒体に耐えるか",
+      "questionJa": "印刷なら、網点にしたとき階調は飛ばないか。屋外なら、遠目で輪郭は残るか。",
+      "fixJa": "細い線と微妙な階調を減らし、面と輪郭で成立させる。暗部を締め、明部は飛ばしすぎない。"
+    },
+    {
+      "id": "distinctive_asset",
+      "category": "brand",
+      "ja": "自社の目印が効いているか",
+      "questionJa": "ロゴを隠したとき、これがどのブランドか分かる手がかりは画面に残っているか（色・書体・形・被写体の扱い）。",
+      "fixJa": "既存の識別資産（色・書体・図形）のどれか1つを構造の側に組み込む。装飾として置き足すのではなく、構図の骨に使う。"
+    },
+    {
+      "id": "logo_and_endline",
+      "category": "brand",
+      "ja": "ロゴとタグラインの置き方が主張を邪魔していないか",
+      "questionJa": "ロゴは最後に読まれる位置にあるか。大きすぎて主役と競合していないか。タグラインと見出しが同じことを2回言っていないか。",
+      "fixJa": "ロゴは視線経路の終点へ。見出しとタグラインが重複するなら、どちらかを消す。両方残すなら役割を分ける（見出し＝今回の話、タグライン＝いつもの立場）。"
+    },
+    {
+      "id": "format_crop",
+      "category": "media",
+      "ja": "全比率で成立するか",
+      "questionJa": "16:9 / 1:1 / 9:16 / 21:9 に切ったとき、主役と文字は全部で生き残るか。どの比率が壊れるか。",
+      "fixJa": "主役を中央寄りの安全域に収め、文字の置き場所を比率ごとに変えられるよう余白を上下左右に確保しておく。1枚で全部を賄おうとしない。"
+    },
+    {
+      "id": "series_extensibility",
+      "category": "media",
+      "ja": "2枚目が作れるか",
+      "questionJa": "同じ規則で次の1枚を作るとしたら、何が変わり、何が変わらないか。それを他人に説明できるか。",
+      "fixJa": "固定要素（構図・光・文字位置・色）と可変要素（被写体・言葉）を紙に書き出して確定する。書き出せないなら、それはまだ型になっていない。"
+    }
+  ],
+
+  "cdQuestions": [
+    { "stage": "brief", "questionJa": "この仕事で、終わったときに何が変わっていればいいのか。一文で言ってください。", "whyJa": "成果の定義が無いまま作り始めると、判断の基準が「好み」に落ちる。目的が言えないブリーフは、作業指示であってブリーフではない。" },
+    { "stage": "brief", "questionJa": "いま書かれている課題は、症状ですか、原因ですか。", "whyJa": "Dave Trott の中心的な問い。「認知が足りない」は多くの場合、症状の記述にすぎない。原因を取り違えると、実行がどれだけ良くても効かない。" },
+    { "stage": "brief", "questionJa": "言いたいことが2つ以上あるとしたら、今回捨てるのはどちらですか。", "whyJa": "single-minded proposition の実務的な確認。捨てる判断を先にしておかないと、制作の後半で必ず両方入れる方向に崩れる。" },
+    { "stage": "insight", "questionJa": "その一文は、ブランド名と商品名を消しても、人の話として成り立ちますか。", "whyJa": "インサイトと商品説明を取り違えているケースが最も多い。消して成り立たないなら、それはベネフィットであってインサイトではない。" },
+    { "stage": "insight", "questionJa": "それは誰から聞いた話ですか。何人から聞きましたか。", "whyJa": "Jon Steel 的な検証。会議室で作られたインサイトは、たいてい会議室の外で通用しない。出所を言えることが最低条件。" },
+    { "stage": "insight", "questionJa": "その真実に、うちのブランドが口を出す資格はどの事実に支えられていますか。", "whyJa": "人間の真実だけでは広告にならない。ブランドの真実と接続されていないと、誰が言っても同じ話になり、資格の無い文化参入は搾取に見える。" },
+    { "stage": "idea", "questionJa": "このアイデアを、資料を見ずに15秒で言ってください。", "whyJa": "要約に耐えるかの試験。審査員にもクライアントにも生活者にも、アイデアは要約されて届く。要約で壊れるものは現場でも壊れる。" },
+    { "stage": "idea", "questionJa": "競合が明日これをそのままやったら、成立してしまいますか。", "whyJa": "ownable かどうかの判定。成立してしまうなら、それはカテゴリーの一般解であって、このブランドのアイデアではない。" },
+    { "stage": "idea", "questionJa": "このアイデアは、この分野の何を破っていますか。破っていないなら、なぜこれが新しいのですか。", "whyJa": "新しさはカテゴリーの常識との差でしか測れない。「良い」と「新しい」は別物で、良いだけの案は既視感で消える。" },
+    { "stage": "idea", "questionJa": "これを3年続けられますか。続けるとしたら、2年目は何が変わりますか。", "whyJa": "Creative Effectiveness Ladder の上段（Enduring Icon）は、作り変えないことで到達する。1回で終わる前提のアイデアは、上段に登る資格を最初から放棄している。" },
+    { "stage": "craft", "questionJa": "この構図・この色・この書体を選んだ理由を、アイデアの言葉で説明してください。", "whyJa": "実行が独立して暴走していないかの確認。「きれいだから」しか出てこないなら、その選択はアイデアの支えになっていない。" },
+    { "stage": "craft", "questionJa": "実際に置かれる場所で、何秒間、どんな姿勢で見られますか。その条件で今の版面は読めますか。", "whyJa": "接点の真実の確認。机上の 100% 表示では全部読める。3秒・親指サイズ・雨の夜という現実条件で初めて破綻が見える。" },
+    { "stage": "craft", "questionJa": "いま足りないのはアイデアですか、実行ですか。どちらかを直すとしたらどちらが先ですか。", "whyJa": "弱い案を美しく作り込む時間の浪費を止める問い。実行の精度でアイデアの弱さは埋まらない、という順序を全員に共有する。" },
+    { "stage": "presentation", "questionJa": "最初のスライドで見せるのは、課題ですか、アイデアですか。なぜその順番ですか。", "whyJa": "提案は理解の設計でもある。課題に合意が取れていない相手にアイデアを先に出すと、アイデアの良し悪しではなく前提の議論になる。" },
+    { "stage": "presentation", "questionJa": "この提案で、相手がいちばん反対しそうな一点はどこですか。その反対に先に自分から触れますか。", "whyJa": "反論を隠すと、議論はそこだけに集中する。先に自分で開いて根拠を添えると、勇気のある案が通る確率が上がる。" },
+    { "stage": "presentation", "questionJa": "この案が通ったとして、半年後に何の数字を見せれば「効いた」と言えますか。", "whyJa": "効果の定義を提案時に握る。後から測る指標を探すと、都合の良い数字を拾う言い訳になり、次の企画に学びが残らない。" }
+  ],
+
+  "methods": [
+    {
+      "id": "insight_tension_idea",
+      "ja": "インサイト→緊張→アイデア",
+      "originJa": "アカウントプランニングの基本動作（Jon Steel 的な検証主義）と、文化を独立した探索面に置く Droga5 の Four Cs を、非専門家が回せる3段に圧縮したもの。",
+      "stepsJa": [
+        "6つのインサイト源（人間／ブランド／商品／カテゴリー常識／文化／接点）から、事実として言える文をそれぞれ2〜3本ずつ書き出す。",
+        "人間の真実を1本選び、tensionPairs の型に流し込んで「〜したいのに、〜してしまう」の一文にする。",
+        "その緊張に、ブランドの真実または商品の真実のどれが答えになるかを1つだけ選ぶ（2つ選ばない）。",
+        "「緊張 × 答え」を、商品説明ではない一文の主張として書く。これがコアアイデアの候補。",
+        "候補を3本作り、ideaTests の10項目で採点し、最高点ではなく「本当か」「自分たちのものか」の2項目が満点のものを残す。"
+      ],
+      "outputsJa": ["緊張の一文", "コアアイデア候補 3本", "選ばれた 1本と、落とした 2本を落とした理由"],
+      "sourceUrl": "https://droga5.com/people/strategy/"
+    },
+    {
+      "id": "creative_brief",
+      "ja": "クリエイティブブリーフ",
+      "originJa": "広告会社共通の設計図。日本の実務では「目的／目標／ターゲット／ターゲットインサイト／戦略ベネフィット／RTB／メインメッセージ」の項目列で扱われる（電通デジタル）。宣伝会議は「何を・なぜ・誰に・どのように」を言語化して認識のズレを最小化する文書と定義している。",
+      "stepsJa": [
+        "目的（事業として何が変わればいいか）と目標（何で測るか）を分けて書く。",
+        "ターゲットを属性ではなく状況で書く（「30代女性」ではなく「帰宅が21時を回る日が週3日ある人」）。",
+        "ターゲットインサイトを1文で書く。ブランド名を消しても成り立つか確認する。",
+        "戦略ベネフィットを1つだけ書く（single-minded proposition）。2つ書きたくなったら、片方を RTB に落とす。",
+        "RTB を、第三者が確かめられる事実で3つまで挙げる。",
+        "トーンを形容詞ではなく「〜ではない」で書く（「明るい」ではなく「説教くさくない」）。",
+        "全体を読み返し、制作者が最初に思いつく絵が1種類に収束するかを確認する。収束しないならまだ絞れていない。"
+      ],
+      "outputsJa": ["1枚のブリーフ", "single-minded proposition 1文", "RTB 3点", "トーンの否定形リスト"],
+      "sourceUrl": "https://www.sendenkaigi.com/marketing/media/sendenkaigi/003537/"
+    },
+    {
+      "id": "get_to_by",
+      "ja": "Get–To–By（誰を／どこへ／何で）",
+      "originJa": "2004–05年に BBDO ニューヨークで作られた GET/WHO/TO/BY 型（Martyn Straw、Ogilvy の戦略教育の影響下）。ブリーフの核を1行に圧縮する。「認識を変える」ではなく「行動を変える」を中心に据えたのが特徴。",
+      "stepsJa": [
+        "GET：誰を動かすのかを、状況つきで1つに絞って書く。",
+        "WHO：その人がいま何をしているか（現在の行動）を、事実として書く。願望や態度ではなく行動で書く。",
+        "TO：終わったあと何をしていてほしいか（望む行動）を、観察できる動詞で書く。",
+        "BY：その差を埋める考えを1つ書く。ここがコアアイデアと同じ文になるのが理想。",
+        "4つを1文につないで声に出して読む。息継ぎなしで読めなければ長すぎる。"
+      ],
+      "outputsJa": ["Get–To–By の1行", "現在行動と望む行動の差分（これが効果測定の対象になる）"],
+      "sourceUrl": "https://kickframetoolbox.com/get-who-to-by"
+    },
+    {
+      "id": "three_truths",
+      "ja": "三つの真実の交点（人間 × ブランド × 商品）",
+      "originJa": "Wieden+Kennedy / Nike 系の実務で語られる human truth × brand truth の考え方に、検証可能な product truth を加えた3点交差。3つが交わる一点だけが、正直で・他社に取られず・反論されないアイデアになる。",
+      "stepsJa": [
+        "人間の真実を1文（ブランド名を消しても成り立つこと）。",
+        "ブランドの真実を1文（競合が言うと嘘になること）。",
+        "商品の真実を1文（第三者が確かめられること）。",
+        "3つを並べて、同時に成り立つ言い方を探す。3つのうち1つでも無理に曲げたら、そこが将来の炎上点になるので曲げない。",
+        "交点が見つからないときは、3つのうちどれが弱いかを特定して、その調査に戻る（アイデアをひねらない）。"
+      ],
+      "outputsJa": ["3本の真実の文", "交点の一文（コアアイデア）", "見つからなかった場合は、追加調査すべき真実の指定"],
+      "sourceUrl": "https://www.wk.com/work/nike-equality/"
+    },
+    {
+      "id": "lighthouse_identity",
+      "ja": "灯台のアイデンティティ（チャレンジャーの立ち方）",
+      "originJa": "Adam Morgan『Eating the Big Fish』のチャレンジャー 8 credos のうち第2「build a lighthouse identity」。灯台は船を探しに行かない。自分が何者かを高く強く発信し、向こうから見つけてもらう。市場2位以下が1位と同じ土俵で戦わないための姿勢。",
+      "stepsJa": [
+        "1位（またはカテゴリー全体）が絶対に言わない／言えないことを3つ挙げる。",
+        "そのうち、自社が本気で信じていて、事実に支えられているものを1つ選ぶ。",
+        "それを立場の宣言として書く（「私たちは〜を信じる」「〜より〜を」）。相手に合わせない、説明しない。",
+        "その立場に沿って「やらないこと」を3つ決める（sacrifice）。やらないことが決まらない立場は灯台にならない。",
+        "その立場が、KV・言葉・商品・接客のどこに現れるかを1つずつ書き出す。"
+      ],
+      "outputsJa": ["立場の宣言1文", "やらないこと 3点", "立場が現れる接点のリスト"],
+      "sourceUrl": "https://www.eatbigfish.com/thinking/eating-the-big-fish"
+    },
+    {
+      "id": "predatory_thinking",
+      "ja": "捕食者の思考（前提を狩る）",
+      "originJa": "Dave Trott『Predatory Thinking』。症状ではなく本当の問題を見る。ブリーフに答える前にブリーフを疑う。押す（push）のではなく、相手がやりたくなることを見せる（pull）。「知らない」と言えることが新しさの入口。",
+      "stepsJa": [
+        "ブリーフに書かれた課題文を、そのまま紙の上に書く。",
+        "「それは症状ではないか」と1回問い、その原因を書く。さらにもう1回問い、原因の原因を書く（合計3階層）。",
+        "3階層目で、もとの課題文と別の問題が現れていないか確認する。現れていたら、そちらを解く可能性を検討する。",
+        "解くべき問題を1つ確定したら、「この人にこれをやらせる」ではなく「この人がやりたくなるものを見せる」形に言い換える。",
+        "自分たちが本当は知らないことを3つ書き出す。そこが調べるべき場所で、同時に新しさの在処でもある。"
+      ],
+      "outputsJa": ["再定義された課題文", "push を pull に言い換えた文", "知らないことリスト（次の調査対象）"],
+      "sourceUrl": "https://www.alexmurrell.co.uk/summaries/dave-trott-predatory-thinking"
+    },
+    {
+      "id": "kikakusho_skeleton",
+      "ja": "企画書の骨格（目的→課題→インサイト→コンセプト→仕掛け）",
+      "originJa": "日本の広告・販促企画書に共通する骨格。背景・目的・コンセプトが中核であり、決裁者を動かすのはコンセプトだとされる。佐藤可士和の「状況把握 → 視点導入 → 課題設定」という整理の3段と、博報堂の生活者発想（人を消費者ではなく矛盾を抱えた生活者として見る）を前段に置くと、非専門家でも順番を間違えにくい。",
+      "stepsJa": [
+        "目的：この企画が終わったとき事業として何が変わるかを1文。ここに手段（広告を打つ、SNS をやる）を書かない。",
+        "課題：目的の達成を妨げているものを1つに絞る。「状況把握」で出し切ってから「視点導入」で並べ替え、「課題設定」で1つに決める。",
+        "インサイト：課題の裏にある生活者の本音を1文。生活者発想でいう矛盾や葛藤の形になっているのが望ましい。",
+        "コンセプト：企画全体を貫く考えを一言にする。これが本質の言語化であり、以降の判断の物差しになる。",
+        "仕掛け：コンセプトを世の中に出すための具体的な形（KV・体験・商品・座組）。コンセプトから導けない仕掛けは削る。",
+        "最後に、目的から仕掛けまでを逆順に読み返し、各段が上の段から必然として出ているかを確認する。"
+      ],
+      "outputsJa": ["5段の骨格（各段1〜2文）", "コンセプトの一言", "仕掛けの一覧と、各仕掛けがコンセプトのどこを担うかの対応"],
+      "sourceUrl": "https://www.flierinc.com/summary/3227"
+    },
+    {
+      "id": "one_frame_test",
+      "ja": "1フレームの試験（3秒 / 親指）",
+      "originJa": "OOH の「3秒ルール」（走行中・歩行中の人が約3秒で意味を取れる必要がある、という経験則）と、フィードの thumb-stop（最初の1フレームで価値が一瞬で分かることがスクロールを止める条件）を1つの検査手順にしたもの。要素が競合する版面は前注意的処理が働かず、そもそも見られない。",
+      "stepsJa": [
+        "完成した KV を親指の爪ほどの大きさに縮小して表示する。",
+        "3秒だけ見せて隠し、見た人に「何の話だったか」「何が一番目立ったか」を言ってもらう。",
+        "言えなかった場合、原因を「要素が多い」「主役が決まっていない」「文字が長い」のどれかに特定する。",
+        "要素を1つ消す。意味が壊れなければ、その要素は不要だったので消したままにする。壊れるまで繰り返す。",
+        "同じ検査を、想定する全ての比率（16:9 / 1:1 / 9:16 / 21:9）で繰り返す。"
+      ],
+      "outputsJa": ["3秒で伝わった内容の記録（想定との差）", "削除した要素のリスト", "比率別に壊れた箇所の記録"],
+      "sourceUrl": "https://www.wildishandco.co.uk/blog/billboard-advertising-psychology-3-second-rule"
+    },
+    {
+      "id": "idea_ladder",
+      "ja": "アイデアのはしご（商品→便益→感情→文化）",
+      "originJa": "訴求の抽象度を1段ずつ上げる古典的な梯子。上に行くほど広がるが、下の段に錘が無いと空中分解する。Byron Sharp の distinctive assets（覚えられる手がかりを一貫して使う）と併せて使うと、上段に行っても「誰の話か」が消えない。",
+      "stepsJa": [
+        "第1段（商品）：この商品が物理的に何をするかを1文。",
+        "第2段（便益）：それによって使う人の何が楽になるかを1文。",
+        "第3段（感情）：その楽さが、その人のどんな気持ちに触れるかを1文。",
+        "第4段（文化）：その気持ちは、いま社会の何と関係しているかを1文。",
+        "4段を並べ、今回どの段で戦うかを1つ決める。上の段を選ぶときは、必ず第1段の事実を RTB として持って上がる。",
+        "選んだ段に対して、どの識別資産（色・形・書体・音・人物）を一貫して使うかを決める。"
+      ],
+      "outputsJa": ["4段の文", "今回戦う段の宣言", "持って上がる RTB", "一貫して使う識別資産"],
+      "sourceUrl": "https://learn.zappi.io/en_US/audience-and-sample/principles-of-how-brands-grow-by-byron-sharp"
+    },
+    {
+      "id": "long_and_short",
+      "ja": "長いのと短いの（60:40 の分担）",
+      "originJa": "Les Binet と Peter Field による IPA Databank 約1,000件の分析。ブランド構築と刈り取りは別種の効果で、平均するとおよそ 60:40 の配分が最適とされる。ブランド構築側は感情主導のほうが長期の利益成長と結びつく。Cannes / WARC の Creative Effectiveness Ladder の上段（Level 4 以上）は、この長期側でしか到達できない。",
+      "stepsJa": [
+        "今回の施策を「長い（記憶をつくる）」と「短い（いま動かす）」の2列に仕分ける。",
+        "長い側は、感情・識別資産・一貫性で設計する。測る指標も想起・好意・検討など、遅れて動くものにする。",
+        "短い側は、具体の提案・期限・行動導線で設計する。測る指標は即時の反応にする。",
+        "予算と時間の配分を書き出し、6:4 から大きく外れているなら、外れている理由を明文化する（外れてはいけないのではなく、無自覚に外れるのがまずい）。",
+        "長い側の要素（色・書体・人物・言い回し）を、今後3年変えない資産として一覧にして固定する。"
+      ],
+      "outputsJa": ["長短2列の施策表", "指標の割り当て（遅行指標 / 即時指標）", "3年固定する識別資産の一覧"],
+      "sourceUrl": "https://growthmethod.com/long-and-short/"
+    }
+  ]
+}

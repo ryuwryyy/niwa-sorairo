@@ -2,7 +2,7 @@
  * Vercel Serverless — Sorairo Studio の Claude 呼び出し（DESIGN.md 4.5）
  *
  * POST { op, ...payload }
- *   op: brief | principles | prompt | critique | figmaSpec
+ *   op: brief | insights | ideas | principles | prompt | critique | figmaSpec
  * エラーは常に { error: { message } }。キーはサーバ側だけ（ANTHROPIC_API_KEY）。
  */
 import { callClaude, imageBlock, extractJson } from "../../server/lib/claude.js";
@@ -19,6 +19,7 @@ import {
   figmaSpecSystem,
   validateSpec,
 } from "../../server/lib/aiOps.js";
+import { insightsSchema, insightsSystem, ideasSchema, ideasSystem } from "../../server/lib/ideaOps.js";
 
 export const config = { maxDuration: 60 };
 
@@ -95,6 +96,98 @@ async function opBrief(p) {
   const chosenIdx = hyps.findIndex((h) => h?.chosen);
   r.json.hypotheses = hyps.map((h, i) => ({ ...h, chosen: i === (chosenIdx >= 0 ? chosenIdx : 0) }));
   return r.json;
+}
+
+/* --- 企画（Idea）ステージ: server/lib/ideaOps.js が契約 --- */
+
+async function opInsights(p) {
+  const user = [
+    `【ブリーフ】\n${jsonText(p.brief || {})}`,
+    `【依頼・文脈】\n${p.context || "(未入力)"}`,
+    `【対象】\n${p.audience || "(未入力)"}`,
+    p.answers && Object.keys(p.answers).length
+      ? `【インサイトの問いへの回答（sources の id ごと）】\n${jsonText(p.answers)}\nここに書かれた言葉は最優先で拾い、言い換えずに使うこと。`
+      : "",
+    Array.isArray(p.sources) && p.sources.length
+      ? `【インサイトの探し方（source には必ずこの id のどれかを書く）】\n${jsonText(p.sources)}`
+      : "",
+    Array.isArray(p.teachers) && p.teachers.length
+      ? `【先生＝受賞作の分解（構造だけを学ぶ。名前・絵をなぞらない）】\n${jsonText(p.teachers)}`
+      : "",
+    "インサイトを 5 本、緊張を 5 本、それぞれ別の角度から出してください。",
+  ]
+    .filter(Boolean)
+    .join("\n\n");
+
+  const r = await callClaude({
+    system: insightsSystem,
+    messages: [{ role: "user", content: [{ type: "text", text: user }] }],
+    schema: insightsSchema,
+    effort: "high",
+    maxTokens: 6000,
+  });
+  if (!r.json) throw Object.assign(new Error("インサイトの JSON を解釈できませんでした"), { status: 502 });
+
+  // source は渡した id のいずれかに丸める（検証できない id は UI に流さない）
+  const allowed = new Set((Array.isArray(p.sources) ? p.sources : []).map((s) => String(s?.id || "")).filter(Boolean));
+  const insights = (Array.isArray(r.json.insights) ? r.json.insights : []).map((x) => ({
+    text: String(x?.text || ""),
+    source: allowed.size && allowed.has(String(x?.source || "")) ? String(x.source) : "",
+    evidence: String(x?.evidence || ""),
+  }));
+  const tensions = (Array.isArray(r.json.tensions) ? r.json.tensions : []).map((x) => ({ text: String(x?.text || "") }));
+  return { insights, tensions };
+}
+
+async function opIdeas(p) {
+  const user = [
+    `【ブリーフ】\n${jsonText(p.brief || {})}`,
+    `【採用したインサイト】\n${p.insight || "(未選択)"}`,
+    `【採用した緊張】\n${p.tension || "(未選択)"}`,
+    Array.isArray(p.patterns) && p.patterns.length
+      ? `【使える型（patterns には必ずこの id のどれかを書く）】\n${jsonText(p.patterns)}`
+      : "",
+    Array.isArray(p.teachers) && p.teachers.length
+      ? `【先生＝受賞作の分解（構造だけを学ぶ。名前・絵をなぞらない）】\n${jsonText(p.teachers)}`
+      : "",
+    Array.isArray(p.kvGrammar) && p.kvGrammar.length ? `【KV の文法】\n${jsonText(p.kvGrammar)}` : "",
+    Array.isArray(p.taglineDirections) && p.taglineDirections.length
+      ? `【タグラインの方向】\n${jsonText(p.taglineDirections)}`
+      : "",
+    "上のインサイトと緊張から、キービジュアル 1 枚で成立するコアアイデアをちょうど 6 案出してください。",
+  ]
+    .filter(Boolean)
+    .join("\n\n");
+
+  const r = await callClaude({
+    system: ideasSystem,
+    messages: [{ role: "user", content: [{ type: "text", text: user }] }],
+    schema: ideasSchema,
+    effort: "high",
+    maxTokens: 8000,
+  });
+  if (!r.json) throw Object.assign(new Error("アイデアの JSON を解釈できませんでした"), { status: 502 });
+
+  const allowed = new Set((Array.isArray(p.patterns) ? p.patterns : []).map((x) => String(x?.id || "")).filter(Boolean));
+  const num = (v) => Math.max(1, Math.min(5, Math.round(Number(v) || 0) || 1));
+  const ideas = (Array.isArray(r.json.ideas) ? r.json.ideas : []).map((x) => ({
+    oneLiner: String(x?.oneLiner || ""),
+    twist: String(x?.twist || ""),
+    kvConcept: String(x?.kvConcept || ""),
+    tagline: String(x?.tagline || ""),
+    why: String(x?.why || ""),
+    risk: String(x?.risk || ""),
+    patterns: (Array.isArray(x?.patterns) ? x.patterns : [])
+      .map((id) => String(id))
+      .filter((id) => !allowed.size || allowed.has(id))
+      .slice(0, 3),
+    scores: {
+      idea: num(x?.scores?.idea),
+      execution: num(x?.scores?.execution),
+      impact: num(x?.scores?.impact),
+    },
+  }));
+  return { ideas };
 }
 
 async function opPrinciples(p) {
@@ -215,6 +308,8 @@ async function opFigmaSpec(p) {
 
 const OPS = {
   brief: opBrief,
+  insights: opInsights,
+  ideas: opIdeas,
   principles: opPrinciples,
   prompt: opPrompt,
   critique: opCritique,
