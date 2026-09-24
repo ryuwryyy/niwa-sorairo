@@ -1,14 +1,16 @@
 import { useState } from "react";
 import Listening from "./views/Listening";
 import Interview from "./views/Interview";
+import Report from "./views/Report";
 
 const TABS = [
   { id: "listening", label: "ソーシャルリスニング", view: Listening },
   { id: "interview", label: "インタビュー整理", view: Interview },
+  { id: "report", label: "深掘りレポート", view: Report },
 ];
 
 export default function App() {
-  const [tab, setTab] = useState(() => (location.hash === "#interview" ? "interview" : "listening"));
+  const [tab, setTab] = useState(() => TABS.find((t) => `#${t.id}` === location.hash)?.id ?? "listening");
   const pick = (id) => { setTab(id); history.replaceState(null, "", `#${id}`); };
 
   return (
