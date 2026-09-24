@@ -77,11 +77,23 @@ try {
 
   await panel.getByRole("button", { name: "CSV", exact: true }).click();
   await panel.locator("input[type=file]").setInputFiles(`${OUT}/posts.csv`);
-  await panel.getByRole("button", { name: "まとめて分析する" }).click();
-  // まとめて実行はカテゴリーまで。要約・洞察は押したときだけ(費用を抑える)
-  await panel.getByRole("button", { name: "要約する" }).first().waitFor({ timeout: 60000 });
-  await panel.getByRole("button", { name: "やり直す" }).first().waitFor({ state: "attached" });
+  await panel.getByRole("button", { name: "ふるい分けて質を見る" }).click();
+  // ふるい分けのあと、声の質チェックで止まる。ボタンを押すまでカテゴリー・要約には進まない
+  await panel.getByRole("heading", { name: "声の質チェック" }).waitFor({ timeout: 60000 });
+  await page.waitForTimeout(500);
+  if (await panel.getByText("情報設計").count()) throw new Error("押す前にカテゴリーがつくられている");
+  if (await panel.getByRole("button", { name: "要約する" }).count()) throw new Error("押す前に要約ボタンが出ている");
+  // 方向を提案してもらい、そのワードに差し替える
+  await panel.getByRole("button", { name: "リサーチの方向を提案してもらう" }).click();
+  await panel.getByText("(テスト)方向1").waitFor({ timeout: 30000 });
+  await panel.getByRole("button", { name: "このワードに変える" }).first().click();
+  const kw = await panel.locator("textarea").first().inputValue();
+  if (kw !== "提案ワード1a\n提案ワード1b") throw new Error(`提案ワードに差し替わっていない: ${kw}`);
+  await panel.locator(".quality").screenshot({ path: `${OUT}/quality.png` });
+  // インサイトを抽出する → カテゴリーとタグ。要約・洞察はさらに押したときだけ
+  await panel.getByRole("button", { name: /インサイトを抽出する/ }).click();
   await panel.getByText("情報設計").first().waitFor({ timeout: 30000 }); // カテゴリー
+  await panel.getByRole("button", { name: "要約する" }).first().waitFor({ timeout: 30000 });
   if (await panel.getByText("(テスト)要約").count()) throw new Error("押す前にグループが要約されている");
   if (await panel.getByText("デコンテ(アートディレクション)").count()) throw new Error("押す前に洞察がつくられている");
   await panel.getByRole("button", { name: "要約する" }).first().click();

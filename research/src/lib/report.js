@@ -121,6 +121,58 @@ export function topTags(probabilities) {
   return tags;
 }
 
+// ---- 声の質チェック(無料。Jev の判定を集計するだけ) ----
+
+/**
+ * ふるい分けのあと、インサイトに進む前に質を見る。
+ * @returns {{score:number, verdict:"良い"|"注意"|"低い", metrics:object, issues:string[]}}
+ */
+export function assessQuality({ screened, kept, keep, ruleExcluded = 0, jevExcluded = 0 }) {
+  const n = screened.length;
+  const collected = n + ruleExcluded;
+  const usable = screened.filter((r) => r.usable >= 0.5 && r.personal !== false).length;
+  const avgDepth = kept.length ? kept.reduce((a, r) => a + r.depth, 0) / kept.length : 0;
+  const concrete = kept.filter((r) => r.depth >= 2).length;
+  const feelings = new Map();
+  for (const r of kept) feelings.set(r.feeling, (feelings.get(r.feeling) || 0) + 1);
+  const [topFeeling = "-", topCount = 0] = [...feelings].sort((a, b) => b[1] - a[1])[0] || [];
+  const authored = kept.filter((r) => r.author);
+  const authors = new Set(authored.map((r) => r.author)).size;
+  const metrics = {
+    collected, kept: kept.length, keep,
+    usableRate: n ? usable / n : 0,
+    noiseRate: collected ? (ruleExcluded + jevExcluded) / collected : 0,
+    avgDepth, concreteRate: kept.length ? concrete / kept.length : 0,
+    topFeeling, topFeelingShare: kept.length ? topCount / kept.length : 0,
+    authorVariety: authored.length ? authors / authored.length : 1,
+  };
+
+  const issues = [];
+  let score = 100;
+  const hit = (cond, penalty, text) => { if (cond) { score -= penalty; issues.push(text); } };
+  hit(kept.length < 20, 35, `分析できる声が少ない(${kept.length}件)。ワードを広げるか、期間を延ばす`);
+  hit(kept.length >= 20 && kept.length < keep * 0.5, 15, `目標${keep}件の半分に届かない(${kept.length}件)`);
+  hit(metrics.usableRate < 0.3, 20, `使える投稿の割合が低い(${Math.round(metrics.usableRate * 100)}%)。ワードがテーマからずれている可能性`);
+  hit(avgDepth < 1.3, 20, `具体性が低い(平均${avgDepth.toFixed(1)}/3)。一言の感想ばかりで、場面や理由が少ない`);
+  hit(metrics.noiseRate > 0.5, 15, `公式・広告・宣伝が多い(${Math.round(metrics.noiseRate * 100)}%を除外)。業界語より、使う人の言葉で探す`);
+  hit(kept.length >= 10 && metrics.topFeelingShare > 0.6, 10, `感情が「${topFeeling}」に偏っている(${Math.round(metrics.topFeelingShare * 100)}%)`);
+  hit(authored.length >= 10 && metrics.authorVariety < 0.5, 10, "同じ人の声に偏っている");
+  score = Math.max(0, score);
+  return { score, verdict: score >= 75 ? "良い" : score >= 50 ? "注意" : "低い", metrics, issues };
+}
+
+/** 質チェックを Claude に渡す文章にする */
+export function qualityText(q) {
+  const m = q.metrics;
+  return [
+    `判定: ${q.verdict}(${q.score}/100)`,
+    `収集 ${m.collected}件 → 分析対象 ${m.kept}件(目標 ${m.keep}件)`,
+    `使える割合 ${Math.round(m.usableRate * 100)}% / 公式・宣伝の除外 ${Math.round(m.noiseRate * 100)}% / 具体性 平均${m.avgDepth.toFixed(1)}/3(具体的なもの ${Math.round(m.concreteRate * 100)}%)`,
+    `いちばん多い感情: ${m.topFeeling} ${Math.round(m.topFeelingShare * 100)}%`,
+    ...q.issues.map((i) => `- ${i}`),
+  ].join("\n");
+}
+
 // ---- 4象限 ----
 
 /** 横軸: 感情語の確率 × 極性の合計(-1..1)、縦軸: 強さ(0..1) */

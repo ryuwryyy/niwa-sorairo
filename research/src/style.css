@@ -213,3 +213,14 @@ a.chip { text-decoration: none; }
 .emap-dot.pos { fill: var(--pos); }
 .emap-dot.neg { fill: var(--neg); }
 .emap-feel { font-size: 11px; fill: var(--ink); }
+
+/* 声の質チェック(関門) */
+.quality .verdict { margin-left: auto; font-weight: 700; padding: 2px 10px; border-radius: 999px; font-size: 13px; border: 1px solid var(--line); }
+.quality .v-良い { color: var(--pos); border-color: var(--pos); }
+.quality .v-注意 { color: var(--mix); border-color: var(--mix); }
+.quality .v-低い { color: var(--neg); border-color: var(--neg); }
+.quality .gate { gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.quality .tile small { font-size: 12px; color: var(--muted); }
+.dir-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-top: 8px; }
+.dir-card { border: 1px solid var(--line); border-radius: 10px; padding: 12px; font-size: 13px; background: var(--panel-2); min-width: 0; }
+.dir-card p { margin: 6px 0; }

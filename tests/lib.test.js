@@ -11,7 +11,7 @@ import { buildFlow, toMermaid, toFigJamPayload, toMiroTSV } from "../research/sr
 import { SAMPLE_TRANSCRIPT, SAMPLE_POSTS } from "../research/src/lib/samples.js";
 import {
   selectTop, topTags, coordinates, quadrantOf, parsePastedPosts, dedupe, literalWords,
-  toMarkdown, toFigJamReport, xApiQuery, FEELING_LABELS,
+  toMarkdown, toFigJamReport, xApiQuery, FEELING_LABELS, assessQuality, qualityText,
 } from "../research/src/lib/report.js";
 
 test("議事録: 話者形式を判別し、聞き手を見分ける", () => {
@@ -145,4 +145,25 @@ test("strategy: リスニング結果は体験に関係するものだけ、深�
   assert.deepEqual(out.map((p) => p.id), ["c", "a"]);
   assert.deepEqual(out[0].tags, ["t", "i"]);
   assert.equal(listeningForStrategy(rows, 1).length, 1);
+});
+
+// ---- 声の質チェック ----
+const qrow = (i, o = {}) => ({ id: `p${i}`, usable: 0.9, depth: 2.5, feeling: ["好き", "悪い", "最悪", "いい"][i % 4], author: `u${i}`, personal: true, ...o });
+
+test("quality: 具体的で十分な件数なら「良い」、問題なし", () => {
+  const kept = Array.from({ length: 80 }, (_, i) => qrow(i));
+  const q = assessQuality({ screened: kept, kept, keep: 100, ruleExcluded: 10, jevExcluded: 5 });
+  assert.equal(q.verdict, "良い");
+  assert.deepEqual(q.issues, []);
+  assert.equal(q.metrics.collected, 90);
+});
+
+test("quality: 少ない・浅い・宣伝だらけ・偏りは「低い」と理由を返す", () => {
+  const screened = Array.from({ length: 60 }, (_, i) => qrow(i, { usable: i < 10 ? 0.8 : 0.2, depth: 0.5, feeling: "最悪", author: "same" }));
+  const kept = screened.slice(0, 12);
+  const q = assessQuality({ screened, kept, keep: 100, ruleExcluded: 80, jevExcluded: 20 });
+  assert.equal(q.verdict, "低い");
+  const text = q.issues.join("\n");
+  for (const w of ["少ない", "使える投稿の割合", "具体性", "公式・広告", "偏って", "同じ人"]) assert.match(text, new RegExp(w), w);
+  assert.match(qualityText(q), /判定: 低い/);
 });
