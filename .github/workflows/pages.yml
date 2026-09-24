@@ -1,5 +1,5 @@
 # 「聴く」を GitHub Pages(https://ryuwryyy.github.io/niwa-sorairo/)に無料で公開する。
-# 庭アプリ(niwa-sorairo.vercel.app)とは別の場所。API とキーは Vercel に残る。
+# 庭アプリ(teire-app.vercel.app)とは別の場所。API とキーは Vercel に残る。
 # 初回だけ: GitHub の Settings → Pages → Build and deployment → Source を「GitHub Actions」にする。
 name: Deploy research site
 
@@ -39,7 +39,7 @@ jobs:
         run: npm run build:research
         env:
           # API の置き場所。Vercel のドメインを変えたらリポジトリ変数 RESEARCH_API_BASE で上書きする
-          VITE_API_BASE: ${{ vars.RESEARCH_API_BASE || 'https://niwa-sorairo.vercel.app' }}
+          VITE_API_BASE: ${{ vars.RESEARCH_API_BASE || 'https://teire-app.vercel.app' }}
           RESEARCH_BASE: /${{ github.event.repository.name }}/
       - uses: actions/upload-pages-artifact@v3
         with:

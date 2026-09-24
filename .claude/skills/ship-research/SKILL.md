@@ -9,7 +9,7 @@ Two sites come out of one repository, and they must stay separate:
 
 | What | Where | Deployed by |
 |---|---|---|
-| 手入れ (garden app) + the API (`/api/claude`, `/api/identify`, `/api/jev`, `/api/analyze`) | Vercel — `https://niwa-sorairo.vercel.app` | Vercel's Git integration on every push to `main` (previews for PRs) |
+| 手入れ (garden app) + the API (`/api/claude`, `/api/identify`, `/api/jev`, `/api/analyze`) | Vercel — `https://teire-app.vercel.app` | Vercel's Git integration on every push to `main` (previews for PRs) |
 | 聴く (design research tool, `research/`) | GitHub Pages — `https://ryuwryyy.github.io/niwa-sorairo/` | `.github/workflows/pages.yml` on push to `main` |
 
 The research page is *not* part of the garden build; `/research` on Vercel only redirects to Pages.
@@ -42,7 +42,7 @@ validation before any upstream call. Keep it that way when you add endpoints: va
 5. **Merge** only when CI is green. After merge:
    - Vercel deploys `main`; `.github/workflows/smoke.yml` runs on the `deployment_status` event and checks the
      top page, that both research APIs answer 400/501 (not 5xx), and the CORS header for Pages. Production is
-     checked on the public domain (`vars.PRODUCTION_URL`, default `https://niwa-sorairo.vercel.app`) because
+     checked on the public domain (`vars.PRODUCTION_URL`, default `https://teire-app.vercel.app`) because
      Vercel's per-deployment URLs sit behind login protection (302) even in production; protected previews are
      skipped. Run it by hand with `workflow_dispatch` (`mcp__github__actions_run_trigger` → `run_workflow`, `smoke.yml`, ref `main`).
    - `pages.yml` rebuilds the research site if `research/`, the research Vite config, or dependencies changed.

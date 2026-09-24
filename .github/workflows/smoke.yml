@@ -20,7 +20,7 @@ jobs:
           DEPLOY_URL: ${{ github.event.deployment_status.environment_url || github.event.deployment_status.target_url }}
           ENVIRONMENT: ${{ github.event.deployment.environment || 'Production' }}
           # 本番は公開ドメインで見る。デプロイごとのURL(teire-xxxx.vercel.app)は本番でもログイン保護がかかる
-          PRODUCTION_URL: ${{ vars.PRODUCTION_URL || 'https://niwa-sorairo.vercel.app' }}
+          PRODUCTION_URL: ${{ vars.PRODUCTION_URL || 'https://teire-app.vercel.app' }}
         run: |
           set -eu
           if [ "$ENVIRONMENT" = "Production" ]; then BASE="$PRODUCTION_URL"; else BASE="$DEPLOY_URL"; fi

@@ -1,6 +1,6 @@
 # このリポジトリ
 
-- 手入れ(庭アプリ)と API → Vercel `https://niwa-sorairo.vercel.app`(`main` へのマージで自動デプロイ)
+- 手入れ(庭アプリ)と API → Vercel `https://teire-app.vercel.app`(`main` へのマージで自動デプロイ)
 - 聴く(デザインリサーチ道具、`research/`)→ GitHub Pages `https://ryuwryyy.github.io/niwa-sorairo/`(`.github/workflows/pages.yml`)
 - 2つのサイトは分けておく。聴くは Vercel の API をドメインをまたいで呼ぶ(`api/_cors.js`)
 

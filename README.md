@@ -2,7 +2,7 @@
 
 名前を知り、季節を待ち、手を入れる。成果のいらない庭仕事の記録帳。
 
-本番: https://niwa-sorairo.vercel.app (`main` へのマージで Vercel が自動デプロイ)
+本番: https://teire-app.vercel.app (`main` へのマージで Vercel が自動デプロイ)
 デザインリサーチ道具「聴く」: https://ryuwryyy.github.io/niwa-sorairo/ (GitHub Pages。庭アプリとは別の場所)
 
 通知ゼロ・スコアゼロ・streakゼロ。開いた時だけ季節(七十二候)が応えるモードレス設計。
