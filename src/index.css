@@ -4,3 +4,7 @@
 html, body { margin: 0; padding: 0; background: #ECEAE1; }
 #root { min-height: 100vh; }
 img { max-width: 100%; }
+
+/* 月の切り替え。スマホでは6×2段にして、全部の月が一度に見えるように */
+.months { display: grid; grid-template-columns: repeat(12, 1fr); gap: 2px; }
+@media (max-width: 520px) { .months { grid-template-columns: repeat(6, 1fr); } }

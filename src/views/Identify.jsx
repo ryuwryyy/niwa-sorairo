@@ -3,8 +3,9 @@ import { fileToBase64Jpeg } from "../lib/image";
 import { identifyPlant } from "../lib/api";
 import { C, font } from "../theme";
 import { Section, Tag } from "../components/Bits";
+import { findPlant } from "../data/plants";
 
-export default function Identify() {
+export default function Identify({ onOpenPlant }) {
   const [preview, setPreview] = useState(null);
   const [base64, setBase64] = useState(null);
   const [result, setResult] = useState(null);
@@ -43,7 +44,8 @@ export default function Identify() {
   return (
     <div>
       <p style={{ fontFamily: font.goth, fontSize: 13, lineHeight: 1.9, margin: "0 0 16px", color: C.inkSoft }}>
-        葉・花・幹が写った写真から名前を判定し、剪定と手入れの方法まで一度に引きます。
+        名前のわからない木を写真で調べます。葉・花・幹のどれかがはっきり写っていれば大丈夫。
+        名前と一緒に、剪定の時期や今やるべき手入れもわかります。
       </p>
 
       {/* accept に .heic を含めないこと。iOSが自動でJPEGに変換してくれる */}
@@ -111,6 +113,17 @@ export default function Identify() {
           <div style={{ display: "flex", gap: 8, marginTop: 10, flexWrap: "wrap" }}>
             <Tag>{result.family}</Tag><Tag>{result.type}</Tag>
           </div>
+
+          {(() => {
+            const hit = result.candidates[0] && findPlant(result.candidates[0].name, result.candidates[0].kana);
+            return hit && (
+              <button onClick={() => onOpenPlant(hit.id)} style={{
+                fontFamily: font.min, fontSize: 14, width: "100%", marginTop: 16, padding: "12px 0",
+                background: "transparent", color: C.ai, border: `1px solid ${C.ai}`, borderRadius: 3,
+                cursor: "pointer", letterSpacing: "0.1em",
+              }}>「{hit.name}」の今月の手入れを見る →</button>
+            );
+          })()}
 
           <Section label="いま" accent>{result.nowTask}</Section>
           <Section label="剪定">{`適期 — ${result.pruneSeason}。${result.pruneHow}`}</Section>

@@ -1,6 +1,8 @@
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
+import { devApi } from "./vite.dev-api.js";
+import { devApiPlugin } from "./server/lib/devApi.js";
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
@@ -8,6 +10,7 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       react(),
+      devApi(env),
       VitePWA({
         registerType: "autoUpdate",
         includeAssets: [
@@ -49,8 +52,11 @@ export default defineConfig(({ mode }) => {
         },
         workbox: {
           navigateFallback: "/index.html",
-          navigateFallbackDenylist: [/^\/api/],
+          // /research は聴く（GitHub Pages）、/studio は別アプリ（空色 Studio）。SW の SPA フォールバックから除外する
+          navigateFallbackDenylist: [/^\/api/, /^\/research/, /^\/studio/],
           globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2}"],
+          // Studio のバンドル（dist/assets/studio-*）は庭アプリの SW に precache させない
+          globIgnores: ["**/studio/**", "**/assets/studio-*"],
           runtimeCaching: [
             {
               urlPattern: ({ url }) => url.pathname.startsWith("/api/"),
@@ -59,6 +65,8 @@ export default defineConfig(({ mode }) => {
           ],
         },
       }),
+      // 開発時: api/studio/*.js（Vercel Functions）を /api/studio/* にマウント
+      devApiPlugin({ dir: "api", prefix: "/api/studio/", env }),
     ],
     server: {
       port: 5173,
@@ -78,6 +86,15 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
-    build: { outDir: "dist", sourcemap: true },
+    build: {
+      outDir: "dist",
+      sourcemap: true,
+      rollupOptions: {
+        input: {
+          main: "index.html",
+          studio: "studio/index.html",
+        },
+      },
+    },
   };
 });

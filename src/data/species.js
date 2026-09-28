@@ -1,4 +1,4 @@
-// 庭づくりで植えられる植物 150種
+// 庭づくりで植えられる植物
 // arch: 描画の型 / fol,hi: 葉色 / dots: 花や実の色 / h: 樹高係数
 export const SPECIES = [
   // — 高木 —
@@ -169,6 +169,19 @@ export const SPECIES = [
   { name: "キキョウ", cat: "草花・下草", arch: "tuft", fol: "#5E7B50", hi: "#78955F", dots: "#7E86C0" },
   { name: "ヒガンバナ", cat: "草花・下草", arch: "tuft", fol: "#4F6B4A", hi: "#5E7B57", dots: "#C0392B" },
   { name: "シュウメイギク", cat: "草花・下草", arch: "flower", fol: "#5E7350", hi: "#728760", dots: "#E0A9BE" },
+  // ═══ 手入れ対象の植栽に合わせて追加 ═══
+  { name: "シギタツサワ", cat: "高木", arch: "layered", fol: "#9DB07A", hi: "#D2DAB8", trunk: "#4A4038", h: 0.85 },
+  { name: "ジョウスイザクラ", cat: "高木", arch: "layered", fol: "#E6C0CC", hi: "#F1D6DE", trunk: "#4A4038", h: 1 },
+  { name: "ショウゲツザクラ", cat: "高木", arch: "layered", fol: "#EDD3DA", hi: "#F6E6EA", trunk: "#4A4038", h: 0.85 },
+  { name: "クロモジ", cat: "高木", arch: "kabudachi", fol: "#6E8A5C", hi: "#86A070", dots: "#E4D28A", trunk: "#4E4A40", h: 0.8 },
+  { name: "スモークツリー", cat: "果樹・中木", arch: "round", fol: "#6E7F5A", hi: "#84946C", dots: "#E3C6CF", h: 0.85 },
+  { name: "ナツミカン", cat: "果樹・中木", arch: "round", fol: "#45623F", hi: "#57754B", dots: "#E8B83C", h: 0.9 },
+  { name: "ハルミ", cat: "果樹・中木", arch: "round", fol: "#45623F", hi: "#57754B", dots: "#F0932B", h: 0.8 },
+  { name: "ポンカン", cat: "果樹・中木", arch: "round", fol: "#45623F", hi: "#57754B", dots: "#EE8A28", h: 0.8 },
+  { name: "シャインマスカット", cat: "果樹・中木", arch: "round", fol: "#6A8A55", hi: "#82A068", dots: "#C4D27A", h: 0.75 },
+  { name: "ツバキ", cat: "低木", arch: "flower", fol: "#3F5A42", hi: "#4F6B4F", dots: "#B83A48", big: true },
+  { name: "ナツハゼ", cat: "低木", arch: "shrub", fol: "#6E6A4A", hi: "#8A7A56", dots: "#3A3440" },
+  { name: "パンパスグラス", cat: "草花・下草", arch: "tuft", fol: "#8A9A6E", hi: "#A4B286", dots: "#EFE9DA" },
 ];
 
 export const SPEC_MAP = Object.fromEntries(SPECIES.map((s) => [s.name, s]));

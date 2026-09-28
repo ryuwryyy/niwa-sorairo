@@ -7,3 +7,8 @@ dist/
 *.log
 .wrangler/
 .vercel
+dist-research/
+e2e-artifacts/
+
+# research-run.mjs の出力(本番の調査結果)
+runs/

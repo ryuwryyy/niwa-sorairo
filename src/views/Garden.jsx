@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { SPECIES, SPEC_MAP, CATS } from "../data/species";
+import { PLANTS } from "../data/plants";
 import { drawSprite } from "../lib/sprite";
 import { mulberry32 } from "../lib/random";
 import { askClaude } from "../lib/api";
@@ -8,9 +9,16 @@ import { Chip } from "../components/Bits";
 
 const STORAGE_KEY = "teire:garden";
 
+// 先頭は「今月の手入れ」と同じ植栽。手入れする木で庭を組める
+const MY = "植栽リスト";
+const MY_LIST = PLANTS.map((p) => ({ label: p.name, sp: SPEC_MAP[p.sp] })).filter((x) => x.sp);
+const listFor = (cat) => (cat === MY
+  ? MY_LIST
+  : SPECIES.filter((s) => s.cat === cat).map((sp) => ({ label: sp.name, sp })));
+
 export default function Garden() {
-  const [cat, setCat] = useState("高木");
-  const [sel, setSel] = useState("アオダモ");
+  const [cat, setCat] = useState(MY);
+  const [sel, setSel] = useState(MY_LIST[0].sp.name);
   const [dig, setDig] = useState(false);
   const [placed, setPlaced] = useState({});
   const [time, setTime] = useState("昼");
@@ -41,7 +49,7 @@ export default function Garden() {
   };
 
   const randomPlant = () => {
-    const pool = SPECIES.filter((s) => s.cat === cat);
+    const pool = listFor(cat).map((x) => x.sp);
     setPlaced((p) => {
       const n = { ...p };
       let added = 0, tries = 0;
@@ -104,15 +112,23 @@ export default function Garden() {
   return (
     <div>
       <p style={{ fontFamily: font.goth, fontSize: 13, lineHeight: 1.9, margin: "0 0 14px", color: C.inkSoft }}>
-        植物を選んで、マスをタップして植える。{SPECIES.length}種を好きなだけ混植できます。庭は自動で保存されます。
+        植える前に、配置を画面で試せます。
+        <span style={{ display: "block", color: C.ink }}>
+          {["下の一覧から植物を選ぶ", "庭のマスをタップして植える", "間違えたら「抜く」を選んでタップ"].map((t, i) => (
+            <span key={i} style={{ display: "block" }}>
+              <b style={{ color: C.oki, fontWeight: 500, marginRight: 6 }}>{"一二三"[i]}</b>{t}
+            </span>
+          ))}
+        </span>
+        庭はこの端末に自動で保存されます。
       </p>
 
       <div style={{ display: "flex", gap: 4, marginBottom: 8, flexWrap: "wrap" }}>
-        {CATS.map((cn) => (
+        {[MY, ...CATS].map((cn) => (
           <button key={cn} onClick={() => {
             setCat(cn);
-            const first = SPECIES.find((s) => s.cat === cn);
-            if (first) { setSel(first.name); setDig(false); }
+            const first = listFor(cn)[0];
+            if (first) { setSel(first.sp.name); setDig(false); }
           }} style={{
             fontFamily: font.min, fontSize: 13, padding: "8px 10px", cursor: "pointer",
             background: "transparent", border: "none",
@@ -122,9 +138,13 @@ export default function Garden() {
         ))}
       </div>
 
-      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 10 }}>
-        {SPECIES.filter((s) => s.cat === cat).map((sp) => (
-          <Chip key={sp.name} label={sp.name} swatch={sp.fol}
+      {/* 種類が多いので一覧は高さを抑えてスクロール。庭の盤面が画面から消えないように */}
+      <div style={{
+        display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 10, maxHeight: 132, overflowY: "auto",
+        padding: "2px 0", borderBottom: `1px solid ${C.line}`,
+      }}>
+        {listFor(cat).map(({ label, sp }) => (
+          <Chip key={label} label={label} swatch={sp.fol}
             active={sel === sp.name && !dig}
             onClick={() => { setSel(sp.name); setDig(false); }} />
         ))}
@@ -137,6 +157,10 @@ export default function Garden() {
         <span style={{ fontFamily: font.goth, fontSize: 11, marginLeft: "auto", color: C.inkSoft }}>
           {Object.keys(placed).length} 株
         </span>
+      </div>
+
+      <div style={{ fontFamily: font.goth, fontSize: 12, color: dig ? C.oki : C.ai, marginBottom: 6 }}>
+        {dig ? "マスをタップすると植物を抜きます" : <>いま植えるもの: <b style={{ fontFamily: font.min }}>{listFor(cat).find((x) => x.sp.name === sel)?.label || sel}</b> — マスをタップ</>}
       </div>
 
       <svg viewBox="0 0 800 410" style={{ width: "100%", display: "block", borderRadius: 8, touchAction: "manipulation" }}>

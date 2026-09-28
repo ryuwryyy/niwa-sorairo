@@ -1,0 +1,52 @@
+# PR と main への push で、テスト・ビルド・E2E を回す。
+# 公開リポジトリなので GitHub Actions は無料。Jev・Claude は偽物を相手にするので API の課金もない。
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: 単体テスト・ビルド(庭アプリ / 聴く)・FigJamプラグインの構文
+        run: npm run check
+
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Playwright(このジョブの中だけ入れる。本番の依存には入れない)
+        run: |
+          npm i --no-save playwright@1.56
+          npx playwright install --with-deps chromium
+      - name: 3画面を偽 Jev・偽 Claude で通しで動かす
+        run: npm run e2e
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-screenshots
+          path: e2e-artifacts/
+          retention-days: 7
