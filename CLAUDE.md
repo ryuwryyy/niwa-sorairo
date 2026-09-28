@@ -11,9 +11,14 @@
 
 1. 依頼を読んだら、まず下の早見表で該当スキルを探す。
 2. 1つでも当たれば、**他の作業に着手する前に** Skill ツールで呼ぶ（複数該当なら 要件を固める系 → 実装系 → 検証・レビュー系 の順）。
-3. 迷ったら `ask-matt`（スキルのルーター）を呼ぶ。
-4. どれも当たらないときだけスキルなしで進める。その場合は理由を一言添える。
-5. ユーザーが `/grill-me` のようにスキル名を直接書いたら、その通りに呼ぶ。
+3. どれも当たらないときだけスキルなしで進める。その場合は理由を一言添える。
+4. ユーザーが `/grill-me` のようにスキル名を直接書いたら、その通りに呼ぶ。
+
+**⚠ ユーザー起動専用スキル（下表で 🙋 印）**: 次の 14 個は frontmatter に `disable-model-invocation: true` があり、**エージェント側から自発的に呼べない**。ユーザーが `/スキル名` と打ったときだけ起動する（対話型のインタビュー・承認が要る操作のため、上流がそう設計している）。
+
+`ask-matt` `grill-me` `grill-with-docs` `handoff` `implement` `improve-codebase-architecture` `setup-matt-pocock-skills` `teach` `to-questionnaire` `to-spec` `to-tickets` `triage` `wait-what` `wayfinder`
+
+これらが該当する場面では、勝手に自己流で進めず **「`/スキル名` を実行してください」とユーザーに促す**こと。迷ったときの入口は `/ask-matt`（スキルのルーター）。
 
 ### ルール B: 敵対的検証（`adversarial-verify`）は必須
 
@@ -26,7 +31,7 @@
 
 手順は「各指摘を**誤検出だと仮定**し、①証拠を原文引用できるか ②基準のどの項目への違反か ③別の場所で実は満たされていないか、の 3 点で反証を試み、反証に失敗した指摘だけを確定する」。反証できなかった指摘を勝手に落とさない。棄却したものは理由付きで残す。指摘が 3 件以上、または最終ゲートのときは検証用サブエージェント（指摘を出した側とは別コンテキスト）に任せる。詳細は `.claude/skills/adversarial-verify/SKILL.md`。
 
-初回のみ `setup-matt-pocock-skills` を実行して、課題管理（GitHub / Linear / ローカル）・triage ラベル・ドキュメント置き場を確定させる。
+初回のみユーザーが `/setup-matt-pocock-skills` を実行して、課題管理（GitHub / Linear / ローカル）・triage ラベル・ドキュメント置き場を確定させる。
 
 ## 1. スキル早見表
 
@@ -34,26 +39,26 @@
 
 | 状況 | スキル |
 |---|---|
-| どのスキルを使うか迷う | `ask-matt` |
-| 何を作るか曖昧・要件を詰めたい | `grill-me` / `grill-with-docs`（ドキュメントも作る） |
+| どのスキルを使うか迷う | 🙋`/ask-matt` |
+| 何を作るか曖昧・要件を詰めたい | 🙋`/grill-me` / 🙋`/grill-with-docs`（ドキュメントも作る） |
 | 計画や判断を叩きたい | `grilling` |
-| 話がかみ合っていない | `wait-what` |
-| 会話を仕様にまとめる | `to-spec` |
-| 仕様をチケットに割る | `to-tickets` |
-| 大きな仕事の道筋を引く | `wayfinder` |
-| 誰かに判断を委ねたい | `to-questionnaire` |
+| 話がかみ合っていない | 🙋`/wait-what` |
+| 会話を仕様にまとめる | 🙋`/to-spec` |
+| 仕様をチケットに割る | 🙋`/to-tickets` |
+| 大きな仕事の道筋を引く | 🙋`/wayfinder` |
+| 誰かに判断を委ねたい | 🙋`/to-questionnaire` |
 
 ### 実装する
 
 | 状況 | スキル |
 |---|---|
-| 仕様・チケットを実装する | `implement` |
+| 仕様・チケットを実装する | 🙋`/implement` |
 | テストから書く | `tdd` |
 | 試作で設計を確かめる | `prototype` |
 | バグを直す | `debug-root-cause`（根本原因） / `diagnosing-bugs`（診断ループ） |
 | モジュール設計・境界を決める | `codebase-design` |
 | 用語集・ADR（CONTEXT.md） | `domain-modeling` |
-| アーキテクチャの改善点を洗う | `improve-codebase-architecture` |
+| アーキテクチャの改善点を洗う | 🙋`/improve-codebase-architecture` |
 | マージ衝突を解く | `resolving-merge-conflicts` |
 | チームで大きめの Issue を回す | `run-agent-team` |
 
@@ -75,7 +80,7 @@
 | Issue を起票する | `create-issue` |
 | PR を作る | `create-pr` |
 | PR の CI を green にする | `pr-babysit` |
-| issue / 外部 PR を捌く | `triage` |
+| issue / 外部 PR を捌く | 🙋`/triage` |
 | リリース・タグ・CHANGELOG | `release` |
 | 依存を更新する | `dependency-update` |
 | ライブラリを選ぶ | `library-eval` |
@@ -88,14 +93,14 @@
 | 一次情報で調べ物を固める | `research` |
 | 市場・競合を調べる | `market-research` |
 | 論文・先行研究を調べる | `literature-review` |
-| 会話を引き継ぎ書にする | `handoff`（会話の要約） / `handoff-session`（`.claude/handoff/latest.md` に保存・復元） |
+| 会話を引き継ぎ書にする | 🙋`/handoff`（会話の要約） / `handoff-session`（`.claude/handoff/latest.md` に保存・復元） |
 | 人にしかできない手順を案内する | `wizard` |
-| 学びたい・教えてほしい | `teach` |
+| 学びたい・教えてほしい | 🙋`/teach` |
 | skill / CLAUDE.md / AGENTS.md を書く | `writing-for-agents` |
 
-補助・新規プロジェクト向け: `new-project-init`、`scaffold-react-app`、`scaffold-cf-worker`、`scaffold-deno-api`、`scaffold-python-tool`、`scaffold-wxt-extension`、`setup-pre-commit`、`git-guardrails-claude-code`、`migrate-to-shoehorn`、`scaffold-exercises`、`setup-matt-pocock-skills`。
+補助・新規プロジェクト向け: `new-project-init`、`scaffold-react-app`、`scaffold-cf-worker`、`scaffold-deno-api`、`scaffold-python-tool`、`scaffold-wxt-extension`、`setup-pre-commit`、`git-guardrails-claude-code`、`migrate-to-shoehorn`、`scaffold-exercises`、🙋`/setup-matt-pocock-skills`。
 
-> `handoff` は名前が両リポジトリで衝突するため、turntup 版を `handoff-session` にリネームして取り込んでいる。
+> 🙋`/handoff` は名前が両リポジトリで衝突するため、turntup 版を `handoff-session` にリネームして取り込んでいる。
 
 ## 2. 自動化（フック）
 

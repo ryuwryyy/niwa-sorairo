@@ -21,9 +21,19 @@ cat <<'EOS'
    生き残った指摘だけを確定として報告する。誤検出は棄却理由付きで残す。この手順は省略しない。
 EOS
 
-printf '[skills] 利用可能:'
+# disable-model-invocation: true のスキルはエージェントから呼べず、ユーザーが /名前 と
+# 打ったときだけ起動する。両者を混ぜて出すと「呼べるつもりで呼べない」混乱になるため分けて出す。
+auto=""
+user_only=""
 for f in "$skills_dir"/*/SKILL.md; do
   [ -e "$f" ] || continue
-  printf ' %s' "$(basename "$(dirname "$f")")"
+  name="$(basename "$(dirname "$f")")"
+  if grep -q '^disable-model-invocation: *true' "$f"; then
+    user_only="$user_only /$name"
+  else
+    auto="$auto $name"
+  fi
 done
-printf '\n'
+
+printf '[skills] エージェントが呼べる:%s\n' "$auto"
+printf '[skills] ユーザー起動専用（自分では呼べない。該当する場面ではユーザーに実行を促すこと):%s\n' "$user_only"
