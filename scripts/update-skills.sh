@@ -40,5 +40,19 @@ cp "$tmp/tt/LICENSE" "$root/.claude/skills-licenses/LICENSE.turntup-skills"
 cp "$tmp"/tt/hooks/load-handoff.sh "$tmp"/tt/hooks/compact-preserve.sh "$root/.claude/hooks/"
 chmod +x "$root/.claude/hooks/"*.sh
 
+# 上流の一部スキルは frontmatter に disable-model-invocation: true を持ち、ユーザーが
+# /名前 と打ったときしか起動しない。このリポジトリでは全スキルをエージェントからも
+# 自動で呼べるようにする方針なので、取り込みのたびに剥がす。
+stripped=0
+for f in "$dest"/*/SKILL.md; do
+  [ -e "$f" ] || continue
+  if grep -q '^disable-model-invocation: *true' "$f"; then
+    sed -i.bak '/^disable-model-invocation: *true[[:space:]]*$/d' "$f"
+    rm -f "$f.bak"
+    stripped=$((stripped + 1))
+  fi
+done
+echo "==> disable-model-invocation を剥がした: ${stripped} スキル"
+
 echo "==> done: $(find "$dest" -maxdepth 1 -mindepth 1 -type d | wc -l | tr -d ' ') skills"
 echo "CLAUDE.md のスキル早見表に新しいスキルが載っているか確認すること。"
